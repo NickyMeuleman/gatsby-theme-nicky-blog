@@ -105,8 +105,10 @@ exports.onCreateNode = ({
   const source = fileNode.sourceInstanceName
 
   if (node.internal.type === `Mdx` && source === contentPath) {
-    const slug = createFilePath({ node, getNode })
-
+    let slug = createFilePath({ node, getNode })
+    if (slug.endsWith("/")) {
+      slug = slug.slice(0, -1)
+    }
     const fieldData = {
       title: node.frontmatter.title,
       tags: node.frontmatter.tags || [],
@@ -151,7 +153,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   `)
 
   if (result.errors) {
-    reporter.panic("error loading mdx pages", result.error)
+    reporter.panic("error loading data from graphql", result.error)
     return
   }
 

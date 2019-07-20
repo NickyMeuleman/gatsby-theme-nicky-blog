@@ -1,5 +1,50 @@
-import React from 'react'
+import React from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout";
+import BlogList from "../components/BlogList";
+import Pagination from "../components/Pagination";
 
-const BlogPosts = () => <p>many boops</p>
+const BlogPostsTemplate = ({ data, pageContext }) => {
+  console.log(data);
+  
+  const blogposts = data.allBlogPost.edges.map(edge => edge.node)
+  return (
+    <Layout>
+      <BlogList blogPosts={blogposts} totalCount={data.allBlogPost.totalCount} />
+      <Pagination context={pageContext} />
+    </Layout>
+  )
+  
+}
 
-export default BlogPosts
+export const query = graphql`
+         query BlogPostsTemplateQuery($skip: Int!, $limit: Int!) {
+           allBlogPost(
+             sort: { fields: [date], order: DESC }
+             limit: $limit
+             skip: $skip
+           ) {
+             totalCount
+             edges {
+               node {
+                 id
+                 author
+                 tags
+                 title
+                 slug
+                 date(formatString: "DD MMMM, YYYY")
+                 cover {
+                   childImageSharp {
+                     fluid {
+                       ...GatsbyImageSharpFluid_withWebp
+                     }
+                   }
+                 }
+               }
+             }
+           }
+         }
+       `
+
+export default BlogPostsTemplate
+

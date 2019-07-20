@@ -1,5 +1,39 @@
 import React from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import BlogPost from "../components/BlogPost";
 
-const BlogPost = () => <p>single boop</p>
+const BlogPostTemplate = ({ data, pageContext }) => {
+  const post = data.blogPost
 
-export default BlogPost
+  return (
+    <Layout>
+      {/* <SEO
+        title={post.title}
+        description={post.excerpt}
+        slug={post.slug}
+        image={
+          post.cover
+            ? post.cover.childImageSharp.sizes.src
+            : "/icons/icon-256x256.png"
+        }
+      /> */}
+      <BlogPost post={post}/>
+    </Layout>
+  )
+}
+
+export const query = graphql`
+  query BlogPostTemplateQuery($slug: String!) {
+    blogPost(slug: { eq: $slug }) {
+          excerpt
+          id
+          slug
+          body
+          tags
+          title
+    }
+  }
+`
+
+export default BlogPostTemplate
