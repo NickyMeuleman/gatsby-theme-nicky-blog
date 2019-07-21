@@ -195,13 +195,17 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   })
 
   // make array with all tags
-  const allTagList = posts.reduce((acc, post) => {
+  const flatAllTagList = posts.reduce((acc, post) => {
     const postTags = post.node.tags
     return acc.concat(postTags)
   }, [])
 
   // filter duplicates
-  const tagList = [...new Set(allTagList)]
+  const flatTagList = [...new Set(flatAllTagList)]
+
+  // create array of object with tags and slugs
+  const tagList = flatTagList.map(tag => ({name: tag, slug: slugify(tag)}))
+  
 
   // create tag-list page
   actions.createPage({
@@ -215,10 +219,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   // create a page for each tag
   tagList.forEach(tag => {
     actions.createPage({
-      path: `/blog/tag/${slugify(tag)}`,
+      path: `/blog/tag/${tag.slug}`,
       component: path.resolve("./src/templates/tag.js"),
       context: {
-        tag,
+        name: tag.name,
       },
     })
   })
