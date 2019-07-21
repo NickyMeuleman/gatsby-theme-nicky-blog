@@ -10,10 +10,10 @@ const slugify = str => {
     .replace(/(^-|-\$)+/g, "")
   return slug
 }
-
 const contentPath = "content"
+
 // Make sure the data directory exists
-exports.onPreBootstrap = ({ reporter }) => {
+exports.onPreBootstrap = ({ reporter }, options) => {
   if (!fs.existsSync(contentPath)) {
     reporter.info(`creating the ${contentPath} directory`)
     fs.mkdirSync(contentPath)
@@ -28,7 +28,7 @@ exports.sourceNodes = ({ actions, schema }) => {
 
   //how to add cover: File or ImageSharp in here with @dontinfer?
   actions.createTypes(`
-    type BlogPost implements Node {
+    type BlogPost implements Node{
       id: ID!
       slug: String!
       title: String!
@@ -167,7 +167,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     const { slug } = post
     actions.createPage({
       path: `/blog${slug}`,
-      component: path.resolve("./src/templates/blog-post.js"),
+      component: require.resolve("./src/templates/blog-post.js"),
       context: {
         slug,
         prev: prev,
@@ -184,7 +184,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }).forEach((_, index) => {
     actions.createPage({
       path: index === 0 ? `/blog` : `/blog/${index + 1}`,
-      component: path.resolve("./src/templates/blog-posts.js"),
+      component: require.resolve("./src/templates/blog-posts.js"),
       context: {
         limit: postsPerPage,
         skip: index * postsPerPage,
@@ -204,13 +204,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const flatTagList = [...new Set(flatAllTagList)]
 
   // create array of object with tags and slugs
-  const tagList = flatTagList.map(tag => ({name: tag, slug: slugify(tag)}))
-  
+  const tagList = flatTagList.map(tag => ({ name: tag, slug: slugify(tag) }))
 
   // create tag-list page
   actions.createPage({
     path: `/blog/tag`,
-    component: path.resolve("./src/templates/tags.js"),
+    component: require.resolve("./src/templates/tags.js"),
     context: {
       tagList,
     },
@@ -220,7 +219,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   tagList.forEach(tag => {
     actions.createPage({
       path: `/blog/tag/${tag.slug}`,
-      component: path.resolve("./src/templates/tag.js"),
+      component: require.resolve("./src/templates/tag.js"),
       context: {
         name: tag.name,
       },
@@ -229,19 +228,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 }
 
 // try to get an imagesharp node from the cover field in the frontmatter with @dontinfer
-// const imageSharpResolverPassthrough = () => async (
-//   source,
-//   args,
-//   context,
-//   info
-// ) => {
-//   const type = info.schema.getType(`ImageSharp`)
-//   const mdxNode = context.nodeModel.getNodeById({
-//     id: source.parent,
-//   })
+// ! ERROR #85907  GRAPHQL
 
-//   // console.log(typeof type.getFields().keys(key => key.resolve))
-//   const resolver = type.getFields().fixed.resolve
-//   const result = await resolver(mdxNode, args, context, { "fixed": "fixed"})
-//   return result
-// }
+// There was an error in your GraphQL query:
+
+// - Unknown field 'childImageSharp' on type 'File'.
+
+// problem during createTypes call, what type is cover? Using File, ImageSharp, String causes errors.

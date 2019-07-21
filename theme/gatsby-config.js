@@ -7,8 +7,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `content`,
-        path: `content`,
+        name: 'content',
+        path: 'content',
       },
     },
     `gatsby-transformer-sharp`,
@@ -33,6 +33,6 @@ module.exports = {
     },
     `gatsby-plugin-emotion`,
     `gatsby-plugin-theme-ui`,
-    `gatsby-plugin-catch-links`
+    `gatsby-plugin-catch-links`,
   ],
 }

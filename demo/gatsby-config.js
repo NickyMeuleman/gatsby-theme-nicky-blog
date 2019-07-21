@@ -5,5 +5,12 @@
  */
 
 module.exports = {
-  plugins: ["gatsby-theme-nicky-blog"],
+  plugins: [
+    {
+      resolve: "gatsby-theme-nicky-blog",
+      options: {
+        contentPath: "posts",
+      },
+    },
+  ],
 }
