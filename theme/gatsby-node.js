@@ -11,9 +11,9 @@ const slugify = str => {
   return slug
 }
 
-const contentPath = "content"
 // Make sure the data directory exists
 exports.onPreBootstrap = ({ reporter }, options) => {
+  const contentPath = options.contentPath || "content"
   if (!fs.existsSync(contentPath)) {
     reporter.info(`creating the ${contentPath} directory`)
     fs.mkdirSync(contentPath)
@@ -104,14 +104,12 @@ exports.createResolvers = ({ createResolvers }) => {
 // https://www.gatsbyjs.org/tutorial/building-a-theme/
 // pr to createtypes docs
 
-exports.onCreateNode = ({
-  node,
-  actions,
-  getNode,
-  createNodeId,
-  createContentDigest,
-}, options) => {
+exports.onCreateNode = (
+  { node, actions, getNode, createNodeId, createContentDigest },
+  options
+) => {
   const { createNode, createParentChildLink } = actions
+  const contentPath = options.contentPath || "content"
 
   // Make sure it's an MDX node
   if (node.internal.type !== `Mdx`) {
@@ -155,7 +153,8 @@ exports.onCreateNode = ({
   }
 }
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
+exports.createPages = async ({ actions, graphql, reporter }, options) => {
+  const basePath = options.basePath || "/"
   const result = await graphql(`
     query MyQuery {
       allBlogPost(sort: { fields: date, order: DESC }) {
@@ -184,7 +183,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     const prev = i === posts.length - 1 ? null : posts[i + 1].node
     const { slug } = post
     actions.createPage({
-      path: `/blog${slug}`,
+      path: `${basePath}${slug}`,
       component: require.resolve("./src/templates/blog-post.js"),
       context: {
         slug,
@@ -201,13 +200,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     length: numPages,
   }).forEach((_, index) => {
     actions.createPage({
-      path: index === 0 ? `/blog` : `/blog/${index + 1}`,
+      path: index === 0 ? `${basePath}` : `${basePath}/${index + 1}`,
       component: require.resolve("./src/templates/blog-posts.js"),
       context: {
         limit: postsPerPage,
         skip: index * postsPerPage,
         numPages,
         currentPage: index + 1,
+        basePath
       },
     })
   })
@@ -226,20 +226,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // create tag-list page
   actions.createPage({
-    path: `/blog/tag`,
+    path: `${basePath}/tag`,
     component: require.resolve("./src/templates/tags.js"),
     context: {
       tagList,
+      basePath
     },
   })
 
   // create a page for each tag
   tagList.forEach(tag => {
     actions.createPage({
-      path: `/blog/tag/${tag.slug}`,
+      path: `${basePath}/tag/${tag.slug}`,
       component: require.resolve("./src/templates/tag.js"),
       context: {
         name: tag.name,
+        basePath
       },
     })
   })

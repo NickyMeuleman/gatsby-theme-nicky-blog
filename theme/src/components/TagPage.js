@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const TagPage = ({ data }) => {
+const TagPage = ({ data, basePath }) => {
   const { edges: blogPosts, totalCount } = data.allBlogPost
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? `` : `s`
@@ -11,13 +11,13 @@ const TagPage = ({ data }) => {
     <>
       <h1>{tagHeader}</h1>
       <p>
-        <Link to="/blog/tag">All tags</Link>
+        <Link to={`${basePath}/tag`}>All tags</Link>
       </p>
       <ul>
-        {blogPosts.map(({node: blogPost}) => console.log(blogPost)||
+        {blogPosts.map(({node: blogPost}) => 
         (
           <li key={blogPost.slug}>
-            <Link to={`/blog${blogPost.slug}`}>{blogPost.title}</Link>
+            <Link to={`${data.basePath}${blogPost.slug}`}>{blogPost.title}</Link>
           </li>
         ))}
       </ul>

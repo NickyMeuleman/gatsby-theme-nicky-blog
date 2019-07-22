@@ -4,11 +4,12 @@ import TagPage from "../components/TagPage"
 import { graphql } from "gatsby";
 
 const TagTemplate = ({ data, pageContext }) => {
-  // combine graphql data with tag name provided via pageContext
+  // combine graphql data pageContext
   const tagData = Object.assign(data, { name: pageContext.name })
+
   return (
     <Layout>
-      <TagPage data={tagData} />
+      <TagPage data={tagData} basePath={pageContext.basePath} />
     </Layout>
   )
 }

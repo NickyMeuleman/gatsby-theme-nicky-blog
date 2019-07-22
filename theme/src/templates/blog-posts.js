@@ -11,6 +11,7 @@ const BlogPostsTemplate = ({ data, pageContext }) => {
       <BlogList
         blogPosts={blogposts}
         totalCount={data.allBlogPost.totalCount}
+        basePath={pageContext.basePath}
       />
       <Pagination context={pageContext} />
     </Layout>

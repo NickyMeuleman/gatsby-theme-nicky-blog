@@ -1,7 +1,7 @@
 import React from "react"
 import PostCard from "./PostCard";
 
-const BlogList = ({ blogPosts, totalCount }) => {
+const BlogList = ({ blogPosts, totalCount, basePath }) => {
   return (
     <>
       <p>
@@ -14,7 +14,7 @@ const BlogList = ({ blogPosts, totalCount }) => {
         return (
           <PostCard
             key={blogPost.id}
-            url={`/blog${blogPost.slug}`}
+            url={`${basePath}${blogPost.slug}`}
             title={blogPost.title}
             date={blogPost.date}
             author={blogPost.author}

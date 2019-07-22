@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = ({ contentPath = "content", basePath = '/' } = {}) => ({
   siteMetadata: {
     title: "Gatsby Theme Jam Example Submission",
   },
@@ -7,8 +7,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: "content",
-        path: "content",
+        name: contentPath || "content",
+        path: contentPath || "content",
       },
     },
     `gatsby-transformer-sharp`,
@@ -35,4 +35,4 @@ module.exports = {
     `gatsby-plugin-theme-ui`,
     `gatsby-plugin-catch-links`,
   ],
-}
+})

@@ -19,9 +19,10 @@ const TagsTemplate = ({
     ).slug
     return [...acc, { name, amount, slug }]
   }, [])
+
   return (
     <Layout>
-      <TagList tags={tags}/>
+      <TagList tags={tags} basePath={pageContext.basePath}/>
     </Layout>
   )
 }
