@@ -18,7 +18,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
             : "/icons/icon-256x256.png"
         }
       /> */}
-      <BlogPost post={post}/>
+      <BlogPost post={post} basePath={pageContext.basePath}/>
     </Layout>
   )
 }

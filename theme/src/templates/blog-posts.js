@@ -13,7 +13,7 @@ const BlogPostsTemplate = ({ data, pageContext }) => {
         totalCount={data.allBlogPost.totalCount}
         basePath={pageContext.basePath}
       />
-      <Pagination context={pageContext} />
+      <Pagination context={pageContext} basePath={pageContext.basePath} />
     </Layout>
   )
 }

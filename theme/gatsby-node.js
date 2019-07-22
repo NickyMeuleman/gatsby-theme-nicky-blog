@@ -189,6 +189,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         slug,
         prev: prev,
         next: next,
+        basePath
       },
     })
   })

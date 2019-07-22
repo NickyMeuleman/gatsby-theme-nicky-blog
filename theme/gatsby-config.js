@@ -1,6 +1,6 @@
 module.exports = ({ contentPath = "content", basePath = '/' } = {}) => ({
   siteMetadata: {
-    title: "Gatsby Theme Jam Example Submission",
+    title: "Gatsby Theme Blog by NMeuleman",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

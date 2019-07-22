@@ -17,7 +17,7 @@ const TagPage = ({ data, basePath }) => {
         {blogPosts.map(({node: blogPost}) => 
         (
           <li key={blogPost.slug}>
-            <Link to={`${data.basePath}${blogPost.slug}`}>{blogPost.title}</Link>
+            <Link to={`${basePath}${blogPost.slug}`}>{blogPost.title}</Link>
           </li>
         ))}
       </ul>

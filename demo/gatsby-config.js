@@ -10,7 +10,7 @@ module.exports = {
       resolve: "gatsby-theme-nicky-blog",
       options: {
         contentPath: "posts",
-        basePath: "writes"
+        basePath: "/writes"
       },
     },
   ],
