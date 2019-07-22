@@ -1,6 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
+import { graphql } from "gatsby";
 
 const TagTemplate = ({ data, pageContext }) => {
   // combine graphql data with tag name provided via pageContext

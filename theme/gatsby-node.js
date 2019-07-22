@@ -10,8 +10,8 @@ const slugify = str => {
     .replace(/(^-|-\$)+/g, "")
   return slug
 }
-const contentPath = "content"
 
+const contentPath = "content"
 // Make sure the data directory exists
 exports.onPreBootstrap = ({ reporter }, options) => {
   if (!fs.existsSync(contentPath)) {
@@ -28,7 +28,7 @@ exports.sourceNodes = ({ actions, schema }) => {
 
   //how to add cover: File or ImageSharp in here with @dontinfer?
   actions.createTypes(`
-    type BlogPost implements Node{
+    type BlogPost implements Node {
       id: ID!
       slug: String!
       title: String!
@@ -38,7 +38,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       keywords: [String]!
       excerpt(pruneLength: Int = 140): String!
       body: String!
-      cover: File
+      cover: File @fileByRelativePath
       timeToRead: Int
       tableOfContents(maxDepth: Int = 6): JSON
     }
@@ -79,6 +79,24 @@ exports.createResolvers = ({ createResolvers }) => {
       tableOfContents: {
         resolve: mdxResolverPassthrough(`tableOfContents`),
       },
+      // cover: {
+      //   type: "File",
+      //   resolve: async (source, args, context, info) => {
+      //     // parent is null here, wanted to filter on parent: { id: { eq: source.id }}
+      //     // * ATTENTION: very hacky way of getting around the graphql error
+      //     const base = source.cover.split("/").pop()
+      //     const data = await context.nodeModel.runQuery({
+      //       type: "File",
+      //       query: {
+      //         filter: {
+      //           childImageSharp: { id: { ne: null } },
+      //           base: { eq: base },
+      //         },
+      //       },
+      //     })
+      //     return data[0]
+      //   },
+      // },
     },
   })
 }
@@ -92,7 +110,7 @@ exports.onCreateNode = ({
   getNode,
   createNodeId,
   createContentDigest,
-}) => {
+}, options) => {
   const { createNode, createParentChildLink } = actions
 
   // Make sure it's an MDX node
