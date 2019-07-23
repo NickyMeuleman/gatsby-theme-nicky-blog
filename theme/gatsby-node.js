@@ -1,6 +1,5 @@
 const fs = require(`fs`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const path = require(`path`)
 
 // Quick-and-dirty helper to convert strings into URL-friendly slugs.
 const slugify = str => {
@@ -25,8 +24,11 @@ exports.onPreBootstrap = ({ reporter }, options) => {
 // should I do this in createSchemaCustomization or sourceNodes? What's the difference?
 exports.sourceNodes = ({ actions, schema }) => {
   // either SDL or graphql-js!
-
-  //how to add cover: File or ImageSharp in here with @dontinfer?
+  actions.createTypes(`
+  type Tag {
+    name: String
+    slug: String
+  }`)
   actions.createTypes(`
     type BlogPost implements Node {
       id: ID!
@@ -34,7 +36,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       title: String!
       date: Date! @dateformat
       author: String!
-      tags: [String]!
+      tags: [Tag]!
       keywords: [String]!
       excerpt(pruneLength: Int = 140): String!
       body: String!
@@ -79,30 +81,9 @@ exports.createResolvers = ({ createResolvers }) => {
       tableOfContents: {
         resolve: mdxResolverPassthrough(`tableOfContents`),
       },
-      // cover: {
-      //   type: "File",
-      //   resolve: async (source, args, context, info) => {
-      //     // parent is null here, wanted to filter on parent: { id: { eq: source.id }}
-      //     // * ATTENTION: very hacky way of getting around the graphql error
-      //     const base = source.cover.split("/").pop()
-      //     const data = await context.nodeModel.runQuery({
-      //       type: "File",
-      //       query: {
-      //         filter: {
-      //           childImageSharp: { id: { ne: null } },
-      //           base: { eq: base },
-      //         },
-      //       },
-      //     })
-      //     return data[0]
-      //   },
-      // },
     },
   })
 }
-
-// https://www.gatsbyjs.org/tutorial/building-a-theme/
-// pr to createtypes docs
 
 exports.onCreateNode = (
   { node, actions, getNode, createNodeId, createContentDigest },
@@ -127,7 +108,7 @@ exports.onCreateNode = (
     }
     const fieldData = {
       title: node.frontmatter.title,
-      tags: node.frontmatter.tags || [],
+      tags: (node.frontmatter.tags || []).map(tag => ({name: tag, slug:slugify(tag)})),
       slug,
       date: node.frontmatter.date,
       author: node.frontmatter.author,
@@ -135,7 +116,7 @@ exports.onCreateNode = (
       cover: node.frontmatter.cover,
     }
 
-    // fill the BlogPost type nodes we created during createTypes with data
+    // create a BlogPost node that satisfies the BlogPost type we created in createTypes
     createNode({
       ...fieldData,
       // Required fields.
@@ -156,13 +137,16 @@ exports.onCreateNode = (
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const basePath = options.basePath || "/"
   const result = await graphql(`
-    query MyQuery {
+    query createPagesQuery {
       allBlogPost(sort: { fields: date, order: DESC }) {
         edges {
           node {
             slug
             id
-            tags
+            tags {
+              name
+              slug
+            }
           }
         }
       }
@@ -213,17 +197,20 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     })
   })
 
-  // make array with all tags
-  const flatAllTagList = posts.reduce((acc, post) => {
-    const postTags = post.node.tags
-    return acc.concat(postTags)
+  // flatten tags per post into single array
+  const tagListDuplicates = posts.reduce((acc, post) => {
+    return acc.concat(post.node.tags)
   }, [])
 
-  // filter duplicates
-  const flatTagList = [...new Set(flatAllTagList)]
-
-  // create array of object with tags and slugs
-  const tagList = flatTagList.map(tag => ({ name: tag, slug: slugify(tag) }))
+  // filter duplicates from an array of tag objects and add amount instead
+  const tagList = tagListDuplicates.reduce((acc, tag) => {
+    const existingTag = acc.find(item => tag.slug === item.slug)
+    if (existingTag) {
+      existingTag.amount += 1
+      return acc
+    }
+    return [...acc, {...tag, amount: 1}]
+  }, [])
 
   // create tag-list page
   actions.createPage({
@@ -241,7 +228,8 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       path: `${basePath}/tag/${tag.slug}`,
       component: require.resolve("./src/templates/tag.js"),
       context: {
-        name: tag.name,
+        tag,
+        slug: tag.slug,
         basePath
       },
     })

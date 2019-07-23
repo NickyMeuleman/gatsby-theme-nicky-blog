@@ -30,7 +30,10 @@ export const BlogPostsTemplateQuery = graphql`
         node {
           id
           author
-          tags
+          tags {
+            name
+            slug
+          }
           title
           slug
           date(formatString: "DD MMMM, YYYY")

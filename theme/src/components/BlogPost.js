@@ -3,14 +3,6 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
 
 const BlogPost = ({ post, basePath }) => {
-  // Quick-and-dirty helper to convert strings into URL-friendly slugs.
-  const slugify = str => {
-    const slug = str
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-\$)+/g, "")
-    return slug
-  }
   return (
     <>
       <MDXRenderer>{post.body}</MDXRenderer>
@@ -18,8 +10,8 @@ const BlogPost = ({ post, basePath }) => {
         <p>Tagged with:</p>
         <ul>
           {post.tags.map(tag => (
-            <li key={tag}>
-              <Link to={`${basePath}/tag/${slugify(tag)}`}>{tag}</Link>
+            <li key={tag.slug}>
+              <Link to={`${basePath}/tag/${tag.slug}`}>{tag.name}</Link>
             </li>
           ))}
         </ul>

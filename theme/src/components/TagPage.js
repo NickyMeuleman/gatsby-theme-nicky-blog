@@ -2,10 +2,10 @@ import React from "react"
 import { Link } from "gatsby"
 
 const TagPage = ({ data, basePath }) => {
-  const { edges: blogPosts, totalCount } = data.allBlogPost
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? `` : `s`
-  } tagged with "${data.name}"`
+  const { edges: blogPosts } = data.allBlogPost
+  const tagHeader = `${data.tag.amount} post${
+    data.tag.amount === 1 ? `` : `s`
+  } tagged with "${data.tag.name}"`
   
   return (
     <>

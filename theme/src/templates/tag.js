@@ -5,7 +5,7 @@ import { graphql } from "gatsby";
 
 const TagTemplate = ({ data, pageContext }) => {
   // combine graphql data pageContext
-  const tagData = Object.assign(data, { name: pageContext.name })
+  const tagData = Object.assign(data, pageContext)
 
   return (
     <Layout>
@@ -15,12 +15,11 @@ const TagTemplate = ({ data, pageContext }) => {
 }
 
 export const tagTemplateQuery = graphql`
-  query tagTemplateQuery($name: String) {
+  query tagTemplateQuery($slug: String) {
     allBlogPost(
       sort: { fields: date, order: DESC }
-      filter: { tags: { in: [$name] } }
+      filter: { tags: { elemMatch: { slug: { eq: $slug}}} }
     ) {
-      totalCount
       edges {
         node {
           title

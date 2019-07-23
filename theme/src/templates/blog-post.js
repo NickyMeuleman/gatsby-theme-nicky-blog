@@ -30,7 +30,10 @@ export const query = graphql`
           id
           slug
           body
-          tags
+          tags {
+            name
+            slug
+          }
           title
     }
   }
