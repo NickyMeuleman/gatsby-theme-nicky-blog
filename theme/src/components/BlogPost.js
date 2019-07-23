@@ -1,10 +1,14 @@
 import React from "react"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
+import Img from "gatsby-image"
+import UnderPost from "./UnderPost"
 
-const BlogPost = ({ post, basePath }) => {
+const BlogPost = ({ post, basePath, context }) => {
   return (
     <>
+      <h1>{post.title}</h1>
+      {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
       <MDXRenderer>{post.body}</MDXRenderer>
       <div>
         <p>Tagged with:</p>
@@ -16,6 +20,7 @@ const BlogPost = ({ post, basePath }) => {
           ))}
         </ul>
       </div>
+      <UnderPost prev={context.prev} next={context.next} basePath={basePath} />
     </>
   )
 }

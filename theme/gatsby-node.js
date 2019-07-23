@@ -141,6 +141,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       allBlogPost(sort: { fields: date, order: DESC }) {
         edges {
           node {
+            title
             slug
             id
             tags {
@@ -171,8 +172,8 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       component: require.resolve("./src/templates/blog-post.js"),
       context: {
         slug,
-        prev: prev,
-        next: next,
+        prev,
+        next,
         basePath
       },
     })
