@@ -10,7 +10,8 @@ module.exports = {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
-        basePath: "/writes",
+        // not specifying the basePath will use the default value
+        // basePath: "/"
       },
     },
   ],
