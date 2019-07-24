@@ -7,10 +7,10 @@
 module.exports = {
   plugins: [
     {
-      resolve: "gatsby-theme-nicky-blog",
+      resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
-        basePath: "/writes"
+        basePath: "/writes",
       },
     },
   ],

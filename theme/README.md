@@ -1,24 +1,26 @@
-# Gatsby Theme Jam Example Submission
+# @nickymeuleman/Gatsby Theme Blog
 
-This is a bare-bones Gatsby theme to showcase how a [Theme Jam](https://themejam.gatsbyjs.org) submission should look.
+A Gatsby theme for creating a blog.
 
-See the [live demo](https://gatsby-theme-jam-example.netlify.com)
+## What you get from this theme
+
+- A plug and play feature rich blog platform
 
 ## Installation
 
 To use this theme in your Gatsby sites, follow these instructions:
 
 1.  Install the theme
+
     ```sh
-    npm install --save gatsby-theme-jam-example
+    npm install --save @nickymeuleman/gatsby-theme-blog
     ```
 
 2.  Add the theme to your `gatsby-config.js`:
+
     ```js
     module.exports = {
-      plugins: [
-        'gatsby-theme-jam-example'
-      ]
+      plugins: ["@nickymeuleman/gatsby-theme-blog"],
     }
     ```
 
@@ -27,25 +29,100 @@ To use this theme in your Gatsby sites, follow these instructions:
     gatsby develop
     ```
 
-## Submission Checklist
+## Usage
 
-To ensure your Theme Jam submission [follows the rules](https://themejam.gatsbyjs.org/rules), use this checklist:
+### Theme options
 
-- [ ] Use our [accessibility guide][a11y] to ensure your site meets our accessibility standards
-- [ ] Run a performance audit using [Lighthouse][] and/or [WebPageTest][]
-- [ ] Set up a live demo using [Netlify][] or [GitHub Pages][]
-- [ ] Add installation documentation to the README
-- [ ] Update the `name` field in `package.json`
-- [ ] Update the `author` field in `package.json`
-- [ ] Update the `repository` field in `package.json`
-- [ ] Make sure the theme’s `keywords` in `package.json` include `gatsby`, `gatsby-theme`, and `gatsby-plugin`
-- [ ] Publish your theme to npm ([docs][npmpublish])
-- [ ] Submit your theme at https://themejam.gatsbyjs.org
+| Key           | Default value | Description                                           |
+| ------------- | ------------- | ----------------------------------------------------- |
+| `basePath`    | `/`           | Root url for all blog posts                           |
+| `contentPath` | `/content`    | Folder Location to house individual blog post-folders |
 
-[a11y]: https://gatsbyjs.org/docs/making-your-site-accessible#how-to-improve-accessibility
-[Lighthouse]: https://developers.google.com/web/tools/lighthouse/
-[axe]: https://www.deque.com/axe/
-[WebPageTest]: http://webpagetest.org/
-[Netlify]: https://netlify.com
-[GitHub Pages]: https://pages.github.com/
-[npmpublish]: https://docs.npmjs.com/cli/publish
+#### Example usage
+
+```js
+// gatsby-config.js
+module.exports = {
+  plugins: [
+    {
+      resolve: "@nickymeuleman/gatsby-theme-blog",
+      options: {
+        contentPath: "posts",
+        basePath: "/blog",
+      },
+    },
+  ],
+}
+```
+
+### Adding blog posts
+
+In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. The title of this folder will serve as the slug for the blogpost.
+Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files that can then be referenced easily inside that `.md(x)` file.
+
+#### Example folder tree
+
+<!-- prettier-ignore-start -->
+```sh
+.
+└── content
+    ├── my-first-post
+    │   ├── index.mdx
+    │   ├── coverPhoto.jpg
+    │   ├── boop.png
+    │   └── infinite-boop.gif
+    └── my-second-post
+        ├── index.md
+        ├── f1-car.jpg
+        └── speed-data.svg
+```
+<!-- prettier-ignore-end -->
+
+### Exported components
+
+The included components are larely unstyled implementations to show an example of what is possible.
+Overwriting these with you own is highly encouraged. This can be done via [component shadowing](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/).
+
+List of components:
+
+- BlogList
+- BlogPost
+- layout
+- Pagination
+- PostCard
+- TagList
+- TagPage
+- UnderPost
+
+#### How to shadow components
+
+If you want to use [component shadowing](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/), create a file at the following path in your site:
+
+```
+src/@nickymeuleman/gatsby-theme-blog/components/<component-name>.js
+```
+
+#### Example usage in MDX
+
+In any MDX file:
+
+```mdx
+import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
+# Lorem Ipsum
+<component-name />
+```
+
+#### Example usage in React components
+
+In any React component:
+
+```jsx
+import React from "react"
+import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
+
+export default () => (
+  <div>
+    <component-name />
+  </div>
+)
+```
