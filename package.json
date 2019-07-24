@@ -15,6 +15,7 @@
     "prettier": "^1.18.2"
   },
   "scripts": {
-    "lint": "eslint 'theme/**/*.js'"
+    "lint:theme": "eslint 'theme/**/*.js'",
+    "format:demo": "prettier 'demo/**/*.{js,jsx,json,md,mdx}'"
   }
 }
