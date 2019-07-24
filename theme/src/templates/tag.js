@@ -1,7 +1,7 @@
 import React from "react"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
-import { graphql } from "gatsby";
 
 const TagTemplate = ({ data, pageContext }) => {
   // combine graphql data pageContext
@@ -18,7 +18,7 @@ export const tagTemplateQuery = graphql`
   query tagTemplateQuery($slug: String) {
     allBlogPost(
       sort: { fields: date, order: DESC }
-      filter: { tags: { elemMatch: { slug: { eq: $slug}}} }
+      filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
     ) {
       edges {
         node {

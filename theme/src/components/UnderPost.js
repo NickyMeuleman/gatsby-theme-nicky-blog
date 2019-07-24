@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 
 const UnderPost = ({ prev, next, basePath }) => (
-  <div style={{display:"flex", justifyContent:"space-between"}}>
+  <div style={{ display: "flex", justifyContent: "space-between" }}>
     {prev && (
       <Link to={`${basePath}/${prev.slug}`}>
         <span>← Older</span>

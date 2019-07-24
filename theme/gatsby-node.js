@@ -108,7 +108,10 @@ exports.onCreateNode = (
     }
     const fieldData = {
       title: node.frontmatter.title,
-      tags: (node.frontmatter.tags || []).map(tag => ({name: tag, slug:slugify(tag)})),
+      tags: (node.frontmatter.tags || []).map(tag => ({
+        name: tag,
+        slug: slugify(tag),
+      })),
       slug,
       date: node.frontmatter.date,
       author: node.frontmatter.author,
@@ -174,7 +177,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         slug,
         prev,
         next,
-        basePath
+        basePath,
       },
     })
   })
@@ -193,7 +196,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         skip: index * postsPerPage,
         numPages,
         currentPage: index + 1,
-        basePath
+        basePath,
       },
     })
   })
@@ -210,7 +213,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       existingTag.amount += 1
       return acc
     }
-    return [...acc, {...tag, amount: 1}]
+    return [...acc, { ...tag, amount: 1 }]
   }, [])
 
   // create tag-list page
@@ -219,7 +222,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     component: require.resolve("./src/templates/tags.js"),
     context: {
       tagList,
-      basePath
+      basePath,
     },
   })
 
@@ -231,7 +234,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       context: {
         tag,
         slug: tag.slug,
-        basePath
+        basePath,
       },
     })
   })

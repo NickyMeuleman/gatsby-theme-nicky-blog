@@ -1,0 +1,29 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [".eslintrc.json"],
+      "url": "http://json.schemastore.org/eslintrc"
+    }
+  ],
+  "eslint.validate": [
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "javascriptreact",
+      "autoFix": true
+    }
+  ],
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "prettier.disableLanguages": ["javascript", "javascriptreact"],
+  "eslint.workingDirectories": ["./demo/", "./theme/"]
+}

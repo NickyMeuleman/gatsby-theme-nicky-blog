@@ -1,5 +1,5 @@
 import React from "react"
-import PostCard from "./PostCard";
+import PostCard from "./PostCard"
 
 const BlogList = ({ blogPosts, totalCount, basePath }) => {
   return (
@@ -10,7 +10,7 @@ const BlogList = ({ blogPosts, totalCount, basePath }) => {
         </span>{" "}
         {totalCount} Posts total
       </p>
-      {blogPosts.map((blogPost) => {
+      {blogPosts.map(blogPost => {
         return (
           <PostCard
             key={blogPost.id}
@@ -19,9 +19,7 @@ const BlogList = ({ blogPosts, totalCount, basePath }) => {
             date={blogPost.date}
             author={blogPost.author}
             coverSizes={
-              blogPost.cover
-                ? blogPost.cover.childImageSharp.fluid
-                : null
+              blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
             }
           />
         )

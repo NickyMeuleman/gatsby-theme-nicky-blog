@@ -11,7 +11,7 @@ const PostCard = props => (
         ) : (
           <div
             style={{
-              height: "100%"
+              height: "100%",
             }}
           />
         )}
