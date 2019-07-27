@@ -1,4 +1,6 @@
 const fs = require(`fs`)
+const path = require("path")
+
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
 // Quick-and-dirty helper to convert strings into URL-friendly slugs.
@@ -104,6 +106,7 @@ exports.onCreateNode = (
   if (node.internal.type === `Mdx` && source === contentPath) {
     let slug = createFilePath({ node, getNode })
     if (slug.endsWith("/")) {
+      // if user entered basePath that ends in "/"
       slug = slug.slice(0, -1)
     }
     const fieldData = {
@@ -171,7 +174,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     const prev = i === posts.length - 1 ? null : posts[i + 1].node
     const { slug } = post
     actions.createPage({
-      path: `${basePath}${slug}`,
+      path: path.join(basePath, slug),
       component: require.resolve("./src/templates/blog-post.js"),
       context: {
         slug,
@@ -189,7 +192,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     length: numPages,
   }).forEach((_, index) => {
     actions.createPage({
-      path: index === 0 ? `${basePath}` : `${basePath}/${index + 1}`,
+      path: index === 0 ? basePath : path.join(basePath, `${index + 1}`),
       component: require.resolve("./src/templates/blog-posts.js"),
       context: {
         limit: postsPerPage,
@@ -218,7 +221,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
 
   // create tag-list page
   actions.createPage({
-    path: `${basePath}/tag`,
+    path: path.join(basePath, "tag"),
     component: require.resolve("./src/templates/tags.js"),
     context: {
       tagList,
@@ -229,7 +232,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // create a page for each tag
   tagList.forEach(tag => {
     actions.createPage({
-      path: `${basePath}/tag/${tag.slug}`,
+      path: path.join(basePath, "tag", tag.slug),
       component: require.resolve("./src/templates/tag.js"),
       context: {
         tag,
@@ -239,12 +242,3 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     })
   })
 }
-
-// try to get an imagesharp node from the cover field in the frontmatter with @dontinfer
-// ! ERROR #85907  GRAPHQL
-
-// There was an error in your GraphQL query:
-
-// - Unknown field 'childImageSharp' on type 'File'.
-
-// problem during createTypes call, what type is cover? Using File, ImageSharp, String causes errors.
