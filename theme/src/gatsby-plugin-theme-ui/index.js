@@ -3,6 +3,8 @@
  * @see https://theme-ui.com/
  * @see https://theme-ui.com/gatsby-plugin/
  */
+import nightOwl from "@theme-ui/prism/presets/night-owl.json"
+
 export default {
   colors: {
     text: "#232129",
@@ -34,13 +36,19 @@ export default {
       color: "background",
       fontWeight: "bold",
       margin: 0,
-      span: {
+      h1: {
         display: "block",
         fontSize: 3,
         margin: "0 auto",
         maxWidth: "container",
         padding: 3,
         width: "90vw",
+        color: `inherit`,
+      },
+      a: {
+        color: `inherit`,
+        boxShadow: `none`,
+        textDecoration: `none`,
       },
     },
     Main: {
@@ -57,6 +65,9 @@ export default {
       color: "text",
       fontSize: 5,
       lineHeight: "heading",
+    },
+    pre: {
+      ...nightOwl,
     },
   },
 }

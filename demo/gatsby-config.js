@@ -11,7 +11,7 @@ module.exports = {
       options: {
         contentPath: "posts",
         // not specifying the basePath will use the default value
-        // basePath: "/"
+        basePath: "/blog"
       },
     },
   ],

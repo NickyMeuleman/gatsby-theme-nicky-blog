@@ -6,6 +6,7 @@ import Pagination from "../components/Pagination"
 
 const BlogPostsTemplate = ({ data, pageContext }) => {
   const blogposts = data.allBlogPost.edges.map(edge => edge.node)
+
   return (
     <Layout>
       <BlogList
