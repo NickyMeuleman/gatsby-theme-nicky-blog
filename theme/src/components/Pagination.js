@@ -11,9 +11,10 @@ const Pagination = ({
   const prevPageNum = currentPage - 1
   const nextPageNum = currentPage + 1
   const prevPageLink =
-    !isFirst && currentPage - 1 === 1
+    !isFirst &&
+    (currentPage - 1 === 1
       ? path.join(basePath)
-      : path.join(basePath, prefixPath, prevPageNum.toString())
+      : path.join(basePath, prefixPath, prevPageNum.toString()))
   const nextPageLink =
     !isLast && path.join(basePath, prefixPath, nextPageNum.toString())
   const changePage = e => {
