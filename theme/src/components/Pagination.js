@@ -1,15 +1,28 @@
 import React from "react"
 import { navigate, Link } from "gatsby"
+import * as path from "path"
 
-const Pagination = ({ context: { numPages, currentPage }, basePath }) => {
+const Pagination = ({
+  context: { numPages, currentPage, prefixPath },
+  basePath,
+}) => {
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
-  const prevPageNum = currentPage - 1 === 1 ? `` : (currentPage - 1).toString()
-  const nextPageNum = (currentPage + 1).toString()
-  const prevPageLink = isFirst ? null : `${basePath}/${prevPageNum}`
-  const nextPageLink = isLast ? null : `${basePath}/${nextPageNum}`
+  const prevPageNum = currentPage - 1
+  const nextPageNum = currentPage + 1
+  const prevPageLink =
+    !isFirst && currentPage - 1 === 1
+      ? path.join(basePath)
+      : path.join(basePath, prefixPath, prevPageNum.toString())
+  const nextPageLink =
+    !isLast && path.join(basePath, prefixPath, nextPageNum.toString())
   const changePage = e => {
-    navigate(`${basePath}/${e.target.value}`)
+    const { value } = e.target
+    const navPath =
+      value === "1"
+        ? path.join(basePath)
+        : path.join(basePath, prefixPath, value)
+    navigate(navPath)
   }
   return (
     <div>
@@ -27,15 +40,9 @@ const Pagination = ({ context: { numPages, currentPage }, basePath }) => {
       </div>
       <div>
         <span>Showing page &nbsp;</span>
-        <select
-          onChange={changePage}
-          value={currentPage === 1 ? "" : currentPage.toString()}
-        >
+        <select onChange={changePage} value={currentPage.toString()}>
           {Array.from({ length: numPages }, (_, i) => (
-            <option
-              value={`${i === 0 ? "" : i + 1}`}
-              key={`pagination-number${i + 1}`}
-            >
+            <option value={`${i + 1}`} key={`pagination-number${i + 1}`}>
               {i + 1}
             </option>
           ))}

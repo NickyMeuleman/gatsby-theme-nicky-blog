@@ -10,8 +10,12 @@ module.exports = {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
-        // not specifying the basePath will use the default value
-        // basePath: "/"
+        // basePath: "/blog",
+        // not specifying the pagination object will create a single listing page
+        pagination: {
+          // postsPerPage: 6,
+          // prefixPath: "page"
+        }
       },
     },
   ],

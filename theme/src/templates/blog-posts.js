@@ -14,13 +14,15 @@ const BlogPostsTemplate = ({ data, pageContext }) => {
         totalCount={data.allBlogPost.totalCount}
         basePath={pageContext.basePath}
       />
-      <Pagination context={pageContext} basePath={pageContext.basePath} />
+      {pageContext.numPages && (
+        <Pagination context={pageContext} basePath={pageContext.basePath} />
+      )}
     </Layout>
   )
 }
 
 export const BlogPostsTemplateQuery = graphql`
-  query BlogPostsTemplateQuery($skip: Int!, $limit: Int!) {
+  query BlogPostsTemplateQuery($skip: Int, $limit: Int) {
     allBlogPost(
       sort: { fields: [date], order: DESC }
       limit: $limit

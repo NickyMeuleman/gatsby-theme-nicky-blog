@@ -185,20 +185,39 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     })
   })
 
-  // create paginated blog-list pages
-  const postsPerPage = 6
-  const numPages = Math.ceil(posts.length / postsPerPage)
+  // create (paginated) blog-list page(s)
+  let numPages
+  let postsPerPage
+  let prefixPath
+  if (options.pagination) {
+    prefixPath = options.pagination.prefixPath || ""
+    postsPerPage = options.pagination.postsPerPage || 6
+    numPages = Math.ceil(posts.length / postsPerPage)
+  } else {
+    prefixPath = ""
+    numPages = 1
+  }
+
   Array.from({
     length: numPages,
   }).forEach((_, index) => {
+    const paginationContext = options.pagination
+      ? {
+          limit: postsPerPage,
+          skip: index * postsPerPage,
+          numPages,
+          currentPage: index + 1,
+          prefixPath,
+        }
+      : {}
     actions.createPage({
-      path: index === 0 ? basePath : path.join(basePath, `${index + 1}`),
+      path:
+        index === 0
+          ? basePath
+          : path.join(basePath, prefixPath, `${index + 1}`),
       component: require.resolve("./src/templates/blog-posts.js"),
       context: {
-        limit: postsPerPage,
-        skip: index * postsPerPage,
-        numPages,
-        currentPage: index + 1,
+        ...paginationContext,
         basePath,
       },
     })
