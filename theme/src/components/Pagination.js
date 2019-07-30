@@ -41,9 +41,18 @@ const Pagination = ({
       </div>
       <div>
         <span>Showing page &nbsp;</span>
-        <select onChange={changePage} value={currentPage.toString()}>
+        <select
+          onChange={changePage}
+          value={currentPage.toString()}
+          aria-label="Pagination Dropdown"
+        >
           {Array.from({ length: numPages }, (_, i) => (
-            <option value={`${i + 1}`} key={`pagination-number${i + 1}`}>
+            <option
+              value={`${i + 1}`}
+              key={`pagination-number${i + 1}`}
+              aria-label={`Goto Page ${i + 1}`}
+              aria-current={currentPage === i + 1 && `page`}
+            >
               {i + 1}
             </option>
           ))}
