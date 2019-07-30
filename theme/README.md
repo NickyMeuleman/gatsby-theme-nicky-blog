@@ -41,9 +41,10 @@ To use this theme in your Gatsby sites, follow these instructions:
 
 #### `pagination` options
 
-| Key | Default value | Description |
-| `postsPerPage` | `6` | Amount of posts per paginated page |
-| prefixPath | `undefined` | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
+| Key            | Default value | Description                                                    |
+| -------------- | ------------- | -------------------------------------------------------------- |
+| `postsPerPage` | `6`           | Amount of posts per paginated page                             |
+| `prefixPath`   | `undefined`   | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
 
 #### Example usage
 
@@ -123,7 +124,6 @@ In any MDX file:
 import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
 # Lorem Ipsum
 <component-name /
-
 >
 ```
 
