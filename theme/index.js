@@ -6,5 +6,8 @@ export { default as PostCard } from "./src/components/PostCard"
 export { default as TagList } from "./src/components/TagList"
 export { default as TagPage } from "./src/components/TagPage"
 export { default as UnderPost } from "./src/components/UnderPost"
+export { default as GlobalStyles } from "./src/components/GlobalStyles"
+export { default as Header } from "./src/components/Header"
+export { default as Main } from "./src/components/Main"
 
 // boop

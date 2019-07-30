@@ -35,8 +35,15 @@ To use this theme in your Gatsby sites, follow these instructions:
 
 | Key           | Default value | Description                                           |
 | ------------- | ------------- | ----------------------------------------------------- |
-| `basePath`    | `/`           | Root url for all blog posts                           |
-| `contentPath` | `/content`    | Folder Location to house individual blog post-folders |
+| `basePath`    | `"/"`         | Root url for all blog posts                           |
+| `contentPath` | `"content"`   | Folder Location to house individual blog post-folders |
+| `pagination`  | `undefined`   | Optional object, enables pagination if provided       |
+
+#### `pagination` options
+
+| Key | Default value | Description |
+| `postsPerPage` | `6` | Amount of posts per paginated page |
+| prefixPath | `undefined` | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
 
 #### Example usage
 
@@ -83,16 +90,22 @@ Inside that folder, an `index.mdx` or `index.md` file will be the blog post itse
 The included components are larely unstyled implementations to show an example of what is possible.
 Overwriting these with you own is highly encouraged. This can be done via [component shadowing](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/).
 
-List of components:
+#### List of components:
 
 - BlogList
 - BlogPost
-- layout
 - Pagination
 - PostCard
 - TagList
 - TagPage
 - UnderPost
+
+#### List of layout/global style related components
+
+- GlobalStyles
+- Header
+- layout
+- Main
 
 #### How to shadow components
 
@@ -109,7 +122,9 @@ In any MDX file:
 ```mdx
 import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
 # Lorem Ipsum
-<component-name />
+<component-name /
+
+>
 ```
 
 #### Example usage in React components
