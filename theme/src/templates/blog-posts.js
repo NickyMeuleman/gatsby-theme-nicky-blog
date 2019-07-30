@@ -3,12 +3,14 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import BlogList from "../components/BlogList"
 import Pagination from "../components/Pagination"
+import SEO from "../components/SEO"
 
 const BlogPostsTemplate = ({ data, pageContext }) => {
   const blogposts = data.allBlogPost.edges.map(edge => edge.node)
 
   return (
     <Layout>
+      <SEO />
       <BlogList
         blogPosts={blogposts}
         totalCount={data.allBlogPost.totalCount}
