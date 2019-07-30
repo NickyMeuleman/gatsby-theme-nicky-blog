@@ -57,6 +57,10 @@ module.exports = {
       options: {
         contentPath: "posts",
         basePath: "/blog",
+        pagination: {
+          postsPerPage: 10,
+          prefixPath: "page",
+        },
       },
     },
   ],
