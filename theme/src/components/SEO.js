@@ -34,7 +34,11 @@ const SEO = ({
       const { siteMetadata } = data.site
       const metaDescription = description || siteMetadata.description
       const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
-      const url = path.join(siteMetadata.siteUrl, basePath || "", slug || "")
+      let url = path.join(siteMetadata.siteUrl, basePath || "", slug || "")
+      if (url.endsWith("/")) {
+        // if url ends in "/", remove it
+        url = url.slice(0, -1)
+      }
       return (
         <Helmet
           htmlAttributes={{ lang: lang || "en" }}
