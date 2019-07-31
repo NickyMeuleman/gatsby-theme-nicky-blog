@@ -2,10 +2,10 @@ import React from "react"
 import { Link } from "gatsby"
 
 const TagPage = ({ data, basePath }) => {
-  const { edges: blogPosts } = data.allBlogPost
-  const tagHeader = `${data.tag.amount} post${
-    data.tag.amount === 1 ? `` : `s`
-  } tagged with "${data.tag.name}"`
+  const { posts } = data
+  const tagHeader = `${data.amount} post${
+    data.amount === 1 ? `` : `s`
+  } tagged with "${data.name}"`
 
   return (
     <>
@@ -14,9 +14,9 @@ const TagPage = ({ data, basePath }) => {
         <Link to={`${basePath}/tag`}>All tags</Link>
       </p>
       <ul>
-        {blogPosts.map(({ node: blogPost }) => (
-          <li key={blogPost.slug}>
-            <Link to={`${basePath}${blogPost.slug}`}>{blogPost.title}</Link>
+        {posts.map(post => (
+          <li key={post.slug}>
+            <Link to={`${basePath}${post.slug}`}>{post.title}</Link>
           </li>
         ))}
       </ul>

@@ -172,15 +172,12 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       allBlogPost(sort: { fields: date, order: DESC }) {
         edges {
           node {
-            title
             slug
-            id
-            tags {
-              name
-              slug
-            }
           }
         }
+      }
+      allTag {
+        distinct(field: slug)
       }
     }
   `)
@@ -190,7 +187,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return
   }
 
-  const { allBlogPost } = result.data
+  const { allBlogPost, allTag } = result.data
   const posts = allBlogPost.edges
 
   // create a page for each blogPost
@@ -248,39 +245,22 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     })
   })
 
-  // flatten tags per post into single array
-  const tagListDuplicates = posts.reduce((acc, post) => {
-    return acc.concat(post.node.tags)
-  }, [])
-
-  // filter duplicates from an array of tag objects and add amount instead
-  const tagList = tagListDuplicates.reduce((acc, tag) => {
-    const existingTag = acc.find(item => tag.slug === item.slug)
-    if (existingTag) {
-      existingTag.amount += 1
-      return acc
-    }
-    return [...acc, { ...tag, amount: 1 }]
-  }, [])
-
   // create tag-list page
   actions.createPage({
     path: path.join(basePath, "tag"),
     component: require.resolve("./src/templates/tags.js"),
     context: {
-      tagList,
       basePath,
     },
   })
 
   // create a page for each tag
-  tagList.forEach(tag => {
+  allTag.distinct.forEach(tagSlug => {
     actions.createPage({
-      path: path.join(basePath, "tag", tag.slug),
+      path: path.join(basePath, "tag", tagSlug),
       component: require.resolve("./src/templates/tag.js"),
       context: {
-        tag,
-        slug: tag.slug,
+        slug: tagSlug,
         basePath,
       },
     })

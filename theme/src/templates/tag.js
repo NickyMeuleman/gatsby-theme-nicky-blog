@@ -4,28 +4,35 @@ import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
 
 const TagTemplate = ({ data, pageContext }) => {
-  // combine graphql data pageContext
-  const tagData = Object.assign(data, pageContext)
+  const pageData = {
+    amount: data.allBlogPost.totalCount,
+    name: data.tag.name,
+    posts: data.allBlogPost.edges.map(edge => edge.node),
+  }
 
   return (
     <Layout>
-      <TagPage data={tagData} basePath={pageContext.basePath} />
+      <TagPage data={pageData} basePath={pageContext.basePath} />
     </Layout>
   )
 }
 
 export const tagTemplateQuery = graphql`
-  query tagTemplateQuery($slug: String) {
+  query TagTemplateQuery($slug: String) {
     allBlogPost(
-      sort: { fields: date, order: DESC }
       filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
+      sort: { fields: date, order: DESC }
     ) {
       edges {
         node {
-          title
           slug
+          title
         }
       }
+      totalCount
+    }
+    tag(slug: { eq: $slug }) {
+      name
     }
   }
 `
