@@ -27,7 +27,14 @@ exports.onPreBootstrap = ({ reporter }, options) => {
 exports.sourceNodes = ({ actions, schema }) => {
   // either SDL or graphql-js!
   actions.createTypes(`
-  type Tag {
+  interface Tag @nodeInterface {
+    id: ID!
+    name: String
+    slug: String
+  }`)
+  actions.createTypes(`
+  type mdxTag implements Node & Tag {
+    id: ID!
     name: String
     slug: String
   }`)
@@ -38,7 +45,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       title: String!
       date: Date! @dateformat
       author: String!
-      tags: [Tag]!
+      tags: [mdxTag]!
       keywords: [String]!
       excerpt(pruneLength: Int = 140): String!
       body: String!
@@ -94,49 +101,67 @@ exports.onCreateNode = (
   const { createNode, createParentChildLink } = actions
   const contentPath = options.contentPath || "content"
 
-  // Make sure it's an MDX node
-  if (node.internal.type !== `Mdx`) {
-    return
+  if (node.internal.type === `Mdx`) {
+    const parent = getNode(node.parent)
+    const source = parent.sourceInstanceName
+    // Create source field (according to contentPath)
+    if (source === contentPath) {
+      let slug = createFilePath({ node, getNode })
+      if (slug.endsWith("/")) {
+        // if user entered basePath that ends in "/"
+        slug = slug.slice(0, -1)
+      }
+      const fieldData = {
+        title: node.frontmatter.title,
+        tags: (node.frontmatter.tags || []).map(tag => ({
+          name: tag,
+          slug: slugify(tag),
+        })),
+        slug,
+        date: node.frontmatter.date,
+        author: node.frontmatter.author,
+        keywords: node.frontmatter.keywords,
+        cover: node.frontmatter.cover,
+      }
+
+      // create a BlogPost node that satisfies the BlogPost type we created in createTypes
+      createNode({
+        ...fieldData,
+        // Required fields.
+        id: createNodeId(`${node.id} >>> BlogPost`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `BlogPost`,
+          contentDigest: createContentDigest(fieldData),
+          content: JSON.stringify(fieldData),
+          description: `Blog Posts`,
+        },
+      })
+      createParentChildLink({ parent, child: node })
+    }
   }
-
-  // Create source field (according to contentPath)
-  const fileNode = getNode(node.parent)
-  const source = fileNode.sourceInstanceName
-
-  if (node.internal.type === `Mdx` && source === contentPath) {
-    let slug = createFilePath({ node, getNode })
-    if (slug.endsWith("/")) {
-      // if user entered basePath that ends in "/"
-      slug = slug.slice(0, -1)
-    }
-    const fieldData = {
-      title: node.frontmatter.title,
-      tags: (node.frontmatter.tags || []).map(tag => ({
-        name: tag,
-        slug: slugify(tag),
-      })),
-      slug,
-      date: node.frontmatter.date,
-      author: node.frontmatter.author,
-      keywords: node.frontmatter.keywords,
-      cover: node.frontmatter.cover,
-    }
-
-    // create a BlogPost node that satisfies the BlogPost type we created in createTypes
-    createNode({
-      ...fieldData,
-      // Required fields.
-      id: createNodeId(`${node.id} >>> BlogPost`),
-      parent: node.id,
-      children: [],
-      internal: {
-        type: `BlogPost`,
-        contentDigest: createContentDigest(fieldData),
-        content: JSON.stringify(fieldData),
-        description: `Blog Posts`,
-      },
+  if (node.internal.type === `BlogPost`) {
+    ;(node.tags || []).forEach((tag, i) => {
+      const fieldData = {
+        name: tag.name,
+        slug: tag.slug,
+      }
+      // create a Tag node that satisfies the Tag type we created in createTypes
+      createNode({
+        ...fieldData,
+        // Required fields.
+        id: createNodeId(`${node.id}${i} >>> mdxTag`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `mdxTag`,
+          contentDigest: createContentDigest(fieldData),
+          content: JSON.stringify(fieldData),
+          description: `mdx Tags`,
+        },
+      })
     })
-    createParentChildLink({ parent: fileNode, child: node })
   }
 }
 
