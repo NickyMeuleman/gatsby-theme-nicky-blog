@@ -33,19 +33,29 @@ exports.sourceNodes = ({ actions, schema }) => {
     slug: String
   }`)
   actions.createTypes(`
-  type mdxTag implements Node & Tag {
+  type MdxTag implements Node & Tag {
     id: ID!
     name: String
     slug: String
   }`)
   actions.createTypes(`
-    type BlogPost implements Node {
+    interface BlogPost @nodeInterface {
+      id: ID!
+      date: Date!
+      slug: String!
+      tags: [Tag]!
+      title: String!
+      body: String!
+    }
+  `)
+  actions.createTypes(`
+    type MdxBlogPost implements Node & BlogPost {
       id: ID!
       slug: String!
       title: String!
       date: Date! @dateformat
       author: String!
-      tags: [mdxTag]!
+      tags: [MdxTag]!
       keywords: [String]!
       excerpt(pruneLength: Int = 140): String!
       body: String!
@@ -77,7 +87,7 @@ const mdxResolverPassthrough = fieldName => async (
 // Define resolvers for custom fields
 exports.createResolvers = ({ createResolvers }) => {
   createResolvers({
-    BlogPost: {
+    MdxBlogPost: {
       excerpt: {
         resolve: mdxResolverPassthrough(`excerpt`),
       },
@@ -101,6 +111,7 @@ exports.onCreateNode = (
   const { createNode, createParentChildLink } = actions
   const contentPath = options.contentPath || "content"
 
+  // Create BlogPost nodes from Mdx nodes
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent)
     const source = parent.sourceInstanceName
@@ -124,41 +135,43 @@ exports.onCreateNode = (
         cover: node.frontmatter.cover,
       }
 
-      // create a BlogPost node that satisfies the BlogPost type we created in createTypes
+      // create a BlogPost node that satisfies the BlogPost interface we created in createTypes
       createNode({
         ...fieldData,
         // Required fields.
-        id: createNodeId(`${node.id} >>> BlogPost`),
+        id: createNodeId(`${node.id} >>> MdxBlogPost`),
         parent: node.id,
         children: [],
         internal: {
-          type: `BlogPost`,
+          type: `MdxBlogPost`,
           contentDigest: createContentDigest(fieldData),
           content: JSON.stringify(fieldData),
-          description: `Blog Posts`,
+          description: `Satisfies the BlogPost interface for Mdx`,
         },
       })
       createParentChildLink({ parent, child: node })
     }
   }
-  if (node.internal.type === `BlogPost`) {
+
+  // Create MdxTag nodes from MdxBlogPost nodes
+  if (node.internal.type === `MdxBlogPost`) {
     ;(node.tags || []).forEach((tag, i) => {
       const fieldData = {
         name: tag.name,
         slug: tag.slug,
       }
-      // create a Tag node that satisfies the Tag type we created in createTypes
+      // create a Tag node that satisfies the Tag interface we created in createTypes
       createNode({
         ...fieldData,
         // Required fields.
-        id: createNodeId(`${node.id}${i} >>> mdxTag`),
+        id: createNodeId(`${node.id}${i} >>> MdxTag`),
         parent: node.id,
         children: [],
         internal: {
-          type: `mdxTag`,
+          type: `MdxTag`,
           contentDigest: createContentDigest(fieldData),
           content: JSON.stringify(fieldData),
-          description: `mdx Tags`,
+          description: `Mdx Tags`,
         },
       })
     })

@@ -33,19 +33,21 @@ const BlogPostTemplate = ({ data, pageContext }) => {
 export const query = graphql`
   query BlogPostTemplateQuery($slug: String!) {
     blogPost(slug: { eq: $slug }) {
-      excerpt
-      id
-      slug
-      body
-      tags {
-        name
+      ... on MdxBlogPost {
+        excerpt
+        id
         slug
-      }
-      title
-      cover {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_withWebp
+        body
+        tags {
+          name
+          slug
+        }
+        title
+        cover {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp
+            }
           }
         }
       }

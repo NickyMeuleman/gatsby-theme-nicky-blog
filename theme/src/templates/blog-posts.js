@@ -33,19 +33,21 @@ export const BlogPostsTemplateQuery = graphql`
       totalCount
       edges {
         node {
-          id
-          author
-          tags {
-            name
+          ... on MdxBlogPost {
+            id
+            author
+            tags {
+              name
+              slug
+            }
+            title
             slug
-          }
-          title
-          slug
-          date(formatString: "DD MMMM, YYYY")
-          cover {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid_withWebp
+            date(formatString: "DD MMMM, YYYY")
+            cover {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
               }
             }
           }
