@@ -67,6 +67,26 @@ module.exports = {
 }
 ```
 
+#### Additional configuration
+
+In addition to the theme options, there are a handful of items you can customize via the `siteMetadata` object in your site's `gatsby-config.js`
+
+```js
+// gatsby-config.js
+module.exports = {
+  siteMetadata: {
+    // Used for the site title, SEO, and header component title.
+    title: `My Blog Title`,
+    // Used for SEO
+    description: `My site description...`,
+    // Used for SEO
+    social: {
+      twitter: `@NMeuleman`,
+    },
+  },
+}
+```
+
 ### Adding blog posts
 
 In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. The title of this folder will serve as the slug for the blogpost.
@@ -124,12 +144,13 @@ src/@nickymeuleman/gatsby-theme-blog/components/<component-name>.js
 
 In any MDX file:
 
+<!-- prettier-ignore-start -->
 ```mdx
 import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
 # Lorem Ipsum
-<component-name /
->
+<component-name />
 ```
+<!-- prettier-ignore-end -->
 
 #### Example usage in React components
 
