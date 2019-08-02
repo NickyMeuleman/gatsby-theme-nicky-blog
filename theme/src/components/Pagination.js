@@ -63,23 +63,5 @@ const Pagination = ({
     </div>
   )
 }
-// class Pagination extends React.Component {
-
-//   render() {
-
-//     return (
-//       <Pagination>
-
-//         <Info>
-
-//           <Arrow width="10" height="5" viewBox="0 0 10 5">
-//             <path d="M0 0l5 4.998L10 0z" fillRule="evenodd" />
-//           </Arrow>
-
-//         </Info>
-//       </Pagination>
-//     )
-//   }
-// }
 
 export default Pagination
