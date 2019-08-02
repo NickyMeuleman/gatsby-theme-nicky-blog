@@ -36,7 +36,6 @@ const SEO = ({
     // if url ends in "/", remove it
     url = url.slice(0, -1)
   }
-  console.log({ metaImage, url, basePath, slug })
 
   return (
     <Helmet
