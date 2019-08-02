@@ -31,7 +31,7 @@ const SEO = ({
   const { siteMetadata } = result.site
   const metaDescription = description || siteMetadata.description
   const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
-  let url = `${siteMetadata.siteUrl}${path.join("/", basePath, slug)}`
+  let url = `${siteMetadata.siteUrl}${path.join("/", `${basePath}`, `${slug}`)}`
   if (url.endsWith("/")) {
     // if url ends in "/", remove it
     url = url.slice(0, -1)
