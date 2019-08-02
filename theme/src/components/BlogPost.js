@@ -15,7 +15,7 @@ const BlogPost = ({ post, basePath, context }) => {
         <ul>
           {post.tags.map(tag => (
             <li key={tag.slug}>
-              <Link to={`${basePath}/tag/${tag.slug}`}>{tag.name}</Link>
+              <Link to={`/${basePath}/tag/${tag.slug}`}>{tag.name}</Link>
             </li>
           ))}
         </ul>

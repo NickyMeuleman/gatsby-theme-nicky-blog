@@ -14,7 +14,7 @@ const BlogList = ({ blogPosts, totalCount, basePath }) => {
         return (
           <PostCard
             key={blogPost.id}
-            url={`${basePath}${blogPost.slug}`}
+            url={`${basePath}/${blogPost.slug}`}
             title={blogPost.title}
             date={blogPost.date}
             author={blogPost.author}

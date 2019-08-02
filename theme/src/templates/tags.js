@@ -21,7 +21,7 @@ const TagsTemplate = ({ data, pageContext }) => {
       <SEO
         title="Tags"
         description="List of post tags"
-        slug={pageContext.slug}
+        slug="tag"
         basePath={pageContext.basePath}
       />
       <TagList tags={tagData} basePath={pageContext.basePath} />

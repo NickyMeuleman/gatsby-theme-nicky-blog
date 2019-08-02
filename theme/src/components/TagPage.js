@@ -11,12 +11,12 @@ const TagPage = ({ data, basePath }) => {
     <>
       <h1>{tagHeader}</h1>
       <p>
-        <Link to={`${basePath}/tag`}>All tags</Link>
+        <Link to={`/${basePath}/tag`}>All tags</Link>
       </p>
       <ul>
         {posts.map(post => (
           <li key={post.slug}>
-            <Link to={`${basePath}${post.slug}`}>{post.title}</Link>
+            <Link to={`/${basePath}/${post.slug}`}>{post.title}</Link>
           </li>
         ))}
       </ul>

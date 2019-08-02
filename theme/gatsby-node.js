@@ -179,7 +179,7 @@ exports.onCreateNode = (
 }
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  const basePath = options.basePath || "/"
+  const basePath = options.basePath || ""
   const result = await graphql(`
     query createPagesQuery {
       allBlogPost(sort: { fields: date, order: DESC }) {
@@ -248,7 +248,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     actions.createPage({
       path:
         index === 0
-          ? basePath
+          ? `${basePath || "/"}`
           : path.join(basePath, prefixPath, `${index + 1}`),
       component: require.resolve("./src/templates/blog-posts.js"),
       context: {

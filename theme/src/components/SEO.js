@@ -30,14 +30,13 @@ const SEO = ({
 
   const { siteMetadata } = result.site
   const metaDescription = description || siteMetadata.description
-  const metaImage = image
-    ? path.join(`${siteMetadata.siteUrl}`, `${image}`)
-    : null
-  let url = path.join(`${siteMetadata.siteUrl}`, basePath || "", slug || "")
+  const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
+  let url = `${siteMetadata.siteUrl}/${basePath || ""}/${slug || ""}`
   if (url.endsWith("/")) {
     // if url ends in "/", remove it
     url = url.slice(0, -1)
   }
+  console.log({ metaImage, url, basePath, slug })
 
   return (
     <Helmet

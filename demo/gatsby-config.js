@@ -18,10 +18,10 @@ module.exports = {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
-        // basePath: "/blog",
+        // basePath: "blog",
         // not specifying the pagination object will create a single listing page
         pagination: {
-          // postsPerPage: 6,
+          // postsPerPage: 10,
           // prefixPath: "page"
         }
       },

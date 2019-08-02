@@ -35,7 +35,7 @@ To use this theme in your Gatsby sites, follow these instructions:
 
 | Key           | Default value | Description                                           |
 | ------------- | ------------- | ----------------------------------------------------- |
-| `basePath`    | `"/"`         | Root url for all blog posts                           |
+| `basePath`    | `""`          | Root url for all blog posts                           |
 | `contentPath` | `"content"`   | Folder Location to house individual blog post-folders |
 | `pagination`  | `undefined`   | Optional object, enables pagination if provided       |
 
@@ -56,7 +56,7 @@ module.exports = {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
-        basePath: "/blog",
+        basePath: "blog",
         pagination: {
           postsPerPage: 10,
           prefixPath: "page",

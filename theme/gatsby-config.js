@@ -1,4 +1,4 @@
-module.exports = ({ contentPath = "content", basePath = "/" } = {}) => ({
+module.exports = ({ contentPath = "content", basePath = "" } = {}) => ({
   siteMetadata: {
     siteUrl: "https://myurl.com",
     title: "Gatsby Theme Blog by NMeuleman",
