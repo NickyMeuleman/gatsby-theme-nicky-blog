@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import BlogPost from "../components/BlogPost"
 import SEO from "../components/SEO"
 
-const BlogPostTemplate = ({ data, pageContext }) => {
+const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.blogPost
 
   return (
@@ -20,6 +20,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
             ? post.cover.childImageSharp.fluid.src
             : "/icons/icon-256x256.png"
         }
+        location={location}
       />
       <BlogPost
         post={post}

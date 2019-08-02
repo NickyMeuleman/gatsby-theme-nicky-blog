@@ -1,6 +1,5 @@
 module.exports = ({ contentPath = "content", basePath = "/" } = {}) => ({
   siteMetadata: {
-    siteUrl: "https://myurl",
     title: "Gatsby Theme Blog by NMeuleman",
     description: "My site description",
     social: {

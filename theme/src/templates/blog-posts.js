@@ -5,12 +5,12 @@ import BlogList from "../components/BlogList"
 import Pagination from "../components/Pagination"
 import SEO from "../components/SEO"
 
-const BlogPostsTemplate = ({ data, pageContext }) => {
+const BlogPostsTemplate = ({ data, pageContext, location }) => {
   const blogposts = data.allBlogPost.edges.map(edge => edge.node)
 
   return (
     <Layout>
-      <SEO />
+      <SEO location={location} />
       <BlogList
         blogPosts={blogposts}
         totalCount={data.allBlogPost.totalCount}

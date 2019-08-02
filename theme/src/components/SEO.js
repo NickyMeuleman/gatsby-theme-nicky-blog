@@ -9,7 +9,6 @@ const query = graphql`
       siteMetadata {
         title
         description
-        siteUrl
         social {
           twitter
         }
@@ -27,14 +26,15 @@ const SEO = ({
   lang,
   keywords,
   basePath,
+  location,
 }) => (
   <StaticQuery
     query={query}
     render={data => {
       const { siteMetadata } = data.site
       const metaDescription = description || siteMetadata.description
-      const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
-      let url = path.join(siteMetadata.siteUrl, basePath || "", slug || "")
+      const metaImage = image ? `${location.host}${image}` : null
+      let url = path.join(location.host, basePath || "", slug || "")
       if (url.endsWith("/")) {
         // if url ends in "/", remove it
         url = url.slice(0, -1)

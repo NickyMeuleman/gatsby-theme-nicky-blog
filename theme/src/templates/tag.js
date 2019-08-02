@@ -2,8 +2,9 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
+import SEO from "../components/SEO"
 
-const TagTemplate = ({ data, pageContext }) => {
+const TagTemplate = ({ data, pageContext, location }) => {
   const pageData = {
     amount: data.allBlogPost.totalCount,
     name: data.tag.name,
@@ -12,6 +13,14 @@ const TagTemplate = ({ data, pageContext }) => {
 
   return (
     <Layout>
+      <SEO
+        title={`Tagged "${data.tag.name}"`}
+        description={`List of posts tagged with "${data.tag.name}"`}
+        slug={pageContext.slug}
+        basePath={pageContext.basePath}
+        keywords={["tag", data.tag.name]}
+        location={location}
+      />
       <TagPage data={pageData} basePath={pageContext.basePath} />
     </Layout>
   )

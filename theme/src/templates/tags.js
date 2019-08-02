@@ -2,8 +2,9 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagList from "../components/TagList"
+import SEO from "../components/SEO"
 
-const TagsTemplate = ({ data, pageContext }) => {
+const TagsTemplate = ({ data, pageContext, location }) => {
   const tagData = data.allTag.group.reduce((acc, item) => {
     return [
       ...acc,
@@ -17,6 +18,13 @@ const TagsTemplate = ({ data, pageContext }) => {
 
   return (
     <Layout>
+      <SEO
+        title="Tags"
+        description="List of post tags"
+        slug={pageContext.slug}
+        basePath={pageContext.basePath}
+        location={location}
+      />
       <TagList tags={tagData} basePath={pageContext.basePath} />
     </Layout>
   )
