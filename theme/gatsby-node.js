@@ -29,21 +29,21 @@ exports.sourceNodes = ({ actions, schema }) => {
   actions.createTypes(`
   interface Tag @nodeInterface {
     id: ID!
-    name: String
-    slug: String
+    name: String!
+    slug: String!
   }`)
   actions.createTypes(`
   type MdxTag implements Node & Tag {
     id: ID!
-    name: String
-    slug: String
+    name: String!
+    slug: String!
   }`)
   actions.createTypes(`
     interface BlogPost @nodeInterface {
       id: ID!
       date: Date!
       slug: String!
-      tags: [Tag]!
+      tags: [Tag!]!
       title: String!
       body: String!
     }
@@ -55,8 +55,8 @@ exports.sourceNodes = ({ actions, schema }) => {
       title: String!
       date: Date! @dateformat
       author: String!
-      tags: [MdxTag]!
-      keywords: [String]!
+      tags: [MdxTag!]!
+      keywords: [String!]!
       excerpt(pruneLength: Int = 140): String!
       body: String!
       cover: File @fileByRelativePath
@@ -122,6 +122,10 @@ exports.onCreateNode = (
         // if user entered basePath that ends in "/"
         slug = slug.slice(0, -1)
       }
+      if (slug.startsWith("/")) {
+        slug = slug.slice(1)
+      }
+
       const fieldData = {
         title: node.frontmatter.title,
         tags: (node.frontmatter.tags || []).map(tag => ({
@@ -131,7 +135,7 @@ exports.onCreateNode = (
         slug,
         date: node.frontmatter.date,
         author: node.frontmatter.author,
-        keywords: node.frontmatter.keywords,
+        keywords: node.frontmatter.keywords || [],
         cover: node.frontmatter.cover,
       }
 

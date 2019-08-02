@@ -166,3 +166,17 @@ export default () => (
   </div>
 )
 ```
+
+### dev notes
+
+Multi sourcing
+revamp way slugs are handled
+code blocks
+some light styling?
+css reset?
+rss feed?
+offline, manifest, ...?
+icons (default icon for SEO if no fitting image found)
+icons for tags?
+canonical url support
+multiple authors support
