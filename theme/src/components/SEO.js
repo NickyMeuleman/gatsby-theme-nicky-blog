@@ -12,6 +12,7 @@ const SEO = ({
   lang,
   keywords,
   basePath,
+  canonicalUrl,
 }) => {
   const result = useStaticQuery(graphql`
     query GetSiteMetadata {
@@ -48,6 +49,16 @@ const SEO = ({
         : {
             title: siteMetadata.title,
           })}
+      link={[].concat(
+        canonicalUrl
+          ? [
+              {
+                rel: "canonical",
+                href: canonicalUrl,
+              },
+            ]
+          : []
+      )}
       meta={[
         {
           name: "description",

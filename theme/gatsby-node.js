@@ -54,6 +54,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       slug: String!
       title: String!
       date: Date! @dateformat
+      canonicalUrl: String
       author: String!
       tags: [MdxTag!]!
       keywords: [String!]!
@@ -137,6 +138,7 @@ exports.onCreateNode = (
         author: node.frontmatter.author,
         keywords: node.frontmatter.keywords || [],
         cover: node.frontmatter.cover,
+        canonicalUrl: node.frontmatter.canonicalUrl,
       }
 
       // create a BlogPost node that satisfies the BlogPost interface we created in createTypes

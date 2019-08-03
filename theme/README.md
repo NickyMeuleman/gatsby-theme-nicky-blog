@@ -169,14 +169,20 @@ export default () => (
 
 ### dev notes
 
-Multi sourcing
-revamp way slugs are handled
-code blocks
-some light styling?
-css reset?
-rss feed?
-offline, manifest, ...?
-icons (default icon for SEO if no fitting image found)
-icons for tags?
-canonical url support
-multiple authors support
+- Multi sourcing
+- revamp way slugs are handled
+- code blocks
+- some light styling?
+- css reset?
+- rss feed?
+- offline, manifest, ...?
+- icons (default icon for SEO if no fitting image found)
+  - icons for tags?
+  - for those seo cards: look into https://zeit.co/blog/social-og-image-cards-as-a-service
+- canonical url support:
+  - functionality works, now add docs
+  - add a "originally published at" line to blogpost component
+- multiple authors support
+- revamp how SEO component works
+  - migrate from Helmet props to nested html tags?
+  - pass less props into SEO component

@@ -6,6 +6,7 @@ import SEO from "../components/SEO"
 
 const BlogPostTemplate = ({ data, pageContext }) => {
   const post = data.blogPost
+  console.log(post.canonicalUrl)
 
   return (
     <Layout>
@@ -20,6 +21,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
             ? post.cover.childImageSharp.fluid.src
             : "/icons/icon-256x256.png"
         }
+        canonicalUrl={post.canonicalUrl}
       />
       <BlogPost
         post={post}
@@ -37,6 +39,7 @@ export const query = graphql`
         excerpt
         id
         slug
+        canonicalUrl
         body
         tags {
           name
