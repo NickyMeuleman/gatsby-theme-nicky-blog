@@ -6,7 +6,6 @@ import SEO from "../components/SEO"
 
 const BlogPostTemplate = ({ data, pageContext }) => {
   const post = data.blogPost
-  console.log(post.canonicalUrl)
 
   return (
     <Layout>

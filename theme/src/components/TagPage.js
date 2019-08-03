@@ -15,7 +15,7 @@ const TagPage = ({ data, basePath }) => {
       </p>
       <ul>
         {posts.map(post => (
-          <li key={post.slug}>
+          <li key={post.slug} css={{ margin: "0.3rem" }}>
             <Link to={`/${basePath}/${post.slug}`}>{post.title}</Link>
           </li>
         ))}

@@ -55,7 +55,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       title: String!
       date: Date! @dateformat
       canonicalUrl: String
-      author: String!
+      author: String
       tags: [MdxTag!]!
       keywords: [String!]!
       excerpt(pruneLength: Int = 140): String!
@@ -161,11 +161,13 @@ exports.onCreateNode = (
 
   // Create MdxTag nodes from MdxBlogPost nodes
   if (node.internal.type === `MdxBlogPost`) {
+    const parent = getNode(node.parent)
     ;(node.tags || []).forEach((tag, i) => {
       const fieldData = {
         name: tag.name,
         slug: tag.slug,
       }
+
       // create a Tag node that satisfies the Tag interface we created in createTypes
       createNode({
         ...fieldData,
@@ -180,6 +182,7 @@ exports.onCreateNode = (
           description: `Mdx Tags`,
         },
       })
+      createParentChildLink({ parent, child: node })
     })
   }
 }

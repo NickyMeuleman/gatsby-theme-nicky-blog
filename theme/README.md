@@ -110,6 +110,21 @@ Inside that folder, an `index.mdx` or `index.md` file will be the blog post itse
 ```
 <!-- prettier-ignore-end -->
 
+#### Anatomy of a blogpost
+
+The blogpost itself (`.md` or `.mdx` file for now, others coming soon) can have several different fields with extra information. Some of these are required.
+In `.md` or `.mdx` files those are set via the frontmatter.
+
+| Key            | Value                        | Required | Description                               |
+| -------------- | ---------------------------- | -------- | ----------------------------------------- |
+| `title`        | string                       | yes      | title of your blogpost                    |
+| `date`         | date string                  | yes      | the date tied to the post                 |
+| `canonicalUrl` | full url string              | no       | Canonical url                             |
+| `author`       | author string                | no       | Author of the post                        |
+| `tags`         | array of tag strings         | yes      | tags for this post                        |
+| `keywords`     | array of keyword strings     | no       | keywords for SEO                          |
+| `cover`        | relative path to cover image | no       | displayed as cover image, in social cards |
+
 ### Exported components
 
 The included components are larely unstyled implementations to show an example of what is possible.
@@ -142,11 +157,15 @@ src/@nickymeuleman/gatsby-theme-blog/components/<component-name>.js
 
 #### Example usage in MDX
 
-In any MDX file:
+In any MDX blogpost:
 
 <!-- prettier-ignore-start -->
 ```mdx
 import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
+---
+<frontmatter-fields>
+---
+
 # Lorem Ipsum
 <component-name />
 ```
@@ -173,16 +192,20 @@ export default () => (
 - revamp way slugs are handled
 - code blocks
 - some light styling?
+  - redo styles with theme-ui, like `<li>` margins?
 - css reset?
 - rss feed?
 - offline, manifest, ...?
 - icons (default icon for SEO if no fitting image found)
   - icons for tags?
   - for those seo cards: look into https://zeit.co/blog/social-og-image-cards-as-a-service
-- canonical url support:
-  - functionality works, now add docs
-  - add a "originally published at" line to blogpost component
+- :heavy_check_mark: canonical url support:
+  - :heavy_check_mark: functionality works, now add docs
+  - :heavy_check_mark: add a "originally published at" line to blogpost component
 - multiple authors support
 - revamp how SEO component works
   - migrate from Helmet props to nested html tags?
   - pass less props into SEO component
+- Document what tasks individual components perform, how ones include others
+- make tags array optional
+  - cannot return null for non-nullable field MdxTag.id

@@ -9,12 +9,20 @@ const BlogPost = ({ post, basePath, context }) => {
     <>
       <h1>{post.title}</h1>
       {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
+      {post.canonicalUrl ? (
+        <p css={{ color: "rgba(0,0,0,0.7)", lineHeight: 2 }}>
+          <em>
+            Originally published at{" "}
+            <a href={post.canonicalUrl}>{post.canonicalUrl}</a>
+          </em>
+        </p>
+      ) : null}{" "}
       <MDXRenderer>{post.body}</MDXRenderer>
       <div>
         <p>Tagged with:</p>
         <ul>
           {post.tags.map(tag => (
-            <li key={tag.slug}>
+            <li key={tag.slug} css={{ margin: "0.3rem" }}>
               <Link to={`/${basePath}/tag/${tag.slug}`}>{tag.name}</Link>
             </li>
           ))}
