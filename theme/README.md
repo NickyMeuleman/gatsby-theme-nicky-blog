@@ -209,3 +209,5 @@ export default () => (
 - Document what tasks individual components perform, how ones include others
 - make tags array optional
   - cannot return null for non-nullable field MdxTag.id
+
+* test from unforked gatsby-theme-repo
