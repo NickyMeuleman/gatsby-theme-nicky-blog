@@ -12,7 +12,7 @@ const slugify = str => {
   return slug
 }
 
-// Make sure the data directory exists
+// Make sure the content directory exists
 exports.onPreBootstrap = ({ reporter }, options) => {
   const contentPath = options.contentPath || "content"
   if (!fs.existsSync(contentPath)) {
@@ -21,19 +21,10 @@ exports.onPreBootstrap = ({ reporter }, options) => {
   }
 }
 
-// Define the "BlogPost" type
-// is there a way to just grab everything on an mdx node? no body/excerpt/timetoread/...
-// should I do this in createSchemaCustomization or sourceNodes? What's the difference?
 exports.sourceNodes = ({ actions, schema }) => {
   // either SDL or graphql-js!
   actions.createTypes(`
-  interface Tag @nodeInterface {
-    id: ID!
-    name: String!
-    slug: String!
-  }`)
-  actions.createTypes(`
-  type MdxTag implements Node & Tag {
+  type Tag implements Node {
     id: ID!
     name: String!
     slug: String!
@@ -43,7 +34,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       id: ID!
       date: Date!
       slug: String!
-      tags: [Tag!]!
+      tags: [Tag]
       title: String!
       body: String!
     }
@@ -56,8 +47,8 @@ exports.sourceNodes = ({ actions, schema }) => {
       date: Date! @dateformat
       canonicalUrl: String
       author: String
-      tags: [MdxTag!]!
-      keywords: [String!]!
+      tags: [Tag]
+      keywords: [String]
       excerpt(pruneLength: Int = 140): String!
       body: String!
       cover: File @fileByRelativePath
@@ -101,6 +92,14 @@ exports.createResolvers = ({ createResolvers }) => {
       tableOfContents: {
         resolve: mdxResolverPassthrough(`tableOfContents`),
       },
+      tags: {
+        resolve: (source, args, context, info) => {
+          // get Tag nodes that belong to the MdxBlogPost node
+          return context.nodeModel
+            .getAllNodes({ type: "Tag" })
+            .filter(node => node.parent === source.id)
+        },
+      },
     },
   })
 }
@@ -129,10 +128,10 @@ exports.onCreateNode = (
 
       const fieldData = {
         title: node.frontmatter.title,
-        tags: (node.frontmatter.tags || []).map(tag => ({
-          name: tag,
-          slug: slugify(tag),
-        })),
+        // this isn't of type Tag, but after the custom resolver it will be.
+        // however, querying on a field under that Tag type
+        // (eg. allBlogPost(filter: {tags: {elemMatch: {slug: {eq: "lorem-ipsum"}}}})) will fail, how should I fix this?
+        tags: node.frontmatter.tags || [],
         slug,
         date: node.frontmatter.date,
         author: node.frontmatter.author,
@@ -141,7 +140,8 @@ exports.onCreateNode = (
         canonicalUrl: node.frontmatter.canonicalUrl,
       }
 
-      // create a BlogPost node that satisfies the BlogPost interface we created in createTypes
+      // create an MdxBlogPost node that almost satisfies the MdxBlogPost type we created in createTypes
+      // regarding the almost: see comment above about the tags
       createNode({
         ...fieldData,
         // Required fields.
@@ -159,27 +159,29 @@ exports.onCreateNode = (
     }
   }
 
-  // Create MdxTag nodes from MdxBlogPost nodes
+  // Create Tag nodes from MdxBlogPost nodes
+  // doing this to get the allTags query with all its argumenty goodness :shrug:
+  // also, doing this to get the tag query
   if (node.internal.type === `MdxBlogPost`) {
     const parent = getNode(node.parent)
-    ;(node.tags || []).forEach((tag, i) => {
+    node.tags.forEach((tag, i) => {
       const fieldData = {
-        name: tag.name,
-        slug: tag.slug,
+        name: tag,
+        slug: slugify(tag),
       }
 
-      // create a Tag node that satisfies the Tag interface we created in createTypes
+      // create a Tag node that satisfies the Tag type we created in createTypes
       createNode({
         ...fieldData,
         // Required fields.
-        id: createNodeId(`${node.id}${i} >>> MdxTag`),
+        id: createNodeId(`${node.id}${i} >>> Tag`),
         parent: node.id,
         children: [],
         internal: {
-          type: `MdxTag`,
+          type: `Tag`,
           contentDigest: createContentDigest(fieldData),
           content: JSON.stringify(fieldData),
-          description: `Mdx Tags`,
+          description: `Tags`,
         },
       })
       createParentChildLink({ parent, child: node })
