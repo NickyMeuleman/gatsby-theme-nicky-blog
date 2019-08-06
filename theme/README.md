@@ -120,8 +120,8 @@ In `.md` or `.mdx` files those are set via the frontmatter.
 | `title`        | string                       | yes      | title of your blogpost                    |
 | `date`         | date string                  | yes      | the date tied to the post                 |
 | `canonicalUrl` | full url string              | no       | Canonical url                             |
-| `author`       | author string                | no       | Author of the post                        |
-| `tags`         | array of tag strings         | yes      | tags for this post                        |
+| `author`       | author name string           | no       | Author of the post                        |
+| `tags`         | array of tag strings         | no       | tags for this post                        |
 | `keywords`     | array of keyword strings     | no       | keywords for SEO                          |
 | `cover`        | relative path to cover image | no       | displayed as cover image, in social cards |
 
@@ -188,7 +188,7 @@ export default () => (
 
 ### dev notes
 
-- Multi sourcing
+- 🚧 👷 Multi sourcing
 - revamp way slugs are handled
 - code blocks
 - some light styling?
@@ -202,12 +202,10 @@ export default () => (
 - :heavy_check_mark: canonical url support:
   - :heavy_check_mark: functionality works, now add docs
   - :heavy_check_mark: add a "originally published at" line to blogpost component
-- multiple authors support
+- :heavy_check_mark: multiple authors support
 - revamp how SEO component works
   - migrate from Helmet props to nested html tags?
   - pass less props into SEO component
 - Document what tasks individual components perform, how ones include others
-- make tags array optional
-  - cannot return null for non-nullable field MdxTag.id
-
-* test from unforked gatsby-theme-repo
+- :heavy_check_mark: make tags array optional
+  - :heavy_check_mark: cannot return null for non-nullable field MdxTag.id

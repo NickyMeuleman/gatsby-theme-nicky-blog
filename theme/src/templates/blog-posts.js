@@ -35,7 +35,9 @@ export const BlogPostsTemplateQuery = graphql`
         node {
           ... on MdxBlogPost {
             id
-            author
+            author {
+              name
+            }
             tags {
               name
               slug

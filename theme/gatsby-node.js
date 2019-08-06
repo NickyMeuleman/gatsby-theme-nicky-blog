@@ -204,7 +204,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
       }
 
       const fieldData = {
-        // leaving tags array here to transform them into Tag types later
+        // leaving tags array here to transform entries into Tag types later
         tags: node.frontmatter.tags || [],
         // leaving slug here because I want to be able to filter BlogPosts based on it
         slug,
