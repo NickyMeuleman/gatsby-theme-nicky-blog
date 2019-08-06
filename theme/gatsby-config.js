@@ -36,6 +36,8 @@ module.exports = ({ contentPath = "content", basePath = "" } = {}) => ({
         remarkPlugins: [require(`remark-slug`)],
       },
     },
+    `gatsby-transformer-json`,
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-theme-ui`,
     `gatsby-plugin-catch-links`,

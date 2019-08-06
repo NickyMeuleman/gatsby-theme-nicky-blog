@@ -12,52 +12,6 @@ const slugify = str => {
   return slug
 }
 
-// Make sure the content directory exists
-exports.onPreBootstrap = ({ reporter }, options) => {
-  const contentPath = options.contentPath || "content"
-  if (!fs.existsSync(contentPath)) {
-    reporter.info(`creating the ${contentPath} directory`)
-    fs.mkdirSync(contentPath)
-  }
-}
-
-exports.sourceNodes = ({ actions, schema }) => {
-  // either SDL or graphql-js!
-  actions.createTypes(`
-  type Tag implements Node {
-    id: ID!
-    name: String!
-    slug: String!
-  }`)
-  actions.createTypes(`
-    interface BlogPost @nodeInterface {
-      id: ID!
-      date: Date!
-      slug: String!
-      tags: [Tag]
-      title: String!
-      body: String!
-    }
-  `)
-  actions.createTypes(`
-    type MdxBlogPost implements Node & BlogPost {
-      id: ID!
-      slug: String!
-      title: String!
-      date: Date! @dateformat
-      canonicalUrl: String
-      author: String
-      tags: [Tag]
-      keywords: [String]
-      excerpt(pruneLength: Int = 140): String!
-      body: String!
-      cover: File @fileByRelativePath
-      timeToRead: Int
-      tableOfContents(maxDepth: Int = 6): JSON
-    }
-  `)
-}
-
 // helper that grabs the mdx resolver when given a string fieldname
 const mdxResolverPassthrough = fieldName => async (
   source,
@@ -76,32 +30,117 @@ const mdxResolverPassthrough = fieldName => async (
   return result
 }
 
-// Define resolvers for custom fields
-exports.createResolvers = ({ createResolvers }) => {
-  createResolvers({
-    MdxBlogPost: {
-      excerpt: {
-        resolve: mdxResolverPassthrough(`excerpt`),
+// Make sure the content directory exists
+exports.onPreBootstrap = ({ reporter }, options) => {
+  const contentPath = options.contentPath || "content"
+  if (!fs.existsSync(contentPath)) {
+    reporter.info(`creating the ${contentPath} directory`)
+    fs.mkdirSync(contentPath)
+  }
+}
+
+exports.createSchemaCustomization = ({ actions, schema }) => {
+  const { createTypes } = actions
+  const { buildObjectType } = schema
+  const typeDefs = `
+  interface Author @nodeInterface {
+    id: ID!
+    name: String!
+    twitter: String!
+  }
+    type AuthorsJson implements Node  & Author {
+      id: ID!
+    name: String!
+    twitter: String!
+    }
+    type AuthorsYaml implements Node  & Author {
+      id: ID!
+    name: String!
+    twitter: String!
+    }
+    type Tag implements Node {
+    id: ID!
+    name: String!
+    slug: String!
+  }
+    interface BlogPost @nodeInterface {
+      id: ID!
+      date: Date! @dateformat
+      slug: String!
+      tags: [Tag] 
+      author: Author
+      title: String!
+      body: String!
+    }
+  `
+  const MdxBlogPost = buildObjectType({
+    name: "MdxBlogPost",
+    interfaces: ["Node", "BlogPost"],
+    fields: {
+      id: "ID!",
+      slug: "String!",
+      title: "String!",
+      date: {
+        type: "Date!",
+        extensions: {
+          dateformat: {},
+        },
       },
-      body: {
-        resolve: mdxResolverPassthrough(`body`),
-      },
-      timeToRead: {
-        resolve: mdxResolverPassthrough(`timeToRead`),
-      },
-      tableOfContents: {
-        resolve: mdxResolverPassthrough(`tableOfContents`),
-      },
+      canonicalUrl: "String",
       tags: {
-        resolve: (source, args, context, info) => {
+        type: "[Tag]",
+        extensions: {
+          link: { by: "name" },
+        },
+        resolve(source, args, context, info) {
           // get Tag nodes that belong to the MdxBlogPost node
           return context.nodeModel
             .getAllNodes({ type: "Tag" })
             .filter(node => node.parent === source.id)
         },
       },
+      author: {
+        type: "Author",
+        extensions: {
+          link: { by: "name" },
+        },
+      },
+      keywords: "[String]",
+      excerpt: {
+        type: "String!",
+        args: {
+          pruneLength: {
+            type: "Int",
+            defaultValue: 140,
+          },
+        },
+        resolve: mdxResolverPassthrough(`excerpt`),
+      },
+      body: {
+        type: "String!",
+        resolve: mdxResolverPassthrough(`body`),
+      },
+      cover: {
+        type: "File",
+        extensions: {
+          fileByRelativePath: {},
+        },
+      },
+      timeToRead: {
+        type: "Int",
+        resolve: mdxResolverPassthrough(`timeToRead`),
+      },
+      tableOfContents: {
+        type: "JSON",
+        args: {
+          maxDepth: { type: "Int", defaultValue: 6 },
+        },
+        resolve: mdxResolverPassthrough(`tableOfContents`),
+      },
     },
   })
+  // SDL or graphql-js as argument(s) to createTypes!
+  createTypes([typeDefs, MdxBlogPost])
 }
 
 exports.onCreateNode = (
