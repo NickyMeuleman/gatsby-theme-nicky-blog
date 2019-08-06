@@ -48,55 +48,83 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: String!
     twitter: String!
   }
-    type AuthorsJson implements Node  & Author {
-      id: ID!
+  type AuthorsJson implements Node & Author {
+    id: ID!
     name: String!
     twitter: String!
-    }
-    type AuthorsYaml implements Node  & Author {
-      id: ID!
+  }
+  type AuthorsYaml implements Node & Author {
+    id: ID!
     name: String!
     twitter: String!
-    }
-    type Tag implements Node {
+  }
+  type Tag implements Node {
     id: ID!
     name: String!
     slug: String!
   }
-    interface BlogPost @nodeInterface {
-      id: ID!
-      date: Date! @dateformat
-      slug: String!
-      tags: [Tag] 
-      author: Author
-      title: String!
-      body: String!
-    }
+  interface BlogPost @nodeInterface {
+    id: ID!
+    date: Date! @dateformat
+    slug: String!
+    tags: [Tag]
+    author: Author
+    title: String!
+    body: String!
+  }
   `
+
   const MdxBlogPost = buildObjectType({
+    // the source in resolvers is the MdxBlogPost node
     name: "MdxBlogPost",
     interfaces: ["Node", "BlogPost"],
     fields: {
       id: "ID!",
-      slug: "String!",
-      title: "String!",
+      slug: {
+        type: "String!",
+        resolve: (source, args, context, info) => {
+          // any other way to accomplish this?
+          // This feels like running around the block to arrive nextdoor
+          const mdxNode = context.nodeModel.getNodeById({
+            id: source.parent,
+          })
+          const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
+          return fileNode.relativeDirectory
+        },
+      },
+      title: {
+        type: "String!",
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          return parent.frontmatter.title
+        },
+      },
       date: {
         type: "Date!",
         extensions: {
           dateformat: {},
         },
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          return parent.frontmatter.date
+        },
       },
-      canonicalUrl: "String",
+      canonicalUrl: {
+        type: "String",
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          return parent.frontmatter.canonicalUrl
+        },
+      },
       tags: {
         type: "[Tag]",
         extensions: {
           link: { by: "name" },
         },
-        resolve(source, args, context, info) {
-          // get Tag nodes that belong to the MdxBlogPost node
-          return context.nodeModel
-            .getAllNodes({ type: "Tag" })
-            .filter(node => node.parent === source.id)
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          // return flat array of tags, works because of the link(by:"name") extension
+          return parent.frontmatter.tags
         },
       },
       author: {
@@ -104,8 +132,19 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         extensions: {
           link: { by: "name" },
         },
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          // return plain author string, works because of the link(by:"name") extension
+          return parent.frontmatter.author
+        },
       },
-      keywords: "[String]",
+      keywords: {
+        type: "[String]",
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          return parent.frontmatter.keywords || []
+        },
+      },
       excerpt: {
         type: "String!",
         args: {
@@ -125,6 +164,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         extensions: {
           fileByRelativePath: {},
         },
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          return parent.frontmatter.cover
+        },
       },
       timeToRead: {
         type: "Int",
@@ -143,87 +186,71 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   createTypes([typeDefs, MdxBlogPost])
 }
 
-exports.onCreateNode = (
-  { node, actions, getNode, createNodeId, createContentDigest },
-  options
-) => {
+exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
   const { createNode, createParentChildLink } = actions
   const contentPath = options.contentPath || "content"
 
-  // Create BlogPost nodes from Mdx nodes
+  // Create MdxBlogPost nodes from Mdx nodes
   if (node.internal.type === `Mdx`) {
-    const parent = getNode(node.parent)
-    const source = parent.sourceInstanceName
-    // Create source field (according to contentPath)
+    const parent = getNode(node.parent) // get the File node
+    const source = parent.sourceInstanceName // get folder name those files are in
+
+    // only create MdxBlogPost nodes for .mdx files in the correct folder
     if (source === contentPath) {
-      let slug = createFilePath({ node, getNode })
-      if (slug.endsWith("/")) {
-        // if user entered basePath that ends in "/"
-        slug = slug.slice(0, -1)
-      }
+      // duplicate (kinda) slug logic from the slug resolver
+      let slug = createFilePath({ node, getNode, trailingSlash: false })
       if (slug.startsWith("/")) {
         slug = slug.slice(1)
       }
 
       const fieldData = {
-        title: node.frontmatter.title,
-        // this isn't of type Tag, but after the custom resolver it will be.
-        // however, querying on a field under that Tag type
-        // (eg. allBlogPost(filter: {tags: {elemMatch: {slug: {eq: "lorem-ipsum"}}}})) will fail, how should I fix this?
+        // leaving tags array here to transform them into Tag types later
         tags: node.frontmatter.tags || [],
+        // leaving slug here because I want to be able to filter BlogPosts based on it
         slug,
-        date: node.frontmatter.date,
-        author: node.frontmatter.author,
-        keywords: node.frontmatter.keywords || [],
-        cover: node.frontmatter.cover,
-        canonicalUrl: node.frontmatter.canonicalUrl,
       }
 
-      // create an MdxBlogPost node that almost satisfies the MdxBlogPost type we created in createTypes
-      // regarding the almost: see comment above about the tags
-      createNode({
+      const proxyNode = {
         ...fieldData,
-        // Required fields.
         id: createNodeId(`${node.id} >>> MdxBlogPost`),
         parent: node.id,
         children: [],
         internal: {
           type: `MdxBlogPost`,
-          contentDigest: createContentDigest(fieldData),
+          contentDigest: node.internal.contentDigest,
           content: JSON.stringify(fieldData),
-          description: `Satisfies the BlogPost interface for Mdx`,
+          description: `MdxBlogPost node`,
         },
-      })
-      createParentChildLink({ parent, child: node })
+      }
+      createNode(proxyNode)
+      createParentChildLink({ parent: node, child: proxyNode })
     }
   }
 
   // Create Tag nodes from MdxBlogPost nodes
-  // doing this to get the allTags query with all its argumenty goodness :shrug:
-  // also, doing this to get the tag query
   if (node.internal.type === `MdxBlogPost`) {
-    const parent = getNode(node.parent)
+    // creating a Tag node for every entry in an MdxBlogPost tag array
     node.tags.forEach((tag, i) => {
       const fieldData = {
         name: tag,
         slug: slugify(tag),
       }
 
-      // create a Tag node that satisfies the Tag type we created in createTypes
-      createNode({
+      const proxyNode = {
         ...fieldData,
-        // Required fields.
         id: createNodeId(`${node.id}${i} >>> Tag`),
         parent: node.id,
         children: [],
         internal: {
           type: `Tag`,
-          contentDigest: createContentDigest(fieldData),
+          contentDigest: node.internal.contentDigest,
           content: JSON.stringify(fieldData),
-          description: `Tags`,
+          description: `Tag node`,
         },
-      })
-      createParentChildLink({ parent, child: node })
+      }
+
+      createNode(proxyNode)
+      createParentChildLink({ parent: node, child: proxyNode })
     })
   }
 }
