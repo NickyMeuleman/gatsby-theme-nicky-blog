@@ -16,6 +16,9 @@
   },
   "scripts": {
     "lint:theme": "eslint 'theme/**/*.js'",
-    "format:demo": "prettier 'demo/**/*.{js,jsx,json,md,mdx}'"
+    "format:demo": "prettier 'demo/**/*.{js,jsx,json,md,mdx}'",
+    "info": "gatsby info --clipboard",
+    "clean": "yarn workspace demo clean",
+    "demo": "yarn workspace demo develop -H 0.0.0.0"
   }
 }

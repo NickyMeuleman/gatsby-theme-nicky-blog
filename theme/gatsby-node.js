@@ -71,6 +71,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     author: Author
     title: String!
     body: String!
+    published: Boolean
   }
   `
 
@@ -180,6 +181,16 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
         resolve: mdxResolverPassthrough(`tableOfContents`),
       },
+      published: {
+        type: "Boolean",
+        resolve: (source, args, context, info) => {
+          const parent = context.nodeModel.getNodeById({ id: source.parent })
+          // set default result when field is not provided
+          return parent.frontmatter.published === undefined
+            ? true
+            : parent.frontmatter.published
+        },
+      },
     },
   })
   // SDL or graphql-js as argument(s) to createTypes!
@@ -257,13 +268,19 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const basePath = options.basePath || ""
+  // ! find way to filter tags from posts marked unpublished
   const result = await graphql(`
     query createPagesQuery {
-      allBlogPost(sort: { fields: date, order: DESC }) {
-        edges {
-          node {
-            slug
-          }
+      allBlogPost(
+        sort: { fields: date, order: DESC }
+        filter: { ${
+          process.env.NODE_ENV === "production"
+            ? "published: { ne: false }"
+            : ""
+        } }
+      ) {
+        nodes {
+          slug
         }
       }
       allTag {

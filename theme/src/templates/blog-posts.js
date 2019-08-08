@@ -29,6 +29,7 @@ export const BlogPostsTemplateQuery = graphql`
       sort: { fields: [date], order: DESC }
       limit: $limit
       skip: $skip
+      filter: { published: { ne: false } }
     ) {
       totalCount
       edges {

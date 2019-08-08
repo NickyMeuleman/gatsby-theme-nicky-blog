@@ -209,3 +209,5 @@ export default () => (
 - Document what tasks individual components perform, how ones include others
 - :heavy_check_mark: make tags array optional
   - :heavy_check_mark: cannot return null for non-nullable field MdxTag.id
+- published frontmatter field.
+  - option to hide unpublished articles when running "gatsby develop"?
