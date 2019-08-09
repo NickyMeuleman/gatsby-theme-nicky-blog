@@ -67,8 +67,8 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     id: ID!
     date: Date! @dateformat
     slug: String!
-    tags: [Tag]
-    author: Author
+    tags: [Tag] @link(by: "name")
+    author: Author @link(by: "name")
     title: String!
     body: String!
     published: Boolean
@@ -197,7 +197,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   createTypes([typeDefs, MdxBlogPost])
 }
 
-exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
+exports.onCreateNode = (
+  { node, actions, getNode, createNodeId, createContentDigest },
+  options
+) => {
   const { createNode, createParentChildLink } = actions
   const contentPath = options.contentPath || "content"
 
@@ -215,10 +218,12 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
       }
 
       const fieldData = {
-        // leaving tags array here to transform entries into Tag types later
+        // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
-        // leaving slug here because I want to be able to filter BlogPosts based on it
+        // here to be able to use filters in graphql
         slug,
+        // here to be able to use filters in graphql
+        published: node.frontmatter.published,
       }
 
       const proxyNode = {
@@ -245,6 +250,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
       const fieldData = {
         name: tag,
         slug: slugify(tag),
+        // TODO: How to filter tags based on parents published field
+        // field on a tagnode to be able to filter nodes belonging to unpublished posts
+        // duplicate logic from blogpost published resolver.
+        postPublished: node.published === undefined ? true : node.published,
       }
 
       const proxyNode = {
@@ -254,7 +263,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
         children: [],
         internal: {
           type: `Tag`,
-          contentDigest: node.internal.contentDigest,
+          contentDigest: createContentDigest(fieldData),
           content: JSON.stringify(fieldData),
           description: `Tag node`,
         },
@@ -268,7 +277,6 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }, options) => {
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const basePath = options.basePath || ""
-  // ! find way to filter tags from posts marked unpublished
   const result = await graphql(`
     query createPagesQuery {
       allBlogPost(
@@ -283,7 +291,9 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
           slug
         }
       }
-      allTag {
+      allTag(
+        filter: { postPublished: { ne: false } }
+        ) {
         distinct(field: slug)
       }
     }
@@ -295,12 +305,12 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   }
 
   const { allBlogPost, allTag } = result.data
-  const posts = allBlogPost.edges
+  const posts = allBlogPost.nodes
 
   // create a page for each blogPost
-  posts.forEach(({ node: post }, i) => {
-    const next = i === 0 ? null : posts[i - 1].node
-    const prev = i === posts.length - 1 ? null : posts[i + 1].node
+  posts.forEach((post, i) => {
+    const next = i === 0 ? null : posts[i - 1]
+    const prev = i === posts.length - 1 ? null : posts[i + 1]
     const { slug } = post
     actions.createPage({
       path: path.join(basePath, slug),

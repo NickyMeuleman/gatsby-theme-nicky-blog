@@ -31,7 +31,7 @@ const TagsTemplate = ({ data, pageContext }) => {
 
 export const tagsTemplateQuery = graphql`
   query TagsTemplateQuery {
-    allTag {
+    allTag(filter: { postPublished: { ne: false } }) {
       group(field: slug, limit: 1) {
         edges {
           node {
