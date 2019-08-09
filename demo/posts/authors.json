@@ -1,4 +1,8 @@
 [
-  { "name": "Nicky Meuleman", "twitter": "NMeuleman" },
-  { "name": "Daniel Ricciardo", "twitter": "DanielRicciardo" }
+  { "shortName": "nicky", "name": "Nicky Meuleman", "twitter": "NMeuleman" },
+  {
+    "shortName": "honeybadger",
+    "name": "Daniel Ricciardo",
+    "twitter": "danielricciardo"
+  }
 ]

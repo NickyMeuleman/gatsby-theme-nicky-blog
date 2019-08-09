@@ -92,10 +92,13 @@ module.exports = {
 In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. The title of this folder will serve as the slug for the blogpost.
 Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files that can then be referenced easily inside that `.md(x)` file.
 
+### Adding authors
+
+In the folder that was created for the `contentPath` (`content` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of author objects.
+
 #### Example folder tree
 
 <!-- prettier-ignore-start -->
-```sh
 .
 └── content
     ├── my-first-post
@@ -103,12 +106,34 @@ Inside that folder, an `index.mdx` or `index.md` file will be the blog post itse
     │   ├── coverPhoto.jpg
     │   ├── boop.png
     │   └── infinite-boop.gif
-    └── my-second-post
-        ├── index.md
-        ├── f1-car.jpg
-        └── speed-data.svg
-```
+    ├── my-second-post
+    │   ├── index.md
+    │   ├── f1-car.jpg
+    │   └── speed-data.svg
+    └── authors.yaml
+<!-- # content
+## my-first-post
+### index.mdx
+### coverPhoto.jpg
+### boop.png
+### infinite-boop.gif
+## my-second-post
+### index.md
+### f1-car.jpg
+### speed-data.svg
+## authors.yaml -->
 <!-- prettier-ignore-end -->
+
+#### Anatomy of an authors file
+
+An authors file contains a top level array filled with object describing individual authors.
+An author can have several different field with information specific to them.
+
+| Key         | Value  | Required | Description                                                                 |
+| ----------- | ------ | -------- | --------------------------------------------------------------------------- |
+| `shortName` | string | yes      | **unique** identifier for the author, used in `author` field for blog posts |
+| `name`      | string | yes      | full name eg. "Nicky Meuleman"                                              |
+| `twitter`   | string | no       | twitter handle without @                                                    |
 
 #### Anatomy of a blogpost
 
@@ -120,10 +145,11 @@ In `.md` or `.mdx` files those are set via the frontmatter.
 | `title`        | string                       | yes      | title of your blogpost                    |
 | `date`         | date string                  | yes      | the date tied to the post                 |
 | `canonicalUrl` | full url string              | no       | Canonical url                             |
-| `author`       | author name string           | no       | Author of the post                        |
+| `author`       | author `shortName` string    | no       | Author of the post                        |
 | `tags`         | array of tag strings         | no       | tags for this post                        |
 | `keywords`     | array of keyword strings     | no       | keywords for SEO                          |
 | `cover`        | relative path to cover image | no       | displayed as cover image, in social cards |
+| `published`    | boolean, defaults to `true`  | no       | include post in production                |
 
 ### Exported components
 
@@ -209,5 +235,6 @@ export default () => (
 - Document what tasks individual components perform, how ones include others
 - :heavy_check_mark: make tags array optional
   - :heavy_check_mark: cannot return null for non-nullable field MdxTag.id
-- published frontmatter field.
+- :heavy_check_mark: published frontmatter field.
   - option to hide unpublished articles when running "gatsby develop"?
+- different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)

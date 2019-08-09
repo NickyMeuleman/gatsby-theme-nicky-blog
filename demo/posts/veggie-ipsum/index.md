@@ -1,6 +1,6 @@
 ---
 title: Veggie ipsum
-author: "Nicky Meuleman"
+author: "max"
 date: 2019-07-20
 tags: ["vegetables", "lorem ipsum"]
 ---

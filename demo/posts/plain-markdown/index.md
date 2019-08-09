@@ -1,6 +1,6 @@
 ---
 title: Plain markdown works too!
-author: "Nicky Meuleman"
+author: "nicky"
 date: 2019-07-20
 tags: ["markdown", "boop"]
 ---

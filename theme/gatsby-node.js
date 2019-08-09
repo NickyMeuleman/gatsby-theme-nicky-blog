@@ -45,18 +45,21 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   const typeDefs = `
   interface Author @nodeInterface {
     id: ID!
+    shortName: String!
     name: String!
-    twitter: String!
+    twitter: String
   }
   type AuthorsJson implements Node & Author {
     id: ID!
+    shortName: String!
     name: String!
-    twitter: String!
+    twitter: String
   }
   type AuthorsYaml implements Node & Author {
     id: ID!
+    shortName: String!
     name: String!
-    twitter: String!
+    twitter: String
   }
   type Tag implements Node {
     id: ID!
@@ -68,7 +71,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     date: Date! @dateformat
     slug: String!
     tags: [Tag] @link(by: "name")
-    author: Author @link(by: "name")
+    author: Author @link(by: "shortName")
     title: String!
     body: String!
     published: Boolean
@@ -131,7 +134,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       author: {
         type: "Author",
         extensions: {
-          link: { by: "name" },
+          link: { by: "shortName" },
         },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
