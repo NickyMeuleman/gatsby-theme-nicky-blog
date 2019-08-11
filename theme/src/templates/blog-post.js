@@ -21,6 +21,7 @@ const BlogPostTemplate = ({ data, pageContext }) => {
             : "/icons/icon-256x256.png"
         }
         canonicalUrl={post.canonicalUrl}
+        twitterHandle={post.author.twitter}
       />
       <BlogPost
         post={post}
@@ -43,6 +44,10 @@ export const query = graphql`
         tags {
           name
           slug
+        }
+        author {
+          name
+          twitter
         }
         title
         cover {

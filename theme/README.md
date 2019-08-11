@@ -79,7 +79,7 @@ module.exports = {
     title: `My Blog Title`,
     // Used for SEO
     description: `My site description...`,
-    // Used for SEO
+    // Used for SEO and as default if an author has no twitter defined
     social: {
       twitter: `@NMeuleman`,
     },

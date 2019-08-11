@@ -13,6 +13,7 @@ const SEO = ({
   keywords,
   basePath,
   canonicalUrl,
+  twitterHandle,
 }) => {
   const result = useStaticQuery(graphql`
     query GetSiteMetadata {
@@ -86,7 +87,7 @@ const SEO = ({
         },
         {
           name: "twitter:creator",
-          content: siteMetadata.social.twitter,
+          content: `@${twitterHandle}` || siteMetadata.social.twitter,
         },
         {
           name: "twitter:title",
