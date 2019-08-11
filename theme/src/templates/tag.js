@@ -29,7 +29,7 @@ export const tagTemplateQuery = graphql`
   query TagTemplateQuery($slug: String) {
     allBlogPost(
       filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
-      sort: { fields: date, order: DESC }
+      sort: { fields: [date], order: DESC }
     ) {
       edges {
         node {

@@ -223,10 +223,10 @@ exports.onCreateNode = (
       const fieldData = {
         // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
-        // here to be able to use filters in graphql
+        // these fields are here to be able to use filters in graphql
         slug,
-        // here to be able to use filters in graphql
         published: node.frontmatter.published,
+        date: node.frontmatter.date,
       }
 
       const proxyNode = {
