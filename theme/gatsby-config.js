@@ -1,4 +1,8 @@
-module.exports = ({ contentPath = `content`, basePath = `` } = {}) => ({
+module.exports = ({
+  contentPath = `content`,
+  basePath = ``,
+  assetPath = `assets`,
+} = {}) => ({
   siteMetadata: {
     siteUrl: `https://myurl.com`,
     title: `Gatsby Theme Blog by NMeuleman`,
@@ -12,8 +16,15 @@ module.exports = ({ contentPath = `content`, basePath = `` } = {}) => ({
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: contentPath || `content`,
-        path: contentPath || `content`,
+        name: contentPath,
+        path: contentPath,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: assetPath,
+        path: assetPath,
       },
     },
     `gatsby-transformer-sharp`,

@@ -1,9 +1,3 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
-
 module.exports = {
   siteMetadata: {
     siteUrl: "https://gatsby-theme-nicky-blog.netlify.com",
@@ -18,6 +12,7 @@ module.exports = {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
+        assetPath: "data",
         // basePath: "blog",
         // not specifying the pagination object will create a single listing page
         pagination: {

@@ -237,5 +237,6 @@ export default () => (
   - [x] cannot return null for non-nullable field MdxTag.id
 - [x] published frontmatter field.
   - ~~[ ] option to hide unpublished articles when running "gatsby develop"?~~ hidden in blog list, individual pages exist.
-- [ ] different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)
+- [x] different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)
 - [ ] Ability to specify path in frontmatter. See: https://github.com/gatsbyjs/gatsby/pull/16611
+- [ ] Investigate double images when linked like `![](image.png)` in mdx. Blurry and fullsize.

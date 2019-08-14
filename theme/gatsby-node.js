@@ -1,5 +1,6 @@
 const fs = require(`fs`)
-const path = require("path")
+const path = require(`path`)
+const mkdirp = require(`mkdirp`)
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
@@ -7,8 +8,8 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 const slugify = str => {
   const slug = str
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-\$)+/g, "")
+    .replace(/[^a-z0-9]+/g, `-`)
+    .replace(/(^-|-\$)+/g, ``)
   return slug
 }
 
@@ -30,13 +31,21 @@ const mdxResolverPassthrough = fieldName => async (
   return result
 }
 
-// Make sure the content directory exists
-exports.onPreBootstrap = ({ reporter }, options) => {
-  const contentPath = options.contentPath || "content"
-  if (!fs.existsSync(contentPath)) {
-    reporter.info(`creating the ${contentPath} directory`)
-    fs.mkdirSync(contentPath)
-  }
+// Make sure directories exist
+exports.onPreBootstrap = ({ store, reporter }, options) => {
+  const { program } = store.getState()
+
+  const dirs = [
+    path.join(program.directory, options.contentPath || `content`),
+    path.join(program.directory, options.assetPath || `assets`),
+  ]
+
+  dirs.forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      reporter.info(`creating the ${dir} directory`)
+      mkdirp.sync(dir)
+    }
+  })
 }
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
@@ -80,12 +89,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
 
   const MdxBlogPost = buildObjectType({
     // the source in resolvers is the MdxBlogPost node
-    name: "MdxBlogPost",
-    interfaces: ["Node", "BlogPost"],
+    name: `MdxBlogPost`,
+    interfaces: [`Node`, `BlogPost`],
     fields: {
-      id: "ID!",
+      id: `ID!`,
       slug: {
-        type: "String!",
+        type: `String!`,
         resolve: (source, args, context, info) => {
           // any other way to accomplish this?
           // This feels like running around the block to arrive nextdoor
@@ -97,14 +106,14 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       title: {
-        type: "String!",
+        type: `String!`,
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
           return parent.frontmatter.title
         },
       },
       date: {
-        type: "Date!",
+        type: `Date!`,
         extensions: {
           dateformat: {},
         },
@@ -114,16 +123,16 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       canonicalUrl: {
-        type: "String",
+        type: `String`,
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
           return parent.frontmatter.canonicalUrl
         },
       },
       tags: {
-        type: "[Tag]",
+        type: `[Tag]`,
         extensions: {
-          link: { by: "name" },
+          link: { by: `name` },
         },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
@@ -132,9 +141,9 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       author: {
-        type: "Author",
+        type: `Author`,
         extensions: {
-          link: { by: "shortName" },
+          link: { by: `shortName` },
         },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
@@ -143,28 +152,28 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       keywords: {
-        type: "[String]",
+        type: `[String]`,
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
           return parent.frontmatter.keywords || []
         },
       },
       excerpt: {
-        type: "String!",
+        type: `String!`,
         args: {
           pruneLength: {
-            type: "Int",
+            type: `Int`,
             defaultValue: 140,
           },
         },
         resolve: mdxResolverPassthrough(`excerpt`),
       },
       body: {
-        type: "String!",
+        type: `String!`,
         resolve: mdxResolverPassthrough(`body`),
       },
       cover: {
-        type: "File",
+        type: `File`,
         extensions: {
           fileByRelativePath: {},
         },
@@ -174,18 +183,18 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       timeToRead: {
-        type: "Int",
+        type: `Int`,
         resolve: mdxResolverPassthrough(`timeToRead`),
       },
       tableOfContents: {
-        type: "JSON",
+        type: `JSON`,
         args: {
-          maxDepth: { type: "Int", defaultValue: 6 },
+          maxDepth: { type: `Int`, defaultValue: 6 },
         },
         resolve: mdxResolverPassthrough(`tableOfContents`),
       },
       published: {
-        type: "Boolean",
+        type: `Boolean`,
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
           // set default result when field is not provided
@@ -205,7 +214,7 @@ exports.onCreateNode = (
   options
 ) => {
   const { createNode, createParentChildLink } = actions
-  const contentPath = options.contentPath || "content"
+  const contentPath = options.contentPath || `content`
 
   // Create MdxBlogPost nodes from Mdx nodes
   if (node.internal.type === `Mdx`) {
@@ -216,7 +225,7 @@ exports.onCreateNode = (
     if (source === contentPath) {
       // duplicate (kinda) slug logic from the slug resolver
       let slug = createFilePath({ node, getNode, trailingSlash: false })
-      if (slug.startsWith("/")) {
+      if (slug.startsWith(`/`)) {
         slug = slug.slice(1)
       }
 
@@ -279,15 +288,15 @@ exports.onCreateNode = (
 }
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  const basePath = options.basePath || ""
+  const basePath = options.basePath || ``
   const result = await graphql(`
     query createPagesQuery {
       allBlogPost(
         sort: { fields: date, order: DESC }
         filter: { ${
-          process.env.NODE_ENV === "production"
-            ? "published: { ne: false }"
-            : ""
+          process.env.NODE_ENV === `production`
+            ? `published: { ne: false }`
+            : ``
         } }
       ) {
         nodes {
@@ -303,7 +312,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   `)
 
   if (result.errors) {
-    reporter.panic("error loading data from graphql", result.error)
+    reporter.panic(`error loading data from graphql`, result.error)
     return
   }
 
@@ -317,7 +326,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     const { slug } = post
     actions.createPage({
       path: path.join(basePath, slug),
-      component: require.resolve("./src/templates/blog-post.js"),
+      component: require.resolve(`./src/templates/blog-post.js`),
       context: {
         slug,
         prev,
@@ -332,11 +341,11 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   let postsPerPage
   let prefixPath
   if (options.pagination) {
-    prefixPath = options.pagination.prefixPath || ""
+    prefixPath = options.pagination.prefixPath || ``
     postsPerPage = options.pagination.postsPerPage || 6
     numPages = Math.ceil(posts.length / postsPerPage)
   } else {
-    prefixPath = ""
+    prefixPath = ``
     numPages = 1
   }
 
@@ -355,9 +364,9 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     actions.createPage({
       path:
         index === 0
-          ? `${basePath || "/"}`
+          ? `${basePath || `/`}`
           : path.join(basePath, prefixPath, `${index + 1}`),
-      component: require.resolve("./src/templates/blog-posts.js"),
+      component: require.resolve(`./src/templates/blog-posts.js`),
       context: {
         ...paginationContext,
         basePath,
@@ -367,8 +376,8 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
 
   // create tag-list page
   actions.createPage({
-    path: path.join(basePath, "tag"),
-    component: require.resolve("./src/templates/tags.js"),
+    path: path.join(basePath, `tag`),
+    component: require.resolve(`./src/templates/tags.js`),
     context: {
       basePath,
     },
@@ -377,8 +386,8 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // create a page for each tag
   allTag.distinct.forEach(tagSlug => {
     actions.createPage({
-      path: path.join(basePath, "tag", tagSlug),
-      component: require.resolve("./src/templates/tag.js"),
+      path: path.join(basePath, `tag`, tagSlug),
+      component: require.resolve(`./src/templates/tag.js`),
       context: {
         slug: tagSlug,
         basePath,
