@@ -248,6 +248,6 @@ export default () => (
 - [x] Double images when linked like `![](image.png)` in mdx. Blurry and fullsize.
   - Eventual fix https://github.com/gatsbyjs/gatsby/issues/16242
   - temporary fix: add `plugins` instead of `gatsbyRemarkPlugins`
-- [ ] Add link icons next to headings via: https://theme-ui.com/recipes/linked-headings/
+- [x] Add link icons next to headings via: https://theme-ui.com/recipes/linked-headings/
   - note: Why was this better than `gatsby-remark-autolink-headers` again? Saw it in a GitHub issue somewhere
   - https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204 and https://github.com/gatsbyjs/gatsby/pull/14520

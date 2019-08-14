@@ -1,3 +1,5 @@
+const remarkSlug = require(`remark-slug`)
+
 module.exports = ({
   contentPath = `content`,
   basePath = ``,
@@ -54,7 +56,7 @@ module.exports = ({
             },
           },
         ],
-        remarkPlugins: [require(`remark-slug`)],
+        remarkPlugins: [remarkSlug],
       },
     },
     `gatsby-transformer-json`,
