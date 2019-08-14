@@ -100,18 +100,21 @@ In the folder that was created for the `contentPath` (`content` by default). Cre
 
 <!-- prettier-ignore-start -->
 .
-└── content
-    ├── my-first-post
-    │   ├── index.mdx
-    │   ├── coverPhoto.jpg
-    │   ├── boop.png
-    │   └── infinite-boop.gif
-    ├── my-second-post
-    │   ├── index.md
-    │   ├── f1-car.jpg
-    │   └── speed-data.svg
-    └── authors.yaml
-<!-- # content
+├── content
+│   ├── my-first-post
+│   │   ├── index.mdx
+│   │   ├── coverPhoto.jpg
+│   │   ├── boop.png
+│   │   └── infinite-boop.gif
+│   └── my-second-post
+│       ├── index.md
+│       ├── f1-car.jpg
+│       └── speed-data.svg
+└── assets
+    ├── authors.yaml
+    └── image-used-often.jpg
+<!-- 
+# content
 ## my-first-post
 ### index.mdx
 ### coverPhoto.jpg
@@ -121,7 +124,10 @@ In the folder that was created for the `contentPath` (`content` by default). Cre
 ### index.md
 ### f1-car.jpg
 ### speed-data.svg
-## authors.yaml -->
+# assets
+## authors.yaml 
+## image-used-often.jpg
+-->
 <!-- prettier-ignore-end -->
 
 #### Anatomy of an authors file
@@ -239,4 +245,9 @@ export default () => (
   - ~~[ ] option to hide unpublished articles when running "gatsby develop"?~~ hidden in blog list, individual pages exist.
 - [x] different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)
 - [ ] Ability to specify path in frontmatter. See: https://github.com/gatsbyjs/gatsby/pull/16611
-- [ ] Investigate double images when linked like `![](image.png)` in mdx. Blurry and fullsize.
+- [x] Double images when linked like `![](image.png)` in mdx. Blurry and fullsize.
+  - Eventual fix https://github.com/gatsbyjs/gatsby/issues/16242
+  - temporary fix: add `plugins` instead of `gatsbyRemarkPlugins`
+- [ ] Add link icons next to headings via: https://theme-ui.com/recipes/linked-headings/
+  - note: Why was this better than `gatsby-remark-autolink-headers` again? Saw it in a GitHub issue somewhere
+  - https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204 and https://github.com/gatsbyjs/gatsby/pull/14520

@@ -44,6 +44,16 @@ module.exports = ({
           { resolve: `gatsby-remark-copy-linked-files` },
           { resolve: `gatsby-remark-smartypants` },
         ],
+        // ! remove plugins when https://github.com/gatsbyjs/gatsby/issues/16242 gets merged
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1380,
+              linkImagesToOriginal: false,
+            },
+          },
+        ],
         remarkPlugins: [require(`remark-slug`)],
       },
     },
