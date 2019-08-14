@@ -6,10 +6,10 @@ import { jsx } from "theme-ui"
 const PostCard = props => (
   <div
     sx={{
-      padding: "2rem",
-      margin: "1rem",
-      border: "solid 1px #ccc",
-      "&:hover": { background: "#eee" },
+      padding: `2rem`,
+      margin: `1rem`,
+      border: `solid 1px #ccc`,
+      "&:hover": { background: `#eee` },
     }}
   >
     <div>
@@ -19,10 +19,10 @@ const PostCard = props => (
         ) : (
           <div
             style={{
-              height: "10rem",
-              width: "100%",
+              height: `10rem`,
+              width: `100%`,
               backgroundImage: `linear-gradient(120deg, purple, rebeccapurple)`,
-              opacity: "0.95",
+              opacity: `0.95`,
             }}
             aria-label={props.title}
           />

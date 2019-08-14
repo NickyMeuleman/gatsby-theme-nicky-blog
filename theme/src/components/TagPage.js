@@ -13,7 +13,7 @@ const TagPage = ({ data, basePath }) => {
       <p>
         <Link
           to={`${
-            basePath === "/" || basePath === "" ? "" : "/"
+            basePath === `/` || basePath === `` ? `` : `/`
           }${basePath}/tag`}
         >
           All tags
@@ -21,10 +21,10 @@ const TagPage = ({ data, basePath }) => {
       </p>
       <ul>
         {posts.map(post => (
-          <li key={post.slug} css={{ margin: "0.3rem" }}>
+          <li key={post.slug} css={{ margin: `0.3rem` }}>
             <Link
               to={`${
-                basePath === "/" || basePath === "" ? "" : "/"
+                basePath === `/` || basePath === `` ? `` : `/`
               }${basePath}/${post.slug}`}
             >
               {post.title}

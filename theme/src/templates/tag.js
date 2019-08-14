@@ -18,7 +18,7 @@ const TagTemplate = ({ data, pageContext }) => {
         description={`List of posts tagged with "${data.tag.name}"`}
         slug={`tag/${pageContext.slug}`}
         basePath={pageContext.basePath}
-        keywords={["tag", data.tag.name]}
+        keywords={[`tag`, data.tag.name]}
       />
       <TagPage data={pageData} basePath={pageContext.basePath} />
     </Layout>

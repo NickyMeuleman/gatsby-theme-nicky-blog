@@ -7,42 +7,41 @@ import nightOwl from "@theme-ui/prism/presets/night-owl.json"
 
 export default {
   colors: {
-    text: "#232129",
-    background: "#fff",
-    primary: "#639",
+    text: `#232129`,
+    background: `#fff`,
+    primary: `#639`,
   },
   fonts: {
-    default:
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+    default: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
   },
   fontSizes: [16, 18, 20, 22, 27, 36],
   lineHeights: {
-    text: "1.45",
-    heading: "1.1",
+    text: `1.45`,
+    heading: `1.1`,
   },
   sizes: {
     container: 650,
   },
   styles: {
     Layout: {
-      backgroundColor: "background",
-      color: "text",
-      fontFamily: "default",
+      backgroundColor: `background`,
+      color: `text`,
+      fontFamily: `default`,
       fontSize: 1,
-      lineHeight: "text",
+      lineHeight: `text`,
     },
     Header: {
-      backgroundColor: "primary",
-      color: "background",
-      fontWeight: "bold",
+      backgroundColor: `primary`,
+      color: `background`,
+      fontWeight: `bold`,
       margin: 0,
       h1: {
-        display: "block",
+        display: `block`,
         fontSize: 3,
-        margin: "0 auto",
-        maxWidth: "container",
+        margin: `0 auto`,
+        maxWidth: `container`,
         padding: 3,
-        width: "90vw",
+        width: `90vw`,
         color: `inherit`,
       },
       a: {
@@ -52,9 +51,9 @@ export default {
       },
     },
     Main: {
-      margin: "0 auto",
-      maxWidth: "container",
-      width: "90vw",
+      margin: `0 auto`,
+      maxWidth: `container`,
+      width: `90vw`,
     },
     Container: {
       padding: 0,
@@ -62,9 +61,9 @@ export default {
       paddingTop: 3,
     },
     h1: {
-      color: "text",
+      color: `text`,
       fontSize: 5,
-      lineHeight: "heading",
+      lineHeight: `heading`,
     },
     pre: {
       ...nightOwl,

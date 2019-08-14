@@ -13,16 +13,16 @@ const Pagination = ({
   const prevPageLink =
     !isFirst &&
     (currentPage - 1 === 1
-      ? path.join("/", basePath)
+      ? path.join(`/`, basePath)
       : path.join(basePath, prefixPath, prevPageNum.toString()))
   const nextPageLink =
-    !isLast && path.join("/", basePath, prefixPath, nextPageNum.toString())
+    !isLast && path.join(`/`, basePath, prefixPath, nextPageNum.toString())
   const changePage = e => {
     const { value } = e.target
     const navPath =
-      value === "1"
-        ? path.join("/", basePath)
-        : path.join("/", basePath, prefixPath, value)
+      value === `1`
+        ? path.join(`/`, basePath)
+        : path.join(`/`, basePath, prefixPath, value)
     navigate(navPath)
   }
   return (

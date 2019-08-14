@@ -33,15 +33,15 @@ const SEO = ({
   const { siteMetadata } = result.site
   const metaDescription = description || siteMetadata.description
   const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
-  let url = `${siteMetadata.siteUrl}${path.join("/", `${basePath}`, `${slug}`)}`
-  if (url.endsWith("/")) {
+  let url = `${siteMetadata.siteUrl}${path.join(`/`, `${basePath}`, `${slug}`)}`
+  if (url.endsWith(`/`)) {
     // if url ends in "/", remove it
     url = url.slice(0, -1)
   }
 
   return (
     <Helmet
-      htmlAttributes={{ lang: lang || "en" }}
+      htmlAttributes={{ lang: lang || `en` }}
       {...(title
         ? {
             titleTemplate: `%s - ${siteMetadata.title}`,
@@ -54,7 +54,7 @@ const SEO = ({
         canonicalUrl
           ? [
               {
-                rel: "canonical",
+                rel: `canonical`,
                 href: canonicalUrl,
               },
             ]
@@ -62,19 +62,19 @@ const SEO = ({
       )}
       meta={[
         {
-          name: "description",
+          name: `description`,
           content: metaDescription,
         },
         {
-          property: "og:url",
+          property: `og:url`,
           content: url,
         },
         {
-          property: "og:title",
+          property: `og:title`,
           content: title || siteMetadata.title,
         },
         {
-          name: "og:description",
+          name: `og:description`,
           content: metaDescription,
         },
         {
@@ -82,19 +82,19 @@ const SEO = ({
           content: `website`,
         },
         {
-          name: "twitter:card",
-          content: "summary",
+          name: `twitter:card`,
+          content: `summary`,
         },
         {
-          name: "twitter:creator",
+          name: `twitter:creator`,
           content: `@${twitterHandle}` || siteMetadata.social.twitter,
         },
         {
-          name: "twitter:title",
+          name: `twitter:title`,
           content: title || siteMetadata.title,
         },
         {
-          name: "twitter:description",
+          name: `twitter:description`,
           content: metaDescription,
         },
       ]
@@ -102,11 +102,11 @@ const SEO = ({
           metaImage
             ? [
                 {
-                  property: "og:image",
+                  property: `og:image`,
                   content: metaImage,
                 },
                 {
-                  name: "twitter:image",
+                  name: `twitter:image`,
                   content: metaImage,
                 },
               ]
@@ -127,9 +127,9 @@ const SEO = ({
 
 SEO.defaultProps = {
   meta: [],
-  title: "",
-  slug: "",
-  lang: "en",
+  title: ``,
+  slug: ``,
+  lang: `en`,
   keywords: [],
 }
 

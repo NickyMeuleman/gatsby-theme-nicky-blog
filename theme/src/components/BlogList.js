@@ -7,7 +7,8 @@ const BlogList = ({ blogPosts, totalCount, basePath }) => {
       <p>
         <span role="img" aria-label="googly-eyes">
           👀
-        </span>{" "}
+        </span>
+        {` `}
         {totalCount} Posts total
       </p>
       {blogPosts.map(blogPost => {

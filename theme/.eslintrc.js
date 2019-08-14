@@ -33,7 +33,8 @@ module.exports = {
             }
         ],
         "global-require": 0,
-        "react/destructuring-assignment": 0,
-    "prettier/prettier": "error"
+    "react/destructuring-assignment": 0,
+    "quotes": ["warn", "backtick"],
+    "prettier/prettier": "warn"
   }
 };

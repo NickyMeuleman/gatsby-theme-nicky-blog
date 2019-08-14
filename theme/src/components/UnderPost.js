@@ -2,10 +2,10 @@ import React from "react"
 import { Link } from "gatsby"
 
 const UnderPost = ({ prev, next, basePath }) => (
-  <div style={{ display: "flex", justifyContent: "space-between" }}>
+  <div style={{ display: `flex`, justifyContent: `space-between` }}>
     {prev && (
       <Link
-        to={`${basePath === "/" || basePath === "" ? "" : "/"}${basePath}/${
+        to={`${basePath === `/` || basePath === `` ? `` : `/`}${basePath}/${
           prev.slug
         }`}
       >
@@ -16,7 +16,7 @@ const UnderPost = ({ prev, next, basePath }) => (
     )}
     {next && (
       <Link
-        to={`${basePath === "/" || basePath === "" ? "" : "/"}${basePath}/${
+        to={`${basePath === `/` || basePath === `` ? `` : `/`}${basePath}/${
           next.slug
         }`}
       >

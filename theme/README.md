@@ -214,27 +214,28 @@ export default () => (
 
 ### dev notes
 
-- 🚧 👷 Multi sourcing
-- revamp way slugs are handled
-- code blocks
-- some light styling?
-  - redo styles with theme-ui, like `<li>` margins?
-- css reset?
-- rss feed?
-- offline, manifest, ...?
-- icons (default icon for SEO if no fitting image found)
-  - icons for tags?
-  - for those seo cards: look into https://zeit.co/blog/social-og-image-cards-as-a-service
-- :heavy_check_mark: canonical url support:
-  - :heavy_check_mark: functionality works, now add docs
-  - :heavy_check_mark: add a "originally published at" line to blogpost component
-- :heavy_check_mark: multiple authors support
-- revamp how SEO component works
-  - migrate from Helmet props to nested html tags?
-  - pass less props into SEO component
-- Document what tasks individual components perform, how ones include others
-- :heavy_check_mark: make tags array optional
-  - :heavy_check_mark: cannot return null for non-nullable field MdxTag.id
-- :heavy_check_mark: published frontmatter field.
-  - option to hide unpublished articles when running "gatsby develop"?
-- different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)
+- [ ] 🚧 👷 Multi sourcing
+- [ ] revamp way slugs are handled
+- [ ] code blocks
+- [ ] some light styling?
+  - [ ] redo styles with theme-ui, like `<li>` margins?
+- [ ] css reset?
+- [ ] rss feed?
+- [ ] offline, manifest, ...?
+- [ ] icons (default icon for SEO if no fitting image found)
+  - [ ] icons for tags?
+  - [ ] for those seo cards: look into https://zeit.co/blog/social-og-image-cards-as-a-service
+- [x] canonical url support:
+  - [x] functionality works, now add docs
+  - [x] add a "originally published at" line to blogpost component
+- [x] multiple authors support
+- [ ] revamp how SEO component works
+  - [ ] migrate from Helmet props to nested html tags?
+  - [ ] pass less props into SEO component
+- [ ] Document what tasks individual components perform, how ones include others
+- [x] make tags array optional
+  - [x] cannot return null for non-nullable field MdxTag.id
+- [x] published frontmatter field.
+  - ~~[ ] option to hide unpublished articles when running "gatsby develop"?~~ hidden in blog list, individual pages exist.
+- [ ] different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)
+- [ ] Ability to specify path in frontmatter. See: https://github.com/gatsbyjs/gatsby/pull/16611
