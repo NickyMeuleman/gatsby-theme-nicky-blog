@@ -89,7 +89,7 @@ module.exports = {
 
 ### Adding blog posts
 
-In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. The title of this folder will serve as the slug for the blogpost.
+In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. By default, the title of this folder will serve as the slug for the blogpost. (see [Anatomy of a blogpost](#Anatomy of a blogpost) for the ability to specify a custom slug).
 Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files that can then be referenced easily inside that `.md(x)` file.
 
 ### Adding authors
@@ -156,6 +156,7 @@ In `.md` or `.mdx` files those are set via the frontmatter.
 | `keywords`     | array of keyword strings     | no       | keywords for SEO                          |
 | `cover`        | relative path to cover image | no       | displayed as cover image, in social cards |
 | `published`    | boolean, defaults to `true`  | no       | include post in production                |
+| `slug`         | string                       | no       | the last part of the URL for this post    |
 
 ### Exported components
 
@@ -244,10 +245,12 @@ export default () => (
 - [x] published frontmatter field.
   - ~~[ ] option to hide unpublished articles when running "gatsby develop"?~~ hidden in blog list, individual pages exist.
 - [x] different content folder for authors? (maybe together with images etc that are not directly tied to a single blogpost)
-- [ ] Ability to specify path in frontmatter. See: https://github.com/gatsbyjs/gatsby/pull/16611
+- [x] Ability to specify path in frontmatter. See: https://github.com/gatsbyjs/gatsby/pull/16611
 - [x] Double images when linked like `![](image.png)` in mdx. Blurry and fullsize.
   - Eventual fix https://github.com/gatsbyjs/gatsby/issues/16242
   - temporary fix: add `plugins` instead of `gatsbyRemarkPlugins`
 - [x] Add link icons next to headings via: https://theme-ui.com/recipes/linked-headings/
   - note: Why was this better than `gatsby-remark-autolink-headers` again? Saw it in a GitHub issue somewhere
   - https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204 and https://github.com/gatsbyjs/gatsby/pull/14520
+- [ ] Refactor theme options to use defaults if not specified to avoid repeating yourself. See: https://github.com/gatsbyjs/gatsby/blob/master/themes/gatsby-theme-blog-core/utils/default-options.js
+- [ ] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.

@@ -101,8 +101,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           const mdxNode = context.nodeModel.getNodeById({
             id: source.parent,
           })
+          if (mdxNode.frontmatter.slug) {
+            // get slug from frontmatter field
+            return slugify(mdxNode.frontmatter.slug)
+          }
+          // get slug from parent folder name
           const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
-          return fileNode.relativeDirectory
+          return slugify(fileNode.relativeDirectory)
         },
       },
       title: {
@@ -219,14 +224,21 @@ exports.onCreateNode = (
   // Create MdxBlogPost nodes from Mdx nodes
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent) // get the File node
-    const source = parent.sourceInstanceName // get folder name those files are in
+    const source = parent.sourceInstanceName // get folder name those files are in (contentPath)
 
     // only create MdxBlogPost nodes for .mdx files in the correct folder
     if (source === contentPath) {
       // duplicate (kinda) slug logic from the slug resolver
-      let slug = createFilePath({ node, getNode, trailingSlash: false })
-      if (slug.startsWith(`/`)) {
-        slug = slug.slice(1)
+      let slug
+      if (node.frontmatter.slug) {
+        // get slug from frontmatter
+        slug = node.frontmatter.slug
+      } else {
+        // get slug from parent folder name
+        slug = createFilePath({ node, getNode, trailingSlash: false })
+        if (slug.startsWith(`/`)) {
+          slug = slug.slice(1)
+        }
       }
 
       const fieldData = {
