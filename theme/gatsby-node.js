@@ -3,41 +3,20 @@ const path = require(`path`)
 const mkdirp = require(`mkdirp`)
 
 const { createFilePath } = require(`gatsby-source-filesystem`)
-
-// Quick-and-dirty helper to convert strings into URL-friendly slugs.
-const slugify = str => {
-  const slug = str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, `-`)
-    .replace(/(^-|-\$)+/g, ``)
-  return slug
-}
-
-// helper that grabs the mdx resolver when given a string fieldname
-const mdxResolverPassthrough = fieldName => async (
-  source,
-  args,
-  context,
-  info
-) => {
-  const type = info.schema.getType(`Mdx`)
-  const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent,
-  })
-  const resolver = type.getFields()[fieldName].resolve
-  const result = await resolver(mdxNode, args, context, {
-    fieldName,
-  })
-  return result
-}
+const {
+  slugify,
+  mdxResolverPassthrough,
+  themeOptionsWithDefaults,
+} = require(`./utils`)
 
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
   const { program } = store.getState()
+  const { contentPath, assetPath } = themeOptionsWithDefaults(options)
 
   const dirs = [
-    path.join(program.directory, options.contentPath || `content`),
-    path.join(program.directory, options.assetPath || `assets`),
+    path.join(program.directory, contentPath),
+    path.join(program.directory, assetPath),
   ]
 
   dirs.forEach(dir => {
@@ -223,7 +202,7 @@ exports.onCreateNode = (
   options
 ) => {
   const { createNode, createParentChildLink } = actions
-  const contentPath = options.contentPath || `content`
+  const { contentPath } = themeOptionsWithDefaults(options)
 
   // Create MdxBlogPost nodes from Mdx nodes
   if (node.internal.type === `Mdx`) {
@@ -314,7 +293,7 @@ exports.onCreateNode = (
 }
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  const basePath = options.basePath || ``
+  const { basePath } = themeOptionsWithDefaults(options)
   const result = await graphql(`
     query createPagesQuery {
       allBlogPost(
@@ -366,9 +345,10 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   let numPages
   let postsPerPage
   let prefixPath
+  // check if the pagination option exists before using defaults in it
   if (options.pagination) {
-    prefixPath = options.pagination.prefixPath || ``
-    postsPerPage = options.pagination.postsPerPage || 6
+    prefixPath = themeOptionsWithDefaults(options).pagination.prefixPath
+    postsPerPage = themeOptionsWithDefaults(options).pagination.postsPerPage
     numPages = Math.ceil(posts.length / postsPerPage)
   } else {
     prefixPath = ``

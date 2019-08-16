@@ -44,7 +44,7 @@ To use this theme in your Gatsby sites, follow these instructions:
 | Key            | Default value | Description                                                    |
 | -------------- | ------------- | -------------------------------------------------------------- |
 | `postsPerPage` | `6`           | Amount of posts per paginated page                             |
-| `prefixPath`   | `undefined`   | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
+| `prefixPath`   | `""`          | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
 
 #### Example usage
 
@@ -257,7 +257,7 @@ export default () => (
 - [x] Add link icons next to headings via: https://theme-ui.com/recipes/linked-headings/
   - note: Why was this better than `gatsby-remark-autolink-headers` again? Saw it in a GitHub issue somewhere
   - https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204 and https://github.com/gatsbyjs/gatsby/pull/14520
-- [ ] Refactor theme options to use defaults if not specified to avoid repeating yourself. See: https://github.com/gatsbyjs/gatsby/blob/master/themes/gatsby-theme-blog-core/utils/default-options.js
+- [x] Refactor theme options to use defaults if not specified to avoid repeating yourself. See: https://github.com/gatsbyjs/gatsby/blob/master/themes/gatsby-theme-blog-core/utils/default-options.js
 - [x] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.
 - [ ] Make title of blogposts default to the unkebabcased title of the folder.
   - if no folders per blogpost, default to unkebabcased slug? (might be weird with resolvers)

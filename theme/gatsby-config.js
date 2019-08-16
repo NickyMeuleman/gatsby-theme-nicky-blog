@@ -1,10 +1,6 @@
 const remarkSlug = require(`remark-slug`)
 
-module.exports = ({
-  contentPath = `content`,
-  basePath = ``,
-  assetPath = `assets`,
-} = {}) => ({
+module.exports = ({ contentPath, basePath, assetPath } = {}) => ({
   siteMetadata: {
     siteUrl: `https://myurl.com`,
     title: `Gatsby Theme Blog by NMeuleman`,
