@@ -123,8 +123,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           dateformat: {},
         },
         resolve: (source, args, context, info) => {
-          const parent = context.nodeModel.getNodeById({ id: source.parent })
-          return parent.frontmatter.date
+          const mdxNode = context.nodeModel.getNodeById({ id: source.parent })
+          if (mdxNode.frontmatter.date) {
+            return mdxNode.frontmatter.date
+          }
+          const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
+          return fileNode.birthTime
         },
       },
       canonicalUrl: {
@@ -228,7 +232,7 @@ exports.onCreateNode = (
 
     // only create MdxBlogPost nodes for .mdx files in the correct folder
     if (source === contentPath) {
-      // duplicate (kinda) slug logic from the slug resolver
+      // duplicate (kinda) logic from the resolvers
       let slug
       if (node.frontmatter.slug) {
         // get slug from frontmatter
@@ -241,13 +245,23 @@ exports.onCreateNode = (
         }
       }
 
+      // duplicate logic from resolvers
+      let date
+      if (node.frontmatter.date) {
+        // get date from frontmatter
+        date = node.frontmatter.date
+      } else {
+        // get date the parent file was created
+        date = parent.birthTime
+      }
+
       const fieldData = {
         // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
         // these fields are here to be able to use filters in graphql
         slug,
         published: node.frontmatter.published,
-        date: node.frontmatter.date,
+        date,
       }
 
       const proxyNode = {

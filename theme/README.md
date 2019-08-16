@@ -89,8 +89,10 @@ module.exports = {
 
 ### Adding blog posts
 
-In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. By default, the title of this folder will serve as the slug for the blogpost. (see [Anatomy of a blogpost](#Anatomy of a blogpost) for the ability to specify a custom slug).
 Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files that can then be referenced easily inside that `.md(x)` file.
+In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. By default, the title of this folder will serve as the slug for the blogpost.
+By default, the date the `.mdx` file was created will serve as the date for the blogpost.
+(see [Anatomy of a blogpost](#anatomy-of-a-blogpost) for the ability to override these defaults).
 
 ### Adding authors
 
@@ -99,6 +101,7 @@ In the folder that was created for the `contentPath` (`content` by default). Cre
 #### Example folder tree
 
 <!-- prettier-ignore-start -->
+```
 .
 ├── content
 │   ├── my-first-post
@@ -113,6 +116,7 @@ In the folder that was created for the `contentPath` (`content` by default). Cre
 └── assets
     ├── authors.yaml
     └── image-used-often.jpg
+```
 <!-- 
 # content
 ## my-first-post
@@ -149,7 +153,7 @@ In `.md` or `.mdx` files those are set via the frontmatter.
 | Key            | Value                        | Required | Description                               |
 | -------------- | ---------------------------- | -------- | ----------------------------------------- |
 | `title`        | string                       | yes      | title of your blogpost                    |
-| `date`         | date string                  | yes      | the date tied to the post                 |
+| `date`         | date string                  | no       | the date tied to the post                 |
 | `canonicalUrl` | full url string              | no       | Canonical url                             |
 | `author`       | author `shortName` string    | no       | Author of the post                        |
 | `tags`         | array of tag strings         | no       | tags for this post                        |
@@ -236,6 +240,7 @@ export default () => (
   - [x] functionality works, now add docs
   - [x] add a "originally published at" line to blogpost component
 - [x] multiple authors support
+  - [ ] multiple authors per post?
 - [ ] revamp how SEO component works
   - [ ] migrate from Helmet props to nested html tags?
   - [ ] pass less props into SEO component
@@ -253,4 +258,6 @@ export default () => (
   - note: Why was this better than `gatsby-remark-autolink-headers` again? Saw it in a GitHub issue somewhere
   - https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204 and https://github.com/gatsbyjs/gatsby/pull/14520
 - [ ] Refactor theme options to use defaults if not specified to avoid repeating yourself. See: https://github.com/gatsbyjs/gatsby/blob/master/themes/gatsby-theme-blog-core/utils/default-options.js
-- [ ] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.
+- [x] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.
+- [ ] Make title of blogposts default to the unkebabcased title of the folder.
+  - if no folders per blogpost, default to unkebabcased slug? (might be weird with resolvers)

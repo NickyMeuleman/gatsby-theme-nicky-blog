@@ -1,9 +1,10 @@
 ---
-title: test
+title: Post with a slug specified in frontmatter
 date: 2019-08-15
-published: false
 author: honeybadger
 slug: TECHNICALLY CORRECT IS THE BEST KIND OF CORRECT
 ---
 
-testing slugs that come from a folder name that is not kebabcase.
+testing slugs that come from a slug field that is not kebabcase.
+If the slug was not specified in the frontmatter, the folder title would be used.
+This folder title is converted to kebabcase before being used as a slug.
