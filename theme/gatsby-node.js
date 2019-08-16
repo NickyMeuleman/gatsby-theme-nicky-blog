@@ -92,8 +92,18 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       title: {
         type: `String!`,
         resolve: (source, args, context, info) => {
-          const parent = context.nodeModel.getNodeById({ id: source.parent })
-          return parent.frontmatter.title
+          const mdxNode = context.nodeModel.getNodeById({ id: source.parent })
+          if (mdxNode.frontmatter.title) {
+            // get title from frontmatter field
+            return mdxNode.frontmatter.title
+          }
+          const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
+          if (fileNode.relativeDirectory) {
+            // get title from parent folder name
+            return fileNode.relativeDirectory
+          }
+          // get title from file name
+          return fileNode.name
         },
       },
       date: {

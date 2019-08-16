@@ -19,22 +19,24 @@ const BlogPost = ({ post, basePath, context }) => {
       ) : null}
       {` `}
       <MDXRenderer>{post.body}</MDXRenderer>
-      <div>
-        <p>Tagged with:</p>
-        <ul>
-          {post.tags.map(tag => (
-            <li key={tag.slug} css={{ margin: `0.3rem` }}>
-              <Link
-                to={`${
-                  basePath === `/` || basePath === `` ? `` : `/`
-                }${basePath}/tag/${tag.slug}`}
-              >
-                {tag.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {post.tags && (
+        <div>
+          <p>Tagged with:</p>
+          <ul>
+            {post.tags.map(tag => (
+              <li key={tag.slug} css={{ margin: `0.3rem` }}>
+                <Link
+                  to={`${
+                    basePath === `/` || basePath === `` ? `` : `/`
+                  }${basePath}/tag/${tag.slug}`}
+                >
+                  {tag.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <UnderPost prev={context.prev} next={context.next} basePath={basePath} />
     </>
   )
