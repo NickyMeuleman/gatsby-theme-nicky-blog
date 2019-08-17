@@ -145,8 +145,11 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
-          // return plain author string, works because of the link(by:"name") extension
-          return parent.frontmatter.author
+          if (parent.frontmatter.author) {
+            // return plain author string, works because of the link(by:"name") extension
+            return parent.frontmatter.author
+          }
+          return null
         },
       },
       keywords: {

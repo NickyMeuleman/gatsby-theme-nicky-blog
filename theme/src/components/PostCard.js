@@ -38,7 +38,7 @@ const PostCard = props => (
       </div>
       <div>
         <p>
-          {props.author.name} on {props.date}
+          {props.author && props.author.name} on {props.date}
         </p>
       </div>
     </div>

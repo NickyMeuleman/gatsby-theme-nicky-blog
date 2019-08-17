@@ -18,10 +18,12 @@ const BlogPostTemplate = ({ data, pageContext }) => {
         image={
           post.cover
             ? post.cover.childImageSharp.fluid.src
-            : `/icons/icon-256x256.png`
+            : `/path/to/fallback/image.png`
         }
         canonicalUrl={post.canonicalUrl}
-        twitterHandle={post.author.twitter}
+        twitterHandle={
+          post.author && post.author.twitter ? post.author.twitter : null
+        }
       />
       <BlogPost
         post={post}
