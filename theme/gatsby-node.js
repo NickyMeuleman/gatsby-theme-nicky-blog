@@ -225,7 +225,7 @@ exports.onCreateNode = (
       let slug
       if (node.frontmatter.slug) {
         // get slug from frontmatter
-        slug = node.frontmatter.slug
+        slug = slugify(node.frontmatter.slug)
       } else {
         // get slug from parent folder name
         slug = createFilePath({ node, getNode, trailingSlash: false })

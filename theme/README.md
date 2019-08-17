@@ -261,4 +261,4 @@ export default () => (
 - [x] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.
 - [ ] Make title of blogposts default to the unkebabcased title of the folder.
   - if no folders per blogpost, default to unkebabcased slug? (might be weird with resolvers)
-- [ ] allow unkebabcased slugs in frontmatter
+- [x] allow unkebabcased slugs in frontmatter
