@@ -229,6 +229,7 @@ exports.onCreateNode = (
       } else {
         // get slug from parent folder name
         slug = createFilePath({ node, getNode, trailingSlash: false })
+        slug = slugify(slug)
         if (slug.startsWith(`/`)) {
           slug = slug.slice(1)
         }

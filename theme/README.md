@@ -259,6 +259,8 @@ export default () => (
   - https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204 and https://github.com/gatsbyjs/gatsby/pull/14520
 - [x] Refactor theme options to use defaults if not specified to avoid repeating yourself. See: https://github.com/gatsbyjs/gatsby/blob/master/themes/gatsby-theme-blog-core/utils/default-options.js
 - [x] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.
-- [ ] Make title of blogposts default to the unkebabcased title of the folder.
-  - if no folders per blogpost, default to unkebabcased slug? (might be weird with resolvers)
-- [x] allow unkebabcased slugs in frontmatter
+- [x] Make title of blogposts default to the unkebabcased title of the folder.
+- [x] Allow unkebabcased slugs in frontmatter
+- [ ] Allow blog posts as plain markdown/mdx files, not in a folder
+- [ ] Allow author field in frontmatter to be optional
+  - default to info provided in siteMetadata or allow for authorless posts?
