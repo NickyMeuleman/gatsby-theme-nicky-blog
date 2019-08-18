@@ -75,8 +75,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       slug: {
         type: `String!`,
         resolve: (source, args, context, info) => {
-          // any other way to accomplish this?
-          // This feels like running around the block to arrive nextdoor
           const mdxNode = context.nodeModel.getNodeById({
             id: source.parent,
           })
@@ -84,9 +82,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
             // get slug from frontmatter field
             return slugify(mdxNode.frontmatter.slug)
           }
-          // get slug from parent folder name
           const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
-          return slugify(fileNode.relativeDirectory)
+          // if loose file, relativeDirectory === '', which is falsy
+          if (fileNode.relativeDirectory) {
+            // get slug from parent folder name
+            return slugify(fileNode.relativeDirectory)
+          }
+          return slugify(fileNode.name)
         },
       },
       title: {
@@ -180,6 +182,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
+          // return relative path string, works because of fileByRelativePath directive
           return parent.frontmatter.cover
         },
       },
@@ -230,7 +233,7 @@ exports.onCreateNode = (
         // get slug from frontmatter
         slug = slugify(node.frontmatter.slug)
       } else {
-        // get slug from parent folder name
+        // get slug from parent folder name, or loose file name
         slug = createFilePath({ node, getNode, trailingSlash: false })
         slug = slugify(slug)
         if (slug.startsWith(`/`)) {

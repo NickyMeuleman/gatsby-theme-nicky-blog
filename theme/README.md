@@ -261,6 +261,8 @@ export default () => (
 - [x] Make the date of blogposts default to the time the file was created in case the date frontmatter field was not specified.
 - [x] Make title of blogposts default to the unkebabcased title of the folder.
 - [x] Allow unkebabcased slugs in frontmatter
-- [ ] Allow blog posts as plain markdown/mdx files, not in a folder
-- [ ] Allow author field in frontmatter to be optional
-  - default to info provided in siteMetadata or allow for authorless posts?
+- [x] Allow blog posts as plain markdown/mdx files, not in a folder
+- [ ] document loose files as blogposts
+- [x] Allow author field in frontmatter to be optional
+  - [x] allow for authorless posts
+- [ ] Make demo website function like a big readme.
