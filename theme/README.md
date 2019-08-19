@@ -150,17 +150,20 @@ An author can have several different field with information specific to them.
 The blogpost itself (`.md` or `.mdx` file for now, others coming soon) can have several different fields with extra information. Some of these are required.
 In `.md` or `.mdx` files those are set via the frontmatter.
 
-| Key            | Value                        | Required | Description                               |
-| -------------- | ---------------------------- | -------- | ----------------------------------------- |
-| `title`        | string                       | yes      | title of your blogpost                    |
-| `date`         | date string                  | no       | the date tied to the post                 |
-| `canonicalUrl` | full url string              | no       | Canonical url                             |
-| `author`       | author `shortName` string    | no       | Author of the post                        |
-| `tags`         | array of tag strings         | no       | tags for this post                        |
-| `keywords`     | array of keyword strings     | no       | keywords for SEO                          |
-| `cover`        | relative path to cover image | no       | displayed as cover image, in social cards |
-| `published`    | boolean, defaults to `true`  | no       | include post in production                |
-| `slug`         | string                       | no       | the last part of the URL for this post    |
+| Key            | Value                                       | Required | Description                               |
+| -------------- | ------------------------------------------- | -------- | ----------------------------------------- |
+| `title`        | string                                      | no       | title of your blogpost                    |
+| `date`         | date string                                 | no       | the date tied to the post                 |
+| `canonicalUrl` | full url string                             | no       | Canonical url                             |
+| `author`       | author `shortName` or array of `shortName`s | no       | Author of the post                        |
+| `tags`         | array of tag strings                        | no       | tags for this post                        |
+| `keywords`     | array of keyword strings                    | no       | keywords for SEO                          |
+| `cover`        | relative path to cover image                | no       | displayed as cover image, in social cards |
+| `published`    | boolean, defaults to `true`                 | no       | include post in production                |
+| `slug`         | string                                      | no       | the last part of the URL for this post    |
+
+notes:
+The `authors` key also works, because defining multiple author**s** under a singular author key feels weird.
 
 ### Exported components
 
@@ -240,7 +243,8 @@ export default () => (
   - [x] functionality works, now add docs
   - [x] add a "originally published at" line to blogpost component
 - [x] multiple authors support
-  - [ ] multiple authors per post?
+  - [x] multiple authors per post
+  - [ ] avatar for each author, because, pretty pictures are tight (watch @theryangeorge)
 - [ ] revamp how SEO component works
   - [ ] migrate from Helmet props to nested html tags?
   - [ ] pass less props into SEO component

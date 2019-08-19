@@ -59,7 +59,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     date: Date! @dateformat
     slug: String!
     tags: [Tag] @link(by: "name")
-    author: Author @link(by: "shortName")
+    author: [Author] @link(by: "shortName")
     title: String!
     body: String!
     published: Boolean
@@ -141,15 +141,20 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       author: {
-        type: `Author`,
+        type: `[Author]`,
         extensions: {
           link: { by: `shortName` },
         },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
           if (parent.frontmatter.author) {
-            // return plain author string, works because of the link(by:"name") extension
-            return parent.frontmatter.author
+            // return plain author shortName array, works because of the link(by:"name") extension
+            return [].concat(parent.frontmatter.author)
+          }
+          if (parent.frontmatter.authors) {
+            // use the "authors" key too in the frontmatter
+            // because listing multiple authors under a singular author key is whack.
+            return [].concat(parent.frontmatter.authors)
           }
           return null
         },
