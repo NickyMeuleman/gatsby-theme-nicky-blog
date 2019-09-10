@@ -245,6 +245,7 @@ export default () => (
 - [x] multiple authors support
   - [x] multiple authors per post
   - [ ] avatar for each author, because, pretty pictures are tight (watch @theryangeorge)
+  - [ ] rename "author" in graphql to "authors", it's an array
 - [ ] revamp how SEO component works
   - [ ] migrate from Helmet props to nested html tags?
   - [ ] pass less props into SEO component
@@ -270,3 +271,5 @@ export default () => (
 - [x] Allow author field in frontmatter to be optional
   - [x] allow for authorless posts
 - [ ] Make demo website function like a big readme.
+- [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
+- [ ] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.

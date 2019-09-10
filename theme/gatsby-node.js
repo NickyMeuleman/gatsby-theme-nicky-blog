@@ -28,8 +28,24 @@ exports.onPreBootstrap = ({ store, reporter }, options) => {
 }
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
-  const { createTypes } = actions
+  const { createTypes, createFieldExtension } = actions
   const { buildObjectType } = schema
+
+  // Create custom directive that defaults a field to true if not specified
+  createFieldExtension({
+    name: `defaultTrue`,
+    extend() {
+      return {
+        resolve(source, args, context, info) {
+          if (source[info.fieldName] == null) {
+            return true
+          }
+          return source[info.fieldName]
+        },
+      }
+    },
+  })
+
   const typeDefs = `
   interface Author @nodeInterface {
     id: ID!
@@ -58,11 +74,11 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     id: ID!
     date: Date! @dateformat
     slug: String!
-    tags: [Tag] @link(by: "name")
-    author: [Author] @link(by: "shortName")
+    tags: [Tag!]
+    author: [Author!]
     title: String!
     body: String!
-    published: Boolean
+    published: Boolean!
   }
   `
 
@@ -130,7 +146,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       tags: {
-        type: `[Tag]`,
+        type: `[Tag!]`,
         extensions: {
           link: { by: `name` },
         },
@@ -141,7 +157,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         },
       },
       author: {
-        type: `[Author]`,
+        type: `[Author!]`,
         extensions: {
           link: { by: `shortName` },
         },
@@ -203,13 +219,13 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         resolve: mdxResolverPassthrough(`tableOfContents`),
       },
       published: {
-        type: `Boolean`,
+        type: `Boolean!`,
+        extensions: {
+          defaultTrue: {},
+        },
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent })
-          // set default result when field is not provided
-          return parent.frontmatter.published === undefined
-            ? true
-            : parent.frontmatter.published
+          return parent.frontmatter.published
         },
       },
     },
