@@ -65,10 +65,17 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: String!
     twitter: String
   }
-  type Tag implements Node {
+  interface Tag @nodeInterface {
     id: ID!
     name: String!
     slug: String!
+    postPublished: Boolean
+  }
+  type MdxTag implements Node & Tag @childOf(types: ["MdxBlogPost"]) {
+    id: ID!
+    name: String!
+    slug: String!
+    postPublished: Boolean
   }
   interface BlogPost @nodeInterface {
     id: ID!
@@ -299,7 +306,7 @@ exports.onCreateNode = (
     }
   }
 
-  // Create Tag nodes from MdxBlogPost nodes
+  // Create MdxTag nodes from MdxBlogPost nodes
   if (node.internal.type === `MdxBlogPost`) {
     // creating a Tag node for every entry in an MdxBlogPost tag array
     node.tags.forEach((tag, i) => {
@@ -314,14 +321,14 @@ exports.onCreateNode = (
 
       const proxyNode = {
         ...fieldData,
-        id: createNodeId(`${node.id}${i} >>> Tag`),
+        id: createNodeId(`${node.id}${i} >>> MdxTag`),
         parent: node.id,
         children: [],
         internal: {
-          type: `Tag`,
+          type: `MdxTag`,
           contentDigest: createContentDigest(fieldData),
           content: JSON.stringify(fieldData),
-          description: `Tag node`,
+          description: `MdxTag node`,
         },
       }
 
