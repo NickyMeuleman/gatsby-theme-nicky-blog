@@ -35,6 +35,18 @@ module.exports = {
         "global-require": 0,
     "react/destructuring-assignment": 0,
     "quotes": ["warn", "backtick"],
+    "prefer-destructuring": ["error", {
+      "VariableDeclarator": {
+        "array": true,
+        "object": true
+      },
+      "AssignmentExpression": {
+        "array": false,
+        "object": false
+      }
+    }, {
+      "enforceForRenamedProperties": false
+    }],
     "prettier/prettier": "warn"
   }
 };

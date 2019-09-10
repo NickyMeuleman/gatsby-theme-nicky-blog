@@ -275,7 +275,8 @@ exports.onCreateNode = (
       const fieldData = {
         // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
-        // these fields are here to be able to use filters in graphql
+        // here to be able to use filters in graphql
+        // https://github.com/gatsbyjs/gatsby/pull/17284 should make removing this possible?
         slug,
         published: node.frontmatter.published,
         date,
