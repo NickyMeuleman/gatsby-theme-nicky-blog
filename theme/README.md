@@ -271,3 +271,4 @@ export default () => (
 - [ ] Make demo website function like a big readme.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
+- [ ] Migrate theme to TypeScript, leave demo as JavaScript

@@ -83,6 +83,8 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     body: String!
     published: Boolean @defaultTrue
     cover: File @fileByRelativePath
+    excerpt: String!
+    canonicalUrl: String
   }
   `
 
