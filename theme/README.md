@@ -153,20 +153,18 @@ An author can have several different field with information specific to them.
 The blogpost itself (`.md` or `.mdx` file for now, others coming soon) can have several different fields with extra information.
 In `.md` or `.mdx` files these fields are set via the frontmatter.
 
-| Key                                                       | Value                        | Required | Description                               |
-| --------------------------------------------------------- | ---------------------------- | -------- | ----------------------------------------- |
-| `title`                                                   | string                       | no       | title of your blogpost                    |
-| `date`                                                    | date string                  | no       | the date tied to the post                 |
-| `canonicalUrl`                                            | full url string              | no       | Canonical url                             |
-| `authors`                                                 | array of `shortName` strings | no       | Authors of the post.                      |
-| Should not be used in combination with the `author` key.  |
-| `author`                                                  | `shortName` string           | no       | Author of the post.                       |
-| Should not be used in combination with the `authors` key. |
-| `tags`                                                    | array of tag strings         | no       | tags for this post                        |
-| `keywords`                                                | array of keyword strings     | no       | keywords for SEO                          |
-| `cover`                                                   | relative path to cover image | no       | displayed as cover image, in social cards |
-| `published`                                               | boolean, defaults to `true`  | no       | include post in production                |
-| `slug`                                                    | string                       | no       | the last part of the URL for this post    |
+| Key            | Value                        | Required | Description                                                                        |
+| -------------- | ---------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `title`        | string                       | no       | title of your blogpost                                                             |
+| `date`         | date string                  | no       | the date tied to the post                                                          |
+| `canonicalUrl` | full url string              | no       | Canonical url                                                                      |
+| `authors`      | array of `shortName` strings | no       | Authors of the post. <br/>Should not be used in combination with the `author` key. |
+| `author`       | `shortName` string           | no       | Author of the post. <br/>Should not be used in combination with the `authors` key. |
+| `tags`         | array of tag strings         | no       | tags for this post                                                                 |
+| `keywords`     | array of keyword strings     | no       | keywords for SEO                                                                   |
+| `cover`        | relative path to cover image | no       | displayed as cover image, in social cards                                          |
+| `published`    | boolean, defaults to `true`  | no       | include post in production                                                         |
+| `slug`         | string                       | no       | the last part of the URL for this post                                             |
 
 ### Exported components
 
