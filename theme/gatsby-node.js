@@ -47,6 +47,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   })
 
   const typeDefs = `
+  
   interface Author @nodeInterface {
     id: ID!
     shortName: String!
@@ -77,7 +78,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     date: Date! @dateformat
     slug: String!
     tags: [Tag!] @link(by: "name")
-    author: [Author!] @link(by: "shortName")
+    authors: [Author!] @link(by: "shortName")
     title: String!
     body: String!
     published: Boolean @defaultTrue
@@ -165,7 +166,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           return parent.frontmatter.tags
         },
       },
-      author: {
+      authors: {
         type: `[Author!]`,
         extensions: {
           link: { by: `shortName` },

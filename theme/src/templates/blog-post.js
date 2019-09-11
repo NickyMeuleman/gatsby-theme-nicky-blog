@@ -22,7 +22,9 @@ const BlogPostTemplate = ({ data, pageContext }) => {
         }
         canonicalUrl={post.canonicalUrl}
         twitterHandle={
-          post.author && post.author.twitter ? post.author.twitter : null
+          post.authors && post.authors[0].twitter
+            ? post.authors[0].twitter
+            : null
         }
       />
       <BlogPost
@@ -47,7 +49,7 @@ export const query = graphql`
           name
           slug
         }
-        author {
+        authors {
           name
           twitter
         }

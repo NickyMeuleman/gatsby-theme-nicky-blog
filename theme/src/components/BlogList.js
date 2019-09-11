@@ -18,7 +18,7 @@ const BlogList = ({ blogPosts, totalCount, basePath }) => {
             url={`${basePath}/${blogPost.slug}`}
             title={blogPost.title}
             date={blogPost.date}
-            authors={blogPost.author}
+            authors={blogPost.authors}
             coverSizes={
               blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
             }
