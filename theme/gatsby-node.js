@@ -65,13 +65,8 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: String!
     twitter: String
   }
-  interface Tag @nodeInterface {
-    id: ID!
-    name: String!
-    slug: String!
-    postPublished: Boolean
-  }
-  type MdxTag implements Node & Tag @childOf(types: ["MdxBlogPost"]) {
+  """Extend childOf types with every type of source as they are added"""
+  type Tag implements Node @dontInfer @childOf(types: ["MdxBlogPost"]) {
     id: ID!
     name: String!
     slug: String!
@@ -81,11 +76,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     id: ID!
     date: Date! @dateformat
     slug: String!
-    tags: [Tag!]
-    author: [Author!]
+    tags: [Tag!] @link(by: "name")
+    author: [Author!] @link(by: "shortName")
     title: String!
     body: String!
-    published: Boolean!
+    published: Boolean @defaultTrue
+    cover: File @fileByRelativePath
   }
   `
 
@@ -93,6 +89,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     // the source in resolvers is the MdxBlogPost node
     name: `MdxBlogPost`,
     interfaces: [`Node`, `BlogPost`],
+    extensions: {
+      childOf: {
+        types: [`Mdx`],
+      },
+      dontInfer: {},
+    },
     fields: {
       id: `ID!`,
       slug: {
@@ -306,7 +308,7 @@ exports.onCreateNode = (
     }
   }
 
-  // Create MdxTag nodes from MdxBlogPost nodes
+  // Create Tag nodes from MdxBlogPost nodes
   if (node.internal.type === `MdxBlogPost`) {
     // creating a Tag node for every entry in an MdxBlogPost tag array
     node.tags.forEach((tag, i) => {
@@ -321,14 +323,14 @@ exports.onCreateNode = (
 
       const proxyNode = {
         ...fieldData,
-        id: createNodeId(`${node.id}${i} >>> MdxTag`),
+        id: createNodeId(`${node.id}${i} >>> Tag`),
         parent: node.id,
         children: [],
         internal: {
-          type: `MdxTag`,
+          type: `Tag`,
           contentDigest: createContentDigest(fieldData),
           content: JSON.stringify(fieldData),
-          description: `MdxTag node`,
+          description: `Tag node`,
         },
       }
 
