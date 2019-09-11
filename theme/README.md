@@ -46,7 +46,7 @@ To use this theme in your Gatsby sites, follow these instructions:
 | `postsPerPage` | `6`           | Amount of posts per paginated page                             |
 | `prefixPath`   | `""`          | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
 
-#### Example usage
+### Example usage
 
 ```js
 // gatsby-config.js
@@ -67,7 +67,7 @@ module.exports = {
 }
 ```
 
-#### Additional configuration
+### Additional configuration
 
 In addition to the theme options, there are a handful of items you can customize via the `siteMetadata` object in your site's `gatsby-config.js`
 
@@ -89,16 +89,15 @@ module.exports = {
 
 ### Adding blog posts
 
-Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files that can then be referenced easily inside that `.md(x)` file.
 In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. By default, the title of this folder will serve as the slug for the blogpost.
-By default, the date the `.mdx` file was created will serve as the date for the blogpost.
+Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files specific to that blogpost (e.g. images)
+By default, the date the `.md(x)` file was created will serve as the date for the blogpost.
 (see [Anatomy of a blogpost](#anatomy-of-a-blogpost) for the ability to override these defaults).
 
-### Adding authors
+> NOTE: If you dislike having a folder per blogpost, loose `.md(x)` files are also supported. Place them inside the folder created for `contentPath`.
+> The title of the file will then serve as the slug of the blogpost if a slug not specified in the post's [slug](#anatomy-of-a-blogpost) field.
 
-In the folder that was created for the `contentPath` (`content` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of author objects.
-
-#### Example folder tree
+### Example folder tree
 
 <!-- prettier-ignore-start -->
 ```
@@ -134,6 +133,10 @@ In the folder that was created for the `contentPath` (`content` by default). Cre
 -->
 <!-- prettier-ignore-end -->
 
+### Adding authors
+
+In the folder that was created for the `contentPath` (`content` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of author objects.
+
 #### Anatomy of an authors file
 
 An authors file contains a top level array filled with object describing individual authors.
@@ -147,21 +150,23 @@ An author can have several different field with information specific to them.
 
 #### Anatomy of a blogpost
 
-The blogpost itself (`.md` or `.mdx` file for now, others coming soon) can have several different fields with extra information. Some of these are required.
-In `.md` or `.mdx` files those are set via the frontmatter.
+The blogpost itself (`.md` or `.mdx` file for now, others coming soon) can have several different fields with extra information.
+In `.md` or `.mdx` files these fields are set via the frontmatter.
 
-| Key            | Value                        | Required | Description                                                                   |
-| -------------- | ---------------------------- | -------- | ----------------------------------------------------------------------------- |
-| `title`        | string                       | no       | title of your blogpost                                                        |
-| `date`         | date string                  | no       | the date tied to the post                                                     |
-| `canonicalUrl` | full url string              | no       | Canonical url                                                                 |
-| `authors`      | array of `shortName`s        | no       | Authors of the post Should not be used in combination with the `author` key.  |
-| `author`       | author `shortName`           | no       | Author of the post. Should not be used in combination with the `authors` key. |
-| `tags`         | array of tag strings         | no       | tags for this post                                                            |
-| `keywords`     | array of keyword strings     | no       | keywords for SEO                                                              |
-| `cover`        | relative path to cover image | no       | displayed as cover image, in social cards                                     |
-| `published`    | boolean, defaults to `true`  | no       | include post in production                                                    |
-| `slug`         | string                       | no       | the last part of the URL for this post                                        |
+| Key                                                       | Value                        | Required | Description                               |
+| --------------------------------------------------------- | ---------------------------- | -------- | ----------------------------------------- |
+| `title`                                                   | string                       | no       | title of your blogpost                    |
+| `date`                                                    | date string                  | no       | the date tied to the post                 |
+| `canonicalUrl`                                            | full url string              | no       | Canonical url                             |
+| `authors`                                                 | array of `shortName` strings | no       | Authors of the post.                      |
+| Should not be used in combination with the `author` key.  |
+| `author`                                                  | `shortName` string           | no       | Author of the post.                       |
+| Should not be used in combination with the `authors` key. |
+| `tags`                                                    | array of tag strings         | no       | tags for this post                        |
+| `keywords`                                                | array of keyword strings     | no       | keywords for SEO                          |
+| `cover`                                                   | relative path to cover image | no       | displayed as cover image, in social cards |
+| `published`                                               | boolean, defaults to `true`  | no       | include post in production                |
+| `slug`                                                    | string                       | no       | the last part of the URL for this post    |
 
 ### Exported components
 
@@ -265,7 +270,7 @@ export default () => (
 - [x] Make title of blogposts default to the unkebabcased title of the folder.
 - [x] Allow unkebabcased slugs in frontmatter
 - [x] Allow blog posts as plain markdown/mdx files, not in a folder
-- [ ] document loose files as blogposts
+- [x] document loose files as blogposts
 - [x] Allow author field in frontmatter to be optional
   - [x] allow for authorless posts
 - [ ] Make demo website function like a big readme.
