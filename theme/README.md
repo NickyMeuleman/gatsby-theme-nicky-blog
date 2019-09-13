@@ -275,3 +275,4 @@ export default () => (
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
 - [ ] Migrate theme to TypeScript, leave demo as JavaScript
+- [ ] Add testing with react-testing-library and cypress
