@@ -5,16 +5,17 @@ import TagList from "../components/TagList"
 import SEO from "../components/SEO"
 
 const TagsTemplate = ({ data, pageContext }) => {
-  const tagData = data.allTag.group.reduce((acc, item) => {
-    return [
+  const tagData = data.allTag.group.reduce(
+    (acc, item) => [
       ...acc,
       {
         name: item.edges[0].node.name,
         slug: item.edges[0].node.slug,
         amount: item.totalCount,
       },
-    ]
-  }, [])
+    ],
+    []
+  )
 
   return (
     <Layout>

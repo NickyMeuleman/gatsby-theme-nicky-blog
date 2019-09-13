@@ -67,6 +67,7 @@
   },
   "include": [
     "./src/**/*",
+    "./src/*",
     "./*.js",
     "./*.ts"
   ] /* Relative path from tsconfig location */

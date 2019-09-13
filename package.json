@@ -5,6 +5,9 @@
     "demo"
   ],
   "devDependencies": {
+    "@types/node": "^12.7.5",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
@@ -15,7 +18,7 @@
     "prettier": "^1.18.2"
   },
   "scripts": {
-    "lint:theme": "eslint 'theme/**/*.js'",
+    "lint:theme": "yarn workspace @nickymeuleman/gatsby-theme-blog lint",
     "format:demo": "prettier 'demo/**/*.{js,jsx,json,md,mdx}'",
     "info": "gatsby info --clipboard",
     "clean": "yarn workspace demo clean",

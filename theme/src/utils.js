@@ -1,4 +1,5 @@
 // ugh, commonJS syntax
+// utils are imported into g atsby-node, keep js only
 
 // Quick-and-dirty helper to convert strings into URL-friendly slugs.
 exports.slugify = str => {

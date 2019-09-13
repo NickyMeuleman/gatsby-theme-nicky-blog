@@ -1,7 +1,12 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const TagPage = ({ data, basePath }) => {
+interface IProps {
+  data: any
+  basePath: string
+}
+
+const TagPage: React.FC<IProps> = ({ data, basePath }) => {
   const { posts } = data
   const tagHeader = `${data.amount} post${
     data.amount === 1 ? `` : `s`

@@ -34,11 +34,11 @@
     "eslint-plugin-react-hooks": "^2.0.1",
     "gatsby": "^2.15.14",
     "prettier": "^1.18.2",
-    "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "typescript": "^3.6.3"
   },
   "dependencies": {
+    "react": "^16.8.6",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
     "@mdx-js/mdx": "^1.1.0",

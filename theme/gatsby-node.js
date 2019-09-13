@@ -7,7 +7,7 @@ const {
   slugify,
   mdxResolverPassthrough,
   themeOptionsWithDefaults,
-} = require(`./utils`)
+} = require(`./src/utils`)
 
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
