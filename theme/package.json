@@ -13,7 +13,7 @@
     "clean": "gatsby clean",
     "develop": "gatsby develop -H 0.0.0.0",
     "tsc": "tsc",
-    "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx",
+    "lint": "eslint --ignore-path '../.gitignore' . --ext ts --ext tsx --ext js --ext jsx",
     "lint:fix": "yarn lint --fix"
   },
   "peerDependencies": {
