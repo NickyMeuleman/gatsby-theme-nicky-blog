@@ -3,8 +3,23 @@
     {
       "fileMatch": [".eslintrc.json"],
       "url": "http://json.schemastore.org/eslintrc"
+    },
+    {
+      "fileMatch": ["tsconfig.json"],
+      "url": "http://json.schemastore.org/tsconfig"
+    },
+    {
+      "fileMatch": [".prettierrc.json"],
+      "url": "http://json.schemastore.org/prettierrc"
+    },
+    {
+      "fileMatch": ["package.json"],
+      "url": "http://json.schemastore.org/package"
     }
   ],
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.alwaysShowStatus": true,
   "eslint.validate": [
     {
       "language": "javascript",
@@ -13,17 +28,33 @@
     {
       "language": "javascriptreact",
       "autoFix": true
+    },
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
     }
   ],
-  "eslint.autoFixOnSave": true,
-  "eslint.alwaysShowStatus": true,
-  "editor.formatOnSave": true,
   "[javascript]": {
     "editor.formatOnSave": false
   },
   "[javascriptreact]": {
     "editor.formatOnSave": false
   },
-  "prettier.disableLanguages": ["javascript", "javascriptreact"],
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "prettier.disableLanguages": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
   "eslint.workingDirectories": ["./demo/", "./theme/"]
 }

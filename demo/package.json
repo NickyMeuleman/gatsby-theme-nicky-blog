@@ -7,11 +7,9 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "yarn run develop",
+    "start": "gatsby develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "lint": "eslint --ignore-path '../.gitignore' . --ext ts --ext tsx --ext js --ext jsx",
-    "lint:fix": "yarn lint --fix"
+    "clean": "gatsby clean"
   },
   "dependencies": {
     "@nickymeuleman/gatsby-theme-blog": "*",

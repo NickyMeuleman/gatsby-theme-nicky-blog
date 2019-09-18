@@ -10,11 +10,9 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "start": "gatsby develop",
     "clean": "gatsby clean",
-    "develop": "gatsby develop -H 0.0.0.0",
-    "tsc": "tsc",
-    "lint": "eslint --ignore-path '../.gitignore' . --ext ts --ext tsx --ext js --ext jsx",
-    "lint:fix": "yarn lint --fix"
+    "develop": "gatsby develop -H 0.0.0.0"
   },
   "peerDependencies": {
     "gatsby": "^2.15.14",
@@ -22,20 +20,8 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.2.0",
-    "@typescript-eslint/parser": "^2.2.0",
-    "eslint": "^6.3.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.0.1",
     "gatsby": "^2.15.14",
-    "prettier": "^1.18.2",
-    "react-dom": "^16.8.6",
-    "typescript": "^3.6.3"
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "react": "^16.8.6",

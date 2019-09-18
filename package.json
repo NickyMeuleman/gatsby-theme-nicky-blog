@@ -8,21 +8,32 @@
     "@types/node": "^12.7.5",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.1",
-    "eslint-config-prettier": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.3.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
-    "prettier": "^1.18.2"
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
   },
   "scripts": {
-    "lint:theme": "yarn workspace @nickymeuleman/gatsby-theme-blog lint",
-    "format:demo": "prettier 'demo/**/*.{js,jsx,json,md,mdx}'",
     "info": "gatsby info --clipboard",
-    "clean": "yarn workspace demo clean",
-    "demo": "yarn workspace demo develop -H 0.0.0.0",
-    "dev": "yarn run clean && yarn run demo"
+    "clean:demo": "yarn workspace demo clean",
+    "dev:demo": "yarn workspace demo develop -H 0.0.0.0",
+    "dev": "yarn run clean:demo && yarn run dev:demo",
+    "lint:theme": "eslint --ignore-path .gitignore './theme' --ext ts --ext tsx --ext js --ext jsx",
+    "lint:theme:fix": "yarn lint:theme --fix",
+    "lint:demo": "eslint --ignore-path .gitignore './demo' --ext ts --ext tsx --ext js --ext jsx",
+    "lint:demo:fix": "yarn lint:demo --fix",
+    "format:demo": "prettier 'demo/**/*.{json,md,mdx}'",
+    "format:demo:write": "prettier 'demo/**/*.{json,md,mdx}' --write",
+    "format:theme": "prettier 'theme/**/*.{json,md,mdx}'",
+    "format:theme:write": "prettier 'theme/**/*.{json,md,mdx}' --write",
+    "type-check": "tsc --noEmit"
   }
 }
