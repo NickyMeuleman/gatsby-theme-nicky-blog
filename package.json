@@ -5,11 +5,17 @@
     "demo"
   ],
   "devDependencies": {
+    "@testing-library/cypress": "^5.0.1",
     "@types/node": "^12.7.5",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@types/testing-library__cypress": "^5.0.0",
+    "@types/theme-ui": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
+    "concurrently": "^4.1.2",
+    "cross-env": "^6.0.0",
+    "cypress": "^3.4.1",
     "eslint": "^6.4.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.3.0",
@@ -18,7 +24,9 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
+    "gatsby-cypress": "^0.2.8",
     "prettier": "^1.18.2",
+    "start-server-and-test": "^1.10.2",
     "typescript": "^3.6.3"
   },
   "scripts": {
@@ -34,6 +42,17 @@
     "format:demo:write": "prettier 'demo/**/*.{json,md,mdx}' --write",
     "format:theme": "prettier 'theme/**/*.{json,md,mdx}'",
     "format:theme:write": "prettier 'theme/**/*.{json,md,mdx}' --write",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "cy:open": "cypress open",
+    "cy:run": "cross-env CYPRESS_baseUrl=http://localhost:9000 cypress run",
+    "tsc:compile": "tsc --project cypress/tsconfig.json",
+    "tsc:compile:watch": "tsc --watch --project cypress/tsconfig.json",
+    "demo:cy:dev": "yarn workspace demo develop:cypress",
+    "demo:cy:build": "yarn workspace demo build:cypress",
+    "demo:serve": "yarn workspace demo serve",
+    "ssat:demo:dev": "start-server-and-test demo:cy:dev http://localhost:8000 cy:open",
+    "ssat:demo:serve": "start-server-and-test demo:serve http://localhost:9000 cy:run",
+    "e2e:dev": "concurrently --kill-others 'yarn tsc:compile:watch' 'yarn ssat:demo:dev'",
+    "e2e:ci": "yarn tsc:compile && yarn demo:cy:build && yarn ssat:demo:serve"
   }
 }

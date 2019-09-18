@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -79,6 +81,22 @@ module.exports = {
       {
         "allowTaggedTemplates": true
       }
+    ],
+    "spaced-comment": "off",
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        packageDir: [
+          path.resolve(__dirname, './'),
+          path.resolve(__dirname, './theme'),
+          path.resolve(__dirname, './demo'),
+        ],
+        devDependencies: [
+          '**/*.test.js',
+          '**/*.spec.js',
+          '/cypress/**',
+        ],
+      },
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-var-requires": "off",
