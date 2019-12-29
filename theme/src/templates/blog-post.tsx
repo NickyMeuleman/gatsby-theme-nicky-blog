@@ -2,31 +2,18 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import BlogPost from "../components/BlogPost"
-import SEO from "../components/SEO"
+import { IBlogPost, IBlogPostPageContext } from "../types"
 
-const BlogPostTemplate = ({ data, pageContext }) => {
+interface IProps {
+  data: { blogPost: IBlogPost }
+  pageContext: IBlogPostPageContext
+}
+
+const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const post = data.blogPost
 
   return (
     <Layout>
-      <SEO
-        title={post.title}
-        description={post.excerpt}
-        slug={post.slug}
-        basePath={pageContext.basePath}
-        keywords={post.keywords || []}
-        image={
-          post.cover
-            ? post.cover.childImageSharp.fluid.src
-            : `/path/to/fallback/image.png`
-        }
-        canonicalUrl={post.canonicalUrl}
-        twitterHandle={
-          post.authors && post.authors[0].twitter
-            ? post.authors[0].twitter
-            : null
-        }
-      />
       <BlogPost
         post={post}
         context={pageContext}
@@ -43,6 +30,7 @@ export const query = graphql`
       id
       slug
       canonicalUrl
+      keywords
       body
       tags {
         name

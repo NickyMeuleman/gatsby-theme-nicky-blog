@@ -1,8 +1,12 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import { Styled, Header } from "theme-ui"
+import { Styled, Header as ThemeHeader } from "theme-ui"
 
-export default ({ title }) => {
+interface IProps {
+  title?: string
+}
+
+const Header: React.FC<IProps> = ({ title }) => {
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       site {
@@ -14,12 +18,16 @@ export default ({ title }) => {
   `)
   const siteTitle = data.site.siteMetadata.title
   return (
-    <Header>
+    <ThemeHeader>
       <Styled.h1>
+        {/* 
+        // @ts-ignore */}
         <Styled.a as={Link} to="/">
           {title || siteTitle}
         </Styled.a>
       </Styled.h1>
-    </Header>
+    </ThemeHeader>
   )
 }
+
+export default Header

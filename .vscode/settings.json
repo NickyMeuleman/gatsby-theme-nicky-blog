@@ -60,5 +60,11 @@
     "typescript",
     "typescriptreact"
   ],
-  "eslint.workingDirectories": ["./demo/", "./theme/"]
+  "eslint.workingDirectories": ["./demo/", "./theme/"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnCommitCharacter": false
 }

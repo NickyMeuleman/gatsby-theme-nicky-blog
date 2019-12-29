@@ -1,15 +1,44 @@
+/** @jsx jsx */
 import React from "react"
+import { jsx } from "theme-ui"
+// @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 import UnderPost from "./UnderPost"
+import { IBlogPost, IBlogPostContext } from "../types"
+import SEO from "./SEO"
 
-const BlogPost = ({ post, basePath, context }) => (
-  <>
+interface IProps {
+  post: IBlogPost
+  basePath: string
+  context: IBlogPostContext
+}
+
+const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
+  <React.Fragment>
+    <SEO
+      title={post.title}
+      description={post.excerpt}
+      slug={post.slug}
+      basePath={basePath}
+      keywords={post.keywords || []}
+      image={
+        post.cover
+          ? post.cover.childImageSharp.fluid.src
+          : `/path/to/fallback/image.png`
+      }
+      canonicalUrl={post.canonicalUrl}
+      twitterHandle={
+        post.authors && post.authors[0].twitter
+          ? post.authors[0].twitter
+          : undefined
+      }
+    />
     <h1>{post.title}</h1>
     {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
     {post.canonicalUrl ? (
-      <p css={{ color: `rgba(0,0,0,0.7)`, lineHeight: 2 }}>
+      <p sx={{ color: `rgba(0,0,0,0.7)`, lineHeight: 2 }}>
         <em>
           Originally published at{` `}
           <a href={post.canonicalUrl}>{post.canonicalUrl}</a>
@@ -23,7 +52,7 @@ const BlogPost = ({ post, basePath, context }) => (
         <p>Tagged with:</p>
         <ul>
           {post.tags.map(tag => (
-            <li key={tag.slug} css={{ margin: `0.3rem` }}>
+            <li key={tag.slug} sx={{ margin: `0.3rem` }}>
               <Link
                 to={`${
                   basePath === `/` || basePath === `` ? `` : `/`
@@ -37,7 +66,7 @@ const BlogPost = ({ post, basePath, context }) => (
       </div>
     )}
     <UnderPost prev={context.prev} next={context.next} basePath={basePath} />
-  </>
+  </React.Fragment>
 )
 
 export default BlogPost

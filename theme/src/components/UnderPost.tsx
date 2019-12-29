@@ -1,7 +1,12 @@
 import React from "react"
 import { Link } from "gatsby"
+import { IBlogPostContext } from "../types"
 
-const UnderPost = ({ prev, next, basePath }) => (
+interface IProps extends IBlogPostContext {
+  basePath: string
+}
+
+const UnderPost: React.FC<IProps> = ({ prev, next, basePath }) => (
   <div style={{ display: `flex`, justifyContent: `space-between` }}>
     {prev && (
       <Link

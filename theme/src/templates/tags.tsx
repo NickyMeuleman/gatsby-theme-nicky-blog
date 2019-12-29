@@ -3,17 +3,33 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagList from "../components/TagList"
 import SEO from "../components/SEO"
+import { ITagsPageContext, ITagSummary } from "../types"
 
-const TagsTemplate = ({ data, pageContext }) => {
-  const tagData = data.allTag.group.reduce(
-    (acc, item) => [
-      ...acc,
-      {
+interface IProps {
+  data: {
+    allTag: {
+      group: {
+        edges: {
+          node: {
+            name: string
+            slug: string
+          }
+        }[]
+        totalCount: number
+      }[]
+    }
+  }
+  pageContext: ITagsPageContext
+}
+
+const TagsTemplate: React.FC<IProps> = ({ data, pageContext }) => {
+  const tagData = data.allTag.group.reduce<ITagSummary[]>(
+    (acc, item) =>
+      acc.concat({
         name: item.edges[0].node.name,
         slug: item.edges[0].node.slug,
         amount: item.totalCount,
-      },
-    ],
+      }),
     []
   )
 

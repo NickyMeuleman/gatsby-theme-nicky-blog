@@ -5,10 +5,9 @@
 // and https://github.com/gatsbyjs/gatsby/pull/14520
 
 import React from "react"
-import { css } from "theme-ui"
 
 // from https://octicons.github.com/icon/link/
-const LinkIcon = props => (
+const LinkIcon: React.FC = props => (
   <svg
     {...props}
     viewBox="0 0 16 16"
@@ -24,7 +23,12 @@ const LinkIcon = props => (
   </svg>
 )
 
-const heading = Tag => props => {
+// How do I do this better?
+type headerTypes = `h1` | `h2` | `h3` | `h4` | `h5` | `h6`
+
+const heading: (
+  tag: headerTypes
+) => React.FC<{ id?: string }> = Tag => props => {
   if (!props.id) return <Tag {...props} />
   return (
     <Tag
@@ -42,11 +46,11 @@ const heading = Tag => props => {
     >
       <a
         href={`#${props.id}`}
-        css={css({
+        css={{
           marginLeft: `-20px`,
           paddingRight: `4px`,
           color: `primary`,
-        })}
+        }}
       >
         <LinkIcon />
       </a>

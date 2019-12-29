@@ -4,21 +4,32 @@ import Layout from "../components/layout"
 import BlogList from "../components/BlogList"
 import Pagination from "../components/Pagination"
 import SEO from "../components/SEO"
+import { IBlogPostsPageContext, IBlogPostPreview } from "../types"
 
-const BlogPostsTemplate = ({ data, pageContext }) => {
+interface IProps {
+  data: { allBlogPost: IAllBlogPostQuery }
+  pageContext: IBlogPostsPageContext
+}
+
+interface IAllBlogPostQuery {
+  totalCount: number
+  edges: { node: IBlogPostPreview }[]
+}
+
+const BlogPostsTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const blogposts = data.allBlogPost.edges.map(edge => edge.node)
 
   return (
     <Layout>
-      <SEO />
+      <SEO basePath={pageContext.basePath} />
       <BlogList
         blogPosts={blogposts}
         totalCount={data.allBlogPost.totalCount}
         basePath={pageContext.basePath}
       />
-      {pageContext.numPages && (
+      {pageContext.numPages ? (
         <Pagination context={pageContext} basePath={pageContext.basePath} />
-      )}
+      ) : null}
     </Layout>
   )
 }
