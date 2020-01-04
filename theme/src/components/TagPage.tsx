@@ -2,9 +2,10 @@
 import React from "react"
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
+import { ITagPageData } from "../types"
 
 interface IProps {
-  data: any
+  data: ITagPageData
   basePath: string
 }
 
@@ -27,7 +28,7 @@ const TagPage: React.FC<IProps> = ({ data, basePath }) => {
         </Link>
       </p>
       <ul>
-        {posts.map((post: any) => (
+        {posts.map(post => (
           <li key={post.slug} sx={{ margin: `0.3rem` }}>
             <Link
               to={`${

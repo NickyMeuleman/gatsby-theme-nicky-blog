@@ -3,23 +3,15 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagList from "../components/TagList"
 import SEO from "../components/SEO"
-import { ITagsPageContext, ITagSummary } from "../types"
+import {
+  ITagSummary,
+  ITagListTemplateQuery,
+  ITagListPageContext,
+} from "../types"
 
 interface IProps {
-  data: {
-    allTag: {
-      group: {
-        edges: {
-          node: {
-            name: string
-            slug: string
-          }
-        }[]
-        totalCount: number
-      }[]
-    }
-  }
-  pageContext: ITagsPageContext
+  data: ITagListTemplateQuery
+  pageContext: ITagListPageContext
 }
 
 const TagsTemplate: React.FC<IProps> = ({ data, pageContext }) => {

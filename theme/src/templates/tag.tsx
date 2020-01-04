@@ -3,16 +3,10 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
 import SEO from "../components/SEO"
-import { ITagPageContext } from "../types"
+import { ITagPageContext, ITagTemplateQuery } from "../types"
 
 interface IProps {
-  data: {
-    allBlogPost: {
-      edges: { node: { slug: string; title: string } }[]
-      totalCount: number
-    }
-    tag: { name: string }
-  }
+  data: ITagTemplateQuery
   pageContext: ITagPageContext
 }
 

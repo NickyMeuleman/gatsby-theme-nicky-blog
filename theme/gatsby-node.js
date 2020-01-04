@@ -425,7 +425,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         index === 0
           ? `${basePath || `/`}`
           : path.join(basePath, prefixPath, `${index + 1}`),
-      component: require.resolve(`./src/templates/blog-posts.tsx`),
+      component: require.resolve(`./src/templates/blog-post-list.tsx`),
       context: {
         ...paginationContext,
         basePath,
@@ -436,7 +436,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // create tag-list page
   actions.createPage({
     path: path.join(basePath, `tag`),
-    component: require.resolve(`./src/templates/tags.tsx`),
+    component: require.resolve(`./src/templates/tag-list.tsx`),
     context: {
       basePath,
     },

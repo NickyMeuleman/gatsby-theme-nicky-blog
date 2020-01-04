@@ -9,5 +9,3 @@ export { default as UnderPost } from "./src/components/UnderPost"
 export { default as GlobalStyles } from "./src/components/GlobalStyles"
 export { default as Header } from "./src/components/Header"
 export { default as Main } from "./src/components/Main"
-
-// boop

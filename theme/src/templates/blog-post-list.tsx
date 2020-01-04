@@ -4,16 +4,11 @@ import Layout from "../components/layout"
 import BlogList from "../components/BlogList"
 import Pagination from "../components/Pagination"
 import SEO from "../components/SEO"
-import { IBlogPostsPageContext, IBlogPostPreview } from "../types"
+import { IBlogPostListTemplateQuery, IBlogPostListPageContext } from "../types"
 
 interface IProps {
-  data: { allBlogPost: IAllBlogPostQuery }
-  pageContext: IBlogPostsPageContext
-}
-
-interface IAllBlogPostQuery {
-  totalCount: number
-  edges: { node: IBlogPostPreview }[]
+  data: IBlogPostListTemplateQuery
+  pageContext: IBlogPostListPageContext
 }
 
 const BlogPostsTemplate: React.FC<IProps> = ({ data, pageContext }) => {
@@ -34,8 +29,8 @@ const BlogPostsTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   )
 }
 
-export const BlogPostsTemplateQuery = graphql`
-  query BlogPostsTemplateQuery($skip: Int, $limit: Int) {
+export const BlogPostListTemplateQuery = graphql`
+  query BlogPostListTemplateQuery($skip: Int, $limit: Int) {
     allBlogPost(
       sort: { fields: [date], order: DESC }
       limit: $limit

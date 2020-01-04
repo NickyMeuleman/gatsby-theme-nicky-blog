@@ -2,10 +2,10 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import BlogPost from "../components/BlogPost"
-import { IBlogPost, IBlogPostPageContext } from "../types"
+import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types"
 
 interface IProps {
-  data: { blogPost: IBlogPost }
+  data: IBlogPostTemplateQuery
   pageContext: IBlogPostPageContext
 }
 
