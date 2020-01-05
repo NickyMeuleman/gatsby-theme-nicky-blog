@@ -25,7 +25,7 @@ const Pagination: React.FC<IProps> = ({
     !isFirst &&
     (currentPage - 1 === 1
       ? path.join(`/`, basePath)
-      : path.join(basePath, prefixPath, prevPageNum.toString()))
+      : path.join(`/`, basePath, prefixPath, prevPageNum.toString()))
   const nextPageLink =
     !isLast && path.join(`/`, basePath, prefixPath, nextPageNum.toString())
   const changePage = (event: ChangeEvent<HTMLSelectElement>): void => {
