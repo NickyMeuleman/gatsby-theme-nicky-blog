@@ -4,12 +4,7 @@ import Header from "./Header"
 import Main from "./Main"
 import GlobalStyles from "./GlobalStyles"
 
-interface IProps {
-  [key: string]: any
-  children?: any
-}
-
-const Layout: React.FC<IProps> = ({ children, ...props }) => (
+const Layout: React.FC = ({ children, ...props }) => (
   <ThemeLayout>
     <GlobalStyles />
     <Header {...props} />

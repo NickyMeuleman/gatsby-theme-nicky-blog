@@ -2,14 +2,13 @@
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 import { jsx } from "theme-ui"
-import { IAuthor } from "../types"
 
 interface IProps {
-  authors?: IAuthor[]
   url: string
   title: string
   date: string
-  coverSizes: any
+  authors?: { name: string }[]
+  coverSizes?: any
 }
 
 const PostCard: React.FC<IProps> = props => {
@@ -49,7 +48,6 @@ const PostCard: React.FC<IProps> = props => {
         </Link>
       </div>
       <div>
-        {/* TODO: cure divitis */}
         <div>
           <Link to={props.url}>
             <h2>{props.title}</h2>

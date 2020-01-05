@@ -1,21 +1,5 @@
 /* INTERNAL HELPER TYPES */
 
-// Previous and Next links in context
-interface IPrevNext {
-  title: string
-  slug: string
-}
-
-// blogpost node in templates/blog-post-list query
-interface IBlogPostPreview {
-  id: string
-  authors: { name: string }
-  title: string
-  slug: string
-  date: string
-  cover: any
-}
-
 /* TEMPLATES */
 
 // pageContext of pages created in gatsby-node with templates/blog-post
@@ -57,18 +41,7 @@ export interface IBlogPostListTemplateQuery {
 
 // query in templates/blog-post
 export interface IBlogPostTemplateQuery {
-  blogPost: {
-    excerpt: string
-    id: string
-    slug: string
-    canonicalUrl?: string
-    keywords?: string[]
-    body: string
-    tags?: { name: string; slug: string }[]
-    authors: { name: string; twitter?: string }[]
-    title: string
-    cover?: any
-  }
+  blogPost: IBlogPost
 }
 
 // query in templates/tag
@@ -116,4 +89,48 @@ export interface ITagPageData {
   amount: number
   name: string
   posts: { slug: string; title: string }[]
+}
+
+// BlogList
+export interface IBlogPostPreview {
+  id: string
+  authors?: { name: string }[]
+  title: string
+  slug: string
+  date: string
+  cover: any
+}
+
+// BlogPost
+export interface IBlogPost {
+  excerpt: string
+  id: string
+  slug: string
+  canonicalUrl?: string
+  keywords?: string[]
+  body: string
+  tags?: { name: string; slug: string }[]
+  authors: { name: string; twitter?: string }[]
+  title: string
+  cover?: any
+}
+
+// UnderPost
+export interface IPrevNext {
+  title: string
+  slug: string
+}
+
+// SEO
+export interface ISEOStaticQuery {
+  site: {
+    siteMetadata: {
+      siteUrl: string
+      title: string
+      description: string
+      social: {
+        twitter: string
+      }
+    }
+  }
 }

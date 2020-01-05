@@ -1,8 +1,10 @@
 import React from "react"
 import { Link } from "gatsby"
-import { IBlogPostContext } from "../types"
+import { IPrevNext } from "../types"
 
-interface IProps extends IBlogPostContext {
+interface IProps {
+  prev?: IPrevNext
+  next?: IPrevNext
   basePath: string
 }
 

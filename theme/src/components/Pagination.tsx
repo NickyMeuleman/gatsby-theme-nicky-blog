@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from "react"
 import { navigate, Link } from "gatsby"
 import * as path from "path"
-import { IBlogPostsPageContext } from "../types"
+import { IBlogPostListPageContext } from "../types"
 
 interface IProps {
-  context: IBlogPostsPageContext
+  context: IBlogPostListPageContext
   basePath: string
 }
 

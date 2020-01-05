@@ -2,6 +2,7 @@ import React from "react"
 import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import * as path from "path"
+import { ISEOStaticQuery } from "../types"
 
 interface IProps {
   title?: string
@@ -29,7 +30,7 @@ const SEO: React.FC<IProps> = ({
   twitterHandle,
   children,
 }) => {
-  const result = useStaticQuery(graphql`
+  const result: ISEOStaticQuery = useStaticQuery(graphql`
     query GetSiteMetadata {
       site {
         siteMetadata {

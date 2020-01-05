@@ -1,7 +1,7 @@
 import React from "react"
 import { css, Global } from "@emotion/core"
 
-export default () => (
+export default (): any => (
   <Global
     styles={css`
       body {

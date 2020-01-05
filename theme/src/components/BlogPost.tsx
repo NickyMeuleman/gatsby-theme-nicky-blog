@@ -6,13 +6,13 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 import UnderPost from "./UnderPost"
-import { IBlogPost, IBlogPostContext } from "../types"
+import { IBlogPostPageContext, IBlogPost } from "../types"
 import SEO from "./SEO"
 
 interface IProps {
   post: IBlogPost
   basePath: string
-  context: IBlogPostContext
+  context: IBlogPostPageContext
 }
 
 const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
@@ -23,6 +23,7 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
       slug={post.slug}
       basePath={basePath}
       keywords={post.keywords || []}
+      // TODO: gatsby-plugin-printer for image
       image={
         post.cover
           ? post.cover.childImageSharp.fluid.src
@@ -40,12 +41,12 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
     {post.canonicalUrl ? (
       <p sx={{ color: `rgba(0,0,0,0.7)`, lineHeight: 2 }}>
         <em>
-          Originally published at{` `}
+          Originally published at
           <a href={post.canonicalUrl}>{post.canonicalUrl}</a>
         </em>
       </p>
     ) : null}
-    {` `}
+
     <MDXRenderer>{post.body}</MDXRenderer>
     {post.tags && (
       <div>

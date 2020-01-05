@@ -14,7 +14,6 @@ const BlogList: React.FC<IProps> = ({ blogPosts, totalCount, basePath }) => (
       <span role="img" aria-label="googly-eyes">
         👀
       </span>
-      {` `}
       {totalCount} Posts total
     </p>
     {blogPosts.map(blogPost => (
