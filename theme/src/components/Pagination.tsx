@@ -1,11 +1,22 @@
-import React from "react"
+import React, { ChangeEvent } from "react"
 import { navigate, Link } from "gatsby"
 import * as path from "path"
+import { IBlogPostListPageContext } from "../types"
 
-const Pagination = ({
-  context: { numPages, currentPage, prefixPath },
+interface IProps {
+  context: IBlogPostListPageContext
+  basePath: string
+}
+
+const Pagination: React.FC<IProps> = ({
+  context: { numPages, currentPage, prefixPath = `` },
   basePath,
 }) => {
+  if (!numPages || !currentPage) {
+    return (
+      <p>No pagination context passed to the {`<Pagination />`} component</p>
+    )
+  }
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
   const prevPageNum = currentPage - 1
@@ -14,11 +25,11 @@ const Pagination = ({
     !isFirst &&
     (currentPage - 1 === 1
       ? path.join(`/`, basePath)
-      : path.join(basePath, prefixPath, prevPageNum.toString()))
+      : path.join(`/`, basePath, prefixPath, prevPageNum.toString()))
   const nextPageLink =
     !isLast && path.join(`/`, basePath, prefixPath, nextPageNum.toString())
-  const changePage = e => {
-    const { value } = e.target
+  const changePage = (event: ChangeEvent<HTMLSelectElement>): void => {
+    const { value } = event.target
     const navPath =
       value === `1`
         ? path.join(`/`, basePath)

@@ -1,8 +1,11 @@
+/** @jsx jsx */
 import React from "react"
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
+import { ITagPageData } from "../types"
 
 interface IProps {
-  data: any
+  data: ITagPageData
   basePath: string
 }
 
@@ -13,7 +16,7 @@ const TagPage: React.FC<IProps> = ({ data, basePath }) => {
   } tagged with "${data.name}"`
 
   return (
-    <>
+    <div>
       <h1>{tagHeader}</h1>
       <p>
         <Link
@@ -26,7 +29,7 @@ const TagPage: React.FC<IProps> = ({ data, basePath }) => {
       </p>
       <ul>
         {posts.map(post => (
-          <li key={post.slug} css={{ margin: `0.3rem` }}>
+          <li key={post.slug} sx={{ margin: `0.3rem` }}>
             <Link
               to={`${
                 basePath === `/` || basePath === `` ? `` : `/`
@@ -37,7 +40,7 @@ const TagPage: React.FC<IProps> = ({ data, basePath }) => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   )
 }
 

@@ -3,8 +3,14 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
 import SEO from "../components/SEO"
+import { ITagPageContext, ITagTemplateQuery } from "../types"
 
-const TagTemplate = ({ data, pageContext }) => {
+interface IProps {
+  data: ITagTemplateQuery
+  pageContext: ITagPageContext
+}
+
+const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     amount: data.allBlogPost.totalCount,
     name: data.tag.name,

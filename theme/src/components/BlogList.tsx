@@ -1,13 +1,19 @@
 import React from "react"
 import PostCard from "./PostCard"
+import { IBlogPostPreview } from "../types"
 
-const BlogList = ({ blogPosts, totalCount, basePath }) => (
+interface IProps {
+  blogPosts: IBlogPostPreview[]
+  totalCount: number
+  basePath: string
+}
+
+const BlogList: React.FC<IProps> = ({ blogPosts, totalCount, basePath }) => (
   <>
     <p>
       <span role="img" aria-label="googly-eyes">
         👀
       </span>
-      {` `}
       {totalCount} Posts total
     </p>
     {blogPosts.map(blogPost => (

@@ -1,7 +1,14 @@
 import React from "react"
 import { Link } from "gatsby"
+import { IPrevNext } from "../types"
 
-const UnderPost = ({ prev, next, basePath }) => (
+interface IProps {
+  prev?: IPrevNext
+  next?: IPrevNext
+  basePath: string
+}
+
+const UnderPost: React.FC<IProps> = ({ prev, next, basePath }) => (
   <div style={{ display: `flex`, justifyContent: `space-between` }}>
     {prev && (
       <Link

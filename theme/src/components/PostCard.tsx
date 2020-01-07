@@ -3,7 +3,15 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 import { jsx } from "theme-ui"
 
-const PostCard = props => {
+interface IProps {
+  url: string
+  title: string
+  date: string
+  authors?: { name: string }[]
+  coverSizes?: any
+}
+
+const PostCard: React.FC<IProps> = props => {
   let authorString
   if (props.authors) {
     if (props.authors.length > 1) {
@@ -28,7 +36,7 @@ const PostCard = props => {
             <Img sizes={props.coverSizes} />
           ) : (
             <div
-              style={{
+              sx={{
                 height: `10rem`,
                 width: `100%`,
                 backgroundImage: `linear-gradient(120deg, purple, rebeccapurple)`,
@@ -44,7 +52,6 @@ const PostCard = props => {
           <Link to={props.url}>
             <h2>{props.title}</h2>
           </Link>
-          {props.excerpt && <div>{props.excerpt}</div>}
         </div>
         <div>
           <p>

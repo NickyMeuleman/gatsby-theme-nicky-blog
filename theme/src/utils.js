@@ -1,5 +1,6 @@
 // ugh, commonJS syntax
-// utils are imported into g atsby-node, keep js only
+// utils are imported into gatsby-node, keep js only
+// https://github.com/gatsbyjs/gatsby/issues/18983
 
 // Quick-and-dirty helper to convert strings into URL-friendly slugs.
 exports.slugify = str => {

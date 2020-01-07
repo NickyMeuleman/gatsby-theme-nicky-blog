@@ -16,8 +16,8 @@
     "./theme/*.js",
     "./theme/*.ts",
     "./demo/src/**/*",
-    "./theme/*.js",
-    "./theme/*.ts"
+    "./demo/*.js",
+    "./demo/*.ts"
   ],
-  "exclude": ["node_modules", "theme/node_modules", "demo/node_modules"]
+  "exclude": ["node_modules", "demo/node_modules", "demo/node_modules"]
 }

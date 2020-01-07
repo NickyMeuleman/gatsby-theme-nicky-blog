@@ -1,7 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
+import { ITagSummary } from "../types"
 
-const TagList = ({ tags, basePath }) => (
+interface IProps {
+  tags: ITagSummary[]
+  basePath: string
+}
+
+const TagList: React.FC<IProps> = ({ tags, basePath }) => (
   <ul>
     {tags.map(tag => (
       <li key={tag.slug} css={{ margin: `0.3rem` }}>

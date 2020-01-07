@@ -98,8 +98,19 @@ module.exports = {
         ],
       },
     ],
+   'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        'js': 'never',
+        'jsx': 'never',
+        'ts': 'never',
+        'tsx': 'never'
+      }
+    ],
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
     // for .js files
     // "plugin:@typescript-eslint/recommended" overwrites this rule
     "no-unused-vars": "off",
@@ -112,6 +123,8 @@ module.exports = {
       }
     ],
     "@typescript-eslint/interface-name-prefix": ["warn", "always"],
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-empty-interface": "off",
     "prettier/prettier": "warn"
   },
   overrides: [
@@ -119,7 +132,10 @@ module.exports = {
       // enable rules specifically for TypeScript files
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "@typescript-eslint/explicit-function-return-type": ["error"],
+        "@typescript-eslint/explicit-function-return-type": ["warn", {
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true
+        }],
         "@typescript-eslint/no-var-requires": "error"
       }
     }
