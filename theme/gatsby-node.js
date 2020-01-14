@@ -9,6 +9,9 @@ const {
   themeOptionsWithDefaults,
 } = require(`./src/utils`)
 
+const { createPrinterNode } = require(`gatsby-plugin-printer`)
+console.log(createPrinterNode.toString())
+
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
   const { program } = store.getState()
@@ -47,7 +50,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   })
 
   const typeDefs = `
-  
   interface Author @nodeInterface {
     id: ID!
     shortName: String!
@@ -285,6 +287,25 @@ exports.onCreateNode = (
         date = parent.birthTime
       }
 
+      // Create node for gatsby-plugin-printer
+      createPrinterNode({
+        id: node.id,
+        fileName: slug, // the filename of the image to be generated
+        outputDir: `og-images/blog`, // relative to the 'public' folder.
+        data: {
+          // The data you wish to pass down to the react component to be rendered
+          title: node.frontmatter.title,
+          date,
+        },
+        component: require.resolve(`./src/printer-components/blogpost.tsx`), // the react component to be used.
+      })
+      // add a field to the node that holds the location of the screenshot gatsby-plugin-printer took
+      actions.createNodeField({
+        node,
+        name: `ogFileName`,
+        value: slug,
+      })
+
       const fieldData = {
         // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
@@ -453,4 +474,9 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       },
     })
   })
+}
+
+exports.onPostBuild = async () => {
+  // boop
+  console.log(`postbuild LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOG`)
 }

@@ -60,6 +60,7 @@ module.exports = ({ contentPath, basePath, assetPath } = {}) => ({
     `gatsby-transformer-yaml`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-theme-ui`,
+    `gatsby-plugin-printer`,
     `gatsby-plugin-catch-links`,
   ],
 })

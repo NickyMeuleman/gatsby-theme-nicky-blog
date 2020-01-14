@@ -248,7 +248,7 @@ export default () => (
   - [ ] avatar for each author, because, pretty pictures are tight (watch @theryangeorge)
   - [x] rename "author" in graphql to "authors", it's an array
 - [ ] revamp how SEO component works
-  - [ ] migrate from Helmet props to nested html tags?
+  - [x] migrate from Helmet props to nested html tags?
   - [ ] pass less props into SEO component
 - [ ] Document what tasks individual components perform, how ones include others
 - [x] make tags array optional
@@ -274,5 +274,26 @@ export default () => (
 - [ ] Make demo website function like a big readme.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
-- [ ] Migrate theme to TypeScript, leave demo as JavaScript
+- [x] Migrate theme to TypeScript, leave demo as JavaScript
 - [ ] Add testing with react-testing-library and cypress
+- [ ] Social share images
+      Research:
+      https://github.com/zeit/og-image
+      https://lannonbr.com/blog/2019-11-10-og-images/
+      https://github.com/ChristopherBiscardi/gatsby-plugins/tree/master/packages/gatsby-plugin-printer
+      https://www.learnwithjason.dev/blog/auto-generate-social-image/
+      https://github.com/jlengstorf/get-share-image
+      https://www.swyx.io/writing/jamstack-og-images/
+      https://aless.co/gatsby-wasm-plugin/
+      https://github.com/alessbell/gatsby-remark-twitter-cards
+      https://andrewingram.net/posts/automatic-social-cards-with-gatsby/
+      https://github.com/syntra/gatsby-remark-social-cards
+      twitter card-size image (630 x 1200 px)
+      from: Andres Ingram link
+      `// Set the viewport to the desired dimensions of the image`
+      `await page.setViewport({ width: 2048, height: 1170 });`
+      personal note: analysis paralysis is real
+- [ ] Components in .mdx
+      Like this `<Aside>` https://github.com/jlengstorf/learnwithjason.dev/blob/master/site/src/components/aside.js
+      also `<YouTube>`, `<Twitter>`, `<CodeSandbox>` etc.
+      maybe use https://github.com/MichaelDeBoey/gatsby-remark-embedder for part of those embeds
