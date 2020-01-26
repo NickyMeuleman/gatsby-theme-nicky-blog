@@ -47,7 +47,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   })
 
   const typeDefs = `
-  
   interface Author @nodeInterface {
     id: ID!
     shortName: String!

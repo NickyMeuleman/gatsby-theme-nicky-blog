@@ -183,6 +183,37 @@ Overwriting these with your own is highly encouraged. This can be done via [comp
 - TagPage
 - UnderPost
 - Every component from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed)
+- Aside
+
+#### Components that are usable in `.mdx` without importing them first
+
+- Every component from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed)
+- Aside
+
+To add to this list, shadow `@nickymeuleman/gatsby-theme-blog/components/mdx-components`.
+Every component that is exported as named export will be available for use in `.mdx` without importing it first.
+
+example declaration of a `<Shia />` component
+
+```js
+// in src/@nickymeuleman/gatsby-theme-blog/components/mdx-components/index.js
+import React from "react"
+export * from "@nickymeuleman/gatsby-theme-blog/src/components/mdx-components/index"
+const Shia = ({ children }) => (
+  <p>Don't let your dreams be dreams! {children}</p>
+)
+export { Shia }
+```
+
+example usage in an `.mdx` file
+
+```
+# Shia LaBeouf says:
+
+<Shia>
+  Just do it!
+</Shia>
+```
 
 #### List of layout/global style related components
 
@@ -279,7 +310,7 @@ export default () => (
 - [ ] Make demo website function like a big readme.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
-- [ ] Migrate theme to TypeScript, leave demo as JavaScript
+- [x] Migrate theme to TypeScript, leave demo as JavaScript
 - [ ] Add testing with react-testing-library and cypress
 - [ ] Social share images
       Research:
@@ -301,4 +332,5 @@ export default () => (
 - [ ] Components in .mdx 🚧
       Like this `<Aside>` https://github.com/jlengstorf/learnwithjason.dev/blob/master/site/src/components/aside.js
       also `<YouTube>`, `<Twitter>`, `<CodeSandbox>` etc.
-      maybe use https://github.com/MichaelDeBoey/gatsby-remark-embedder for part of those embeds
+      maybe use https://github.com/MichaelDeBoey/gatsby-remark-embedder for part of those embeds.
+      https://github.com/PaulieScanlon/gatsby-mdx-embed is in line with original idea of creating the components myself.
