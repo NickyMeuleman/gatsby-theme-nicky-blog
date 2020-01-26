@@ -8,7 +8,7 @@ A Gatsby theme for creating a blog.
 
 ## Installation
 
-To use this theme in your Gatsby sites, follow these instructions:
+To use this theme in your Gatsby sites:
 
 1.  Install the theme
 
@@ -29,15 +29,18 @@ To use this theme in your Gatsby sites, follow these instructions:
     gatsby develop
     ```
 
+<!-- TODO: instruction about adding post and author files -->
+
 ## Usage
 
 ### Theme options
 
-| Key           | Default value | Description                                           |
-| ------------- | ------------- | ----------------------------------------------------- |
-| `basePath`    | `""`          | Root url for all blog posts                           |
-| `contentPath` | `"content"`   | Folder Location to house individual blog post-folders |
-| `pagination`  | `undefined`   | Optional object, enables pagination if provided       |
+| Key           | Default value | Description                                                                                  |
+| ------------- | ------------- | -------------------------------------------------------------------------------------------- |
+| `basePath`    | `""`          | Root url for all blog posts                                                                  |
+| `contentPath` | `"content"`   | Folder Location to house individual blog post-folders                                        |
+| `assetPath`   | `"assets"`    | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
+| `pagination`  | `undefined`   | Optional object, enables pagination if provided                                              |
 
 #### `pagination` options
 
@@ -89,10 +92,9 @@ module.exports = {
 
 ### Adding blog posts
 
-In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. By default, the title of this folder will serve as the slug for the blogpost.
+In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. Unless a [slug](#anatomy-of-a-blogpost) is provided, the title of this folder will serve as the slug for the blogpost.
 Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files specific to that blogpost (e.g. images)
-By default, the date the `.md(x)` file was created will serve as the date for the blogpost.
-(see [Anatomy of a blogpost](#anatomy-of-a-blogpost) for the ability to override these defaults).
+If no [date](#anatomy-of-a-blogpost) is specified, the date the `.md(x)` file was created will serve as the date for the blogpost.
 
 > NOTE: If you dislike having a folder per blogpost, loose `.md(x)` files are also supported. Place them inside the folder created for `contentPath`.
 > The title of the file will then serve as the slug of the blogpost if a slug not specified in the post's [slug](#anatomy-of-a-blogpost) field.
@@ -135,7 +137,7 @@ By default, the date the `.md(x)` file was created will serve as the date for th
 
 ### Adding authors
 
-In the folder that was created for the `contentPath` (`content` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of author objects.
+In the folder that was created for the `assetPath` (`assets` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of author objects.
 
 #### Anatomy of an authors file
 
@@ -169,7 +171,7 @@ In `.md` or `.mdx` files these fields are set via the frontmatter.
 ### Exported components
 
 The included components are larely unstyled implementations to show an example of what is possible.
-Overwriting these with you own is highly encouraged. This can be done via [component shadowing](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/).
+Overwriting these with your own is highly encouraged. This can be done via [component shadowing](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/).
 
 #### List of components:
 
@@ -180,6 +182,7 @@ Overwriting these with you own is highly encouraged. This can be done via [compo
 - TagList
 - TagPage
 - UnderPost
+- Every component from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed)
 
 #### List of layout/global style related components
 
@@ -202,15 +205,17 @@ In any MDX blogpost:
 
 <!-- prettier-ignore-start -->
 ```mdx
-import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
+import { ComponentName } from "@nickymeuleman/gatsby-theme-blog"
 ---
 <frontmatter-fields>
 ---
 
 # Lorem Ipsum
-<component-name />
+<ComponentName />
 ```
 <!-- prettier-ignore-end -->
+
+> Components from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed) can be used without first importing them
 
 #### Example usage in React components
 
@@ -218,11 +223,11 @@ In any React component:
 
 ```jsx
 import React from "react"
-import { <component-name> } from "@nickymeuleman/gatsby-theme-blog"
+import { ComponentName } from "@nickymeuleman/gatsby-theme-blog"
 
 export default () => (
   <div>
-    <component-name />
+    <ComponentName />
   </div>
 )
 ```
@@ -293,7 +298,7 @@ export default () => (
       `// Set the viewport to the desired dimensions of the image`
       `await page.setViewport({ width: 2048, height: 1170 });`
       personal note: analysis paralysis is real
-- [ ] Components in .mdx
+- [ ] Components in .mdx 🚧
       Like this `<Aside>` https://github.com/jlengstorf/learnwithjason.dev/blob/master/site/src/components/aside.js
       also `<YouTube>`, `<Twitter>`, `<CodeSandbox>` etc.
       maybe use https://github.com/MichaelDeBoey/gatsby-remark-embedder for part of those embeds

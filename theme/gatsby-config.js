@@ -56,6 +56,7 @@ module.exports = ({ contentPath, basePath, assetPath } = {}) => ({
         remarkPlugins: [remarkSlug],
       },
     },
+    `@pauliescanlon/gatsby-mdx-embed`,
     `gatsby-transformer-json`,
     `gatsby-transformer-yaml`,
     `gatsby-plugin-emotion`,
