@@ -27,6 +27,7 @@
   "dependencies": {
     "@emotion/styled": "^10.0.14",
     "@mdx-js/mdx": "^1.1.0",
+    "@mdx-js/react": "^1.5.5",
     "@pauliescanlon/gatsby-mdx-embed": "^0.0.15",
     "@testing-library/cypress": "^5.0.1",
     "@theme-ui/presets": "^0.3.0",
