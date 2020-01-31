@@ -3,21 +3,16 @@
  * @see https://theme-ui.com/
  * @see https://theme-ui.com/gatsby-plugin/
  */
-import nightOwl from "@theme-ui/prism/presets/night-owl.json"
 
-export default {
+import nightOwlLight from "@theme-ui/prism/presets/night-owl-light.json"
+import merge from "deepmerge"
+import { tailwind } from "@theme-ui/presets"
+
+export default merge(tailwind, {
   colors: {
     text: `#232129`,
     background: `#fff`,
     primary: `#639`,
-  },
-  fonts: {
-    default: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
-  },
-  fontSizes: [16, 18, 20, 22, 27, 36],
-  lineHeights: {
-    text: `1.45`,
-    heading: `1.1`,
   },
   sizes: {
     container: 650,
@@ -26,7 +21,7 @@ export default {
     Layout: {
       backgroundColor: `background`,
       color: `text`,
-      fontFamily: `default`,
+      fontFamily: `sans`, // from tailwind styles
       fontSize: 1,
       lineHeight: `text`,
     },
@@ -46,8 +41,6 @@ export default {
       },
       a: {
         color: `inherit`,
-        boxShadow: `none`,
-        textDecoration: `none`,
       },
     },
     Main: {
@@ -60,14 +53,11 @@ export default {
       paddingBottom: 3,
       paddingTop: 3,
     },
-    h1: {
-      color: `text`,
-      fontSize: 5,
-      lineHeight: `heading`,
-    },
     pre: {
-      ...nightOwl,
+      ...nightOwlLight,
+      marginBottom: 2,
+      overflow: `auto`,
+      p: 3,
     },
-    a: {},
   },
-}
+})

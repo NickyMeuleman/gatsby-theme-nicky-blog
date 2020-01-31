@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react"
 import { navigate, Link } from "gatsby"
 import * as path from "path"
+import { Styled } from "theme-ui"
 import { IBlogPostListPageContext } from "../types"
 
 interface IProps {
@@ -14,7 +15,9 @@ const Pagination: React.FC<IProps> = ({
 }) => {
   if (!numPages || !currentPage) {
     return (
-      <p>No pagination context passed to the {`<Pagination />`} component</p>
+      <Styled.p>
+        No pagination context passed to the {`<Pagination />`} component
+      </Styled.p>
     )
   }
   const isFirst = currentPage === 1

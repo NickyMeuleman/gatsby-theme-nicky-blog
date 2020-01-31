@@ -1,6 +1,22 @@
+---
+author: "nicky"
+date: 2020-01-30
+---
+
+# heading 1
+
+## heading 2
+
+### heading 3
+
+## Look at all this code
+
+it's glorious
+
+```js
 /** @jsx jsx */
 import React from "react"
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
@@ -36,24 +52,24 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
           : undefined
       }
     />
-    <Styled.h1>{post.title}</Styled.h1>
+    <h1>{post.title}</h1>
     {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
     {post.canonicalUrl ? (
-      <Styled.p sx={{ color: `rgba(0,0,0,0.7)`, lineHeight: 2 }}>
-        <Styled.em>
+      <p sx={{ color: `rgba(0,0,0,0.7)`, lineHeight: 2 }}>
+        <em>
           Originally published at
-          <Styled.a href={post.canonicalUrl}>{post.canonicalUrl}</Styled.a>
-        </Styled.em>
-      </Styled.p>
+          <a href={post.canonicalUrl}>{post.canonicalUrl}</a>
+        </em>
+      </p>
     ) : null}
 
     <MDXRenderer>{post.body}</MDXRenderer>
     {post.tags && (
       <div>
-        <Styled.p>Tagged with:</Styled.p>
-        <Styled.ul>
+        <p>Tagged with:</p>
+        <ul>
           {post.tags.map(tag => (
-            <Styled.li key={tag.slug} sx={{ margin: `0.3rem` }}>
+            <li key={tag.slug} sx={{ margin: `0.3rem` }}>
               <Link
                 to={`${
                   basePath === `/` || basePath === `` ? `` : `/`
@@ -61,9 +77,9 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
               >
                 {tag.name}
               </Link>
-            </Styled.li>
+            </li>
           ))}
-        </Styled.ul>
+        </ul>
       </div>
     )}
     <UnderPost prev={context.prev} next={context.next} basePath={basePath} />
@@ -71,3 +87,4 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
 )
 
 export default BlogPost
+```

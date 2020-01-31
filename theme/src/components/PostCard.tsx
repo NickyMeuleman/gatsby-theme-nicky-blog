@@ -28,6 +28,7 @@ const PostCard: React.FC<IProps> = props => {
         margin: `1rem`,
         border: `solid 1px #ccc`,
         "&:hover": { background: `#eee` },
+        // fontFamily: `serif`,
       }}
     >
       <div>
