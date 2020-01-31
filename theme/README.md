@@ -191,7 +191,7 @@ Overwriting these with your own is highly encouraged. This can be done via [comp
 - Aside
 
 To add to this list, shadow `@nickymeuleman/gatsby-theme-blog/components/mdx-components`.
-Every component that is exported as named export will be available for use in `.mdx` without importing it first.
+Every component that is exported as a named export will be available for use in `.mdx` under that name, without importing it first.
 
 example declaration of a `<Shia />` component
 
@@ -215,9 +215,8 @@ example usage in an `.mdx` file
 </Shia>
 ```
 
-#### List of layout/global style related components
+#### List of layout style related components
 
-- GlobalStyles
 - Header
 - layout
 - Main
@@ -329,8 +328,10 @@ export default () => (
       `// Set the viewport to the desired dimensions of the image`
       `await page.setViewport({ width: 2048, height: 1170 });`
       personal note: analysis paralysis is real
-- [ ] Components in .mdx 🚧
+- [x] Components in .mdx 🚧
       Like this `<Aside>` https://github.com/jlengstorf/learnwithjason.dev/blob/master/site/src/components/aside.js
       also `<YouTube>`, `<Twitter>`, `<CodeSandbox>` etc.
       maybe use https://github.com/MichaelDeBoey/gatsby-remark-embedder for part of those embeds.
       https://github.com/PaulieScanlon/gatsby-mdx-embed is in line with original idea of creating the components myself.
+- [ ] Rename Underpost to PostExtra
+- [ ] Rework default `contentPath` and `assetPath`

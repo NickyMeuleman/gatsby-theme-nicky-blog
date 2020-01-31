@@ -18,6 +18,9 @@ export default merge(tailwind, {
     container: 650,
   },
   styles: {
+    root: {
+      margin: 0,
+    },
     Layout: {
       backgroundColor: `background`,
       color: `text`,

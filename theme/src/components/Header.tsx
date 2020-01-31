@@ -1,6 +1,7 @@
+/** @jsx jsx */
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import { Styled, Header as ThemeHeader } from "theme-ui"
+import { jsx, Styled, Box } from "theme-ui"
 
 interface IProps {
   title?: string
@@ -18,7 +19,12 @@ const Header: React.FC<IProps> = ({ title }) => {
   `)
   const siteTitle = data.site.siteMetadata.title
   return (
-    <ThemeHeader>
+    <Box
+      sx={{
+        display: `flex`,
+        variant: `styles.Header`,
+      }}
+    >
       <Styled.h1>
         {/* 
         // @ts-ignore */}
@@ -26,7 +32,7 @@ const Header: React.FC<IProps> = ({ title }) => {
           {title || siteTitle}
         </Styled.a>
       </Styled.h1>
-    </ThemeHeader>
+    </Box>
   )
 }
 
