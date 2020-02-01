@@ -8,14 +8,16 @@ import nightOwlLight from "@theme-ui/prism/presets/night-owl-light.json"
 import merge from "deepmerge"
 import { tailwind } from "@theme-ui/presets"
 
-export default merge(tailwind, {
+const theme = merge(tailwind, {
   colors: {
     text: `#232129`,
+    mutedText: `#535454`,
     background: `#fff`,
+    hover: `#f6f6f6`,
     primary: `#639`,
   },
   sizes: {
-    container: 650,
+    container: `80ch`,
   },
   styles: {
     root: {
@@ -64,3 +66,6 @@ export default merge(tailwind, {
     },
   },
 })
+console.log(theme)
+
+export default theme
