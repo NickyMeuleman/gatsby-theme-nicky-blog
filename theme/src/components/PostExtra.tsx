@@ -8,7 +8,7 @@ interface IProps {
   basePath: string
 }
 
-const UnderPost: React.FC<IProps> = ({ prev, next, basePath }) => (
+const PostExtra: React.FC<IProps> = ({ prev, next, basePath }) => (
   <div style={{ display: `flex`, justifyContent: `space-between` }}>
     {prev && (
       <Link
@@ -35,4 +35,4 @@ const UnderPost: React.FC<IProps> = ({ prev, next, basePath }) => (
   </div>
 )
 
-export default UnderPost
+export default PostExtra

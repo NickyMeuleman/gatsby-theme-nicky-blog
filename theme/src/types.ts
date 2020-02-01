@@ -115,7 +115,7 @@ export interface IBlogPost {
   cover?: any
 }
 
-// UnderPost
+// PostExtra
 export interface IPrevNext {
   title: string
   slug: string

@@ -31,8 +31,8 @@ exports.mdxResolverPassthrough = fieldName => async (
 
 exports.themeOptionsWithDefaults = themeOptions => {
   const basePath = themeOptions.basePath || ``
-  const contentPath = themeOptions.contentPath || `content`
-  const assetPath = themeOptions.assetPath || `assets`
+  const contentPath = themeOptions.contentPath || `data/posts`
+  const assetPath = themeOptions.assetPath || `data/assets`
   const pagination = {
     postsPerPage: themeOptions.pagination.postsPerPage || 6,
     prefixPath: themeOptions.pagination.prefixPath || ``,

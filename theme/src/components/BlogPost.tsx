@@ -5,7 +5,7 @@ import { jsx, Styled } from "theme-ui"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
-import UnderPost from "./UnderPost"
+import PostExtra from "./PostExtra"
 import { IBlogPostPageContext, IBlogPost } from "../types"
 import SEO from "./SEO"
 
@@ -66,7 +66,7 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
         </Styled.ul>
       </div>
     )}
-    <UnderPost prev={context.prev} next={context.next} basePath={basePath} />
+    <PostExtra prev={context.prev} next={context.next} basePath={basePath} />
   </React.Fragment>
 )
 

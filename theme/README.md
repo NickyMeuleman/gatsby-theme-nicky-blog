@@ -35,12 +35,12 @@ To use this theme in your Gatsby sites:
 
 ### Theme options
 
-| Key           | Default value | Description                                                                                  |
-| ------------- | ------------- | -------------------------------------------------------------------------------------------- |
-| `basePath`    | `""`          | Root url for all blog posts                                                                  |
-| `contentPath` | `"content"`   | Folder Location to house individual blog post-folders                                        |
-| `assetPath`   | `"assets"`    | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
-| `pagination`  | `undefined`   | Optional object, enables pagination if provided                                              |
+| Key           | Default value   | Description                                                                                  |
+| ------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `basePath`    | `""`            | Root url for all blog posts                                                                  |
+| `contentPath` | `"data/posts"`  | Folder Location to house individual blog post-folders                                        |
+| `assetPath`   | `"data/assets"` | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
+| `pagination`  | `undefined`     | Optional object, enables pagination if provided                                              |
 
 #### `pagination` options
 
@@ -181,7 +181,7 @@ Overwriting these with your own is highly encouraged. This can be done via [comp
 - PostCard
 - TagList
 - TagPage
-- UnderPost
+- PostExtra
 - Every component from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed)
 - Aside
 
@@ -333,5 +333,9 @@ export default () => (
       also `<YouTube>`, `<Twitter>`, `<CodeSandbox>` etc.
       maybe use https://github.com/MichaelDeBoey/gatsby-remark-embedder for part of those embeds.
       https://github.com/PaulieScanlon/gatsby-mdx-embed is in line with original idea of creating the components myself.
-- [ ] Rename Underpost to PostExtra
-- [ ] Rework default `contentPath` and `assetPath`
+      Implemented.
+      Caused some issues: detailed https://github.com/PaulieScanlon/gatsby-mdx-embed/issues/11
+- [x] Migrate to theme-ui v0.3
+- [x] Rename Underpost to PostExtra
+- [x] Rework default `contentPath` and `assetPath`
+- [x] Remove duplicate remark images plugin
