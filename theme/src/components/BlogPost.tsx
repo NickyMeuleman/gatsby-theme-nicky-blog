@@ -3,7 +3,6 @@ import React from "react"
 import { jsx, Styled } from "theme-ui"
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import { Link } from "gatsby"
 import Img from "gatsby-image"
 import PostExtra from "./PostExtra"
 import { IBlogPostPageContext, IBlogPost } from "../types"
@@ -36,38 +35,19 @@ const BlogPost: React.FC<IProps> = ({ post, basePath, context }) => (
           : undefined
       }
     />
-    <Styled.h1>{post.title}</Styled.h1>
-    {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
-    {post.canonicalUrl ? (
-      <Styled.p sx={{ color: `rgba(0,0,0,0.7)`, lineHeight: 2 }}>
-        <Styled.em>
-          Originally published at
-          <Styled.a href={post.canonicalUrl}>{post.canonicalUrl}</Styled.a>
-        </Styled.em>
-      </Styled.p>
-    ) : null}
-
-    <MDXRenderer>{post.body}</MDXRenderer>
-    {post.tags && (
-      <div>
-        <Styled.p>Tagged with:</Styled.p>
-        <Styled.ul>
-          {post.tags.map(tag => (
-            <Styled.li key={tag.slug} sx={{ margin: `0.3rem` }}>
-              <Link
-                to={`${
-                  basePath === `/` || basePath === `` ? `` : `/`
-                }${basePath}/tag/${tag.slug}`}
-              >
-                {tag.name}
-              </Link>
-            </Styled.li>
-          ))}
-        </Styled.ul>
-      </div>
-    )}
-    <PostExtra prev={context.prev} next={context.next} basePath={basePath} />
+    <div>
+      <article>
+        <Styled.h1>{post.title}</Styled.h1>
+        {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
+        <MDXRenderer>{post.body}</MDXRenderer>
+      </article>
+      <PostExtra
+        prev={context.prev}
+        next={context.next}
+        basePath={basePath}
+        post={post}
+      />
+    </div>
   </React.Fragment>
 )
-
 export default BlogPost

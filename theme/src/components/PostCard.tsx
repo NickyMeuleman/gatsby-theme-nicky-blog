@@ -27,9 +27,8 @@ const PostCard: React.FC<IProps> = props => {
       sx={{
         textDecoration: `none`,
         color: `text`,
-        padding: 2,
         ":hover": {
-          backgroundColor: `hover`,
+          div: { backgroundColor: `hover` },
           h2: { textDecoration: `underline` },
         },
       }}

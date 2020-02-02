@@ -14,7 +14,6 @@ const BlogList: React.FC<IProps> = ({ blogPosts, totalCount, basePath }) => (
   <React.Fragment>
     <p
       sx={{
-        margin: 2,
         textTransform: `uppercase`,
         letterSpacing: `wider`,
         fontWeight: `bold`,
