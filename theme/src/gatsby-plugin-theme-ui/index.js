@@ -17,7 +17,7 @@ const theme = merge(tailwind, {
     primary: `#639`,
   },
   sizes: {
-    container: `80ch`,
+    lineLength: `70ch`,
   },
   styles: {
     root: {
@@ -39,7 +39,7 @@ const theme = merge(tailwind, {
         display: `block`,
         fontSize: 3,
         margin: `0 auto`,
-        maxWidth: `container`,
+        maxWidth: `lineLength`,
         padding: 3,
         width: `90vw`,
         color: `inherit`,
@@ -50,13 +50,7 @@ const theme = merge(tailwind, {
     },
     Main: {
       margin: `0 auto`,
-      maxWidth: `container`,
       width: `90vw`,
-    },
-    Container: {
-      padding: 0,
-      paddingBottom: 3,
-      paddingTop: 3,
     },
     pre: {
       ...nightOwlLight,

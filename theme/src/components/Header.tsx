@@ -20,6 +20,7 @@ const Header: React.FC<IProps> = ({ title }) => {
   const siteTitle = data.site.siteMetadata.title
   return (
     <Box
+      as="header"
       sx={{
         display: `flex`,
         variant: `styles.Header`,

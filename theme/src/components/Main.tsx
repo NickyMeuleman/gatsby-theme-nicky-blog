@@ -10,18 +10,7 @@ const MainComponent: React.FC = ({ children }) => (
       variant: `styles.Main`,
     }}
   >
-    <Box
-      sx={{
-        width: `100%`,
-        minWidth: 0,
-        maxWidth: 1024,
-        mx: `auto`,
-        p: 4,
-        variant: `styles.Container`,
-      }}
-    >
-      {children}
-    </Box>
+    {children}
   </Box>
 )
 

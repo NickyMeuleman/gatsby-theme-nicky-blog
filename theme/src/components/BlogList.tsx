@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const BlogList: React.FC<IProps> = ({ blogPosts, totalCount, basePath }) => (
-  <React.Fragment>
+  <div sx={{ mx: `auto`, maxWidth: `lineLength` }}>
     <p
       sx={{
         textTransform: `uppercase`,
@@ -45,7 +45,7 @@ const BlogList: React.FC<IProps> = ({ blogPosts, totalCount, basePath }) => (
         />
       ))}
     </div>
-  </React.Fragment>
+  </div>
 )
 
 export default BlogList

@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => (
-  <aside sx={{ padding: 2 }}>
+  <React.Fragment>
     <ul sx={{ listStyle: `none`, padding: 0 }}>
       {post.authors && (
         <li
@@ -107,7 +107,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => (
         </li>
       )}
     </ul>
-  </aside>
+  </React.Fragment>
 )
 
 export default PostExtra
