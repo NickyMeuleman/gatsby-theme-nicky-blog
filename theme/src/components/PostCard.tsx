@@ -53,7 +53,11 @@ const PostCard: React.FC<IProps> = props => {
                 color: `mutedText`,
               }}
             >
-              {props.date}
+              {new Intl.DateTimeFormat(`en-US`, {
+                year: `numeric`,
+                month: `long`,
+                day: `numeric`,
+              }).format(new Date(props.date))}
             </p>
             <h2
               sx={{
@@ -86,7 +90,11 @@ const PostCard: React.FC<IProps> = props => {
               color: `mutedText`,
             }}
           >
-            {props.date}
+            {new Intl.DateTimeFormat(`en-US`, {
+              year: `numeric`,
+              month: `long`,
+              day: `numeric`,
+            }).format(new Date(props.date))}
           </p>
           <h2
             sx={{

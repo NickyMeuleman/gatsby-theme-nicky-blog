@@ -113,6 +113,7 @@ export interface IBlogPost {
   authors: { name: string; twitter?: string }[]
   title: string
   cover?: any
+  date: string
 }
 
 // PostExtra

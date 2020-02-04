@@ -29,6 +29,7 @@ export const query = graphql`
       excerpt
       id
       slug
+      date
       canonicalUrl
       keywords
       body

@@ -339,3 +339,6 @@ export default () => (
 - [x] Rename Underpost to PostExtra
 - [x] Rework default `contentPath` and `assetPath`
 - [x] Remove duplicate remark images plugin
+- [ ] Page per author
+- [ ] Avatar support for authors
+- [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)

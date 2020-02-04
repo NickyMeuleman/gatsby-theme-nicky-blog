@@ -4,6 +4,7 @@ import { jsx, Styled } from "theme-ui"
 import { Link } from "gatsby"
 import { IPrevNext, IBlogPost } from "../types"
 
+// TODO: this repeated CSS is giving me anxiety. Looks rad though
 interface IProps {
   prev?: IPrevNext
   next?: IPrevNext
@@ -11,103 +12,218 @@ interface IProps {
   post: IBlogPost
 }
 
-const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => (
-  <React.Fragment>
-    <ul sx={{ listStyle: `none`, padding: 0 }}>
-      {post.authors && (
-        <li
-          sx={{
-            borderTopSize: `1px`,
-            borderTopStyle: `solid`,
-            borderTopColor: `primary`,
-          }}
-        >
-          <Styled.h3>By</Styled.h3>
-          <ul sx={{ listStyle: `none`, padding: 0 }}>
-            {post.authors.map(author => (
-              <li>
-                <Styled.p>{author.name}</Styled.p>
-              </li>
-            ))}
-          </ul>
-        </li>
-      )}
-      {post.canonicalUrl && (
-        <li
-          sx={{
-            borderTopSize: `1px`,
-            borderTopStyle: `solid`,
-            borderTopColor: `primary`,
-          }}
-        >
-          <Styled.h3>Originally published at</Styled.h3>
-          <Styled.a href={post.canonicalUrl}>
-            <Styled.p>{post.canonicalUrl}</Styled.p>
-          </Styled.a>
-        </li>
-      )}
-      {prev && (
-        <li
-          sx={{
-            borderTopSize: `1px`,
-            borderTopStyle: `solid`,
-            borderTopColor: `primary`,
-          }}
-        >
-          <Styled.h3>Older post</Styled.h3>
-          <Link
-            to={`${basePath === `/` || basePath === `` ? `` : `/`}${basePath}/${
-              prev.slug
-            }`}
-          >
-            <Styled.p>{prev.title}</Styled.p>
-          </Link>
-        </li>
-      )}
-      {next && (
-        <li
-          sx={{
-            borderTopSize: `1px`,
-            borderTopStyle: `solid`,
-            borderTopColor: `primary`,
-          }}
-        >
-          <Styled.h3>Newer post</Styled.h3>
-          <Link
-            to={`${basePath === `/` || basePath === `` ? `` : `/`}${basePath}/${
-              next.slug
-            }`}
-          >
-            <Styled.p>{next.title}</Styled.p>
-          </Link>
-        </li>
-      )}
-      {post.tags && (
-        <li
-          sx={{
-            borderTopSize: `1px`,
-            borderTopStyle: `solid`,
-            borderTopColor: `primary`,
-          }}
-        >
-          <Styled.h3>Tagged</Styled.h3>
-          <ul sx={{ listStyle: `none`, padding: 0 }}>
-            {post.tags.map(tag => (
-              <li key={tag.slug} sx={{ margin: `0.3rem` }}>
-                <Link
-                  to={`${
-                    basePath === `/` || basePath === `` ? `` : `/`
-                  }${basePath}/tag/${tag.slug}`}
-                >
-                  {tag.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </li>
-      )}
-    </ul>
-  </React.Fragment>
-)
+const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
+  const urlObj = post.canonicalUrl && new URL(post.canonicalUrl)
 
+  return (
+    <React.Fragment>
+      <ul sx={{ listStyle: `none`, padding: 0 }}>
+        {post.date && (
+          <li sx={{ marginTop: 2 }}>
+            <Styled.p
+              as="h3"
+              sx={{
+                margin: 0,
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+                fontSize: 1,
+                display: `flex`,
+                alignItems: `center`,
+                "::after": {
+                  content: `""`,
+                  flex: 1,
+                  marginLeft: 1,
+                  backgroundColor: `primary`,
+                  height: `2px`,
+                },
+              }}
+            >
+              On
+            </Styled.p>
+            <time dateTime={post.date}>
+              <Styled.p sx={{ margin: 0 }}>
+                {new Intl.DateTimeFormat(`en-US`, {
+                  year: `numeric`,
+                  month: `long`,
+                  day: `numeric`,
+                }).format(new Date(post.date))}
+              </Styled.p>
+            </time>
+          </li>
+        )}
+        {post.authors && (
+          <li sx={{ marginTop: 2 }}>
+            <Styled.p
+              as="h3"
+              sx={{
+                margin: 0,
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+                fontSize: 1,
+                display: `flex`,
+                alignItems: `center`,
+                "::after": {
+                  content: `""`,
+                  flex: 1,
+                  marginLeft: 1,
+                  backgroundColor: `primary`,
+                  height: `2px`,
+                },
+              }}
+            >
+              By
+            </Styled.p>
+            <ul sx={{ listStyle: `none`, padding: 0, margin: 0 }}>
+              {post.authors.map(author => (
+                <li sx={{ margin: 1 }}>
+                  <Styled.p sx={{ margin: 0 }}>{author.name}</Styled.p>
+                </li>
+              ))}
+            </ul>
+          </li>
+        )}
+        {urlObj && (
+          <li sx={{ marginTop: 2 }}>
+            <Styled.p
+              as="h3"
+              sx={{
+                margin: 0,
+                marginTop: 1,
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+                fontSize: 1,
+                display: `flex`,
+                alignItems: `center`,
+                "::after": {
+                  content: `""`,
+                  flex: 1,
+                  marginLeft: 1,
+                  backgroundColor: `primary`,
+                  height: `2px`,
+                },
+              }}
+            >
+              Originally at
+            </Styled.p>
+            <Styled.a href={urlObj.toString()}>
+              <Styled.p sx={{ margin: 0 }}>{urlObj.hostname}</Styled.p>
+            </Styled.a>
+          </li>
+        )}
+        {post.tags && (
+          <li sx={{ marginTop: 2 }}>
+            <Styled.p
+              as="h3"
+              sx={{
+                margin: 0,
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+                fontSize: 1,
+                display: `flex`,
+                alignItems: `center`,
+                "::after": {
+                  content: `""`,
+                  flex: 1,
+                  marginLeft: 1,
+                  backgroundColor: `primary`,
+                  height: `2px`,
+                },
+              }}
+            >
+              Tagged
+            </Styled.p>
+            <ul sx={{ listStyle: `none`, padding: 0, margin: 0 }}>
+              {post.tags.map(tag => (
+                <li key={tag.slug} sx={{ margin: 1 }}>
+                  <Link
+                    to={`${
+                      basePath === `/` || basePath === `` ? `` : `/`
+                    }${basePath}/tag/${tag.slug}`}
+                  >
+                    {/* TODO: Replace with Tag component. flexbox the container */}
+                    {tag.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </li>
+        )}
+        {prev && (
+          <li sx={{ marginTop: 2 }}>
+            <Styled.p
+              as="h3"
+              sx={{
+                margin: 0,
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+                fontSize: 1,
+                display: `flex`,
+                alignItems: `center`,
+                "::after": {
+                  content: `""`,
+                  flex: 1,
+                  marginLeft: 1,
+                  backgroundColor: `primary`,
+                  height: `2px`,
+                },
+              }}
+            >
+              Older post
+            </Styled.p>
+            <Link
+              to={`${
+                basePath === `/` || basePath === `` ? `` : `/`
+              }${basePath}/${prev.slug}`}
+            >
+              <Styled.p sx={{ margin: 0 }}>{prev.title}</Styled.p>
+            </Link>
+          </li>
+        )}
+        {next && (
+          <li sx={{ marginTop: 2 }}>
+            <Styled.p
+              as="h3"
+              sx={{
+                margin: 0,
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+                fontSize: 1,
+                display: `flex`,
+                alignItems: `center`,
+                "::after": {
+                  content: `""`,
+                  flex: 1,
+                  marginLeft: 1,
+                  backgroundColor: `primary`,
+                  height: `2px`,
+                },
+              }}
+            >
+              Newer post
+            </Styled.p>
+            <Link
+              to={`${
+                basePath === `/` || basePath === `` ? `` : `/`
+              }${basePath}/${next.slug}`}
+            >
+              <Styled.p sx={{ margin: 0 }}>{next.title}</Styled.p>
+            </Link>
+          </li>
+        )}
+      </ul>
+    </React.Fragment>
+  )
+}
 export default PostExtra

@@ -46,7 +46,7 @@ export const BlogPostListTemplateQuery = graphql`
           }
           title
           slug
-          date(formatString: "DD MMMM, YYYY")
+          date
           cover {
             childImageSharp {
               fluid {
