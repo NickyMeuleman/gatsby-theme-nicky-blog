@@ -15,6 +15,8 @@ const theme = merge(tailwind, {
     background: `#fff`,
     hover: `#f6f6f6`,
     primary: `#639`,
+    // mutedPrimary: `#b17acc`,
+    mutedPrimary: `#8a4baf`,
   },
   sizes: {
     lineLength: `70ch`,
@@ -57,6 +59,31 @@ const theme = merge(tailwind, {
       marginBottom: 2,
       overflow: `auto`,
       p: 3,
+    },
+    inlineCode: {
+      fontSize: `inherit`,
+      fontWeight: `semibold`,
+      backgroundColor: `hover`,
+      padding: 1,
+    },
+    a: {
+      color: `mutedPrimary`,
+      fontWeight: `bold`,
+      textDecoration: `none`,
+      ":hover": {
+        textDecoration: `none`,
+        color: `primary`,
+        borderBottomWidth: `2px`,
+        borderBottomStyle: `solid`,
+        borderBottomColor: `mutedPrimary`,
+      },
+    },
+    blockquote: {
+      margin: 0,
+      paddingLeft: 3,
+      borderLeftWidth: 5,
+      borderLeftColor: `hover`,
+      borderLeftStyle: `solid`,
     },
   },
 })

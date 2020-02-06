@@ -342,3 +342,4 @@ export default () => (
 - [ ] Page per author
 - [ ] Avatar support for authors
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
+- [ ] theme border values. Only take the sharp edge off, don't round too much.

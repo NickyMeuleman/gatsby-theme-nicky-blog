@@ -7,11 +7,13 @@ const Aside: React.FC = ({ children }) => (
     sx={{
       borderLeft: `3px solid`,
       borderLeftColor: `primary`,
+      // TODO: theme-ui/color and get transparancy util so this can be themed
+      backgroundColor: `#66339911`,
+      // TODO: theme border values
       borderRadius: `0 0.25rem 0.25rem 0`,
       fontStyle: `italic`,
       mt: 3,
-      mx: `-5vw`,
-      px: `5vw`,
+      px: 3,
       py: 3,
       "em, strong": {
         color: `inherit`,

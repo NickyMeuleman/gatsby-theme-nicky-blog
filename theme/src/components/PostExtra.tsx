@@ -20,8 +20,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
       <ul sx={{ listStyle: `none`, padding: 0 }}>
         {post.date && (
           <li sx={{ marginTop: 2 }}>
-            <Styled.p
-              as="h3"
+            <span
               sx={{
                 margin: 0,
                 textTransform: `uppercase`,
@@ -41,22 +40,22 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               }}
             >
               On
-            </Styled.p>
-            <time dateTime={post.date}>
-              <Styled.p sx={{ margin: 0 }}>
+            </span>
+            <Styled.p sx={{ margin: 0, paddingLeft: 1 }}>
+              <time dateTime={post.date}>
                 {new Intl.DateTimeFormat(`en-US`, {
                   year: `numeric`,
                   month: `long`,
                   day: `numeric`,
                 }).format(new Date(post.date))}
-              </Styled.p>
-            </time>
+              </time>
+            </Styled.p>
           </li>
         )}
         {post.authors && (
           <li sx={{ marginTop: 2 }}>
-            <Styled.p
-              as="h3"
+            <span
+              id="post-authors"
               sx={{
                 margin: 0,
                 textTransform: `uppercase`,
@@ -76,10 +75,13 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               }}
             >
               By
-            </Styled.p>
-            <ul sx={{ listStyle: `none`, padding: 0, margin: 0 }}>
+            </span>
+            <ul
+              aria-labelledby="post-authors"
+              sx={{ listStyle: `none`, padding: 0, margin: 0, paddingLeft: 1 }}
+            >
               {post.authors.map(author => (
-                <li sx={{ margin: 1 }}>
+                <li key={author.name}>
                   <Styled.p sx={{ margin: 0 }}>{author.name}</Styled.p>
                 </li>
               ))}
@@ -88,8 +90,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
         )}
         {urlObj && (
           <li sx={{ marginTop: 2 }}>
-            <Styled.p
-              as="h3"
+            <span
               sx={{
                 margin: 0,
                 marginTop: 1,
@@ -110,16 +111,16 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               }}
             >
               Originally at
-            </Styled.p>
-            <Styled.a href={urlObj.toString()}>
-              <Styled.p sx={{ margin: 0 }}>{urlObj.hostname}</Styled.p>
-            </Styled.a>
+            </span>
+            <p sx={{ margin: 0, paddingLeft: 1 }}>
+              <Styled.a href={urlObj.toString()}>{urlObj.hostname}</Styled.a>
+            </p>
           </li>
         )}
         {post.tags && (
           <li sx={{ marginTop: 2 }}>
-            <Styled.p
-              as="h3"
+            <span
+              id="post-tags"
               sx={{
                 margin: 0,
                 textTransform: `uppercase`,
@@ -139,14 +140,18 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               }}
             >
               Tagged
-            </Styled.p>
-            <ul sx={{ listStyle: `none`, padding: 0, margin: 0 }}>
+            </span>
+            <ul
+              aria-labelledby="post-tags"
+              sx={{ listStyle: `none`, padding: 0, margin: 0, paddingLeft: 1 }}
+            >
               {post.tags.map(tag => (
-                <li key={tag.slug} sx={{ margin: 1 }}>
+                <li key={tag.slug}>
                   <Link
                     to={`${
                       basePath === `/` || basePath === `` ? `` : `/`
                     }${basePath}/tag/${tag.slug}`}
+                    sx={{ variant: `styles.a` }}
                   >
                     {/* TODO: Replace with Tag component. flexbox the container */}
                     {tag.name}
@@ -158,8 +163,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
         )}
         {prev && (
           <li sx={{ marginTop: 2 }}>
-            <Styled.p
-              as="h3"
+            <span
               sx={{
                 margin: 0,
                 textTransform: `uppercase`,
@@ -179,20 +183,22 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               }}
             >
               Older post
+            </span>
+            <Styled.p sx={{ margin: 0, paddingLeft: 1 }}>
+              <Link
+                to={`${
+                  basePath === `/` || basePath === `` ? `` : `/`
+                }${basePath}/${prev.slug}`}
+                sx={{ variant: `styles.a` }}
+              >
+                {prev.title}
+              </Link>
             </Styled.p>
-            <Link
-              to={`${
-                basePath === `/` || basePath === `` ? `` : `/`
-              }${basePath}/${prev.slug}`}
-            >
-              <Styled.p sx={{ margin: 0 }}>{prev.title}</Styled.p>
-            </Link>
           </li>
         )}
         {next && (
           <li sx={{ marginTop: 2 }}>
-            <Styled.p
-              as="h3"
+            <span
               sx={{
                 margin: 0,
                 textTransform: `uppercase`,
@@ -212,14 +218,17 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               }}
             >
               Newer post
+            </span>
+            <Styled.p sx={{ margin: 0, paddingLeft: 1 }}>
+              <Link
+                to={`${
+                  basePath === `/` || basePath === `` ? `` : `/`
+                }${basePath}/${next.slug}`}
+                sx={{ variant: `styles.a` }}
+              >
+                {next.title}
+              </Link>
             </Styled.p>
-            <Link
-              to={`${
-                basePath === `/` || basePath === `` ? `` : `/`
-              }${basePath}/${next.slug}`}
-            >
-              <Styled.p sx={{ margin: 0 }}>{next.title}</Styled.p>
-            </Link>
           </li>
         )}
       </ul>
