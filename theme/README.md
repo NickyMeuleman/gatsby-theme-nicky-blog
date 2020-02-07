@@ -1,6 +1,13 @@
 # @nickymeuleman/Gatsby Theme Blog
 
 A Gatsby theme for creating a blog.
+Check out [the live demo](https://gatsby-theme-nicky-blog.netlify.com/).
+
+The default styling with a list of blogposts looks like this:
+![](../demo/data/assets/demo-bloglist.png)
+
+And the default styling for a single blogost:
+![](../demo/data/assets/demo-blogpost.png)
 
 ## What you get from this theme
 
@@ -269,15 +276,16 @@ export default () => (
 
 - [ ] 🚧 👷 Multi sourcing
 - [ ] revamp way slugs are handled
-- [ ] code blocks
-- [ ] some light styling?
-  - [ ] redo styles with theme-ui, like `<li>` margins?
+- [x] code blocks
+  - [ ] Look into code blocks that pass contrast checks https://github.com/system-ui/theme-ui/issues/564
+- [x] some light styling? (future Nicky notes: That ended up being more than light.)
+  - [x] redo styles with theme-ui, like `<li>` margins?
 - [ ] css reset?
 - [ ] rss feed?
 - [ ] offline, manifest, ...?
 - [ ] icons (default icon for SEO if no fitting image found)
   - [ ] icons for tags?
-  - [ ] for those seo cards: look into https://zeit.co/blog/social-og-image-cards-as-a-service
+  - [x] look into https://zeit.co/blog/social-og-image-cards-as-a-service
 - [x] canonical url support:
   - [x] functionality works, now add docs
   - [x] add a "originally published at" line to blogpost component
@@ -285,8 +293,8 @@ export default () => (
   - [x] multiple authors per post
   - [ ] avatar for each author, because, pretty pictures are tight (watch @theryangeorge)
   - [x] rename "author" in graphql to "authors", it's an array
-- [ ] revamp how SEO component works
-  - [ ] migrate from Helmet props to nested html tags?
+- [x] revamp how SEO component works
+  - [x] migrate from Helmet props to nested html tags?
   - [ ] pass less props into SEO component
 - [ ] Document what tasks individual components perform, how ones include others
 - [x] make tags array optional
@@ -313,23 +321,11 @@ export default () => (
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [ ] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
 - [x] Migrate theme to TypeScript, leave demo as JavaScript
-- [ ] Add testing with react-testing-library and cypress
+- [x] Add testing with react-testing-library and cypress
+  - [ ] Actually add tests once the scaffolding is done
+  - [ ] Use something like codecov to ensure test coverage
 - [ ] Social share images
-      Research:
-      https://github.com/zeit/og-image
-      https://lannonbr.com/blog/2019-11-10-og-images/
-      https://github.com/ChristopherBiscardi/gatsby-plugins/tree/master/packages/gatsby-plugin-printer
-      https://www.learnwithjason.dev/blog/auto-generate-social-image/
-      https://github.com/jlengstorf/get-share-image
-      https://www.swyx.io/writing/jamstack-og-images/
-      https://aless.co/gatsby-wasm-plugin/
-      https://github.com/alessbell/gatsby-remark-twitter-cards
-      https://andrewingram.net/posts/automatic-social-cards-with-gatsby/
-      https://github.com/syntra/gatsby-remark-social-cards
-      twitter card-size image (630 x 1200 px)
-      from: Andres Ingram link
-      `// Set the viewport to the desired dimensions of the image`
-      `await page.setViewport({ width: 2048, height: 1170 });`
+      Research: - https://github.com/zeit/og-image - https://lannonbr.com/blog/2019-11-10-og-images/ - https://github.com/ChristopherBiscardi/gatsby-plugins/tree/master/packages/gatsby-plugin-printer - https://www.learnwithjason.dev/blog/auto-generate-social-image/ - https://github.com/jlengstorf/get-share-image - https://www.swyx.io/writing/jamstack-og-images/ - https://aless.co/gatsby-wasm-plugin/ - https://github.com/alessbell/gatsby-remark-twitter-cards - https://andrewingram.net/posts/automatic-social-cards-with-gatsby/ - https://github.com/syntra/gatsby-remark-social-cards > twitter card-size image (630 x 1200 px) > from: Andres Ingram link > `// Set the viewport to the desired dimensions of the image` > `await page.setViewport({ width: 2048, height: 1170 });`
       personal note: analysis paralysis is real
 - [x] Components in .mdx 🚧
       Like this `<Aside>` https://github.com/jlengstorf/learnwithjason.dev/blob/master/site/src/components/aside.js
@@ -347,3 +343,6 @@ export default () => (
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
 - [ ] theme border values. Only take the sharp edge off, don't round too much.
 - [ ] add support for updating blogposts (updatedAt frontmatter field?)
+- [ ] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
+- [ ] Use [inversion of control](https://kentcdodds.com/blog/inversion-of-control/) and [component composition](https://youtu.be/3XaXKiXtNjw) more.
+  - eg. Using `props.children` inside the `PostExtra` component.
