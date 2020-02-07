@@ -1,7 +1,8 @@
+/** @jsx jsx */
 import React, { ChangeEvent } from "react"
+import { jsx, Styled } from "theme-ui"
 import { navigate, Link } from "gatsby"
 import * as path from "path"
-import { Styled } from "theme-ui"
 import { IBlogPostListPageContext } from "../types"
 
 interface IProps {
@@ -40,25 +41,54 @@ const Pagination: React.FC<IProps> = ({
     navigate(navPath)
   }
   return (
-    <div>
-      <div>
+    <nav
+      sx={{
+        display: `flex`,
+        justifyContent: `space-between`,
+        flexDirection: [`column`, `row`],
+        px: 4,
+        my: 4,
+      }}
+    >
+      <div
+        sx={{
+          display: `flex`,
+          margin: `0`,
+          padding: `0`,
+          justifyContent: `space-between`,
+          alignItems: `center`,
+          width: [null, 64],
+        }}
+      >
         {prevPageLink ? (
-          <Link to={prevPageLink}>← Newer posts</Link>
+          <Link to={prevPageLink} sx={{ variant: `styles.a` }}>
+            ← Newer posts
+          </Link>
         ) : (
           <span>← Newer posts</span>
         )}
         {nextPageLink ? (
-          <Link to={nextPageLink}>Older posts →</Link>
+          <Link to={nextPageLink} sx={{ variant: `styles.a` }}>
+            Older posts →
+          </Link>
         ) : (
           <span>Older posts →</span>
         )}
       </div>
-      <div>
+      <div
+        sx={{
+          display: `flex`,
+          alignItems: `center`,
+          justifyContent: `flex-end`,
+          my: 3,
+        }}
+      >
         <span>Showing page &nbsp;</span>
         <select
           onChange={changePage}
           value={currentPage.toString()}
           aria-label="Pagination Dropdown"
+          sx={{ color: `primary`, fontWeight: `bold` }}
         >
           {Array.from({ length: numPages }, (_, i) => (
             <option
@@ -74,7 +104,7 @@ const Pagination: React.FC<IProps> = ({
         <span>&nbsp; of &nbsp;</span>
         <span>{numPages}</span>
       </div>
-    </div>
+    </nav>
   )
 }
 

@@ -2,8 +2,6 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import BlogList from "../components/BlogList"
-import Pagination from "../components/Pagination"
-import SEO from "../components/SEO"
 import { IBlogPostListTemplateQuery, IBlogPostListPageContext } from "../types"
 
 interface IProps {
@@ -16,15 +14,12 @@ const BlogPostsTemplate: React.FC<IProps> = ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <SEO basePath={pageContext.basePath} />
       <BlogList
         blogPosts={blogposts}
         totalCount={data.allBlogPost.totalCount}
         basePath={pageContext.basePath}
+        paginationContext={pageContext.numPages ? pageContext : null}
       />
-      {pageContext.numPages ? (
-        <Pagination context={pageContext} basePath={pageContext.basePath} />
-      ) : null}
     </Layout>
   )
 }
@@ -46,7 +41,7 @@ export const BlogPostListTemplateQuery = graphql`
           }
           title
           slug
-          date(formatString: "DD MMMM, YYYY")
+          date
           cover {
             childImageSharp {
               fluid {

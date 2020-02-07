@@ -23,17 +23,23 @@ const TagPage: React.FC<IProps> = ({ data, basePath }) => {
           to={`${
             basePath === `/` || basePath === `` ? `` : `/`
           }${basePath}/tag`}
+          sx={{
+            variant: `styles.a`,
+          }}
         >
           All tags
         </Link>
       </p>
       <ul>
         {posts.map(post => (
-          <li key={post.slug} sx={{ margin: `0.3rem` }}>
+          <li key={post.slug} sx={{ margin: 1 }}>
             <Link
               to={`${
                 basePath === `/` || basePath === `` ? `` : `/`
               }${basePath}/${post.slug}`}
+              sx={{
+                variant: `styles.a`,
+              }}
             >
               {post.title}
             </Link>

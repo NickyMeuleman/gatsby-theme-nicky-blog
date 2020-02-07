@@ -27,9 +27,8 @@ const PostCard: React.FC<IProps> = props => {
       sx={{
         textDecoration: `none`,
         color: `text`,
-        padding: 2,
         ":hover": {
-          backgroundColor: `hover`,
+          div: { backgroundColor: `hover` },
           h2: { textDecoration: `underline` },
         },
       }}
@@ -54,7 +53,11 @@ const PostCard: React.FC<IProps> = props => {
                 color: `mutedText`,
               }}
             >
-              {props.date}
+              {new Intl.DateTimeFormat(`en-US`, {
+                year: `numeric`,
+                month: `long`,
+                day: `numeric`,
+              }).format(new Date(props.date))}
             </p>
             <h2
               sx={{
@@ -87,7 +90,11 @@ const PostCard: React.FC<IProps> = props => {
               color: `mutedText`,
             }}
           >
-            {props.date}
+            {new Intl.DateTimeFormat(`en-US`, {
+              year: `numeric`,
+              month: `long`,
+              day: `numeric`,
+            }).format(new Date(props.date))}
           </p>
           <h2
             sx={{

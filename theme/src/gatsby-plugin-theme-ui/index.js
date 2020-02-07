@@ -15,9 +15,11 @@ const theme = merge(tailwind, {
     background: `#fff`,
     hover: `#f6f6f6`,
     primary: `#639`,
+    // mutedPrimary: `#b17acc`,
+    mutedPrimary: `#8a4baf`,
   },
   sizes: {
-    container: `80ch`,
+    lineLength: `70ch`,
   },
   styles: {
     root: {
@@ -39,24 +41,22 @@ const theme = merge(tailwind, {
         display: `block`,
         fontSize: 3,
         margin: `0 auto`,
-        maxWidth: `container`,
+        maxWidth: `lineLength`,
         padding: 3,
         width: `90vw`,
         color: `inherit`,
       },
       a: {
         color: `inherit`,
+        ":hover": {
+          color: `inherit`,
+          borderColor: `inherit`,
+        },
       },
     },
     Main: {
       margin: `0 auto`,
-      maxWidth: `container`,
       width: `90vw`,
-    },
-    Container: {
-      padding: 0,
-      paddingBottom: 3,
-      paddingTop: 3,
     },
     pre: {
       ...nightOwlLight,
@@ -64,8 +64,32 @@ const theme = merge(tailwind, {
       overflow: `auto`,
       p: 3,
     },
+    inlineCode: {
+      fontSize: `inherit`,
+      fontWeight: `semibold`,
+      backgroundColor: `hover`,
+      padding: 1,
+    },
+    a: {
+      color: `mutedPrimary`,
+      fontWeight: `bold`,
+      textDecoration: `none`,
+      ":hover": {
+        textDecoration: `none`,
+        color: `primary`,
+        borderBottomWidth: `2px`,
+        borderBottomStyle: `solid`,
+        borderBottomColor: `mutedPrimary`,
+      },
+    },
+    blockquote: {
+      margin: 0,
+      paddingLeft: 3,
+      borderLeftWidth: 5,
+      borderLeftColor: `hover`,
+      borderLeftStyle: `solid`,
+    },
   },
 })
-console.log(theme)
 
 export default theme
