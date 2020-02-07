@@ -80,8 +80,8 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               aria-labelledby="post-authors"
               sx={{ listStyle: `none`, padding: 0, margin: 0, paddingLeft: 1 }}
             >
-              {post.authors.map(author => (
-                <li key={author.name}>
+              {post.authors.map((author, idx) => (
+                <li key={author.name} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
                   <Styled.p sx={{ margin: 0 }}>{author.name}</Styled.p>
                 </li>
               ))}
@@ -145,8 +145,8 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
               aria-labelledby="post-tags"
               sx={{ listStyle: `none`, padding: 0, margin: 0, paddingLeft: 1 }}
             >
-              {post.tags.map(tag => (
-                <li key={tag.slug}>
+              {post.tags.map((tag, idx) => (
+                <li key={tag.slug} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
                   <Link
                     to={`${
                       basePath === `/` || basePath === `` ? `` : `/`

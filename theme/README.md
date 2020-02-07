@@ -4,10 +4,16 @@ A Gatsby theme for creating a blog.
 Check out [the live demo](https://gatsby-theme-nicky-blog.netlify.com/).
 
 The default styling for the list of blogposts looks like this:
+
 ![](../demo/data/assets/demo-bloglist.png)
 
 And the default styling for a single blogpost:
+
 ![](../demo/data/assets/demo-blogpost.png)
+
+The [lighthouse](https://developers.google.com/web/tools/lighthouse/v3/scoring) score for most pages looks like this:
+
+![Straight 100s](../demo/data/assets/lighthouse_score.png)
 
 ## What you get from this theme
 
