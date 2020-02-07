@@ -3,10 +3,10 @@
 A Gatsby theme for creating a blog.
 Check out [the live demo](https://gatsby-theme-nicky-blog.netlify.com/).
 
-The default styling with a list of blogposts looks like this:
+The default styling for the list of blogposts looks like this:
 ![](../demo/data/assets/demo-bloglist.png)
 
-And the default styling for a single blogost:
+And the default styling for a single blogpost:
 ![](../demo/data/assets/demo-blogpost.png)
 
 ## What you get from this theme
