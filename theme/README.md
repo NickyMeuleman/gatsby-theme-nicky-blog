@@ -16,7 +16,7 @@ To use this theme in your Gatsby sites:
     npm install --save @nickymeuleman/gatsby-theme-blog
     ```
 
-2.  Add the theme to your `gatsby-config.js`:
+1.  Add the theme to your `gatsby-config.js`:
 
     ```js
     module.exports = {
@@ -24,12 +24,13 @@ To use this theme in your Gatsby sites:
     }
     ```
 
-3.  Start your site
+1.  Start your site
+
     ```sh
     gatsby develop
     ```
 
-<!-- TODO: instruction about adding post and author files -->
+1.  Add an `authors` file and create a post! [instructions](##usage)
 
 ## Usage
 
@@ -104,34 +105,36 @@ If no [date](#anatomy-of-a-blogpost) is specified, the date the `.md(x)` file wa
 <!-- prettier-ignore-start -->
 ```
 .
-├── content
-│   ├── my-first-post
-│   │   ├── index.mdx
-│   │   ├── coverPhoto.jpg
-│   │   ├── boop.png
-│   │   └── infinite-boop.gif
-│   └── my-second-post
-│       ├── index.md
-│       ├── f1-car.jpg
-│       └── speed-data.svg
-└── assets
-    ├── authors.yaml
-    └── image-used-often.jpg
+└── data
+    ├── assets
+    │   ├── authors.json
+    │   └── image-used-often.jpg
+    └── posts
+        ├── my-first-post
+        │   ├── index.mdx
+        │   ├── coverPhoto.jpg
+        │   ├── boop.png
+        │   └── infinite-boop.gif
+        └── my-second-post
+            ├── index.md
+            ├── f1-car.jpg
+            └── speed-data.svg
 ```
 <!-- 
-# content
-## my-first-post
-### index.mdx
-### coverPhoto.jpg
-### boop.png
-### infinite-boop.gif
-## my-second-post
-### index.md
-### f1-car.jpg
-### speed-data.svg
-# assets
-## authors.yaml 
-## image-used-often.jpg
+# data
+## assets
+### authors.json 
+### image-used-often.jpg
+## posts
+### my-first-post
+#### index.mdx
+#### coverPhoto.jpg
+#### boop.png
+#### infinite-boop.gif
+### my-second-post
+#### index.md
+#### f1-car.jpg
+#### speed-data.svg
 -->
 <!-- prettier-ignore-end -->
 
