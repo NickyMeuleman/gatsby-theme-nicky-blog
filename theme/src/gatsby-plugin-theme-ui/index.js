@@ -48,6 +48,10 @@ const theme = merge(tailwind, {
       },
       a: {
         color: `inherit`,
+        ":hover": {
+          color: `inherit`,
+          borderColor: `inherit`,
+        },
       },
     },
     Main: {
