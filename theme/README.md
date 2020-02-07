@@ -30,7 +30,7 @@ To use this theme in your Gatsby sites:
     gatsby develop
     ```
 
-1.  Add an `authors` file and create a post! [instructions](##usage)
+1.  Add an `authors` file and create a post! [Instructions/details in the Usage section](#usage)
 
 ## Usage
 
