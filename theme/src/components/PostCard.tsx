@@ -20,16 +20,17 @@ const PostCard: React.FC<IProps> = props => {
       authorComponent = `By multiple authors`
     } else {
       authorComponent = (
-        <Link
-          to={`${props.basePath === `/` || props.basePath === `` ? `` : `/`}${
-            props.basePath
-          }/author/${props.authors[0].shortName}`}
-          sx={{ variant: `styles.a`, position: `relative` }}
-        >
-          {` `}
-          {props.authors[0].name}
-          {` `}
-        </Link>
+        <React.Fragment>
+          By{` `}
+          <Link
+            to={`${props.basePath === `/` || props.basePath === `` ? `` : `/`}${
+              props.basePath
+            }/author/${props.authors[0].shortName}`}
+            sx={{ variant: `styles.a`, position: `relative` }}
+          >
+            {props.authors[0].name}
+          </Link>
+        </React.Fragment>
       )
     }
   }
