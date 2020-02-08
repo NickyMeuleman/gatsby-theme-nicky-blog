@@ -10,7 +10,7 @@ interface IProps {
   blogPosts: IBlogPostPreview[]
   totalCount: number
   basePath: string
-  paginationContext: IBlogPostListPageContext | null
+  paginationContext: IBlogPostListPageContext
 }
 
 const BlogList: React.FC<IProps> = ({
@@ -53,6 +53,7 @@ const BlogList: React.FC<IProps> = ({
             coverSizes={
               blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
             }
+            basePath={basePath}
           />
         ))}
       </div>

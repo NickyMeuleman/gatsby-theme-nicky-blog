@@ -7,17 +7,29 @@ interface IProps {
   url: string
   title: string
   date: string
-  authors?: { name: string }[]
+  authors?: { shortName: string; name: string }[]
   coverSizes?: any
+  basePath: string
 }
 
 const PostCard: React.FC<IProps> = props => {
-  let authorString
+  let authorComponent
   if (props.authors) {
     if (props.authors.length > 1) {
-      authorString = `By multiple authors`
+      authorComponent = `By multiple authors`
     } else {
-      authorString = props.authors[0].name
+      authorComponent = (
+        <Link
+          to={`${props.basePath === `/` || props.basePath === `` ? `` : `/`}${
+            props.basePath
+          }/author/${props.authors[0].shortName}`}
+          sx={{ variant: `styles.a` }}
+        >
+          {` `}
+          {props.authors[0].name}
+          {` `}
+        </Link>
+      )
     }
   }
 
@@ -79,7 +91,7 @@ const PostCard: React.FC<IProps> = props => {
                 color: `primary`,
               }}
             >
-              {authorString}
+              {authorComponent}
             </p>
           </div>
         </div>
@@ -119,7 +131,7 @@ const PostCard: React.FC<IProps> = props => {
               color: `primary`,
             }}
           >
-            {authorString}
+            {authorComponent}
           </p>
         </div>
       )}

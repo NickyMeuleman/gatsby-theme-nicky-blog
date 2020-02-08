@@ -38,6 +38,7 @@ export const query = graphql`
         slug
       }
       authors {
+        shortName
         name
         twitter
       }

@@ -37,6 +37,7 @@ export const BlogPostListTemplateQuery = graphql`
         node {
           id
           authors {
+            shortName
             name
           }
           title

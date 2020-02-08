@@ -344,11 +344,14 @@ export default () => (
 - [x] Rename Underpost to PostExtra
 - [x] Rework default `contentPath` and `assetPath`
 - [x] Remove duplicate remark images plugin
-- [ ] Page per author
+- [x] Page per author
 - [ ] Avatar support for authors
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
 - [x] theme border values. Only take the sharp edge off, don't round too much.
 - [ ] add support for updating blogposts (updatedAt frontmatter field?)
-- [ ] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
+- [ ] !!!! Rework how cards are done `BlogList` https://inclusive-components.design/cards/ !!!!
 - [ ] Use [inversion of control](https://kentcdodds.com/blog/inversion-of-control/) and [component composition](https://youtu.be/3XaXKiXtNjw) more.
   - eg. Using `props.children` inside the `PostExtra` component.
+- [ ] Refactor all page creations to use same pattern. Query in templates/* that only renders a component named *Page. That component has the `<SEO />`
+- [ ] Handle data in every page component the same way
+- [ ] Handle passing of `basePath` the same everywhere.

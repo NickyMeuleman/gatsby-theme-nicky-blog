@@ -5,26 +5,20 @@ import AuthorPage from "../components/AuthorPage"
 import { IAuthorTemplateQuery, IAuthorPageContext } from "../types"
 
 interface IProps {
-  data: IAuthorTemplateQuery | any
-  pageContext: IAuthorPageContext | any
+  data: IAuthorTemplateQuery
+  pageContext: IAuthorPageContext
 }
 
 const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     amount: data.allBlogPost.totalCount,
     author: data.author,
-    posts: data.allBlogPost.edges.map((edge: any) => edge.node),
+    posts: data.allBlogPost.edges.map(edge => edge.node),
   }
 
   return (
     <Layout>
-      {/* <SEO
-        title={`Author "${data.name}"`}
-        slug={`author/${pageContext.slug}`}
-        basePath={pageContext.basePath}
-        keywords={[`tag`, data.tag.name]}
-      /> */}
-      <AuthorPage data={pageData} basePath={pageContext.basePath} />
+      <AuthorPage data={pageData} pageContext={pageContext} />
     </Layout>
   )
 }
@@ -47,6 +41,10 @@ export const authorTemplateQuery = graphql`
       edges {
         node {
           id
+          authors {
+            shortName
+            name
+          }
           title
           slug
           date

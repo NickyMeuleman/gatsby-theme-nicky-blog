@@ -94,7 +94,7 @@ export interface ITagPageData {
 // BlogList
 export interface IBlogPostPreview {
   id: string
-  authors?: { name: string }[]
+  authors?: { shortName: string; name: string }[]
   title: string
   slug: string
   date: string
@@ -110,7 +110,7 @@ export interface IBlogPost {
   keywords?: string[]
   body: string
   tags?: { name: string; slug: string }[]
-  authors: { name: string; twitter?: string }[]
+  authors: { shortName: string; name: string; twitter?: string }[]
   title: string
   cover?: any
   date: string
@@ -137,10 +137,30 @@ export interface ISEOStaticQuery {
 }
 
 // query in templates/authhor
-export interface IAuthorTemplateQuery {}
+export interface IAuthorTemplateQuery {
+  author: {
+    name: string
+    twitter?: string
+  }
+  allBlogPost: {
+    totalCount: number
+    edges: { node: IBlogPostPreview }[]
+  }
+}
 
 // pageContext of pages created in gatsby-node with templates/author
-export interface IAuthorPageContext {}
+export interface IAuthorPageContext {
+  slug: string
+  shortName: string
+  basePath: string
+}
 
 // AuthorPage
-export interface IAuthorPageData {}
+export interface IAuthorPageData {
+  amount: number
+  author: {
+    name: string
+    twitter?: string
+  }
+  posts: IBlogPostPreview[]
+}

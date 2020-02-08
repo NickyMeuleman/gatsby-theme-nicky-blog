@@ -458,7 +458,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       },
     })
   })
-  console.log({ authors })
 
   // create a page for each author
   authors.forEach((author, i) => {
