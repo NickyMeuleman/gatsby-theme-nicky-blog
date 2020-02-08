@@ -98,7 +98,7 @@ export interface IBlogPostPreview {
   title: string
   slug: string
   date: string
-  cover: any
+  cover?: any
 }
 
 // BlogPost

@@ -10,7 +10,7 @@ interface IProps {
   blogPosts: IBlogPostPreview[]
   totalCount: number
   basePath: string
-  paginationContext: IBlogPostListPageContext
+  paginationContext: IBlogPostListPageContext | null
 }
 
 const BlogList: React.FC<IProps> = ({
@@ -35,28 +35,32 @@ const BlogList: React.FC<IProps> = ({
         </span>
         {totalCount} Posts total
       </p>
-      <div
+      <ul
         sx={{
           display: `grid`,
           gridTemplateColumns: `1fr`,
           gridGap: 4,
           marginBottom: 3,
+          listStyle: `none`,
+          padding: 0,
         }}
       >
         {blogPosts.map(blogPost => (
-          <PostCard
-            key={blogPost.id}
-            url={`${basePath}/${blogPost.slug}`}
-            title={blogPost.title}
-            date={blogPost.date}
-            authors={blogPost.authors}
-            coverSizes={
-              blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
-            }
-            basePath={basePath}
-          />
+          <li>
+            <PostCard
+              key={blogPost.id}
+              url={`${basePath}/${blogPost.slug}`}
+              title={blogPost.title}
+              date={blogPost.date}
+              authors={blogPost.authors}
+              coverSizes={
+                blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
+              }
+              basePath={basePath}
+            />
+          </li>
         ))}
-      </div>
+      </ul>
       {paginationContext && (
         <Pagination context={paginationContext} basePath={basePath} />
       )}
