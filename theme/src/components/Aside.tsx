@@ -1,16 +1,17 @@
 /** @jsx jsx */
 import React from "react"
 import { jsx } from "theme-ui"
+//@ts-ignore
+import { alpha } from "@theme-ui/color"
 
 const Aside: React.FC = ({ children }) => (
   <aside
     sx={{
       borderLeft: `3px solid`,
       borderLeftColor: `primary`,
-      // TODO: theme-ui/color and get transparancy util so this can be themed
-      backgroundColor: `#66339911`,
-      // TODO: theme border values
-      borderRadius: `0 0.25rem 0.25rem 0`,
+      backgroundColor: alpha(`primary`, 0.07),
+      borderTopRightRadius: `default`,
+      borderBottomRightRadius: `default`,
       fontStyle: `italic`,
       mt: 3,
       px: 3,

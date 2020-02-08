@@ -28,7 +28,11 @@ const PostCard: React.FC<IProps> = props => {
         textDecoration: `none`,
         color: `text`,
         ":hover": {
-          div: { backgroundColor: `hover` },
+          "> div": {
+            backgroundColor: `mutedBackground`,
+            borderTopRightRadius: `sm`,
+            borderBottomRightRadius: `sm`,
+          },
           h2: { textDecoration: `underline` },
         },
       }}
@@ -80,7 +84,8 @@ const PostCard: React.FC<IProps> = props => {
           </div>
         </div>
       ) : (
-        <div>
+        // dirty hack so the background has some space on hover, but the text is still visually lined up with the images
+        <div sx={{ margin: -2, padding: 2 }}>
           <p
             sx={{
               margin: 0,
@@ -88,6 +93,7 @@ const PostCard: React.FC<IProps> = props => {
               letterSpacing: `wider`,
               fontWeight: `bold`,
               color: `mutedText`,
+              lineHeight: `snug`,
             }}
           >
             {new Intl.DateTimeFormat(`en-US`, {
@@ -120,47 +126,5 @@ const PostCard: React.FC<IProps> = props => {
     </Link>
   )
 }
-
-// (
-//   <div
-//     sx={{
-//       padding: `2rem`,
-//       margin: `1rem`,
-//       border: `solid 1px #ccc`,
-//       "&:hover": { background: `#eee` },
-//       // fontFamily: `serif`,
-//     }}
-//   >
-//     <div>
-//       <Link to={props.url}>
-//         {props.coverSizes ? (
-//           <Img sizes={props.coverSizes} />
-//         ) : (
-//             <div
-//               sx={{
-//                 height: `10rem`,
-//                 width: `100%`,
-//                 backgroundImage: `linear-gradient(120deg, purple, rebeccapurple)`,
-//                 opacity: `0.95`,
-//               }}
-//               aria-label={props.title}
-//             />
-//           )}
-//       </Link>
-//     </div>
-//     <div>
-//       <div>
-//         <Link to={props.url}>
-//           <h2>{props.title}</h2>
-//         </Link>
-//       </div>
-//       <div>
-//         <p>
-//           {authorString} on {props.date}
-//         </p>
-//       </div>
-//     </div>
-//   </div>
-// )
 
 export default PostCard

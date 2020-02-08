@@ -13,9 +13,8 @@ const theme = merge(tailwind, {
     text: `#232129`,
     mutedText: `#535454`,
     background: `#fff`,
-    hover: `#f6f6f6`,
+    mutedBackground: `#f6f6f6`,
     primary: `#639`,
-    // mutedPrimary: `#b17acc`,
     mutedPrimary: `#8a4baf`,
   },
   sizes: {
@@ -37,6 +36,8 @@ const theme = merge(tailwind, {
       color: `background`,
       fontWeight: `bold`,
       margin: 0,
+      borderBottom: `1px solid`,
+      borderColor: `mutedPrimary`,
       h1: {
         display: `block`,
         fontSize: 3,
@@ -62,13 +63,15 @@ const theme = merge(tailwind, {
       ...nightOwlLight,
       marginBottom: 2,
       overflow: `auto`,
-      p: 3,
+      padding: 3,
+      borderRadius: `default`,
     },
     inlineCode: {
       fontSize: `inherit`,
       fontWeight: `semibold`,
-      backgroundColor: `hover`,
+      backgroundColor: `mutedBackground`,
       padding: 1,
+      borderRadius: `sm`,
     },
     a: {
       color: `mutedPrimary`,
@@ -86,10 +89,12 @@ const theme = merge(tailwind, {
       margin: 0,
       paddingLeft: 3,
       borderLeftWidth: 5,
-      borderLeftColor: `hover`,
+      borderLeftColor: `mutedBackground`,
       borderLeftStyle: `solid`,
     },
   },
 })
+
+console.log(theme)
 
 export default theme
