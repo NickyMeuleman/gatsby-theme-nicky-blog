@@ -365,6 +365,11 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         ) {
         distinct(field: slug)
       }
+      allAuthor {
+        nodes {
+          shortName
+        }
+      }
     }
   `)
 
@@ -373,8 +378,9 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return
   }
 
-  const { allBlogPost, allTag } = result.data
+  const { allBlogPost, allTag, allAuthor } = result.data
   const posts = allBlogPost.nodes
+  const authors = allAuthor.nodes
 
   // create a page for each blogPost
   posts.forEach((post, i) => {
@@ -448,6 +454,22 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       component: require.resolve(`./src/templates/tag.tsx`),
       context: {
         slug: tagSlug,
+        basePath,
+      },
+    })
+  })
+  console.log({ authors })
+
+  // create a page for each author
+  authors.forEach((author, i) => {
+    const { shortName } = author
+    const slug = slugify(shortName)
+    actions.createPage({
+      path: path.join(basePath, `author`, slug),
+      component: require.resolve(`./src/templates/author.tsx`),
+      context: {
+        slug,
+        shortName,
         basePath,
       },
     })

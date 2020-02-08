@@ -135,3 +135,12 @@ export interface ISEOStaticQuery {
     }
   }
 }
+
+// query in templates/authhor
+export interface IAuthorTemplateQuery {}
+
+// pageContext of pages created in gatsby-node with templates/author
+export interface IAuthorPageContext {}
+
+// AuthorPage
+export interface IAuthorPageData {}

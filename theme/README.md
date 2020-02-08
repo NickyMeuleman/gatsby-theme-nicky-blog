@@ -347,7 +347,7 @@ export default () => (
 - [ ] Page per author
 - [ ] Avatar support for authors
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
-- [ ] theme border values. Only take the sharp edge off, don't round too much.
+- [x] theme border values. Only take the sharp edge off, don't round too much.
 - [ ] add support for updating blogposts (updatedAt frontmatter field?)
 - [ ] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
 - [ ] Use [inversion of control](https://kentcdodds.com/blog/inversion-of-control/) and [component composition](https://youtu.be/3XaXKiXtNjw) more.
