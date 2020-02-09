@@ -352,6 +352,6 @@ export default () => (
 - [x] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
 - [ ] Use [inversion of control](https://kentcdodds.com/blog/inversion-of-control/) and [component composition](https://youtu.be/3XaXKiXtNjw) more.
   - eg. Using `props.children` inside the `PostExtra` component.
-- [ ] Refactor all page creations to use same pattern. Query in templates/* that only renders a component named *Page. That component has the `<SEO />`
-- [ ] Handle data in every page component the same way
-- [ ] Handle passing of `basePath` the same everywhere.
+- [x] Refactor all page creations to use same pattern. Query in templates/* that only renders a component named *Page. That component has the `<SEO />`
+- [x] Handle data in every page component the same way
+- [x] Handle passing of `basePath` the same everywhere.

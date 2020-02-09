@@ -1,12 +1,11 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import TagList from "../components/TagList"
-import SEO from "../components/SEO"
+import TagListPage from "../components/TagListPage"
 import {
-  ITagSummary,
   ITagListTemplateQuery,
   ITagListPageContext,
+  ITagListPageData,
 } from "../types"
 
 interface IProps {
@@ -14,39 +13,34 @@ interface IProps {
   pageContext: ITagListPageContext
 }
 
-const TagsTemplate: React.FC<IProps> = ({ data, pageContext }) => {
-  const tagData = data.allTag.group.reduce<ITagSummary[]>(
-    (acc, item) =>
-      acc.concat({
-        name: item.edges[0].node.name,
-        slug: item.edges[0].node.slug,
-        amount: item.totalCount,
-      }),
-    []
-  )
+const TagListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
+  const pageData = {
+    // eslint-disable-next-line
+    tags: data.allTag.group.reduce<ITagListPageData["tags"]>(
+      (acc, item) =>
+        acc.concat({
+          name: item.nodes[0].name,
+          slug: item.nodes[0].slug,
+          amount: item.totalCount,
+        }),
+      []
+    ),
+  }
 
   return (
     <Layout>
-      <SEO
-        title="Tags"
-        description="List of post tags"
-        slug="tag"
-        basePath={pageContext.basePath}
-      />
-      <TagList tags={tagData} basePath={pageContext.basePath} />
+      <TagListPage data={pageData} pageContext={pageContext} />
     </Layout>
   )
 }
 
-export const tagsTemplateQuery = graphql`
-  query TagsTemplateQuery {
+export const tagListTemplateQuery = graphql`
+  query tagListTemplateQuery {
     allTag(filter: { postPublished: { ne: false } }) {
       group(field: slug, limit: 1) {
-        edges {
-          node {
-            name
-            slug
-          }
+        nodes {
+          name
+          slug
         }
         totalCount
       }
@@ -54,4 +48,4 @@ export const tagsTemplateQuery = graphql`
   }
 `
 
-export default TagsTemplate
+export default TagListTemplate

@@ -12,13 +12,14 @@ interface IProps {
 
 const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, author } = data
+  const { basePath, slug } = pageContext
 
   return (
     <React.Fragment>
       <SEO
         title={`Author "${author.name}"`}
-        slug={`author/${pageContext.slug}`}
-        basePath={pageContext.basePath}
+        slug={`author/${slug}`}
+        basePath={basePath}
       />
       <div>
         <h1>{author.name}</h1>

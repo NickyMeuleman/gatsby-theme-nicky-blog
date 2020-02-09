@@ -459,6 +459,15 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     })
   })
 
+  // create author-list page
+  actions.createPage({
+    path: path.join(basePath, `author`),
+    component: require.resolve(`./src/templates/author-list.tsx`),
+    context: {
+      basePath,
+    },
+  })
+
   // create a page for each author
   authors.forEach((author, i) => {
     const { shortName } = author

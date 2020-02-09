@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
-import BlogPost from "../components/BlogPost"
+import BlogPostPage from "../components/BlogPostPage"
 import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types"
 
 interface IProps {
@@ -10,21 +10,19 @@ interface IProps {
 }
 
 const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
-  const post = data.blogPost
+  const pageData = {
+    post: data.blogPost,
+  }
 
   return (
     <Layout>
-      <BlogPost
-        post={post}
-        context={pageContext}
-        basePath={pageContext.basePath}
-      />
+      <BlogPostPage data={pageData} pageContext={pageContext} />
     </Layout>
   )
 }
 
-export const query = graphql`
-  query BlogPostTemplateQuery($slug: String!) {
+export const blogPostTemplateQuery = graphql`
+  query blogPostTemplateQuery($slug: String!) {
     blogPost(slug: { eq: $slug }) {
       excerpt
       id

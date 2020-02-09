@@ -9,11 +9,11 @@ interface IProps {
   pageContext: IAuthorPageContext
 }
 
-const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
+const AuthorTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     amount: data.allBlogPost.totalCount,
     author: data.author,
-    posts: data.allBlogPost.edges.map(edge => edge.node),
+    posts: data.allBlogPost.nodes,
   }
 
   return (
@@ -38,21 +38,19 @@ export const authorTemplateQuery = graphql`
       }
     ) {
       totalCount
-      edges {
-        node {
-          id
-          authors {
-            shortName
-            name
-          }
-          title
-          slug
-          date
-          cover {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid_withWebp
-              }
+      nodes {
+        id
+        authors {
+          shortName
+          name
+        }
+        title
+        slug
+        date
+        cover {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }
@@ -61,4 +59,4 @@ export const authorTemplateQuery = graphql`
   }
 `
 
-export default TagTemplate
+export default AuthorTemplate

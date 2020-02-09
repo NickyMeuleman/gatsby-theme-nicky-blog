@@ -14,34 +14,25 @@ const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     amount: data.allBlogPost.totalCount,
     name: data.tag.name,
-    posts: data.allBlogPost.edges.map(edge => edge.node),
+    posts: data.allBlogPost.nodes,
   }
 
   return (
     <Layout>
-      <SEO
-        title={`Tagged "${data.tag.name}"`}
-        description={`List of posts tagged with "${data.tag.name}"`}
-        slug={`tag/${pageContext.slug}`}
-        basePath={pageContext.basePath}
-        keywords={[`tag`, data.tag.name]}
-      />
-      <TagPage data={pageData} basePath={pageContext.basePath} />
+      <TagPage data={pageData} pageContext={pageContext} />
     </Layout>
   )
 }
 
 export const tagTemplateQuery = graphql`
-  query TagTemplateQuery($slug: String) {
+  query tagTemplateQuery($slug: String) {
     allBlogPost(
       filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
       sort: { fields: [date], order: DESC }
     ) {
-      edges {
-        node {
-          slug
-          title
-        }
+      nodes {
+        slug
+        title
       }
       totalCount
     }
