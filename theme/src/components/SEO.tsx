@@ -60,7 +60,7 @@ const SEO: React.FC<IProps> = ({
     <Helmet
       title={title}
       defaultTitle={siteMetadata.title}
-      titleTemplate={`%s | ${title}`}
+      titleTemplate={`%s | ${siteMetadata.title}`}
       meta={meta}
     >
       <html lang={lang || `en`} />

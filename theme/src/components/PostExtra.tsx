@@ -82,7 +82,14 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
             >
               {post.authors.map((author, idx) => (
                 <li key={author.name} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
-                  <Styled.p sx={{ margin: 0 }}>{author.name}</Styled.p>
+                  <Link
+                    to={`${
+                      basePath === `/` || basePath === `` ? `` : `/`
+                    }${basePath}/author/${author.shortName}`}
+                    sx={{ variant: `styles.a` }}
+                  >
+                    {author.name}
+                  </Link>
                 </li>
               ))}
             </ul>

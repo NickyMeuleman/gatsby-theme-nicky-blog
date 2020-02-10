@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import React from "react"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 import { jsx } from "theme-ui"
@@ -7,43 +8,50 @@ interface IProps {
   url: string
   title: string
   date: string
-  authors?: { name: string }[]
+  authors?: { shortName: string; name: string }[]
   coverSizes?: any
+  basePath: string
 }
 
 const PostCard: React.FC<IProps> = props => {
-  let authorString
+  let authorComponent
   if (props.authors) {
     if (props.authors.length > 1) {
-      authorString = `By multiple authors`
+      authorComponent = `By multiple authors`
     } else {
-      authorString = props.authors[0].name
+      authorComponent = (
+        <React.Fragment>
+          By{` `}
+          <Link
+            to={`${props.basePath === `/` || props.basePath === `` ? `` : `/`}${
+              props.basePath
+            }/author/${props.authors[0].shortName}`}
+            sx={{ variant: `styles.a`, position: `relative` }}
+          >
+            {props.authors[0].name}
+          </Link>
+        </React.Fragment>
+      )
     }
   }
 
   return (
-    <Link
-      to={props.url}
-      sx={{
-        textDecoration: `none`,
-        color: `text`,
-        ":hover": {
-          "> div": {
-            backgroundColor: `mutedBackground`,
-            borderTopRightRadius: `sm`,
-            borderBottomRightRadius: `sm`,
-          },
-          h2: { textDecoration: `underline` },
-        },
-      }}
-    >
+    <React.Fragment>
       {props.coverSizes ? (
         <div
           sx={{
+            position: `relative`,
             display: `grid`,
             gridTemplateColumns: [`1fr`, `1fr 2fr`],
-            gridTemplateRows: [`auto`, `20ex`],
+            gridTemplateRows: [`30ex 1fr`, `20ex`],
             gridGap: [0, 4],
+            ":hover, :focus-within": {
+              backgroundColor: `mutedBackground`,
+              borderTopRightRadius: `sm`,
+              borderBottomRightRadius: `sm`,
+              // ? TODO: remove underline again when hovering over author link
+              h2: { textDecoration: `underline` },
+            },
           }}
         >
           <Img fluid={props.coverSizes} />
@@ -68,9 +76,26 @@ const PostCard: React.FC<IProps> = props => {
                 margin: 0,
                 fontWeight: `bold`,
                 color: `text`,
+                lineHeight: `snug`,
               }}
             >
-              {props.title}
+              <Link
+                to={props.url}
+                sx={{
+                  textDecoration: `none`,
+                  color: `text`,
+                  "::after": {
+                    content: `""`,
+                    position: `absolute`,
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                  },
+                }}
+              >
+                {props.title}
+              </Link>
             </h2>
             <p
               sx={{
@@ -79,13 +104,26 @@ const PostCard: React.FC<IProps> = props => {
                 color: `primary`,
               }}
             >
-              {authorString}
+              {authorComponent}
             </p>
           </div>
         </div>
       ) : (
-        // dirty hack so the background has some space on hover, but the text is still visually lined up with the images
-        <div sx={{ margin: -2, padding: 2 }}>
+        <div
+          sx={{
+            // dirty hack so the background has some space on hover, but the text is still visually lined up with the images
+            margin: -2,
+            padding: 2,
+            position: `relative`,
+            ":hover, :focus-within": {
+              backgroundColor: `mutedBackground`,
+              borderTopRightRadius: `sm`,
+              borderBottomRightRadius: `sm`,
+              // ? TODO: remove underline again when hovering over author link
+              h2: { textDecoration: `underline` },
+            },
+          }}
+        >
           <p
             sx={{
               margin: 0,
@@ -110,7 +148,23 @@ const PostCard: React.FC<IProps> = props => {
               lineHeight: `tight`,
             }}
           >
-            {props.title}
+            <Link
+              to={props.url}
+              sx={{
+                textDecoration: `none`,
+                color: `text`,
+                "::after": {
+                  content: `""`,
+                  position: `absolute`,
+                  top: 0,
+                  right: 0,
+                  bottom: 0,
+                  left: 0,
+                },
+              }}
+            >
+              {props.title}
+            </Link>
           </h2>
           <p
             sx={{
@@ -119,11 +173,11 @@ const PostCard: React.FC<IProps> = props => {
               color: `primary`,
             }}
           >
-            {authorString}
+            {authorComponent}
           </p>
         </div>
       )}
-    </Link>
+    </React.Fragment>
   )
 }
 

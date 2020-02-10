@@ -4,7 +4,9 @@
 // https://github.com/ChristopherBiscardi/gatsby-mdx/issues/204
 // and https://github.com/gatsbyjs/gatsby/pull/14520
 
+/** @jsx jsx */
 import React from "react"
+import { jsx } from "theme-ui"
 
 // from https://octicons.github.com/icon/link/
 const LinkIcon: React.FC = props => (
@@ -33,7 +35,7 @@ const heading: (
   return (
     <Tag
       {...props}
-      css={{
+      sx={{
         // also show icon when hovering over it, not only the header text
         pointerEvents: `all`,
         a: {
@@ -46,7 +48,7 @@ const heading: (
     >
       <a
         href={`#${props.id}`}
-        css={{
+        sx={{
           marginLeft: `-20px`,
           paddingRight: `4px`,
           color: `primary`,

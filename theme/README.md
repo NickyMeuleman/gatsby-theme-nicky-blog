@@ -51,17 +51,17 @@ To use this theme in your Gatsby sites:
 
 | Key           | Default value   | Description                                                                                  |
 | ------------- | --------------- | -------------------------------------------------------------------------------------------- |
-| `basePath`    | `""`            | Root url for all blog posts                                                                  |
+| `basePath`    | `""`            | Root url for this theme. eg: `blog`                                                          |
 | `contentPath` | `"data/posts"`  | Folder Location to house individual blog post-folders                                        |
 | `assetPath`   | `"data/assets"` | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
 | `pagination`  | `undefined`     | Optional object, enables pagination if provided                                              |
 
 #### `pagination` options
 
-| Key            | Default value | Description                                                    |
-| -------------- | ------------- | -------------------------------------------------------------- |
-| `postsPerPage` | `6`           | Amount of posts per paginated page                             |
-| `prefixPath`   | `""`          | Optional string. Path for paginated pages: eg: `/prefixPath/2` |
+| Key            | Default value | Description                                                        |
+| -------------- | ------------- | ------------------------------------------------------------------ |
+| `postsPerPage` | `10`          | Amount of posts per paginated page                                 |
+| `prefixPath`   | `""`          | Optional string. Prefixes numbers from paginated pages. eg: `page` |
 
 ### Example usage
 
@@ -73,6 +73,7 @@ module.exports = {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
         contentPath: "posts",
+        assetPath: "assets",
         basePath: "blog",
         pagination: {
           postsPerPage: 10,
@@ -106,7 +107,7 @@ module.exports = {
 
 ### Adding blog posts
 
-In the folder that was created for the `contentPath` (`content` by default). Create a folder to hold a blog post. Unless a [slug](#anatomy-of-a-blogpost) is provided, the title of this folder will serve as the slug for the blogpost.
+In the folder that was created for the `contentPath` (`data/posts` by default). Create a folder to hold a blog post. Unless a [slug](#anatomy-of-a-blogpost) is provided, the title of this folder will serve as the slug for the blogpost.
 Inside that folder, an `index.mdx` or `index.md` file will be the blog post itself. Along this file can be several different files specific to that blogpost (e.g. images)
 If no [date](#anatomy-of-a-blogpost) is specified, the date the `.md(x)` file was created will serve as the date for the blogpost.
 
@@ -153,7 +154,7 @@ If no [date](#anatomy-of-a-blogpost) is specified, the date the `.md(x)` file wa
 
 ### Adding authors
 
-In the folder that was created for the `assetPath` (`assets` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of author objects.
+In the folder that was created for the `assetPath` (`data/assets` by default). Create a file called `authors.json` or `authors.yaml`. This file (or files, both formats can work together) holds an array of [author objects](#anatomy-of-an-authors-file).
 
 #### Anatomy of an authors file
 
@@ -184,24 +185,49 @@ In `.md` or `.mdx` files these fields are set via the frontmatter.
 | `published`    | boolean, defaults to `true`  | no       | include post in production                                                         |
 | `slug`         | string                       | no       | the last part of the URL for this post                                             |
 
-### Exported components
+### Components used in this theme.
 
-The included components are larely unstyled implementations to show an example of what is possible.
 Overwriting these with your own is highly encouraged. This can be done via [component shadowing](https://www.gatsbyjs.org/blog/2019-04-29-component-shadowing/).
 
-#### List of components:
+#### Query components
 
-- BlogList
-- BlogPost
-- Pagination
-- PostCard
-- TagList
+These components house the Gatsby template-query.
+They lightly transform that data and pass it on to the corresponsing [Page component](#page-components).
+Changes to these might require changes to the corresponding [Page components](#page-components) because of that.
+Location to shadow: `@nickymeuleman/gatsby-theme-blog/templates/<component-name>`
+
+- BlogPostQuery
+- BlogPostListQuery
+- TagQuery
+- TagListQuery
+- AuthorQuery
+- AuthorListQuery
+
+#### Page components
+
+These components render an entire page.
+Each component is wrapped in the `Layout` component that centers the content and adds the `Header`.
+Location to shadow: `@nickymeuleman/gatsby-theme-blog/components/<component-name>`
+
+- BlogPostPage
+- BlogPostListPage
 - TagPage
-- PostExtra
-- Every component from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed)
-- Aside
+- TagListPage
+- AuthorPage
+- AuthorListPage
 
-#### Components that are usable in `.mdx` without importing them first
+#### Regular components
+
+These components are used by the [Page components](#page-components)
+Location to shadow: `@nickymeuleman/gatsby-theme-blog/components/<component-name>`
+
+- PostCard
+- PostExtra
+- Pagination
+
+#### Mdx components
+
+These components are usable in `.mdx` files without importing them first.
 
 - Every component from [Gatby-mdx-embed](https://github.com/PaulieScanlon/gatsby-mdx-embed)
 - Aside
@@ -344,11 +370,18 @@ export default () => (
 - [x] Rename Underpost to PostExtra
 - [x] Rework default `contentPath` and `assetPath`
 - [x] Remove duplicate remark images plugin
-- [ ] Page per author
+- [x] Page per author
 - [ ] Avatar support for authors
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
-- [ ] theme border values. Only take the sharp edge off, don't round too much.
+- [x] theme border values. Only take the sharp edge off, don't round too much.
 - [ ] add support for updating blogposts (updatedAt frontmatter field?)
-- [ ] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
+- [x] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
 - [ ] Use [inversion of control](https://kentcdodds.com/blog/inversion-of-control/) and [component composition](https://youtu.be/3XaXKiXtNjw) more.
   - eg. Using `props.children` inside the `PostExtra` component.
+- [x] Refactor all page creations to use same pattern. Query in templates/* that only renders a component named *Page. That component has the `<SEO />`
+- [x] Rename all top level page components to have `Page` in their name.
+- [x] Relocate `Layout` component from templates to `Page` components.
+- [x] Rename all gatsby templates to have `Query` in their name. Since they are made up of a query, passing that data to a `Page` component.
+- [x] Handle data in every page component the same way
+- [x] Handle passing of `basePath` the same everywhere.
+- [x] Sort named exports from this theme

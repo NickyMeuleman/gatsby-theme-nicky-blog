@@ -365,6 +365,11 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         ) {
         distinct(field: slug)
       }
+      allAuthor {
+        nodes {
+          shortName
+        }
+      }
     }
   `)
 
@@ -373,8 +378,9 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return
   }
 
-  const { allBlogPost, allTag } = result.data
+  const { allBlogPost, allTag, allAuthor } = result.data
   const posts = allBlogPost.nodes
+  const authors = allAuthor.nodes
 
   // create a page for each blogPost
   posts.forEach((post, i) => {
@@ -383,7 +389,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     const { slug } = post
     actions.createPage({
       path: path.join(basePath, slug),
-      component: require.resolve(`./src/templates/blog-post.tsx`),
+      component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
       context: {
         slug,
         prev,
@@ -424,7 +430,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         index === 0
           ? `${basePath || `/`}`
           : path.join(basePath, prefixPath, `${index + 1}`),
-      component: require.resolve(`./src/templates/blog-post-list.tsx`),
+      component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
       context: {
         ...paginationContext,
         basePath,
@@ -435,7 +441,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // create tag-list page
   actions.createPage({
     path: path.join(basePath, `tag`),
-    component: require.resolve(`./src/templates/tag-list.tsx`),
+    component: require.resolve(`./src/templates/TagListQuery.tsx`),
     context: {
       basePath,
     },
@@ -445,9 +451,33 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   allTag.distinct.forEach(tagSlug => {
     actions.createPage({
       path: path.join(basePath, `tag`, tagSlug),
-      component: require.resolve(`./src/templates/tag.tsx`),
+      component: require.resolve(`./src/templates/TagQuery.tsx`),
       context: {
         slug: tagSlug,
+        basePath,
+      },
+    })
+  })
+
+  // create author-list page
+  actions.createPage({
+    path: path.join(basePath, `author`),
+    component: require.resolve(`./src/templates/AuthorListQuery.tsx`),
+    context: {
+      basePath,
+    },
+  })
+
+  // create a page for each author
+  authors.forEach((author, i) => {
+    const { shortName } = author
+    const slug = slugify(shortName)
+    actions.createPage({
+      path: path.join(basePath, `author`, slug),
+      component: require.resolve(`./src/templates/AuthorQuery.tsx`),
+      context: {
+        slug,
+        shortName,
         basePath,
       },
     })
