@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import React from "react"
 import { jsx, Styled } from "theme-ui"
-import { IAuthorPageData, IAuthorPageContext } from "../types"
+import Layout from "./Layout"
 import PostCard from "./PostCard"
 import SEO from "./SEO"
+import { IAuthorPageData, IAuthorPageContext } from "../types"
 
 interface IProps {
   data: IAuthorPageData
@@ -21,59 +22,61 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
         slug={`author/${slug}`}
         basePath={basePath}
       />
-      <div>
-        <h1>{author.name}</h1>
-        {author.twitter && (
-          <Styled.p>
-            Follow{` `}
-            <Styled.a href={`https://twitter.com/${author.twitter}`}>
-              @{author.twitter}
-            </Styled.a>
-            {` `}on Twitter.
-          </Styled.p>
-        )}
-        <div
-          sx={{
-            maxWidth: `lineLength`,
-            mx: `auto`,
-          }}
-        >
-          <p
+      <Layout>
+        <div>
+          <h1>{author.name}</h1>
+          {author.twitter && (
+            <Styled.p>
+              Follow{` `}
+              <Styled.a href={`https://twitter.com/${author.twitter}`}>
+                @{author.twitter}
+              </Styled.a>
+              {` `}on Twitter.
+            </Styled.p>
+          )}
+          <div
             sx={{
-              textTransform: `uppercase`,
-              letterSpacing: `wider`,
-              fontWeight: `bold`,
-              color: `mutedText`,
+              maxWidth: `lineLength`,
+              mx: `auto`,
             }}
           >
-            {data.amount} Stories by {data.author.name}
-          </p>
-          <ul
-            sx={{
-              listStyle: `none`,
-              display: `grid`,
-              gap: 4,
-              padding: 0,
-            }}
-          >
-            {posts.map(post => (
-              <li key={post.slug} sx={{ margin: 1 }}>
-                <PostCard
-                  key={post.id}
-                  url={`${pageContext.basePath}/${post.slug}`}
-                  title={post.title}
-                  date={post.date}
-                  authors={post.authors}
-                  coverSizes={
-                    post.cover ? post.cover.childImageSharp.fluid : null
-                  }
-                  basePath={pageContext.basePath}
-                />
-              </li>
-            ))}
-          </ul>
+            <p
+              sx={{
+                textTransform: `uppercase`,
+                letterSpacing: `wider`,
+                fontWeight: `bold`,
+                color: `mutedText`,
+              }}
+            >
+              {data.amount} Stories by {data.author.name}
+            </p>
+            <ul
+              sx={{
+                listStyle: `none`,
+                display: `grid`,
+                gap: 4,
+                padding: 0,
+              }}
+            >
+              {posts.map(post => (
+                <li key={post.slug} sx={{ margin: 1 }}>
+                  <PostCard
+                    key={post.id}
+                    url={`${pageContext.basePath}/${post.slug}`}
+                    title={post.title}
+                    date={post.date}
+                    authors={post.authors}
+                    coverSizes={
+                      post.cover ? post.cover.childImageSharp.fluid : null
+                    }
+                    basePath={pageContext.basePath}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      </Layout>
     </React.Fragment>
   )
 }

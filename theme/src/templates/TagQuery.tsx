@@ -1,8 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
 import TagPage from "../components/TagPage"
-import SEO from "../components/SEO"
 import { ITagPageContext, ITagTemplateQuery } from "../types"
 
 interface IProps {
@@ -17,11 +15,7 @@ const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     posts: data.allBlogPost.nodes,
   }
 
-  return (
-    <Layout>
-      <TagPage data={pageData} pageContext={pageContext} />
-    </Layout>
-  )
+  return <TagPage data={pageData} pageContext={pageContext} />
 }
 
 export const tagTemplateQuery = graphql`

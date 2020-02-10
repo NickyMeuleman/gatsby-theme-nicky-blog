@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
 import AuthorPage from "../components/AuthorPage"
 import { IAuthorTemplateQuery, IAuthorPageContext } from "../types"
 
@@ -16,11 +15,7 @@ const AuthorTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     posts: data.allBlogPost.nodes,
   }
 
-  return (
-    <Layout>
-      <AuthorPage data={pageData} pageContext={pageContext} />
-    </Layout>
-  )
+  return <AuthorPage data={pageData} pageContext={pageContext} />
 }
 
 export const authorTemplateQuery = graphql`

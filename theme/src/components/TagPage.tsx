@@ -2,8 +2,9 @@
 import React from "react"
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
-import { ITagPageData, ITagPageContext } from "../types"
+import Layout from "./Layout"
 import SEO from "./SEO"
+import { ITagPageData, ITagPageContext } from "../types"
 
 interface IProps {
   data: ITagPageData
@@ -26,37 +27,39 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
         basePath={basePath}
         keywords={[`tag`, name]}
       />
-      <div>
-        <h1>{tagHeader}</h1>
-        <p>
-          <Link
-            to={`${
-              basePath === `/` || basePath === `` ? `` : `/`
-            }${basePath}/tag`}
-            sx={{
-              variant: `styles.a`,
-            }}
-          >
-            All tags
-          </Link>
-        </p>
-        <ul>
-          {posts.map(post => (
-            <li key={post.slug} sx={{ margin: 1 }}>
-              <Link
-                to={`${
-                  basePath === `/` || basePath === `` ? `` : `/`
-                }${basePath}/${post.slug}`}
-                sx={{
-                  variant: `styles.a`,
-                }}
-              >
-                {post.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Layout>
+        <div>
+          <h1>{tagHeader}</h1>
+          <p>
+            <Link
+              to={`${
+                basePath === `/` || basePath === `` ? `` : `/`
+              }${basePath}/tag`}
+              sx={{
+                variant: `styles.a`,
+              }}
+            >
+              All tags
+            </Link>
+          </p>
+          <ul>
+            {posts.map(post => (
+              <li key={post.slug} sx={{ margin: 1 }}>
+                <Link
+                  to={`${
+                    basePath === `/` || basePath === `` ? `` : `/`
+                  }${basePath}/${post.slug}`}
+                  sx={{
+                    variant: `styles.a`,
+                  }}
+                >
+                  {post.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Layout>
     </React.Fragment>
   )
 }

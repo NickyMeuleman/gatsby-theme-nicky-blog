@@ -2,6 +2,7 @@
 import React from "react"
 import { jsx } from "theme-ui"
 import { Link } from "gatsby"
+import Layout from "./Layout"
 import SEO from "./SEO"
 import { IAuthorListPageContext, IAuthorListPageData } from "../types"
 
@@ -17,18 +18,20 @@ const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
   return (
     <React.Fragment>
       <SEO title={`${data.amount} Authors`} slug="author" basePath={basePath} />
-      <ul>
-        {authors.map(author => (
-          <li key={author.id} sx={{ margin: 1 }}>
-            <Link
-              to={`/author/${author.shortName}`}
-              sx={{ variant: `styles.a` }}
-            >
-              {author.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Layout>
+        <ul>
+          {authors.map(author => (
+            <li key={author.id} sx={{ margin: 1 }}>
+              <Link
+                to={`/author/${author.shortName}`}
+                sx={{ variant: `styles.a` }}
+              >
+                {author.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Layout>
     </React.Fragment>
   )
 }

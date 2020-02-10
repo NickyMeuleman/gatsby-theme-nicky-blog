@@ -35,7 +35,7 @@ exports.themeOptionsWithDefaults = themeOptions => {
   const assetPath = themeOptions.assetPath || `data/assets`
   const pagination = {
     postsPerPage:
-      (themeOptions.pagination && themeOptions.pagination.postsPerPage) || 6,
+      (themeOptions.pagination && themeOptions.pagination.postsPerPage) || 10,
     prefixPath:
       (themeOptions.pagination && themeOptions.pagination.prefixPath) || ``,
   }

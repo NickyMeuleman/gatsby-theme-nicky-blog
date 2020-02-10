@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
 import BlogPostListPage from "../components/BlogPostListPage"
 import { IBlogPostListTemplateQuery, IBlogPostListPageContext } from "../types"
 
@@ -16,11 +15,7 @@ const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     paginationContext: pageContext.numPages ? pageContext : null,
   }
 
-  return (
-    <Layout>
-      <BlogPostListPage data={pageData} pageContext={pageContext} />
-    </Layout>
-  )
+  return <BlogPostListPage data={pageData} pageContext={pageContext} />
 }
 
 export const blogPostListTemplateQuery = graphql`

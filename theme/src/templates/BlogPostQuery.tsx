@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
 import BlogPostPage from "../components/BlogPostPage"
 import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types"
 
@@ -14,11 +13,7 @@ const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     post: data.blogPost,
   }
 
-  return (
-    <Layout>
-      <BlogPostPage data={pageData} pageContext={pageContext} />
-    </Layout>
-  )
+  return <BlogPostPage data={pageData} pageContext={pageContext} />
 }
 
 export const blogPostTemplateQuery = graphql`

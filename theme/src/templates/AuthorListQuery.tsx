@@ -1,8 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
-import { IAuthorListTemplateQuery, IAuthorListPageContext } from "../types"
 import AuthorListPage from "../components/AuthorListPage"
+import { IAuthorListTemplateQuery, IAuthorListPageContext } from "../types"
 
 interface IProps {
   data: IAuthorListTemplateQuery
@@ -15,11 +14,7 @@ const AuthorListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     amount: data.allAuthor.totalCount,
   }
 
-  return (
-    <Layout>
-      <AuthorListPage data={pageData} pageContext={pageContext} />
-    </Layout>
-  )
+  return <AuthorListPage data={pageData} pageContext={pageContext} />
 }
 
 export const authorListTemplateQuery = graphql`

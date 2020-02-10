@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
 import TagListPage from "../components/TagListPage"
 import {
   ITagListTemplateQuery,
@@ -27,11 +26,7 @@ const TagListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     ),
   }
 
-  return (
-    <Layout>
-      <TagListPage data={pageData} pageContext={pageContext} />
-    </Layout>
-  )
+  return <TagListPage data={pageData} pageContext={pageContext} />
 }
 
 export const tagListTemplateQuery = graphql`

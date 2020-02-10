@@ -4,9 +4,10 @@ import { jsx, Styled } from "theme-ui"
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Img from "gatsby-image"
+import Layout from "./Layout"
 import PostExtra from "./PostExtra"
-import { IBlogPostPageContext, IBlogPostPageData } from "../types"
 import SEO from "./SEO"
+import { IBlogPostPageContext, IBlogPostPageData } from "../types"
 
 interface IProps {
   data: IBlogPostPageData
@@ -38,28 +39,35 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
             : undefined
         }
       />
-      <div
-        sx={{
-          display: `grid`,
-          gridGap: [0, 0, 0, 4],
-          gridAutoFlow: `dense`,
-          gridTemplateColumns: [
-            `1fr minmax(0, 70ch) 1fr`,
-            null,
-            null,
-            `1fr minmax(0, 20ch) 70ch 20ch 1fr`,
-          ],
-        }}
-      >
-        <aside sx={{ padding: 2, gridColumn: [`2/3`, null, null, `4/5`] }}>
-          <PostExtra prev={prev} next={next} basePath={basePath} post={post} />
-        </aside>
-        <article sx={{ gridColumn: [`2/3`, null, null, `3/4`] }}>
-          <Styled.h1>{post.title}</Styled.h1>
-          {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
-          <MDXRenderer>{post.body}</MDXRenderer>
-        </article>
-      </div>
+      <Layout>
+        <div
+          sx={{
+            display: `grid`,
+            gridGap: [0, 0, 0, 4],
+            gridAutoFlow: `dense`,
+            gridTemplateColumns: [
+              `1fr minmax(0, 70ch) 1fr`,
+              null,
+              null,
+              `1fr minmax(0, 20ch) 70ch 20ch 1fr`,
+            ],
+          }}
+        >
+          <aside sx={{ padding: 2, gridColumn: [`2/3`, null, null, `4/5`] }}>
+            <PostExtra
+              prev={prev}
+              next={next}
+              basePath={basePath}
+              post={post}
+            />
+          </aside>
+          <article sx={{ gridColumn: [`2/3`, null, null, `3/4`] }}>
+            <Styled.h1>{post.title}</Styled.h1>
+            {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
+            <MDXRenderer>{post.body}</MDXRenderer>
+          </article>
+        </div>
+      </Layout>
     </React.Fragment>
   )
 }
