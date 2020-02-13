@@ -53,14 +53,13 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
             ],
           }}
         >
-          <aside sx={{ padding: 2, gridColumn: [`2/3`, null, null, `4/5`] }}>
-            <PostExtra
-              prev={prev}
-              next={next}
-              basePath={basePath}
-              post={post}
-            />
-          </aside>
+          <PostExtra
+            prev={prev}
+            next={next}
+            basePath={basePath}
+            post={post}
+            passedSx={{ gridColumn: [`2/3`, null, null, `4/5`] }}
+          />
           <article sx={{ gridColumn: [`2/3`, null, null, `3/4`] }}>
             <Styled.h1>{post.title}</Styled.h1>
             {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}

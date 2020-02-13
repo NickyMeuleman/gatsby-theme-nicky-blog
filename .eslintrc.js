@@ -75,7 +75,7 @@ module.exports = {
         "enforceForRenamedProperties": false
       }
     ],
-    "arrow-body-style": ["warn", "as-needed"],
+    "arrow-body-style": ["warn", "as-needed", { "requireReturnForObjectLiteral": true }],
     "no-unused-expressions": [
       "error",
       {

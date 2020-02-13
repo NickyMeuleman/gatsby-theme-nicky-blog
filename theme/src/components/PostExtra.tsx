@@ -3,79 +3,64 @@ import React from "react"
 import { jsx, Styled } from "theme-ui"
 import { Link } from "gatsby"
 import { IPrevNext, IBlogPost } from "../types"
+import MetaListItem from "./MetaListItem"
 
-// TODO: this repeated CSS is giving me anxiety. Looks rad though
 interface IProps {
   prev?: IPrevNext
   next?: IPrevNext
   basePath: string
   post: IBlogPost
+  passedSx?: object
 }
 
-const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
+const PostExtra: React.FC<IProps> = ({
+  prev,
+  next,
+  basePath,
+  post,
+  passedSx,
+}) => {
   const urlObj = post.canonicalUrl && new URL(post.canonicalUrl)
 
   return (
-    <React.Fragment>
+    <aside sx={passedSx}>
+      <h2
+        sx={{
+          position: `relative`,
+          margin: 0,
+          textTransform: `uppercase`,
+          letterSpacing: `wider`,
+          fontWeight: `bold`,
+          color: `mutedText`,
+          fontSize: 1,
+          my: 3,
+          "::after": {
+            position: `absolute`,
+            content: `""`,
+            height: `2px`,
+            backgroundColor: `primary`,
+            left: 0,
+            width: `3.5ch`,
+            bottom: -(1 / 4),
+          },
+        }}
+      >
+        Metadata
+      </h2>
       <ul sx={{ listStyle: `none`, padding: 0 }}>
         {post.date && (
-          <li sx={{ marginTop: 2 }}>
-            <span
-              sx={{
-                margin: 0,
-                textTransform: `uppercase`,
-                letterSpacing: `wider`,
-                fontWeight: `bold`,
-                color: `mutedText`,
-                fontSize: 1,
-                display: `flex`,
-                alignItems: `center`,
-                "::after": {
-                  content: `""`,
-                  flex: 1,
-                  marginLeft: 1,
-                  backgroundColor: `primary`,
-                  height: `2px`,
-                },
-              }}
-            >
-              On
-            </span>
-            <Styled.p sx={{ margin: 0, paddingLeft: 1 }}>
-              <time dateTime={post.date}>
-                {new Intl.DateTimeFormat(`en-US`, {
-                  year: `numeric`,
-                  month: `long`,
-                  day: `numeric`,
-                }).format(new Date(post.date))}
-              </time>
-            </Styled.p>
-          </li>
+          <MetaListItem title="Date">
+            <time dateTime={post.date} sx={{ paddingLeft: 1 }}>
+              {new Intl.DateTimeFormat(`en-US`, {
+                year: `numeric`,
+                month: `long`,
+                day: `numeric`,
+              }).format(new Date(post.date))}
+            </time>
+          </MetaListItem>
         )}
         {post.authors && (
-          <li sx={{ marginTop: 2 }}>
-            <span
-              id="post-authors"
-              sx={{
-                margin: 0,
-                textTransform: `uppercase`,
-                letterSpacing: `wider`,
-                fontWeight: `bold`,
-                color: `mutedText`,
-                fontSize: 1,
-                display: `flex`,
-                alignItems: `center`,
-                "::after": {
-                  content: `""`,
-                  flex: 1,
-                  marginLeft: 1,
-                  backgroundColor: `primary`,
-                  height: `2px`,
-                },
-              }}
-            >
-              By
-            </span>
+          <MetaListItem title="By" titleId="post-authors">
             <ul
               aria-labelledby="post-authors"
               sx={{ listStyle: `none`, padding: 0, margin: 0, paddingLeft: 1 }}
@@ -93,61 +78,19 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
                 </li>
               ))}
             </ul>
-          </li>
+          </MetaListItem>
         )}
         {urlObj && (
-          <li sx={{ marginTop: 2 }}>
-            <span
-              sx={{
-                margin: 0,
-                marginTop: 1,
-                textTransform: `uppercase`,
-                letterSpacing: `wider`,
-                fontWeight: `bold`,
-                color: `mutedText`,
-                fontSize: 1,
-                display: `flex`,
-                alignItems: `center`,
-                "::after": {
-                  content: `""`,
-                  flex: 1,
-                  marginLeft: 1,
-                  backgroundColor: `primary`,
-                  height: `2px`,
-                },
-              }}
-            >
-              Originally at
-            </span>
-            <p sx={{ margin: 0, paddingLeft: 1 }}>
-              <Styled.a href={urlObj.toString()}>{urlObj.hostname}</Styled.a>
-            </p>
-          </li>
+          <MetaListItem title="Originally at">
+            {urlObj && (
+              <Styled.a href={urlObj.toString()} sx={{ paddingLeft: 1 }}>
+                {urlObj.hostname}
+              </Styled.a>
+            )}
+          </MetaListItem>
         )}
         {post.tags && (
-          <li sx={{ marginTop: 2 }}>
-            <span
-              id="post-tags"
-              sx={{
-                margin: 0,
-                textTransform: `uppercase`,
-                letterSpacing: `wider`,
-                fontWeight: `bold`,
-                color: `mutedText`,
-                fontSize: 1,
-                display: `flex`,
-                alignItems: `center`,
-                "::after": {
-                  content: `""`,
-                  flex: 1,
-                  marginLeft: 1,
-                  backgroundColor: `primary`,
-                  height: `2px`,
-                },
-              }}
-            >
-              Tagged
-            </span>
+          <MetaListItem title="Tagged" titleId="post-tags">
             <ul
               aria-labelledby="post-tags"
               sx={{ listStyle: `none`, padding: 0, margin: 0, paddingLeft: 1 }}
@@ -166,31 +109,10 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
                 </li>
               ))}
             </ul>
-          </li>
+          </MetaListItem>
         )}
         {prev && (
-          <li sx={{ marginTop: 2 }}>
-            <span
-              sx={{
-                margin: 0,
-                textTransform: `uppercase`,
-                letterSpacing: `wider`,
-                fontWeight: `bold`,
-                color: `mutedText`,
-                fontSize: 1,
-                display: `flex`,
-                alignItems: `center`,
-                "::after": {
-                  content: `""`,
-                  flex: 1,
-                  marginLeft: 1,
-                  backgroundColor: `primary`,
-                  height: `2px`,
-                },
-              }}
-            >
-              Older post
-            </span>
+          <MetaListItem title="Older post">
             <Styled.p sx={{ margin: 0, paddingLeft: 1 }}>
               <Link
                 to={`${
@@ -201,31 +123,10 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
                 {prev.title}
               </Link>
             </Styled.p>
-          </li>
+          </MetaListItem>
         )}
         {next && (
-          <li sx={{ marginTop: 2 }}>
-            <span
-              sx={{
-                margin: 0,
-                textTransform: `uppercase`,
-                letterSpacing: `wider`,
-                fontWeight: `bold`,
-                color: `mutedText`,
-                fontSize: 1,
-                display: `flex`,
-                alignItems: `center`,
-                "::after": {
-                  content: `""`,
-                  flex: 1,
-                  marginLeft: 1,
-                  backgroundColor: `primary`,
-                  height: `2px`,
-                },
-              }}
-            >
-              Newer post
-            </span>
+          <MetaListItem title="Newer post">
             <Styled.p sx={{ margin: 0, paddingLeft: 1 }}>
               <Link
                 to={`${
@@ -236,10 +137,11 @@ const PostExtra: React.FC<IProps> = ({ prev, next, basePath, post }) => {
                 {next.title}
               </Link>
             </Styled.p>
-          </li>
+          </MetaListItem>
         )}
       </ul>
-    </React.Fragment>
+    </aside>
   )
 }
+
 export default PostExtra
