@@ -56,7 +56,7 @@ const PostCard: React.FC<IProps> = props => {
         >
           <Img fluid={props.coverSizes} />
           <div>
-            <p
+            <div
               sx={{
                 margin: 0,
                 textTransform: `uppercase`,
@@ -65,12 +65,14 @@ const PostCard: React.FC<IProps> = props => {
                 color: `mutedText`,
               }}
             >
-              {new Intl.DateTimeFormat(`en-US`, {
-                year: `numeric`,
-                month: `long`,
-                day: `numeric`,
-              }).format(new Date(props.date))}
-            </p>
+              <time dateTime={props.date}>
+                {new Intl.DateTimeFormat(`en-US`, {
+                  year: `numeric`,
+                  month: `long`,
+                  day: `numeric`,
+                }).format(new Date(props.date))}
+              </time>
+            </div>
             <h2
               sx={{
                 margin: 0,
@@ -124,7 +126,7 @@ const PostCard: React.FC<IProps> = props => {
             },
           }}
         >
-          <p
+          <div
             sx={{
               margin: 0,
               textTransform: `uppercase`,
@@ -134,12 +136,14 @@ const PostCard: React.FC<IProps> = props => {
               lineHeight: `snug`,
             }}
           >
-            {new Intl.DateTimeFormat(`en-US`, {
-              year: `numeric`,
-              month: `long`,
-              day: `numeric`,
-            }).format(new Date(props.date))}
-          </p>
+            <time dateTime={props.date}>
+              {new Intl.DateTimeFormat(`en-US`, {
+                year: `numeric`,
+                month: `long`,
+                day: `numeric`,
+              }).format(new Date(props.date))}
+            </time>
+          </div>
           <h2
             sx={{
               margin: 0,
