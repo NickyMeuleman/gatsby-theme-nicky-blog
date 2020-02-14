@@ -52,18 +52,21 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     shortName: String!
     name: String!
     twitter: String
+    image: File @fileByRelativePath
   }
   type AuthorsJson implements Node & Author {
     id: ID!
     shortName: String!
     name: String!
     twitter: String
+    image: File @fileByRelativePath
   }
   type AuthorsYaml implements Node & Author {
     id: ID!
     shortName: String!
     name: String!
     twitter: String
+    image: File @fileByRelativePath
   }
   """Extend childOf types with every type of source as they are added"""
   type Tag implements Node @dontInfer @childOf(types: ["MdxBlogPost"]) {
@@ -75,6 +78,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   interface BlogPost @nodeInterface {
     id: ID!
     date: Date! @dateformat
+    updatedAt: Date @dateformat
     slug: String!
     tags: [Tag!] @link(by: "name")
     authors: [Author!] @link(by: "shortName")
@@ -148,6 +152,22 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           }
           const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
           return fileNode.birthTime
+        },
+      },
+      updatedAt: {
+        type: `Date`,
+        extensions: {
+          dateformat: {},
+        },
+        resolve: (source, args, context, info) => {
+          const mdxNode = context.nodeModel.getNodeById({ id: source.parent })
+          if (mdxNode.frontmatter.updatedAt) {
+            return mdxNode.frontmatter.updatedAt
+          }
+          const fileNode = context.nodeModel.getNodeById({ id: mdxNode.parent })
+          return fileNode.modifiedTime !== fileNode.birthTime
+            ? fileNode.modifiedTime
+            : null
         },
       },
       canonicalUrl: {
@@ -260,7 +280,7 @@ exports.onCreateNode = (
 
     // only create MdxBlogPost nodes for .mdx files in the correct folder
     if (source === contentPath) {
-      // duplicate (kinda) logic from the resolvers
+      // duplicate logic from the resolvers
       let slug
       if (node.frontmatter.slug) {
         // get slug from frontmatter
@@ -273,8 +293,6 @@ exports.onCreateNode = (
           slug = slug.slice(1)
         }
       }
-
-      // duplicate logic from resolvers
       let date
       if (node.frontmatter.date) {
         // get date from frontmatter
@@ -283,7 +301,15 @@ exports.onCreateNode = (
         // get date the parent file was created
         date = parent.birthTime
       }
-
+      let updatedAt
+      if (node.frontmatter.updatedAt) {
+        // get updatedAt from frontmatter
+        updatedAt = node.frontmatter.updatedAt
+      } else {
+        // get updatedAt from the parent file modifiedTime
+        updatedAt =
+          parent.modifiedTime !== parent.birthTime ? parent.modifiedTime : null
+      }
       const fieldData = {
         // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
@@ -292,6 +318,7 @@ exports.onCreateNode = (
         slug,
         published: node.frontmatter.published,
         date,
+        updatedAt,
       }
 
       const proxyNode = {

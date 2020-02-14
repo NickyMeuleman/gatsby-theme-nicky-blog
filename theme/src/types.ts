@@ -21,6 +21,7 @@ export interface IBlogPost {
   title: string
   cover?: any
   date: string
+  updatedAt: string
 }
 
 // PostExtra

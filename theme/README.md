@@ -371,7 +371,8 @@ export default () => (
 - [x] Rework default `contentPath` and `assetPath`
 - [x] Remove duplicate remark images plugin
 - [x] Page per author
-- [ ] Avatar support for authors
+- [x] Avatar support for authors
+  - [ ] Use avatars in demo.
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
 - [x] theme border values. Only take the sharp edge off, don't round too much.
 - [ ] add support for updating blogposts (updatedAt frontmatter field?)

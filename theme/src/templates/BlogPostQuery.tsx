@@ -23,6 +23,7 @@ export const blogPostTemplateQuery = graphql`
       id
       slug
       date
+      updatedAt
       canonicalUrl
       keywords
       body

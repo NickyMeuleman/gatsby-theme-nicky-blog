@@ -59,6 +59,17 @@ const PostExtra: React.FC<IProps> = ({
             </time>
           </MetaListItem>
         )}
+        {post.updatedAt && (
+          <MetaListItem title="Last update">
+            <time dateTime={post.updatedAt} sx={{ paddingLeft: 1 }}>
+              {new Intl.DateTimeFormat(`en-US`, {
+                year: `numeric`,
+                month: `long`,
+                day: `numeric`,
+              }).format(new Date(post.updatedAt))}
+            </time>
+          </MetaListItem>
+        )}
         {post.authors && (
           <MetaListItem title="By" titleId="post-authors">
             <ul
