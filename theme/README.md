@@ -161,11 +161,12 @@ In the folder that was created for the `assetPath` (`data/assets` by default). C
 An authors file contains a top level array filled with object describing individual authors.
 An author can have several different field with information specific to them.
 
-| Key         | Value  | Required | Description                                                                 |
-| ----------- | ------ | -------- | --------------------------------------------------------------------------- |
-| `shortName` | string | yes      | **unique** identifier for the author, used in `author` field for blog posts |
-| `name`      | string | yes      | full name eg. "Nicky Meuleman"                                              |
-| `twitter`   | string | no       | twitter handle without @                                                    |
+| Key         | Value  | Required | Description                                                                           |
+| ----------- | ------ | -------- | ------------------------------------------------------------------------------------- |
+| `shortName` | string | yes      | **Unique**, url-safe identifier for the author, used in `author` field for blog posts |
+| `name`      | string | yes      | Full name eg. "Nicky Meuleman"                                                        |
+| `twitter`   | string | no       | Twitter handle without @                                                              |
+| `image`     | string | no       | Relative path from the authors file.                                                  |
 
 #### Anatomy of a blogpost
 
@@ -174,16 +175,17 @@ In `.md` or `.mdx` files these fields are set via the frontmatter.
 
 | Key            | Value                        | Required | Description                                                                        |
 | -------------- | ---------------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `title`        | string                       | no       | title of your blogpost                                                             |
-| `date`         | date string                  | no       | the date tied to the post                                                          |
+| `title`        | string                       | no       | Title of the post.                                                                 |
+| `date`         | date string                  | no       | Date the post was written.                                                         |
+| `updatedAt`    | date string                  | no       | Date the post was last updated.                                                    |
 | `canonicalUrl` | full url string              | no       | Canonical url                                                                      |
 | `authors`      | array of `shortName` strings | no       | Authors of the post. <br/>Should not be used in combination with the `author` key. |
 | `author`       | `shortName` string           | no       | Author of the post. <br/>Should not be used in combination with the `authors` key. |
-| `tags`         | array of tag strings         | no       | tags for this post                                                                 |
-| `keywords`     | array of keyword strings     | no       | keywords for SEO                                                                   |
-| `cover`        | relative path to cover image | no       | displayed as cover image, in social cards                                          |
-| `published`    | boolean, defaults to `true`  | no       | include post in production                                                         |
-| `slug`         | string                       | no       | the last part of the URL for this post                                             |
+| `tags`         | array of tag strings         | no       | Tags for the post                                                                  |
+| `keywords`     | array of keyword strings     | no       | Keywords for SEO                                                                   |
+| `cover`        | relative path to cover image | no       | Displayed as cover image, in social cards                                          |
+| `published`    | boolean, defaults to `true`  | no       | Include the post in production                                                     |
+| `slug`         | string                       | no       | The last part of the URL for the post                                              |
 
 ### Components used in this theme.
 
@@ -375,7 +377,7 @@ export default () => (
   - [ ] Use avatars in demo.
 - [ ] CLI to scaffold out now blogposts (See how Kyle Shevlin does this.)
 - [x] theme border values. Only take the sharp edge off, don't round too much.
-- [ ] add support for updating blogposts (updatedAt frontmatter field?)
+- [x] add support for updating blogposts (updatedAt frontmatter field?)
 - [x] Rework how cards are done `BlogList` https://inclusive-components.design/cards/
 - [ ] Use [inversion of control](https://kentcdodds.com/blog/inversion-of-control/) and [component composition](https://youtu.be/3XaXKiXtNjw) more.
   - eg. Using `props.children` inside the `PostExtra` component.
