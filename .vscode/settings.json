@@ -22,8 +22,10 @@
     }
   ],
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
+  },
   "eslint.validate": [
     {
       "language": "javascript",
@@ -39,6 +41,14 @@
     },
     {
       "language": "typescriptreact",
+      "autoFix": true
+    },
+    {
+      "language": "markdown",
+      "autoFix": true
+    },
+    {
+      "language": "mdx",
       "autoFix": true
     }
   ],

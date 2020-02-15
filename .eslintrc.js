@@ -20,6 +20,7 @@ module.exports = {
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
+    "plugin:mdx/recommended",
     "prettier",
     "prettier/react",
     "prettier/@typescript-eslint"
@@ -48,7 +49,7 @@ module.exports = {
     "react/jsx-filename-extension": [
       "error",
       {
-        extensions: [".js", ".jsx", ".tsx"]
+        extensions: [".js", ".jsx", ".tsx", ".mdx"]
       }
     ],
     "react/destructuring-assignment": "off",
@@ -137,6 +138,36 @@ module.exports = {
           allowTypedFunctionExpressions: true
         }],
         "@typescript-eslint/no-var-requires": "error"
+      }
+    },
+    // eslint-plugin-mdx claims these overrides are unnecessary or eslint >=6.4
+    // Getting "Parsing error: Expression expected" if omitted, so I'm including these.
+    {
+      "files": ["*.md"],
+      "rules": {
+        "prettier/prettier": [
+          2,
+          {
+            // unnecessary if you're not using `eslint-plugin-prettier`, but required if you are
+            "parser": "markdown"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.mdx"],
+      "extends": ["plugin:mdx/overrides"],
+      "rules": {
+        // https://github.com/mdx-js/eslint-mdx#mdxno-unused-expressions
+        "no-unused-expressions": "off",
+        "mdx/no-unused-expressions": "warn",
+        // https://github.com/mdx-js/eslint-mdx#mdxno-unescaped-entities
+        "react/no-unescaped-entities": "off",
+        // This is triggering inside JSX somehow, off it goes.
+        "mdx/no-unescaped-entities": "off",
+        // some components are available without first importing them.
+        // https://mdxjs.com/blog/shortcodes
+        "react/jsx-no-undef": "off"
       }
     }
   ]
