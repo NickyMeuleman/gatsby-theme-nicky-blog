@@ -1,18 +1,26 @@
 import React from "react"
 import { graphql } from "gatsby"
 import BlogPostListPage from "../components/BlogPostListPage"
-import { IBlogPostListTemplateQuery, IBlogPostListPageContext } from "../types"
+import {
+  IBlogPostListTemplateQuery,
+  IBlogPostListPageContext,
+  IBlogPostListPageContextWithPagination,
+} from "../types"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   data: IBlogPostListTemplateQuery
-  pageContext: IBlogPostListPageContext
+  pageContext: IBlogPostListPageContext | IBlogPostListPageContextWithPagination
 }
 
 const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
+  const { pagination } = useThemeOptions()
   const pageData = {
     blogPosts: data.allBlogPost.nodes,
     amount: data.allBlogPost.totalCount,
-    paginationContext: pageContext.numPages ? pageContext : null,
+    paginationContext: pagination
+      ? (pageContext as IBlogPostListPageContextWithPagination)
+      : undefined,
   }
 
   return <BlogPostListPage data={pageData} pageContext={pageContext} />

@@ -5,6 +5,7 @@ import { Link } from "gatsby"
 import Layout from "./Layout"
 import SEO from "./SEO"
 import { ITagListPageData, ITagListPageContext } from "../types"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   data: ITagListPageData
@@ -13,16 +14,11 @@ interface IProps {
 
 const TagList: React.FC<IProps> = ({ data, pageContext }) => {
   const { tags } = data
-  const { basePath } = pageContext
+  const { basePath } = useThemeOptions()
 
   return (
     <React.Fragment>
-      <SEO
-        title="Tags"
-        description="List of post tags"
-        slug="tag"
-        basePath={basePath}
-      />
+      <SEO title="Tags" description="List of post tags" slug="tag" />
       <Layout>
         <ul>
           {tags.map(tag => (

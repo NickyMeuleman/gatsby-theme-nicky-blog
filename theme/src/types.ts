@@ -46,7 +46,7 @@ export interface ISEOStaticQuery {
 
 // TODO: START DONE
 
-// query in templates/author-list
+// query in templates/AuthorListQuery
 export interface IAuthorListTemplateQuery {
   allAuthor: {
     totalCount: number
@@ -59,10 +59,8 @@ export interface IAuthorListTemplateQuery {
   }
 }
 
-// pageContext of pages created in gatsby-node with templates/author-list
-export interface IAuthorListPageContext {
-  basePath: string
-}
+// pageContext of pages created in gatsby-node with templates/AuthorListQuery
+export interface IAuthorListPageContext {}
 
 // AuthorListPage
 export interface IAuthorListPageData {
@@ -75,7 +73,7 @@ export interface IAuthorListPageData {
   }[]
 }
 
-// query in templates/author
+// query in templates/AuthorQuery
 export interface IAuthorTemplateQuery {
   author: {
     name: string
@@ -88,11 +86,10 @@ export interface IAuthorTemplateQuery {
   }
 }
 
-// pageContext of pages created in gatsby-node with templates/author
+// pageContext of pages created in gatsby-node with templates/AuthorQuery
 export interface IAuthorPageContext {
   slug: string
   shortName: string
-  basePath: string
 }
 
 // AuthorPage
@@ -106,7 +103,7 @@ export interface IAuthorPageData {
   posts: IBlogPostPreview[]
 }
 
-// query in templates/blog-post-list
+// query in templates/BlogPostListQuery
 export interface IBlogPostListTemplateQuery {
   allBlogPost: {
     totalCount: number
@@ -114,34 +111,34 @@ export interface IBlogPostListTemplateQuery {
   }
 }
 
-// pageContext of pages created in gatsby-node with templates/blog-post-list
-export interface IBlogPostListPageContext {
-  limit?: number
-  skip?: number
-  numPages?: number
-  currentPage?: number
-  prefixPath?: string
-  basePath: string
+// pageContext of pages created in gatsby-node with templates/BlogPostListQuery without pagination
+export interface IBlogPostListPageContext {}
+// pageContext of pages created in gatsby-node with templates/BlogPostListQuery with pagination
+export interface IBlogPostListPageContextWithPagination
+  extends IBlogPostListPageContext {
+  limit: number
+  skip: number
+  numPages: number
+  currentPage: number
 }
 
 // BlogPostListPage
 export interface IBlogPostListPageData {
   amount: number
   blogPosts: IBlogPostPreview[]
-  paginationContext?: IBlogPostListPageContext | null
+  paginationContext?: IBlogPostListPageContextWithPagination
 }
 
-// query in templates/blog-post
+// query in templates/BlogPostQuery
 export interface IBlogPostTemplateQuery {
   blogPost: IBlogPost
 }
 
-// pageContext of pages created in gatsby-node with templates/blog-post
+// pageContext of pages created in gatsby-node with templates/BlogPostQuery
 export interface IBlogPostPageContext {
   slug: string
   prev?: IPrevNext
   next?: IPrevNext
-  basePath: string
 }
 
 // BlogPostPage
@@ -149,7 +146,7 @@ export interface IBlogPostPageData {
   post: IBlogPost
 }
 
-// query in templates/tag-list
+// query in templates/TagListQuery
 export interface ITagListTemplateQuery {
   allTag: {
     group: {
@@ -162,10 +159,8 @@ export interface ITagListTemplateQuery {
   }
 }
 
-// pageContext of pages created in gatsby-node with templates/tag-list
-export interface ITagListPageContext {
-  basePath: string
-}
+// pageContext of pages created in gatsby-node with templates/TagListQuery
+export interface ITagListPageContext {}
 
 // TagList
 export interface ITagListPageData {
@@ -176,7 +171,7 @@ export interface ITagListPageData {
   }[]
 }
 
-// query in templates/tag
+// query in templates/TagQuery
 export interface ITagTemplateQuery {
   allBlogPost: {
     nodes: {
@@ -190,10 +185,9 @@ export interface ITagTemplateQuery {
   }
 }
 
-// pageContext of pages created in gatsby-node with templates/tag
+// pageContext of pages created in gatsby-node with templates/TagQuery
 export interface ITagPageContext {
   slug: string
-  basePath: string
 }
 
 // TagPage
@@ -201,4 +195,16 @@ export interface ITagPageData {
   amount: number
   name: string
   posts: { slug: string; title: string }[]
+}
+
+// @nickymeuleman/gatsby-theme-blog options
+export interface IThemeOptions {
+  id: string
+  basePath: string
+  assetPath: string
+  contentPath: string
+  pagination?: {
+    postsPerPage: number
+    prefixPath: string
+  }
 }

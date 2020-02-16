@@ -388,3 +388,6 @@ export default () => (
 - [x] Handle data in every page component the same way
 - [x] Handle passing of `basePath` the same everywhere.
 - [x] Sort named exports from this theme
+- [x] Put theme options in a Gatsby node
+      https://www.christopherbiscardi.com/post/applying-theme-options-using-custom-configuration-nodes/
+  - [x] Make React hook that queries for those options and use the hook instead of passing options around in pageContext etc

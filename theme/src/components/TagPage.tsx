@@ -5,6 +5,7 @@ import { Link } from "gatsby"
 import Layout from "./Layout"
 import SEO from "./SEO"
 import { ITagPageData, ITagPageContext } from "../types"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   data: ITagPageData
@@ -13,7 +14,8 @@ interface IProps {
 
 const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, name, amount } = data
-  const { basePath, slug } = pageContext
+  const { slug } = pageContext
+  const { basePath } = useThemeOptions()
   const tagHeader = `${amount} post${
     amount === 1 ? `` : `s`
   } tagged with "${name}"`
@@ -24,7 +26,6 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
         title={`Tagged "${name}"`}
         description={`List of posts tagged with "${name}"`}
         slug={`tag/${slug}`}
-        basePath={basePath}
         keywords={[`tag`, name]}
       />
       <Layout>

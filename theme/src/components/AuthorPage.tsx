@@ -5,6 +5,7 @@ import Layout from "./Layout"
 import PostCard from "./PostCard"
 import SEO from "./SEO"
 import { IAuthorPageData, IAuthorPageContext } from "../types"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   data: IAuthorPageData
@@ -13,15 +14,12 @@ interface IProps {
 
 const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, author } = data
-  const { basePath, slug } = pageContext
+  const { slug } = pageContext
+  const { basePath } = useThemeOptions()
 
   return (
     <React.Fragment>
-      <SEO
-        title={`Author "${author.name}"`}
-        slug={`author/${slug}`}
-        basePath={basePath}
-      />
+      <SEO title={`Author "${author.name}"`} slug={`author/${slug}`} />
       <Layout>
         <div>
           <h1>{author.name}</h1>
@@ -62,14 +60,13 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
                 <li key={post.slug} sx={{ margin: 1 }}>
                   <PostCard
                     key={post.id}
-                    url={`${pageContext.basePath}/${post.slug}`}
+                    url={`${basePath}/${post.slug}`}
                     title={post.title}
                     date={post.date}
                     authors={post.authors}
                     coverSizes={
                       post.cover ? post.cover.childImageSharp.fluid : null
                     }
-                    basePath={pageContext.basePath}
                   />
                 </li>
               ))}

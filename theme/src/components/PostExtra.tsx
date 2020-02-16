@@ -4,22 +4,17 @@ import { jsx, Styled } from "theme-ui"
 import { Link } from "gatsby"
 import { IPrevNext, IBlogPost } from "../types"
 import MetaListItem from "./MetaListItem"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   prev?: IPrevNext
   next?: IPrevNext
-  basePath: string
   post: IBlogPost
   passedSx?: object
 }
 
-const PostExtra: React.FC<IProps> = ({
-  prev,
-  next,
-  basePath,
-  post,
-  passedSx,
-}) => {
+const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
+  const { basePath } = useThemeOptions()
   const urlObj = post.canonicalUrl && new URL(post.canonicalUrl)
 
   return (

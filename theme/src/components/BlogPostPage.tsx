@@ -16,7 +16,7 @@ interface IProps {
 
 const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
   const { post } = data
-  const { basePath, prev, next } = pageContext
+  const { prev, next } = pageContext
 
   return (
     <React.Fragment>
@@ -24,7 +24,6 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
         title={post.title}
         description={post.excerpt}
         slug={post.slug}
-        basePath={basePath}
         keywords={post.keywords || []}
         // TODO: gatsby-plugin-printer for image
         image={
@@ -56,7 +55,6 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
           <PostExtra
             prev={prev}
             next={next}
-            basePath={basePath}
             post={post}
             passedSx={{ gridColumn: [`2/3`, null, null, `4/5`] }}
           />

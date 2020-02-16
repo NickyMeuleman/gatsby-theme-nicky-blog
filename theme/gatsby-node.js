@@ -90,6 +90,17 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     canonicalUrl: String
     keywords: [String]
   }
+  type NickyThemeBlogConfig implements Node {
+    id: ID!
+    basePath: String!
+    contentPath: String!
+    assetPath: String!
+    pagination: NickyThemeBlogPaginationConfig
+  }
+  type NickyThemeBlogPaginationConfig {
+    postsPerPage: Int!
+    prefixPath: String!
+  }
   `
 
   const MdxBlogPost = buildObjectType({
@@ -271,7 +282,21 @@ exports.onCreateNode = (
   options
 ) => {
   const { createNode, createParentChildLink } = actions
-  const { contentPath } = themeOptionsWithDefaults(options)
+  const themeOptions = themeOptionsWithDefaults(options)
+
+  // Create NickyThemeBlogConfig node from themeOptionss
+  createNode({
+    ...themeOptions,
+    id: createNodeId(`NickyThemeBlogConfig`),
+    parent: null,
+    children: [],
+    internal: {
+      type: `NickyThemeBlogConfig`,
+      contentDigest: createContentDigest(themeOptions),
+      content: JSON.stringify(themeOptions),
+      description: `NickyThemeBlogConfig node`,
+    },
+  })
 
   // Create MdxBlogPost nodes from Mdx nodes
   if (node.internal.type === `Mdx`) {
@@ -279,7 +304,7 @@ exports.onCreateNode = (
     const source = parent.sourceInstanceName // get folder name those files are in (contentPath)
 
     // only create MdxBlogPost nodes for .mdx files in the correct folder
-    if (source === contentPath) {
+    if (source === themeOptions.contentPath) {
       // duplicate logic from the resolvers
       let slug
       if (node.frontmatter.slug) {
@@ -421,7 +446,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         slug,
         prev,
         next,
-        basePath,
       },
     })
   })
@@ -460,7 +484,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
       context: {
         ...paginationContext,
-        basePath,
       },
     })
   })
@@ -469,9 +492,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   actions.createPage({
     path: path.join(basePath, `tag`),
     component: require.resolve(`./src/templates/TagListQuery.tsx`),
-    context: {
-      basePath,
-    },
+    context: {},
   })
 
   // create a page for each tag
@@ -481,7 +502,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       component: require.resolve(`./src/templates/TagQuery.tsx`),
       context: {
         slug: tagSlug,
-        basePath,
       },
     })
   })
@@ -490,9 +510,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   actions.createPage({
     path: path.join(basePath, `author`),
     component: require.resolve(`./src/templates/AuthorListQuery.tsx`),
-    context: {
-      basePath,
-    },
+    context: {},
   })
 
   // create a page for each author
@@ -505,7 +523,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       context: {
         slug,
         shortName,
-        basePath,
       },
     })
   })

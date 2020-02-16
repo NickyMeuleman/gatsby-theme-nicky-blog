@@ -5,20 +5,25 @@ import Layout from "./Layout"
 import PostCard from "./PostCard"
 import Pagination from "./Pagination"
 import SEO from "./SEO"
-import { IBlogPostListPageContext, IBlogPostListPageData } from "../types"
+import {
+  IBlogPostListPageContext,
+  IBlogPostListPageData,
+  IBlogPostListPageContextWithPagination,
+} from "../types"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   data: IBlogPostListPageData
-  pageContext: IBlogPostListPageContext
+  pageContext: IBlogPostListPageContext | IBlogPostListPageContextWithPagination
 }
 
 const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
-  const { basePath } = pageContext
   const { amount, blogPosts, paginationContext } = data
+  const { basePath } = useThemeOptions()
 
   return (
     <React.Fragment>
-      <SEO basePath={basePath} />
+      <SEO />
       <Layout>
         <div sx={{ mx: `auto`, maxWidth: `lineLength` }}>
           <p
@@ -54,14 +59,12 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
                   coverSizes={
                     blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
                   }
-                  basePath={basePath}
                 />
               </li>
             ))}
           </ul>
-          {paginationContext && (
-            <Pagination context={paginationContext} basePath={basePath} />
-          )}
+          {/* TODO: also check pagination from the themeOptions */}
+          {paginationContext && <Pagination context={paginationContext} />}
         </div>
       </Layout>
     </React.Fragment>

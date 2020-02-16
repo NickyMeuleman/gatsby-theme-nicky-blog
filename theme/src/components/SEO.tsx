@@ -3,12 +3,12 @@ import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import * as path from "path"
 import { ISEOStaticQuery } from "../types"
+import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   title?: string
   description?: string
   slug?: string
-  basePath?: string
   keywords?: string[]
   image?: string
   canonicalUrl?: string
@@ -25,11 +25,11 @@ const SEO: React.FC<IProps> = ({
   slug,
   lang = `en`,
   keywords,
-  basePath,
   canonicalUrl,
   twitterHandle,
   children,
 }) => {
+  const { basePath } = useThemeOptions()
   const result: ISEOStaticQuery = useStaticQuery(graphql`
     query GetSiteMetadata {
       site {

@@ -13,11 +13,10 @@ interface IProps {
 
 const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { authors } = data
-  const { basePath } = pageContext
 
   return (
     <React.Fragment>
-      <SEO title={`${data.amount} Authors`} slug="author" basePath={basePath} />
+      <SEO title={`${data.amount} Authors`} slug="author" />
       <Layout>
         <ul>
           {authors.map(author => (
