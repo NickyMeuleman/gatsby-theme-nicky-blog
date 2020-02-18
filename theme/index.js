@@ -34,3 +34,6 @@ export { default as PostExtra } from "./src/components/PostExtra"
 
 // React hooks
 export { default as useThemeOptions } from "./src/hooks/useThemeOptions"
+
+// theme-ui
+export { default as themeConfig } from "./src/gatsby-plugin-theme-ui/index"
