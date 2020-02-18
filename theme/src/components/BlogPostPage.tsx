@@ -42,23 +42,24 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
         <div
           sx={{
             display: `grid`,
-            gridGap: [0, 0, 0, 4],
             gridAutoFlow: `dense`,
             gridTemplateColumns: [
               `1fr minmax(0, 70ch) 1fr`,
               null,
               null,
-              `1fr minmax(0, 20ch) 70ch 20ch 1fr`,
+              t =>
+                `1fr minmax(0, 30ch) minmax(0, ${t.space[5]}) 70ch ${t.space[5]} 30ch 1fr`,
             ],
+            marginTop: 5,
           }}
         >
           <PostExtra
             prev={prev}
             next={next}
             post={post}
-            passedSx={{ gridColumn: [`2/3`, null, null, `4/5`] }}
+            passedSx={{ gridColumn: [`2/3`, null, null, `6/7`] }}
           />
-          <article sx={{ gridColumn: [`2/3`, null, null, `3/4`] }}>
+          <article sx={{ gridColumn: [`2/3`, null, null, `4/5`] }}>
             <Styled.h1>{post.title}</Styled.h1>
             {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
             <MDXRenderer>{post.body}</MDXRenderer>

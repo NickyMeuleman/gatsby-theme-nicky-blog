@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
-  <li sx={{ marginTop: 2 }}>
+  <li sx={{ marginTop: 4 }}>
     <h3
       id={titleId}
       sx={{
@@ -20,13 +20,6 @@ const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
         fontSize: 0,
         display: `flex`,
         alignItems: `center`,
-        "::after": {
-          content: `""`,
-          flex: 1,
-          marginLeft: 1,
-          backgroundColor: `primary`,
-          height: `2px`,
-        },
       }}
     >
       {title}

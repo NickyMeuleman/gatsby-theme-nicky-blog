@@ -49,6 +49,7 @@ const theme = merge(tailwind, {
       },
       a: {
         color: `inherit`,
+        border: `none`,
         ":hover": {
           color: `inherit`,
           borderColor: `inherit`,
@@ -74,15 +75,17 @@ const theme = merge(tailwind, {
       borderRadius: `sm`,
     },
     a: {
-      color: `mutedPrimary`,
-      fontWeight: `bold`,
+      color: `mutedText`,
+      borderBottomWidth: `2px`,
+      borderBottomStyle: `solid`,
+      borderBottomColor: `mutedPrimary`,
       textDecoration: `none`,
       ":hover": {
         textDecoration: `none`,
-        color: `primary`,
+        color: `mutedPrimary`,
         borderBottomWidth: `2px`,
         borderBottomStyle: `solid`,
-        borderBottomColor: `mutedPrimary`,
+        borderBottomColor: `primary`,
       },
     },
     blockquote: {
@@ -92,7 +95,13 @@ const theme = merge(tailwind, {
       borderLeftColor: `mutedBackground`,
       borderLeftStyle: `solid`,
     },
+    h1: {
+      mt: 0,
+      mb: 3,
+    },
   },
 })
+
+console.log(theme)
 
 export default theme

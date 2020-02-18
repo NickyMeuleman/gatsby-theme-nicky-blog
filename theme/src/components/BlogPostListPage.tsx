@@ -25,7 +25,7 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
     <React.Fragment>
       <SEO />
       <Layout>
-        <div sx={{ mx: `auto`, maxWidth: `lineLength` }}>
+        <div sx={{ mx: `auto`, maxWidth: `lineLength`, marginTop: 5 }}>
           <p
             sx={{
               textTransform: `uppercase`,

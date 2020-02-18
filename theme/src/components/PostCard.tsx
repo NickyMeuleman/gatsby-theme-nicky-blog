@@ -46,6 +46,7 @@ const PostCard: React.FC<IProps> = props => {
             gridTemplateColumns: [`1fr`, `1fr 2fr`],
             gridTemplateRows: [`30ex 1fr`, `20ex`],
             gridGap: [0, 4],
+            variant: `styles.PostCard`,
             ":hover, :focus-within": {
               backgroundColor: `mutedBackground`,
               borderTopRightRadius: `sm`,
@@ -56,10 +57,13 @@ const PostCard: React.FC<IProps> = props => {
           }}
         >
           <Img fluid={props.coverSizes} />
-          <div>
+          <div sx={{ paddingTop: 2 }}>
             <div
+              className="date"
               sx={{
                 margin: 0,
+                marginBottom: [0, 1],
+                fontSize: 0,
                 textTransform: `uppercase`,
                 letterSpacing: `wider`,
                 fontWeight: `bold`,
@@ -75,18 +79,18 @@ const PostCard: React.FC<IProps> = props => {
               </time>
             </div>
             <h2
+              className="title"
               sx={{
                 margin: 0,
                 fontWeight: `bold`,
-                color: `text`,
                 lineHeight: `snug`,
               }}
             >
               <Link
                 to={props.url}
                 sx={{
-                  textDecoration: `none`,
                   color: `text`,
+                  textDecoration: `none`,
                   "::after": {
                     content: `""`,
                     position: `absolute`,
@@ -101,10 +105,11 @@ const PostCard: React.FC<IProps> = props => {
               </Link>
             </h2>
             <p
+              className="author"
               sx={{
                 margin: 0,
                 fontWeight: `bold`,
-                color: `primary`,
+                color: `mutedText`,
               }}
             >
               {authorComponent}
@@ -118,6 +123,7 @@ const PostCard: React.FC<IProps> = props => {
             margin: -2,
             padding: 2,
             position: `relative`,
+            variant: `styles.PostCard`,
             ":hover, :focus-within": {
               backgroundColor: `mutedBackground`,
               borderTopRightRadius: `sm`,
@@ -128,8 +134,10 @@ const PostCard: React.FC<IProps> = props => {
           }}
         >
           <div
+            className="date"
             sx={{
               margin: 0,
+              fontSize: 0,
               textTransform: `uppercase`,
               letterSpacing: `wider`,
               fontWeight: `bold`,
@@ -146,6 +154,7 @@ const PostCard: React.FC<IProps> = props => {
             </time>
           </div>
           <h2
+            className="title"
             sx={{
               margin: 0,
               fontWeight: `bold`,
@@ -172,10 +181,11 @@ const PostCard: React.FC<IProps> = props => {
             </Link>
           </h2>
           <p
+            className="author"
             sx={{
               margin: 0,
               fontWeight: `bold`,
-              color: `primary`,
+              color: `mutedText`,
             }}
           >
             {authorComponent}
