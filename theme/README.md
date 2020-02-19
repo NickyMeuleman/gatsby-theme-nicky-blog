@@ -391,3 +391,6 @@ export default () => (
 - [x] Put theme options in a Gatsby node
       https://www.christopherbiscardi.com/post/applying-theme-options-using-custom-configuration-nodes/
   - [x] Make React hook that queries for those options and use the hook instead of passing options around in pageContext etc
+- [ ] Ability to add custom OG images for pages like BlogListPage (also use the `<SEO />` `image` prop for that?)
+  - [ ] `type` prop for `<SEO />`? Different behavior based on type?
+  - [ ] refactor `Page` components so `<SEO />` can easily be swapped?

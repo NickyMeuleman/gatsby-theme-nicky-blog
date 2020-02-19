@@ -6,6 +6,7 @@ import { ISEOStaticQuery } from "../types"
 import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
+  date?: string
   title?: string
   description?: string
   slug?: string

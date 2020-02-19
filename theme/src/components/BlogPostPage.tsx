@@ -21,6 +21,7 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
   return (
     <React.Fragment>
       <SEO
+        date={post.date}
         title={post.title}
         description={post.excerpt}
         slug={post.slug}
