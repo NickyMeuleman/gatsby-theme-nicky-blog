@@ -155,6 +155,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `Date!`,
         extensions: {
           dateformat: {},
+          proxy: {},
         },
         resolve: (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({ id: source.parent })
@@ -169,6 +170,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `Date`,
         extensions: {
           dateformat: {},
+          proxy: {},
         },
         resolve: (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({ id: source.parent })
@@ -305,7 +307,7 @@ exports.onCreateNode = (
 
     // only create MdxBlogPost nodes for .mdx files in the correct folder
     if (source === themeOptions.contentPath) {
-      // duplicate logic from the resolvers
+      // duplicate logic from the resolvers, exists to create pages here in gatsby-node based on the slug.
       let slug
       if (node.frontmatter.slug) {
         // get slug from frontmatter
@@ -318,32 +320,12 @@ exports.onCreateNode = (
           slug = slug.slice(1)
         }
       }
-      let date
-      if (node.frontmatter.date) {
-        // get date from frontmatter
-        date = node.frontmatter.date
-      } else {
-        // get date the parent file was created
-        date = parent.birthTime
-      }
-      let updatedAt
-      if (node.frontmatter.updatedAt) {
-        // get updatedAt from frontmatter
-        updatedAt = node.frontmatter.updatedAt
-      } else {
-        // get updatedAt from the parent file modifiedTime
-        updatedAt =
-          parent.modifiedTime !== parent.birthTime ? parent.modifiedTime : null
-      }
       const fieldData = {
+        slug,
         // here to transform entries into Tag nodes
         tags: node.frontmatter.tags || [],
-        // here to be able to use filters in graphql
-        // https://github.com/gatsbyjs/gatsby/pull/17284 should make removing this possible?
-        slug,
+        // here because the creation of Tag nodes needs this info.
         published: node.frontmatter.published,
-        date,
-        updatedAt,
       }
 
       const proxyNode = {

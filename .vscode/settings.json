@@ -44,10 +44,6 @@
       "autoFix": true
     },
     {
-      "language": "markdown",
-      "autoFix": true
-    },
-    {
       "language": "mdx",
       "autoFix": true
     }
