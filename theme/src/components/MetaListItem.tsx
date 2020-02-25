@@ -5,16 +5,10 @@ import { jsx } from "theme-ui"
 interface IProps {
   title: string
   titleId?: string
-  passedSx?: object
 }
 
-const MetaListIitem: React.FC<IProps> = ({
-  title,
-  titleId,
-  children,
-  passedSx,
-}) => (
-  <li sx={{ marginTop: 4 }}>
+const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
+  <li sx={{ marginTop: 4, variant: `styles.MetaListItem` }}>
     <h3
       id={titleId}
       sx={{
@@ -26,7 +20,7 @@ const MetaListIitem: React.FC<IProps> = ({
         fontSize: 0,
         display: `flex`,
         alignItems: `center`,
-        ...passedSx,
+        variant: `styles.MetaListItem.title`,
       }}
     >
       {title}

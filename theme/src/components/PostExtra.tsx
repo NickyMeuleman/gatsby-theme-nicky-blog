@@ -42,10 +42,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
         </h2>
         <ul sx={{ listStyle: `none`, padding: 0 }}>
           {post.date && (
-            <MetaListItem
-              title="Date"
-              passedSx={{ variant: `styles.PostExtra.item-title` }}
-            >
+            <MetaListItem title="Date">
               <time dateTime={post.date} sx={{ marginLeft: 1 }}>
                 {new Intl.DateTimeFormat(`en-US`, {
                   year: `numeric`,
