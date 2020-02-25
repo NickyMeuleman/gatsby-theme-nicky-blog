@@ -44,7 +44,7 @@ const PostCard: React.FC<IProps> = props => {
             position: `relative`,
             display: `grid`,
             gridTemplateColumns: [`1fr`, `1fr 2fr`],
-            gridTemplateRows: [`30ex 1fr`, `20ex`],
+            gridTemplateRows: [`20ex 1fr`, `20ex`],
             gridGap: [0, 4],
             variant: `styles.PostCard`,
             ":hover, :focus-within": {
@@ -57,9 +57,8 @@ const PostCard: React.FC<IProps> = props => {
           }}
         >
           <Img fluid={props.coverSizes} />
-          <div sx={{ paddingTop: 2 }}>
+          <div sx={{ p: [2], pl: [2, 0] }}>
             <div
-              className="date"
               sx={{
                 margin: 0,
                 marginBottom: [0, 1],
@@ -68,6 +67,7 @@ const PostCard: React.FC<IProps> = props => {
                 letterSpacing: `wider`,
                 fontWeight: `bold`,
                 color: `mutedText`,
+                variant: `styles.PostCard.date`,
               }}
             >
               <time dateTime={props.date}>
@@ -79,11 +79,11 @@ const PostCard: React.FC<IProps> = props => {
               </time>
             </div>
             <h2
-              className="title"
               sx={{
                 margin: 0,
                 fontWeight: `bold`,
                 lineHeight: `snug`,
+                variant: `styles.PostCard.title`,
               }}
             >
               <Link
@@ -105,11 +105,10 @@ const PostCard: React.FC<IProps> = props => {
               </Link>
             </h2>
             <p
-              className="author"
               sx={{
                 margin: 0,
-                fontWeight: `bold`,
                 color: `mutedText`,
+                variant: `styles.PostCard.author`,
               }}
             >
               {authorComponent}
@@ -134,7 +133,6 @@ const PostCard: React.FC<IProps> = props => {
           }}
         >
           <div
-            className="date"
             sx={{
               margin: 0,
               fontSize: 0,
@@ -143,6 +141,7 @@ const PostCard: React.FC<IProps> = props => {
               fontWeight: `bold`,
               color: `mutedText`,
               lineHeight: `snug`,
+              variant: `styles.PostCard.date`,
             }}
           >
             <time dateTime={props.date}>
@@ -154,12 +153,12 @@ const PostCard: React.FC<IProps> = props => {
             </time>
           </div>
           <h2
-            className="title"
             sx={{
               margin: 0,
               fontWeight: `bold`,
               color: `text`,
               lineHeight: `tight`,
+              variant: `styles.PostCard.title`,
             }}
           >
             <Link
@@ -181,11 +180,10 @@ const PostCard: React.FC<IProps> = props => {
             </Link>
           </h2>
           <p
-            className="author"
             sx={{
               margin: 0,
-              fontWeight: `bold`,
               color: `mutedText`,
+              variant: `styles.PostCard.author`,
             }}
           >
             {authorComponent}

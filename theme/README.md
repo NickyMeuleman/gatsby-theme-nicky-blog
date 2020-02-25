@@ -395,3 +395,4 @@ export default () => (
 - [ ] Ability to add custom OG images for pages like BlogListPage (also use the `<SEO />` `image` prop for that?)
   - [ ] `type` prop for `<SEO />`? Different behavior based on type?
   - [ ] refactor `Page` components so `<SEO />` can easily be swapped?
+- [ ] 🚧 Give components a `variant` so the user can theme them via theme-ui

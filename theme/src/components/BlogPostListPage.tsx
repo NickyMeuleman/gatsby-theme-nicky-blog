@@ -32,11 +32,13 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
               letterSpacing: `wider`,
               fontWeight: `bold`,
               color: `mutedText`,
+              variant: `styles.BlogList.title`,
             }}
           >
             <span role="img" aria-label="googly-eyes">
               👀
             </span>
+            {` `}
             {amount} Posts total
           </p>
           <ul
