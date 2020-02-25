@@ -21,7 +21,7 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
     <React.Fragment>
       <SEO title={`Author "${author.name}"`} slug={`author/${slug}`} />
       <Layout>
-        <div>
+        <div sx={{ variant: `styles.AuthorPage` }}>
           <h1>{author.name}</h1>
           {author.twitter && (
             <Styled.p>

@@ -29,7 +29,7 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
         keywords={[`tag`, name]}
       />
       <Layout>
-        <div>
+        <div sx={{ variant: `styles.TagPage` }}>
           <h1>{tagHeader}</h1>
           <p>
             <Link

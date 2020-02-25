@@ -18,13 +18,13 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
   const urlObj = post.canonicalUrl && new URL(post.canonicalUrl)
 
   return (
-    <div sx={passedSx}>
+    <div sx={{ ...passedSx, variant: `styles.PostExtra` }}>
       <aside
         sx={{
           border: `1px solid`,
           borderColor: `mutedPrimary`,
           padding: 3,
-          variant: `styles.PostExtra`,
+          variant: `styles.PostExtra.aside`,
         }}
       >
         <h2

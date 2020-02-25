@@ -18,7 +18,7 @@ const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
     <React.Fragment>
       <SEO title={`${data.amount} Authors`} slug="author" />
       <Layout>
-        <ul>
+        <ul sx={{ variant: `styles.AuthorListPage` }}>
           {authors.map(author => (
             <li key={author.id} sx={{ margin: 1 }}>
               <Link

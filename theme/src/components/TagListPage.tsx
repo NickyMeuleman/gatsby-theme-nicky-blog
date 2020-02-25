@@ -20,7 +20,7 @@ const TagList: React.FC<IProps> = ({ data, pageContext }) => {
     <React.Fragment>
       <SEO title="Tags" description="List of post tags" slug="tag" />
       <Layout>
-        <ul>
+        <ul sx={{ variant: `styles.TagListPage` }}>
           {tags.map(tag => (
             <li key={tag.slug} sx={{ margin: 1 }}>
               <Link

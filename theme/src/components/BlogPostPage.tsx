@@ -52,6 +52,7 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
                 `1fr minmax(0, 30ch) minmax(0, ${t.space[5]}) 70ch ${t.space[5]} 30ch 1fr`,
             ],
             marginTop: 5,
+            variant: `styles.BlogPostPage`,
           }}
         >
           <PostExtra

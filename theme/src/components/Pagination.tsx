@@ -49,6 +49,7 @@ const Pagination: React.FC<IProps> = ({
         flexDirection: [`column`, `row`],
         px: 4,
         my: 4,
+        variant: `styles.Pagination`,
       }}
     >
       <div
