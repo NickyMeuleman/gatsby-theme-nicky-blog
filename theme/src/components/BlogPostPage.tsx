@@ -21,6 +21,7 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
   return (
     <React.Fragment>
       <SEO
+        author={post.authors && post.authors[0] ? post.authors[0] : undefined}
         date={post.date}
         title={post.title}
         description={post.excerpt}

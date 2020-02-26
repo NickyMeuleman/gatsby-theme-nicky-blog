@@ -7,6 +7,7 @@ import useThemeOptions from "../hooks/useThemeOptions"
 
 interface IProps {
   date?: string
+  author?: { name: string; twitter?: string }
   title?: string
   description?: string
   slug?: string
