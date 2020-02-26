@@ -63,8 +63,10 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
             passedSx={{ gridColumn: [`2/3`, null, null, `6/7`] }}
           />
           <article sx={{ gridColumn: [`2/3`, null, null, `4/5`] }}>
-            <Styled.h1>{post.title}</Styled.h1>
-            {post.cover && <Img sizes={post.cover.childImageSharp.fluid} />}
+            <Styled.h1 sx={{ mt: 0, mb: 4 }}>{post.title}</Styled.h1>
+            {post.cover && (
+              <Img sizes={post.cover.childImageSharp.fluid} sx={{ mb: 4 }} />
+            )}
             <MDXRenderer>{post.body}</MDXRenderer>
           </article>
         </div>

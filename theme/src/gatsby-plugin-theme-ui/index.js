@@ -70,7 +70,8 @@ const theme = merge(tailwind, {
     },
     inlineCode: {
       fontSize: `inherit`,
-      fontWeight: `semibold`,
+      fontFamily: `monospace`,
+      letterSpacing: `wide`,
       backgroundColor: `mutedBackground`,
       padding: 1,
       borderRadius: `sm`,
@@ -96,11 +97,8 @@ const theme = merge(tailwind, {
       borderLeftColor: `mutedBackground`,
       borderLeftStyle: `solid`,
     },
-    h1: {
-      mt: 0,
-      mb: 3,
-    },
   },
 })
+console.log(theme.styles)
 
 export default theme
