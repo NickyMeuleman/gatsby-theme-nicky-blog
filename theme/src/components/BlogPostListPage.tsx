@@ -52,7 +52,7 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
             sx={{
               display: `grid`,
               gridTemplateColumns: `1fr`,
-              gridGap: 4,
+              gap: 4,
               marginBottom: 3,
               listStyle: `none`,
               padding: 0,
