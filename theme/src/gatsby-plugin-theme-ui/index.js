@@ -99,6 +99,5 @@ const theme = merge(tailwind, {
     },
   },
 })
-console.log(theme.styles)
 
 export default theme
