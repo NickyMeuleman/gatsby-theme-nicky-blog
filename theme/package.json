@@ -54,7 +54,7 @@
     "gatsby-transformer-json": "^2.2.26",
     "gatsby-transformer-sharp": "^2.3.16",
     "gatsby-transformer-yaml": "^2.2.25",
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.3",
     "react-helmet": "^5.2.1",
     "remark-slug": "^5.1.2",
     "start-server-and-test": "^1.10.8",
