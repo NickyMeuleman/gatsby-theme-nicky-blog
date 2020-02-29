@@ -34,7 +34,7 @@
     "@theme-ui/presets": "^0.3.0",
     "@theme-ui/prism": "^0.2.50",
     "@types/node": "^12.7.5",
-    "@types/testing-library__cypress": "^5.0.0",
+    "@types/testing-library__cypress": "^5.0.3",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
     "@typescript-eslint/parser": "^2.3.0",
     "deepmerge": "^4.2.2",
