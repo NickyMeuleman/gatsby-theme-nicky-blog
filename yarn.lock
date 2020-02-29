@@ -1740,7 +1740,7 @@
     "@theme-ui/core" "^0.3.1"
     "@theme-ui/mdx" "^0.3.0"
 
-"@theme-ui/typography@^0.2.5":
+"@theme-ui/typography@^0.2.46":
   version "0.2.46"
   resolved "https://registry.yarnpkg.com/@theme-ui/typography/-/typography-0.2.46.tgz#24e20989450a35eb715967b99cbfd8fa4291ba17"
   integrity sha512-66VMjZ/7fvhwtJHwYZH4/Vl+wYpLXN2QzNU6wn/7VcBf9xJZPXEumI8wSp9P1R2eEjLAlaz8tpl1VDMGPDxsVA==
