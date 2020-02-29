@@ -41,6 +41,7 @@ module.exports = (themeOptions = {}) => {
               options: {
                 maxWidth: 1380,
                 linkImagesToOriginal: false,
+                withWebp: true,
               },
             },
             { resolve: `gatsby-remark-copy-linked-files` },
