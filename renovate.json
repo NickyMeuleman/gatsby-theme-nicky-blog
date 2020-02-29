@@ -4,5 +4,11 @@
   "semanticCommits": true,
   "schedule": ["every weekend"],
   "rangeStrategy": "bump",
-  "rebaseWhen": "auto"
+  "rebaseWhen": "auto",
+  "packageRules": [
+    {
+      "updateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }
