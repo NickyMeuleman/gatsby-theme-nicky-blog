@@ -23,7 +23,7 @@
     "@types/react-helmet": "^5.0.15",
     "gatsby": "^2.19.32",
     "react-dom": "^16.13.0",
-    "@types/node": "^12.12.29",
+    "@types/node": "^12.12.30",
     "@types/testing-library__cypress": "^5.0.3"
   },
   "dependencies": {
