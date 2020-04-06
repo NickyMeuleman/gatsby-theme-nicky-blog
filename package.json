@@ -27,7 +27,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "gatsby-cypress": "^0.2.24",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.4",
     "start-server-and-test": "^1.10.10",
     "typescript": "^3.8.3"
   },
