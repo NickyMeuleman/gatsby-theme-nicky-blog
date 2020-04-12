@@ -163,8 +163,6 @@ module.exports = {
         "mdx/no-unused-expressions": "warn",
         // https://github.com/mdx-js/eslint-mdx#mdxno-unescaped-entities
         "react/no-unescaped-entities": "off",
-        // This is triggering inside JSX somehow, off it goes.
-        "mdx/no-unescaped-entities": "off",
         // some components are available without first importing them.
         // https://mdxjs.com/blog/shortcodes
         "react/jsx-no-undef": "off"
