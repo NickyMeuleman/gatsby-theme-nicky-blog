@@ -1,24 +1,24 @@
 /** @jsx jsx */
-import React from "react"
-import { Link } from "gatsby"
-import Img from "gatsby-image"
-import { jsx } from "theme-ui"
-import useThemeOptions from "../hooks/useThemeOptions"
+import React from "react";
+import { Link } from "gatsby";
+import Img from "gatsby-image";
+import { jsx } from "theme-ui";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  url: string
-  title: string
-  date: string
-  authors?: { shortName: string; name: string }[]
-  coverSizes?: any
+  url: string;
+  title: string;
+  date: string;
+  authors?: { shortName: string; name: string }[];
+  coverSizes?: any;
 }
 
-const PostCard: React.FC<IProps> = props => {
-  const { basePath } = useThemeOptions()
-  let authorComponent
+const PostCard: React.FC<IProps> = (props) => {
+  const { basePath } = useThemeOptions();
+  let authorComponent;
   if (props.authors) {
     if (props.authors.length > 1) {
-      authorComponent = `By multiple authors`
+      authorComponent = `By multiple authors`;
     } else {
       authorComponent = (
         <React.Fragment>
@@ -32,7 +32,7 @@ const PostCard: React.FC<IProps> = props => {
             {props.authors[0].name}
           </Link>
         </React.Fragment>
-      )
+      );
     }
   }
 
@@ -191,7 +191,7 @@ const PostCard: React.FC<IProps> = props => {
         </div>
       )}
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default PostCard
+export default PostCard;

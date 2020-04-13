@@ -5,10 +5,10 @@
 // and https://github.com/gatsbyjs/gatsby/pull/14520
 
 /** @jsx jsx */
-import React from "react"
-import { jsx } from "theme-ui"
+import React from "react";
+import { jsx } from "theme-ui";
 
-const LinkIcon: React.FC = props => (
+const LinkIcon: React.FC = (props) => (
   <svg
     {...props}
     fill="none"
@@ -23,15 +23,15 @@ const LinkIcon: React.FC = props => (
     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
   </svg>
-)
+);
 
 // How do I do this better?
-type headerTypes = `h1` | `h2` | `h3` | `h4` | `h5` | `h6`
+type headerTypes = `h1` | `h2` | `h3` | `h4` | `h5` | `h6`;
 
-const heading: (
-  tag: headerTypes
-) => React.FC<{ id?: string }> = Tag => props => {
-  if (!props.id) return <Tag {...props} />
+const heading: (tag: headerTypes) => React.FC<{ id?: string }> = (Tag) => (
+  props
+) => {
+  if (!props.id) return <Tag {...props} />;
   return (
     <Tag
       {...props}
@@ -62,8 +62,8 @@ const heading: (
       </a>
       {props.children}
     </Tag>
-  )
-}
+  );
+};
 
 export default {
   h1: heading(`h1`),
@@ -72,4 +72,4 @@ export default {
   h4: heading(`h4`),
   h5: heading(`h5`),
   h6: heading(`h6`),
-}
+};

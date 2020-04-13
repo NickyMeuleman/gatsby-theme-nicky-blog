@@ -1,30 +1,32 @@
-import React from "react"
-import { graphql } from "gatsby"
-import BlogPostListPage from "../components/BlogPostListPage"
+import React from "react";
+import { graphql } from "gatsby";
+import BlogPostListPage from "../components/BlogPostListPage";
 import {
   IBlogPostListTemplateQuery,
   IBlogPostListPageContext,
   IBlogPostListPageContextWithPagination,
-} from "../types"
-import useThemeOptions from "../hooks/useThemeOptions"
+} from "../types";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  data: IBlogPostListTemplateQuery
-  pageContext: IBlogPostListPageContext | IBlogPostListPageContextWithPagination
+  data: IBlogPostListTemplateQuery;
+  pageContext:
+    | IBlogPostListPageContext
+    | IBlogPostListPageContextWithPagination;
 }
 
 const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
-  const { pagination } = useThemeOptions()
+  const { pagination } = useThemeOptions();
   const pageData = {
     blogPosts: data.allBlogPost.nodes,
     amount: data.allBlogPost.totalCount,
     paginationContext: pagination
       ? (pageContext as IBlogPostListPageContextWithPagination)
       : undefined,
-  }
+  };
 
-  return <BlogPostListPage data={pageData} pageContext={pageContext} />
-}
+  return <BlogPostListPage data={pageData} pageContext={pageContext} />;
+};
 
 export const blogPostListTemplateQuery = graphql`
   query blogPostListTemplateQuery($skip: Int, $limit: Int) {
@@ -54,6 +56,6 @@ export const blogPostListTemplateQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default BlogPostListTemplate
+export default BlogPostListTemplate;

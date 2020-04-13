@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx } from "theme-ui"
+import React from "react";
+import { jsx } from "theme-ui";
 //@ts-ignore
-import { alpha } from "@theme-ui/color"
+import { alpha } from "@theme-ui/color";
 
 const Aside: React.FC = ({ children }) => (
   <aside
@@ -26,6 +26,6 @@ const Aside: React.FC = ({ children }) => (
   >
     {children}
   </aside>
-)
+);
 
-export default Aside
+export default Aside;

@@ -1,11 +1,11 @@
-import React from "react"
-import { graphql } from "gatsby"
-import AuthorPage from "../components/AuthorPage"
-import { IAuthorTemplateQuery, IAuthorPageContext } from "../types"
+import React from "react";
+import { graphql } from "gatsby";
+import AuthorPage from "../components/AuthorPage";
+import { IAuthorTemplateQuery, IAuthorPageContext } from "../types";
 
 interface IProps {
-  data: IAuthorTemplateQuery
-  pageContext: IAuthorPageContext
+  data: IAuthorTemplateQuery;
+  pageContext: IAuthorPageContext;
 }
 
 const AuthorTemplate: React.FC<IProps> = ({ data, pageContext }) => {
@@ -13,10 +13,10 @@ const AuthorTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     amount: data.allBlogPost.totalCount,
     author: data.author,
     posts: data.allBlogPost.nodes,
-  }
+  };
 
-  return <AuthorPage data={pageData} pageContext={pageContext} />
-}
+  return <AuthorPage data={pageData} pageContext={pageContext} />;
+};
 
 export const authorTemplateQuery = graphql`
   query authorTemplateQuery($shortName: String) {
@@ -52,6 +52,6 @@ export const authorTemplateQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default AuthorTemplate
+export default AuthorTemplate;

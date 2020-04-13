@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx, Box } from "theme-ui"
+import React from "react";
+import { jsx, Box } from "theme-ui";
 
 const MainComponent: React.FC = ({ children }) => (
   <Box
@@ -12,6 +12,6 @@ const MainComponent: React.FC = ({ children }) => (
   >
     {children}
   </Box>
-)
+);
 
-export default MainComponent
+export default MainComponent;

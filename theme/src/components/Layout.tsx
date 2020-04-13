@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx, Box } from "theme-ui"
-import Header from "./Header"
-import Main from "./Main"
+import React from "react";
+import { jsx, Box } from "theme-ui";
+import Header from "./Header";
+import Main from "./Main";
 
 const Layout: React.FC = ({ children, ...props }) => (
   <Box
@@ -16,6 +16,6 @@ const Layout: React.FC = ({ children, ...props }) => (
     <Header {...props} />
     <Main {...props}>{children}</Main>
   </Box>
-)
+);
 
-export default Layout
+export default Layout;

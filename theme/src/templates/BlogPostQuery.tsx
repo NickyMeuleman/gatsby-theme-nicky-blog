@@ -1,20 +1,20 @@
-import React from "react"
-import { graphql } from "gatsby"
-import BlogPostPage from "../components/BlogPostPage"
-import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types"
+import React from "react";
+import { graphql } from "gatsby";
+import BlogPostPage from "../components/BlogPostPage";
+import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types";
 
 interface IProps {
-  data: IBlogPostTemplateQuery
-  pageContext: IBlogPostPageContext
+  data: IBlogPostTemplateQuery;
+  pageContext: IBlogPostPageContext;
 }
 
 const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     post: data.blogPost,
-  }
+  };
 
-  return <BlogPostPage data={pageData} pageContext={pageContext} />
-}
+  return <BlogPostPage data={pageData} pageContext={pageContext} />;
+};
 
 export const blogPostTemplateQuery = graphql`
   query blogPostTemplateQuery($slug: String!) {
@@ -46,6 +46,6 @@ export const blogPostTemplateQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default BlogPostTemplate
+export default BlogPostTemplate;

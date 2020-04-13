@@ -45,10 +45,10 @@ Want to embed tweets? You betcha!
 In that article, there is some code, which looks quite nice on this theme, even if I say so myself.
 
 ```jsx
-const IndexPage = props => {
-  const allBuildTimeJasons = props.data.JasonAPI.allJasons
-  const { loading, data: apolloData } = useQuery(APOLLO_QUERY)
-  const allClientTimeJasons = apolloData.allJasons
+const IndexPage = (props) => {
+  const allBuildTimeJasons = props.data.JasonAPI.allJasons;
+  const { loading, data: apolloData } = useQuery(APOLLO_QUERY);
+  const allClientTimeJasons = apolloData.allJasons;
   return (
     <div>
       <h1>Look at all these Jasons!</h1>
@@ -58,8 +58,8 @@ const IndexPage = props => {
         <JasonList jasons={allClientTimeJasons} />
       )}
     </div>
-  )
-}
+  );
+};
 ```
 
 ## Useful knowledge

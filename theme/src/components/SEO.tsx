@@ -1,22 +1,22 @@
-import React from "react"
-import Helmet from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
-import * as path from "path"
-import { ISEOStaticQuery } from "../types"
-import useThemeOptions from "../hooks/useThemeOptions"
+import React from "react";
+import Helmet from "react-helmet";
+import { useStaticQuery, graphql } from "gatsby";
+import * as path from "path";
+import { ISEOStaticQuery } from "../types";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  date?: string
-  author?: { name: string; twitter?: string }
-  title?: string
-  description?: string
-  slug?: string
-  keywords?: string[]
-  image?: string
-  canonicalUrl?: string
-  twitterHandle?: string
-  meta?: any[]
-  lang?: string
+  date?: string;
+  author?: { name: string; twitter?: string };
+  title?: string;
+  description?: string;
+  slug?: string;
+  keywords?: string[];
+  image?: string;
+  canonicalUrl?: string;
+  twitterHandle?: string;
+  meta?: any[];
+  lang?: string;
 }
 
 const SEO: React.FC<IProps> = ({
@@ -31,7 +31,7 @@ const SEO: React.FC<IProps> = ({
   twitterHandle,
   children,
 }) => {
-  const { basePath } = useThemeOptions()
+  const { basePath } = useThemeOptions();
   const result: ISEOStaticQuery = useStaticQuery(graphql`
     query GetSiteMetadata {
       site {
@@ -45,15 +45,19 @@ const SEO: React.FC<IProps> = ({
         }
       }
     }
-  `)
+  `);
 
-  const { siteMetadata } = result.site
-  const metaDescription = description || siteMetadata.description
-  const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null
-  let url = `${siteMetadata.siteUrl}${path.join(`/`, `${basePath}`, `${slug}`)}`
+  const { siteMetadata } = result.site;
+  const metaDescription = description || siteMetadata.description;
+  const metaImage = image ? `${siteMetadata.siteUrl}${image}` : null;
+  let url = `${siteMetadata.siteUrl}${path.join(
+    `/`,
+    `${basePath}`,
+    `${slug}`
+  )}`;
   if (url.endsWith(`/`)) {
     // if url ends in "/", remove it
-    url = url.slice(0, -1)
+    url = url.slice(0, -1);
   }
 
   return (
@@ -87,7 +91,7 @@ const SEO: React.FC<IProps> = ({
       {keywords && <meta name="keywords" content={keywords.join(`, `)} />}
       {children}
     </Helmet>
-  )
-}
+  );
+};
 
-export default SEO
+export default SEO;

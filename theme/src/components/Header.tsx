@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
-import { jsx, Styled, Box } from "theme-ui"
+import React from "react";
+import { Link, useStaticQuery, graphql } from "gatsby";
+import { jsx, Styled, Box } from "theme-ui";
 
 interface IProps {
-  title?: string
+  title?: string;
 }
 
 const Header: React.FC<IProps> = ({ title }) => {
@@ -16,8 +16,8 @@ const Header: React.FC<IProps> = ({ title }) => {
         }
       }
     }
-  `)
-  const siteTitle = data.site.siteMetadata.title
+  `);
+  const siteTitle = data.site.siteMetadata.title;
   return (
     <Box
       as="header"
@@ -34,7 +34,7 @@ const Header: React.FC<IProps> = ({ title }) => {
         </Styled.a>
       </Styled.h1>
     </Box>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

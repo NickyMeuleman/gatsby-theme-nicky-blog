@@ -4,9 +4,9 @@
  * @see https://theme-ui.com/gatsby-plugin/
  */
 
-import nightOwlLight from "@theme-ui/prism/presets/night-owl-light.json"
-import merge from "deepmerge"
-import { tailwind } from "@theme-ui/presets"
+import nightOwlLight from "@theme-ui/prism/presets/night-owl-light.json";
+import merge from "deepmerge";
+import { tailwind } from "@theme-ui/presets";
 
 const theme = merge(tailwind, {
   colors: {
@@ -97,6 +97,6 @@ const theme = merge(tailwind, {
       borderLeftStyle: `solid`,
     },
   },
-})
+});
 
-export default theme
+export default theme;

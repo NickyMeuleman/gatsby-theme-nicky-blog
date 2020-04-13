@@ -1,11 +1,11 @@
-import React from "react"
-import { graphql } from "gatsby"
-import TagPage from "../components/TagPage"
-import { ITagPageContext, ITagTemplateQuery } from "../types"
+import React from "react";
+import { graphql } from "gatsby";
+import TagPage from "../components/TagPage";
+import { ITagPageContext, ITagTemplateQuery } from "../types";
 
 interface IProps {
-  data: ITagTemplateQuery
-  pageContext: ITagPageContext
+  data: ITagTemplateQuery;
+  pageContext: ITagPageContext;
 }
 
 const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
@@ -13,10 +13,10 @@ const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     amount: data.allBlogPost.totalCount,
     name: data.tag.name,
     posts: data.allBlogPost.nodes,
-  }
+  };
 
-  return <TagPage data={pageData} pageContext={pageContext} />
-}
+  return <TagPage data={pageData} pageContext={pageContext} />;
+};
 
 export const tagTemplateQuery = graphql`
   query tagTemplateQuery($slug: String) {
@@ -34,6 +34,6 @@ export const tagTemplateQuery = graphql`
       name
     }
   }
-`
+`;
 
-export default TagTemplate
+export default TagTemplate;

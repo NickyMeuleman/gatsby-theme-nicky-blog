@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export { default as Aside } from "../Aside"
+export { default as Aside } from "../Aside";

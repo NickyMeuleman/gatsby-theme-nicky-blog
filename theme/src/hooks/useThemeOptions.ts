@@ -1,5 +1,5 @@
-import { useStaticQuery, graphql } from "gatsby"
-import { IThemeOptions } from "../types"
+import { useStaticQuery, graphql } from "gatsby";
+import { IThemeOptions } from "../types";
 
 const useThemeOptions = (): IThemeOptions => {
   const { nickyThemeBlogConfig: themeOptions } = useStaticQuery(
@@ -17,8 +17,8 @@ const useThemeOptions = (): IThemeOptions => {
         }
       }
     `
-  )
-  return themeOptions
-}
+  );
+  return themeOptions;
+};
 
-export default useThemeOptions
+export default useThemeOptions;

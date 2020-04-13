@@ -1,46 +1,46 @@
 /** @jsx jsx */
-import React, { ChangeEvent } from "react"
-import { jsx, Styled } from "theme-ui"
-import { navigate, Link } from "gatsby"
-import * as path from "path"
-import { IBlogPostListPageContextWithPagination } from "../types"
-import useThemeOptions from "../hooks/useThemeOptions"
+import React, { ChangeEvent } from "react";
+import { jsx, Styled } from "theme-ui";
+import { navigate, Link } from "gatsby";
+import * as path from "path";
+import { IBlogPostListPageContextWithPagination } from "../types";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  context: IBlogPostListPageContextWithPagination
+  context: IBlogPostListPageContextWithPagination;
 }
 
 const Pagination: React.FC<IProps> = ({
   context: { numPages, currentPage },
 }) => {
-  const { basePath, pagination } = useThemeOptions()
-  const { prefixPath } = pagination || { prefixPath: `` }
+  const { basePath, pagination } = useThemeOptions();
+  const { prefixPath } = pagination || { prefixPath: `` };
   if (!numPages || !currentPage) {
     return (
       <Styled.p>
         No pagination context passed to the {`<Pagination />`} component
       </Styled.p>
-    )
+    );
   }
-  const isFirst = currentPage === 1
-  const isLast = currentPage === numPages
-  const prevPageNum = currentPage - 1
-  const nextPageNum = currentPage + 1
+  const isFirst = currentPage === 1;
+  const isLast = currentPage === numPages;
+  const prevPageNum = currentPage - 1;
+  const nextPageNum = currentPage + 1;
   const prevPageLink =
     !isFirst &&
     (currentPage - 1 === 1
       ? path.join(`/`, basePath)
-      : path.join(`/`, basePath, prefixPath, prevPageNum.toString()))
+      : path.join(`/`, basePath, prefixPath, prevPageNum.toString()));
   const nextPageLink =
-    !isLast && path.join(`/`, basePath, prefixPath, nextPageNum.toString())
+    !isLast && path.join(`/`, basePath, prefixPath, nextPageNum.toString());
   const changePage = (event: ChangeEvent<HTMLSelectElement>): void => {
-    const { value } = event.target
+    const { value } = event.target;
     const navPath =
       value === `1`
         ? path.join(`/`, basePath)
-        : path.join(`/`, basePath, prefixPath, value)
-    navigate(navPath)
-  }
+        : path.join(`/`, basePath, prefixPath, value);
+    navigate(navPath);
+  };
   return (
     <nav
       sx={{
@@ -107,7 +107,7 @@ const Pagination: React.FC<IProps> = ({
         <span>{numPages}</span>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Pagination
+export default Pagination;

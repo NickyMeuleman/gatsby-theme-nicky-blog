@@ -1,15 +1,15 @@
-import React from "react"
-import { graphql } from "gatsby"
-import TagListPage from "../components/TagListPage"
+import React from "react";
+import { graphql } from "gatsby";
+import TagListPage from "../components/TagListPage";
 import {
   ITagListTemplateQuery,
   ITagListPageContext,
   ITagListPageData,
-} from "../types"
+} from "../types";
 
 interface IProps {
-  data: ITagListTemplateQuery
-  pageContext: ITagListPageContext
+  data: ITagListTemplateQuery;
+  pageContext: ITagListPageContext;
 }
 
 const TagListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
@@ -24,10 +24,10 @@ const TagListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
         }),
       []
     ),
-  }
+  };
 
-  return <TagListPage data={pageData} pageContext={pageContext} />
-}
+  return <TagListPage data={pageData} pageContext={pageContext} />;
+};
 
 export const tagListTemplateQuery = graphql`
   query tagListTemplateQuery {
@@ -41,6 +41,6 @@ export const tagListTemplateQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default TagListTemplate
+export default TagListTemplate;

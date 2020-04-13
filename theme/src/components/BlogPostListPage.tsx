@@ -1,25 +1,27 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx } from "theme-ui"
-import Layout from "./Layout"
-import PostCard from "./PostCard"
-import Pagination from "./Pagination"
-import SEO from "./SEO"
+import React from "react";
+import { jsx } from "theme-ui";
+import Layout from "./Layout";
+import PostCard from "./PostCard";
+import Pagination from "./Pagination";
+import SEO from "./SEO";
 import {
   IBlogPostListPageContext,
   IBlogPostListPageData,
   IBlogPostListPageContextWithPagination,
-} from "../types"
-import useThemeOptions from "../hooks/useThemeOptions"
+} from "../types";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  data: IBlogPostListPageData
-  pageContext: IBlogPostListPageContext | IBlogPostListPageContextWithPagination
+  data: IBlogPostListPageData;
+  pageContext:
+    | IBlogPostListPageContext
+    | IBlogPostListPageContextWithPagination;
 }
 
 const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
-  const { amount, blogPosts, paginationContext } = data
-  const { basePath } = useThemeOptions()
+  const { amount, blogPosts, paginationContext } = data;
+  const { basePath } = useThemeOptions();
 
   return (
     <React.Fragment>
@@ -58,7 +60,7 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
               padding: 0,
             }}
           >
-            {blogPosts.map(blogPost => (
+            {blogPosts.map((blogPost) => (
               <li key={blogPost.id}>
                 <PostCard
                   url={`${basePath}/${blogPost.slug}`}
@@ -77,7 +79,7 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
         </div>
       </Layout>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default BlogList
+export default BlogList;

@@ -3,47 +3,47 @@
 // https://github.com/gatsbyjs/gatsby/issues/18983
 
 // Quick-and-dirty helper to convert strings into URL-friendly slugs.
-exports.slugify = str => {
+exports.slugify = (str) => {
   const slug = str
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, `-`)
-    .replace(/(^-|-\$)+/g, ``)
-  return slug
-}
+    .replace(/(^-|-\$)+/g, ``);
+  return slug;
+};
 
 // helper that grabs the mdx resolver when given a string fieldname
-exports.mdxResolverPassthrough = fieldName => async (
+exports.mdxResolverPassthrough = (fieldName) => async (
   source,
   args,
   context,
   info
 ) => {
-  const type = info.schema.getType(`Mdx`)
+  const type = info.schema.getType(`Mdx`);
   const mdxNode = context.nodeModel.getNodeById({
     id: source.parent,
-  })
-  const resolver = type.getFields()[fieldName].resolve
+  });
+  const resolver = type.getFields()[fieldName].resolve;
   const result = await resolver(mdxNode, args, context, {
     fieldName,
-  })
-  return result
-}
+  });
+  return result;
+};
 
-exports.themeOptionsWithDefaults = themeOptions => {
-  const basePath = themeOptions.basePath || ``
-  const contentPath = themeOptions.contentPath || `data/posts`
-  const assetPath = themeOptions.assetPath || `data/assets`
+exports.themeOptionsWithDefaults = (themeOptions) => {
+  const basePath = themeOptions.basePath || ``;
+  const contentPath = themeOptions.contentPath || `data/posts`;
+  const assetPath = themeOptions.assetPath || `data/assets`;
   const pagination = themeOptions.pagination && {
     postsPerPage:
       (themeOptions.pagination && themeOptions.pagination.postsPerPage) || 10,
     prefixPath:
       (themeOptions.pagination && themeOptions.pagination.prefixPath) || ``,
-  }
+  };
 
   return {
     basePath,
     contentPath,
     assetPath,
     pagination,
-  }
-}
+  };
+};

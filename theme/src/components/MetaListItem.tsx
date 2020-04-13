@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx } from "theme-ui"
+import React from "react";
+import { jsx } from "theme-ui";
 
 interface IProps {
-  title: string
-  titleId?: string
+  title: string;
+  titleId?: string;
 }
 
 const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
@@ -27,6 +27,6 @@ const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
     </h3>
     {children}
   </li>
-)
+);
 
-export default MetaListIitem
+export default MetaListIitem;

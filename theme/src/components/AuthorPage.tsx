@@ -1,21 +1,21 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx, Styled } from "theme-ui"
-import Layout from "./Layout"
-import PostCard from "./PostCard"
-import SEO from "./SEO"
-import { IAuthorPageData, IAuthorPageContext } from "../types"
-import useThemeOptions from "../hooks/useThemeOptions"
+import React from "react";
+import { jsx, Styled } from "theme-ui";
+import Layout from "./Layout";
+import PostCard from "./PostCard";
+import SEO from "./SEO";
+import { IAuthorPageData, IAuthorPageContext } from "../types";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  data: IAuthorPageData
-  pageContext: IAuthorPageContext
+  data: IAuthorPageData;
+  pageContext: IAuthorPageContext;
 }
 
 const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
-  const { posts, author } = data
-  const { slug } = pageContext
-  const { basePath } = useThemeOptions()
+  const { posts, author } = data;
+  const { slug } = pageContext;
+  const { basePath } = useThemeOptions();
 
   return (
     <React.Fragment>
@@ -56,7 +56,7 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
                 padding: 0,
               }}
             >
-              {posts.map(post => (
+              {posts.map((post) => (
                 <li key={post.slug} sx={{ margin: 1 }}>
                   <PostCard
                     key={post.id}
@@ -75,7 +75,7 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
         </div>
       </Layout>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default AuthorPage
+export default AuthorPage;

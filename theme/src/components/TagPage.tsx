@@ -1,24 +1,24 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx } from "theme-ui"
-import { Link } from "gatsby"
-import Layout from "./Layout"
-import SEO from "./SEO"
-import { ITagPageData, ITagPageContext } from "../types"
-import useThemeOptions from "../hooks/useThemeOptions"
+import React from "react";
+import { jsx } from "theme-ui";
+import { Link } from "gatsby";
+import Layout from "./Layout";
+import SEO from "./SEO";
+import { ITagPageData, ITagPageContext } from "../types";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  data: ITagPageData
-  pageContext: ITagPageContext
+  data: ITagPageData;
+  pageContext: ITagPageContext;
 }
 
 const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
-  const { posts, name, amount } = data
-  const { slug } = pageContext
-  const { basePath } = useThemeOptions()
+  const { posts, name, amount } = data;
+  const { slug } = pageContext;
+  const { basePath } = useThemeOptions();
   const tagHeader = `${amount} post${
     amount === 1 ? `` : `s`
-  } tagged with "${name}"`
+  } tagged with "${name}"`;
 
   return (
     <React.Fragment>
@@ -44,7 +44,7 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
             </Link>
           </p>
           <ul>
-            {posts.map(post => (
+            {posts.map((post) => (
               <li key={post.slug} sx={{ margin: 1 }}>
                 <Link
                   to={`${
@@ -62,7 +62,7 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
         </div>
       </Layout>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default TagPage
+export default TagPage;

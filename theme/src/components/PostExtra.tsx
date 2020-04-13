@@ -1,21 +1,21 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx, Styled } from "theme-ui"
-import { Link } from "gatsby"
-import { IPrevNext, IBlogPost } from "../types"
-import MetaListItem from "./MetaListItem"
-import useThemeOptions from "../hooks/useThemeOptions"
+import React from "react";
+import { jsx, Styled } from "theme-ui";
+import { Link } from "gatsby";
+import { IPrevNext, IBlogPost } from "../types";
+import MetaListItem from "./MetaListItem";
+import useThemeOptions from "../hooks/useThemeOptions";
 
 interface IProps {
-  prev?: IPrevNext
-  next?: IPrevNext
-  post: IBlogPost
-  passedSx?: object
+  prev?: IPrevNext;
+  next?: IPrevNext;
+  post: IBlogPost;
+  passedSx?: object;
 }
 
 const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
-  const { basePath } = useThemeOptions()
-  const urlObj = post.canonicalUrl && new URL(post.canonicalUrl)
+  const { basePath } = useThemeOptions();
+  const urlObj = post.canonicalUrl && new URL(post.canonicalUrl);
 
   return (
     <div sx={{ ...passedSx, variant: `styles.PostExtra` }}>
@@ -147,7 +147,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
         </ul>
       </details>
     </div>
-  )
-}
+  );
+};
 
-export default PostExtra
+export default PostExtra;

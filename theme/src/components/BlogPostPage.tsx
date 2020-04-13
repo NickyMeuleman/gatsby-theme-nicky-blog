@@ -1,22 +1,22 @@
 /** @jsx jsx */
-import React from "react"
-import { jsx, Styled } from "theme-ui"
+import React from "react";
+import { jsx, Styled } from "theme-ui";
 // @ts-ignore
-import { MDXRenderer } from "gatsby-plugin-mdx"
-import Img from "gatsby-image"
-import Layout from "./Layout"
-import PostExtra from "./PostExtra"
-import SEO from "./SEO"
-import { IBlogPostPageContext, IBlogPostPageData } from "../types"
+import { MDXRenderer } from "gatsby-plugin-mdx";
+import Img from "gatsby-image";
+import Layout from "./Layout";
+import PostExtra from "./PostExtra";
+import SEO from "./SEO";
+import { IBlogPostPageContext, IBlogPostPageData } from "../types";
 
 interface IProps {
-  data: IBlogPostPageData
-  pageContext: IBlogPostPageContext
+  data: IBlogPostPageData;
+  pageContext: IBlogPostPageContext;
 }
 
 const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
-  const { post } = data
-  const { prev, next } = pageContext
+  const { post } = data;
+  const { prev, next } = pageContext;
 
   return (
     <React.Fragment>
@@ -49,7 +49,7 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
               `1fr minmax(0, 70ch) 1fr`,
               null,
               null,
-              t =>
+              (t) =>
                 `1fr minmax(0, 30ch) minmax(0, ${t.space[5]}) 70ch ${t.space[5]} 30ch 1fr`,
             ],
             my: 5,
@@ -72,7 +72,7 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
         </div>
       </Layout>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default BlogPost
+export default BlogPost;

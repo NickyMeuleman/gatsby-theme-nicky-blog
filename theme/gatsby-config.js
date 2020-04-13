@@ -1,8 +1,8 @@
-const remarkSlug = require(`remark-slug`)
-const { themeOptionsWithDefaults } = require(`./src/utils`)
+const remarkSlug = require(`remark-slug`);
+const { themeOptionsWithDefaults } = require(`./src/utils`);
 
 module.exports = (themeOptions = {}) => {
-  const { contentPath, assetPath } = themeOptionsWithDefaults(themeOptions)
+  const { contentPath, assetPath } = themeOptionsWithDefaults(themeOptions);
   return {
     siteMetadata: {
       siteUrl: `https://myurl.com`,
@@ -57,5 +57,5 @@ module.exports = (themeOptions = {}) => {
       `gatsby-plugin-theme-ui`,
       `gatsby-plugin-catch-links`,
     ],
-  }
-}
+  };
+};
