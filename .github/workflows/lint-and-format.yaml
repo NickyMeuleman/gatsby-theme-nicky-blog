@@ -1,0 +1,15 @@
+name: Lint and Format
+on:
+  pull_request:
+    types: ["opened", "edited", "reopened", "synchronize"]
+jobs:
+  lintAndFormat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Deps
+        run: yarn
+      - name: Run ESLint
+        run: yarn lint
+      - name: Run Prettier
+        run: yarn format
