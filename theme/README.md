@@ -34,7 +34,7 @@ To use this theme in your Gatsby sites:
     ```js
     module.exports = {
       plugins: ["@nickymeuleman/gatsby-theme-blog"],
-    }
+    };
     ```
 
 1.  Start your site
@@ -82,7 +82,7 @@ module.exports = {
       },
     },
   ],
-}
+};
 ```
 
 ### Additional configuration
@@ -102,7 +102,7 @@ module.exports = {
       twitter: `@NMeuleman`,
     },
   },
-}
+};
 ```
 
 ### Adding blog posts
@@ -241,12 +241,12 @@ example declaration of a `<Shia />` component
 
 ```js
 // in src/@nickymeuleman/gatsby-theme-blog/components/mdx-components/index.js
-import React from "react"
-export * from "@nickymeuleman/gatsby-theme-blog/src/components/mdx-components/index"
+import React from "react";
+export * from "@nickymeuleman/gatsby-theme-blog/src/components/mdx-components/index";
 const Shia = ({ children }) => (
   <p>Don't let your dreams be dreams! {children}</p>
-)
-export { Shia }
+);
+export { Shia };
 ```
 
 example usage in an `.mdx` file
@@ -296,14 +296,14 @@ import { ComponentName } from "@nickymeuleman/gatsby-theme-blog"
 In any React component:
 
 ```jsx
-import React from "react"
-import { ComponentName } from "@nickymeuleman/gatsby-theme-blog"
+import React from "react";
+import { ComponentName } from "@nickymeuleman/gatsby-theme-blog";
 
 export default () => (
   <div>
     <ComponentName />
   </div>
-)
+);
 ```
 
 ### dev notes

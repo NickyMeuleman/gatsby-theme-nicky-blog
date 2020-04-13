@@ -5,8 +5,8 @@
 *.tsx
 
 # generated files
-.cache/
-node_modules/
-public/
-.netlify/
+**/node_modules/**
+**/.cache
+**/public
+/.netlify
 yarn.lock
