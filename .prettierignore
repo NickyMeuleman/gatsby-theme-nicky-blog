@@ -1,0 +1,12 @@
+# eslint handles JavaScript formatting
+*.js
+*.jsx
+*.ts
+*.tsx
+
+# generated files
+.cache/
+node_modules/
+public/
+.netlify/
+yarn.lock
