@@ -19,15 +19,16 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
 
   return (
     <div sx={{ ...passedSx, variant: `styles.PostExtra` }}>
-      <aside
+      <details
         sx={{
           border: `1px solid`,
           borderColor: `mutedPrimary`,
           padding: 3,
-          variant: `styles.PostExtra.aside`,
+          variant: `styles.PostExtra.details`,
         }}
+        open
       >
-        <h2
+        <summary
           sx={{
             margin: 0,
             textTransform: `uppercase`,
@@ -39,7 +40,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
           }}
         >
           Metadata
-        </h2>
+        </summary>
         <ul sx={{ listStyle: `none`, padding: 0 }}>
           {post.date && (
             <MetaListItem title="Date">
@@ -144,7 +145,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             </MetaListItem>
           )}
         </ul>
-      </aside>
+      </details>
     </div>
   )
 }

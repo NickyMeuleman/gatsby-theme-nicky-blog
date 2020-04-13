@@ -47,7 +47,6 @@ const theme = merge(tailwind, {
         width: `90vw`,
         color: `inherit`,
       },
-
       a: {
         color: `inherit`,
         border: `none`,
