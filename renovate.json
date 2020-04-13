@@ -6,7 +6,6 @@
   "rangeStrategy": "bump",
   "rebaseLabel": "rebase",
   "rebaseWhen": "auto",
-  "requiredStatusChecks": [],
   "packageRules": [
     {
       "updateTypes": ["minor", "patch", "pin", "digest"],
