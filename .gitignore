@@ -71,3 +71,5 @@ yarn-error.log
 cypress/screenshots
 cypress/videos
 OLD_*
+# Local Netlify folder
+.netlify
