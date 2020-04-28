@@ -396,3 +396,4 @@ export default () => (
   - [ ] `type` prop for `<SEO />`? Different behavior based on type?
   - [ ] refactor `Page` components so `<SEO />` can easily be swapped?
 - [ ] 🚧 Give components a `variant` so the user can theme them via theme-ui
+- [x] Fix links in headers being hidden (because of the link icon)

@@ -39,16 +39,17 @@ const heading: (tag: headerTypes) => React.FC<{ id?: string }> = (Tag) => (
         // also show icon when hovering over it, not only when hovering over the header text
         pointerEvents: `all`,
         position: `relative`,
-        a: {
+        ".linkTag": {
           visibility: `hidden`,
         },
-        ":hover a": {
+        ":hover .linkTag": {
           visibility: `visible`,
         },
       }}
     >
       <a
         href={`#${props.id}`}
+        className="linkTag"
         sx={{
           position: `absolute`,
           top: 0,
