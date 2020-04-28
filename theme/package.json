@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/NickyMeuleman/gatsby-theme-nicky-blog.git"
   },
-  "version": "1.5.11",
+  "version": "1.5.12",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
