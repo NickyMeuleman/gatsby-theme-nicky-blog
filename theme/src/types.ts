@@ -1,3 +1,9 @@
+// TableOfContents
+// TODO: make recursive, to 6 levels
+export interface ITableOfContents {
+  items: { items?: []; title: string; url: string }[];
+}
+
 // BlogList
 export interface IBlogPostPreview {
   id: string;
@@ -22,6 +28,7 @@ export interface IBlogPost {
   cover?: any;
   date: string;
   updatedAt: string;
+  tableOfContents: ITableOfContents;
 }
 
 // PostExtra

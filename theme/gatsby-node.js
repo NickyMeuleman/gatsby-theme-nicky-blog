@@ -89,6 +89,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     excerpt: String!
     canonicalUrl: String
     keywords: [String]
+    tableOfContents(maxDepth: Int = 6): JSON
   }
   type NickyThemeBlogConfig implements Node {
     id: ID!

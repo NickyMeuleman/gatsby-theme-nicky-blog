@@ -5,6 +5,7 @@ import { Link } from "gatsby";
 import { IPrevNext, IBlogPost } from "../types";
 import MetaListItem from "./MetaListItem";
 import useThemeOptions from "../hooks/useThemeOptions";
+import TableOfContentsList from "./TableOfContentsList";
 
 interface IProps {
   prev?: IPrevNext;
@@ -24,6 +25,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
           border: `1px solid`,
           borderColor: `mutedPrimary`,
           padding: 3,
+          mb: 4,
           variant: `styles.PostExtra.details`,
         }}
         open
@@ -146,6 +148,38 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
           )}
         </ul>
       </details>
+      {/* tableOfContents can be an empty object, check if it has items before rendering */}
+      {post?.tableOfContents?.items && (
+        <details
+          sx={{
+            border: `1px solid`,
+            borderColor: `mutedPrimary`,
+            padding: 3,
+            mb: 4,
+            position: [null, null, null, `sticky`],
+            maxHeight: `calc(100vh - 148px)`,
+            overflow: `auto`,
+            top: 5,
+            variant: `styles.PostExtra.details`,
+          }}
+          open
+        >
+          <summary
+            sx={{
+              margin: 0,
+              textTransform: `uppercase`,
+              letterSpacing: `wider`,
+              fontWeight: `bold`,
+              color: `mutedText`,
+              fontSize: 1,
+              variant: `styles.PostExtra.title`,
+            }}
+          >
+            Table of contents
+          </summary>
+          <TableOfContentsList tableOfContents={post.tableOfContents} />
+        </details>
+      )}
     </div>
   );
 };

@@ -173,19 +173,20 @@ An author can have several different field with information specific to them.
 The blogpost itself (`.md` or `.mdx` file for now, others coming soon) can have several different fields with extra information.
 In `.md` or `.mdx` files these fields are set via the frontmatter.
 
-| Key            | Value                        | Required | Description                                                                        |
-| -------------- | ---------------------------- | -------- | ---------------------------------------------------------------------------------- |
-| `title`        | string                       | no       | Title of the post.                                                                 |
-| `date`         | date string                  | no       | Date the post was written.                                                         |
-| `updatedAt`    | date string                  | no       | Date the post was last updated.                                                    |
-| `canonicalUrl` | full url string              | no       | Canonical url                                                                      |
-| `authors`      | array of `shortName` strings | no       | Authors of the post. <br/>Should not be used in combination with the `author` key. |
-| `author`       | `shortName` string           | no       | Author of the post. <br/>Should not be used in combination with the `authors` key. |
-| `tags`         | array of tag strings         | no       | Tags for the post                                                                  |
-| `keywords`     | array of keyword strings     | no       | Keywords for SEO                                                                   |
-| `cover`        | relative path to cover image | no       | Displayed as cover image, in social cards                                          |
-| `published`    | boolean, defaults to `true`  | no       | Include the post in production                                                     |
-| `slug`         | string                       | no       | The last part of the URL for the post                                              |
+| Key               | Value                        | Required | Description                                                                        |
+| ----------------- | ---------------------------- | -------- | ---------------------------------------------------------------------------------- |
+| `title`           | string                       | no       | Title of the post.                                                                 |
+| `date`            | date string                  | no       | Date the post was written.                                                         |
+| `updatedAt`       | date string                  | no       | Date the post was last updated.                                                    |
+| `canonicalUrl`    | full url string              | no       | Canonical url                                                                      |
+| `authors`         | array of `shortName` strings | no       | Authors of the post. <br/>Should not be used in combination with the `author` key. |
+| `author`          | `shortName` string           | no       | Author of the post. <br/>Should not be used in combination with the `authors` key. |
+| `tags`            | array of tag strings         | no       | Tags for the post                                                                  |
+| `keywords`        | array of keyword strings     | no       | Keywords for SEO                                                                   |
+| `cover`           | relative path to cover image | no       | Displayed as cover image, in social cards                                          |
+| `published`       | boolean, defaults to `true`  | no       | Include the post in production                                                     |
+| `slug`            | string                       | no       | The last part of the URL for the post                                              |
+| `tableOfContents` | JSON                         | no       | Json object containing `id`s of headings                                           |
 
 ### Components used in this theme.
 
