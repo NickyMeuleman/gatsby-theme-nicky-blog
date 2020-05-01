@@ -4,6 +4,7 @@ import { jsx, Styled } from "theme-ui";
 import { Link } from "gatsby";
 import { IPrevNext, IBlogPost } from "../types";
 import MetaListItem from "./MetaListItem";
+import TableOfContentsList from "./TableOfContentsList";
 import useThemeOptions from "../hooks/useThemeOptions";
 import TableOfContentsList from "./TableOfContentsList";
 
