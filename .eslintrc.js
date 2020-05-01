@@ -84,32 +84,32 @@ module.exports = {
       }
     ],
     "spaced-comment": "off",
-    'import/no-extraneous-dependencies': [
-      'error',
+    "import/no-extraneous-dependencies": [
+      "error",
       {
         packageDir: [
-          path.resolve(__dirname, './'),
-          path.resolve(__dirname, './theme'),
-          path.resolve(__dirname, './demo'),
+          path.resolve(__dirname, "./"),
+          path.resolve(__dirname, "./theme"),
+          path.resolve(__dirname, "./demo"),
         ],
         devDependencies: [
-          '**/*.test.js',
-          '**/*.spec.js',
-          '/cypress/**',
+          "**/*.test.js",
+          "**/*.spec.js",
+          "/cypress/**",
         ],
       },
     ],
-   'import/extensions': [
-      'error',
-      'ignorePackages',
+    "import/extensions": [
+      "error",
+      "ignorePackages",
       {
-        'js': 'never',
-        'jsx': 'never',
-        'ts': 'never',
-        'tsx': 'never'
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
     ],
-   'import/prefer-default-export': "off",
+    "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "warn",

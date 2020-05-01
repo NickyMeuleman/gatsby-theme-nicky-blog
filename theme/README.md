@@ -398,3 +398,6 @@ export default () => (
   - [ ] refactor `Page` components so `<SEO />` can easily be swapped?
 - [ ] 🚧 Give components a `variant` so the user can theme them via theme-ui
 - [x] Fix links in headers being hidden (because of the link icon)
+- [x] Table of contents
+  - [x] Style active link in table of contents
+    - [ ] Only run that logic on desktop and if table of contents is open

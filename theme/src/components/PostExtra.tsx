@@ -157,7 +157,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             padding: 3,
             mb: 4,
             position: [null, null, null, `sticky`],
-            maxHeight: `calc(100vh - 148px)`,
+            maxHeight: (theme) => `calc(100vh - (${theme.space[5]} * 2))`,
             overflow: `auto`,
             top: 5,
             variant: `styles.PostExtra.details`,

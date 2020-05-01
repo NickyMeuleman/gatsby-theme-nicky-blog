@@ -1,15 +1,17 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx } from "theme-ui";
-import { ITableOfContents } from "../types";
+import { ITableOfContents, ITableOfContentsItem } from "../types";
 import { useActiveId } from "../hooks/useActiveId";
 
 interface IProps {
   tableOfContents: ITableOfContents;
 }
 
-function getIds(items) {
-  return items.reduce((acc, item) => {
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+// TODO: Why is this rule on here? It's disabled in eslintrc
+function getIds(items: ITableOfContentsItem[]) {
+  return items.reduce<string[]>((acc, item) => {
     if (item.url) {
       // url has a # as first character, remove it and add the raw CSS-id
       acc.push(item.url.slice(1));
@@ -22,32 +24,45 @@ function getIds(items) {
 }
 
 function renderItems(
-  items: any,
+  items: ITableOfContentsItem[],
   activeId: string,
   isRecursiveCall?: boolean
-): any {
+): JSX.Element {
   return (
-    <ol sx={{ listStyle: `none`, padding: 0 }}>
-      {items.map((item: any) => (
-        <li key={item.url} sx={{ mt: isRecursiveCall ? 1 : 3 }}>
-          <a
-            href={item.url}
-            sx={{
-              variant:
-                activeId === item.url.slice(1)
-                  ? `styles.tableOfContents`
-                  : `styles.tableOfContents.active`,
-            }}
-          >
-            {item.title}
-          </a>
-          {item.items && (
-            <ol sx={{ listStyle: `none`, padding: 0, pl: 3 }}>
-              {renderItems(item.items, activeId, true)}
-            </ol>
-          )}
-        </li>
-      ))}
+    <ol
+      sx={{
+        listStyle: `none`,
+        padding: 0,
+        variant: isRecursiveCall ? null : `styles.TableOfContentsList`,
+      }}
+    >
+      {items.map((item) => {
+        // exit early if there is no url, that also means there can't be any item.items
+        // Reason: heading levels should only ever increase by one level.
+        if (!item.url) {
+          return null;
+        }
+        return (
+          <li key={item.url} sx={{ mt: isRecursiveCall ? 1 : 3 }}>
+            <a
+              href={item.url}
+              sx={{
+                variant:
+                  activeId === item.url.slice(1)
+                    ? `styles.TableOfContentsList.link.active`
+                    : `styles.TableOfContentsList.link`,
+              }}
+            >
+              {item.title}
+            </a>
+            {item.items && (
+              <ol sx={{ listStyle: `none`, padding: 0, pl: 2 }}>
+                {renderItems(item.items, activeId, true)}
+              </ol>
+            )}
+          </li>
+        );
+      })}
     </ol>
   );
 }
@@ -55,7 +70,7 @@ function renderItems(
 const TableOfContentsList: React.FC<IProps> = ({ tableOfContents }) => {
   const { items } = tableOfContents;
   const activeId = useActiveId(getIds(items));
-  return renderItems(items, activeId, false);
+  return renderItems(items, activeId);
 };
 
 export default TableOfContentsList;

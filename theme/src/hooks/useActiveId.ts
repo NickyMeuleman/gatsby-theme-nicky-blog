@@ -29,7 +29,7 @@ export const useActiveId = (
         observer.unobserve(document.getElementById(id) as Element);
       });
     };
-  }, []);
+  }, [itemIds, rootMargin]);
 
   return activeId;
 };
