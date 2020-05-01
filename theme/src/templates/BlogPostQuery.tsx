@@ -27,6 +27,7 @@ export const blogPostTemplateQuery = graphql`
       canonicalUrl
       keywords
       body
+      tableOfContents
       tags {
         name
         slug
