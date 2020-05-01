@@ -6,7 +6,6 @@ import { IPrevNext, IBlogPost } from "../types";
 import MetaListItem from "./MetaListItem";
 import TableOfContentsList from "./TableOfContentsList";
 import useThemeOptions from "../hooks/useThemeOptions";
-import TableOfContentsList from "./TableOfContentsList";
 
 interface IProps {
   prev?: IPrevNext;
