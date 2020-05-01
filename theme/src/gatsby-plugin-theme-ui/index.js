@@ -89,6 +89,19 @@ const theme = merge(tailwind, {
         borderBottomColor: `primary`,
       },
     },
+    TableOfContentsList: {
+      link: {
+        color: `mutedText`,
+        textDecoration: `none`,
+        ":hover": {
+          variant: `styles.a`,
+        },
+        active: {
+          variant: `styles.a`,
+          color: `mutedPrimary`,
+        },
+      },
+    },
     blockquote: {
       margin: 0,
       paddingLeft: 3,
