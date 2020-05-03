@@ -75,19 +75,6 @@ const theme = merge(tailwind, {
       padding: 1,
       borderRadius: `sm`,
     },
-    TableOfContentsList: {
-      link: {
-        color: `mutedText`,
-        textDecoration: `none`,
-        ":hover": {
-          variant: `styles.a`,
-        },
-        active: {
-          variant: `styles.a`,
-          color: `mutedPrimary`,
-        },
-      },
-    },
     a: {
       color: `mutedText`,
       borderBottomWidth: `2px`,
