@@ -60,12 +60,29 @@ const theme = merge(tailwind, {
       margin: `0 auto`,
       width: `90vw`,
     },
-    pre: {
+    CodeBlock: {
       ...nightOwlLight,
-      marginBottom: 2,
       overflow: `auto`,
+      my: 2,
       padding: 3,
-      borderRadius: `default`,
+      borderRadius: `medium`,
+      pre: {
+        backgroundColor: `transparent`,
+        float: `left`,
+        minWidth: `100%`,
+        margin: 0,
+        ".highlight-line": {
+          backgroundColor: `#f0f0f0`,
+          borderLeftColor: `#49d0c5`,
+          borderLeftStyle: `solid`,
+          borderLeftWidth: `0.3em`,
+          display: `block`,
+          marginRight: `-1em`,
+          marginLeft: `-1em`,
+          paddingRight: `1em`,
+          paddingLeft: `0.75em`,
+        },
+      },
     },
     inlineCode: {
       fontSize: `inherit`,
