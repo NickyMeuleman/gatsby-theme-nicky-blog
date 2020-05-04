@@ -402,4 +402,7 @@ export default () => (
   - [x] Style active link in table of contents
     - [ ] Only run that logic on desktop and if table of contents is open
 - [ ] Refactor exports to be named exports as often as possible (reason: node import syntax getting closer to ESM, but only named. While not needed here because of compilation, good to be consistent everywhere, regardless of technology used.)
-- [ ] Refactor @theme-ui/prism to self-rolled setup of prism-react-renderer for increased flexibility.
+- [x] Refactor @theme-ui/prism to self-rolled setup of prism-react-renderer for increased flexibility.
+  - [x] Add line highlighting
+  - [x] Add code title support
+  - [ ] document everything
