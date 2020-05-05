@@ -31,6 +31,7 @@ export { default as Headings } from "./src/components/Headings"; // this is an o
 export { default as PostCard } from "./src/components/PostCard";
 export { default as Pagination } from "./src/components/Pagination";
 export { default as PostExtra } from "./src/components/PostExtra";
+export { CodeBlock } from "./src/components/CodeBlock";
 
 // React hooks
 export { default as useThemeOptions } from "./src/hooks/useThemeOptions";

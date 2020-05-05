@@ -49,6 +49,8 @@ Want to embed tweets? You betcha!
 
 <Tweet tweetLink="NMeuleman/status/1211692091954339841" />
 
+### Fancy code blocks
+
 In that article, there is some code, which looks quite nice on this theme, even if I say so myself.
 
 (It's a pregenerated theme, shhhhhh. I can adjust it, but it already looks **real nice**.)
@@ -69,6 +71,48 @@ const IndexPage = (props) => {
     </div>
   );
 };
+```
+
+### Line highlighting? Got it!
+
+```js hl=4
+const getShouldHighlightLine = (hl) => {
+  if (hl) {
+    const lineNumbers = rangeParser(hl);
+    return (index) => lineNumbers.includes(index + 1);
+  }
+  return () => false;
+};
+```
+
+### Code titles
+
+A section at the top that can hold some text is useful to display the title (or path) of a file for a codeblock.
+
+```jsx hl=2,9-11 title=src/components/CodeBlock.jsx
+// ...
+const shouldHighlightLine = calculateLinesToHighlight(metastring);
+return (
+  <Highlight {...defaultProps} code={children} language={language}>
+    {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      <pre className={className} style={{ ...style }}>
+        {tokens.map((line, index) => {
+          const lineProps = getLineProps({ line, key: index });
+          if (shouldHighlightLine(index)) {
+            lineProps.className = `${lineProps.className} highlight-line`;
+          }
+          return (
+            <div key={index} {...lineProps}>
+              {line.map((token, key) => (
+                <span key={key} {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          );
+        })}
+      </pre>
+    )}
+  </Highlight>
+);
 ```
 
 ## Useful knowledge

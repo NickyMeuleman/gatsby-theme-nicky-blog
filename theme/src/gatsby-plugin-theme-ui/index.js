@@ -60,13 +60,46 @@ const theme = merge(tailwind, {
       margin: `0 auto`,
       width: `90vw`,
     },
-    pre: {
+    CodeBlock: {
       ...nightOwlLight,
-      marginBottom: 2,
       overflow: `auto`,
       padding: 3,
-      borderRadius: `default`,
+      borderRadius: `sm`,
+      pre: {
+        backgroundColor: `transparent`,
+        float: `left`,
+        minWidth: `100%`,
+        margin: 0,
+      },
+      highlightLine: {
+        backgroundColor: `#f0f0f0`,
+        borderLeftColor: `#49d0c5`,
+        borderLeftStyle: `solid`,
+        borderLeftWidth: `0.25em`,
+        display: `block`,
+        marginRight: `-1em`,
+        marginLeft: `-1em`,
+        paddingRight: `1em`,
+        paddingLeft: `0.75em`,
+      },
+      title: {
+        fontFamily: `mono`,
+        backgroundColor: nightOwlLight.backgroundColor,
+        borderBottomWidth: `2px`,
+        borderBottomStyle: `solid`,
+        borderBottomColor: `#f0f0f0`,
+        color: nightOwlLight.color,
+        borderTopLeftRadius: `sm`,
+        borderTopRightRadius: `sm`,
+        borderBottomLeftRadius: `0`,
+        borderBottomRightRadius: `0`,
+        py: 2,
+        px: 3,
+        fontSize: 0,
+        marginTop: 2,
+      },
     },
+
     inlineCode: {
       fontSize: `inherit`,
       fontFamily: `monospace`,
@@ -74,19 +107,6 @@ const theme = merge(tailwind, {
       backgroundColor: `mutedBackground`,
       padding: 1,
       borderRadius: `sm`,
-    },
-    TableOfContentsList: {
-      link: {
-        color: `mutedText`,
-        textDecoration: `none`,
-        ":hover": {
-          variant: `styles.a`,
-        },
-        active: {
-          variant: `styles.a`,
-          color: `mutedPrimary`,
-        },
-      },
     },
     a: {
       color: `mutedText`,
