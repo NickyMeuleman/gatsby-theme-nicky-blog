@@ -75,7 +75,21 @@ const IndexPage = (props) => {
 
 ### Line highlighting? Got it!
 
-```jsx hl=3-5,10-12 title=src/components/CodeBlock.jsx test=iets
+```js hl=4
+const getShouldHighlightLine = (hl) => {
+  if (hl) {
+    const lineNumbers = rangeParser(hl);
+    return (index) => lineNumbers.includes(index + 1);
+  }
+  return () => false;
+};
+```
+
+### Code titles
+
+A section at the top that can hold some text is useful to display the title (or path) of a file for a codeblock.
+
+```jsx hl=2,9-11 title=src/components/CodeBlock.jsx
 // ...
 const shouldHighlightLine = calculateLinesToHighlight(metastring);
 return (
@@ -99,18 +113,6 @@ return (
     )}
   </Highlight>
 );
-```
-
-tesing js
-
-```js
-const getShouldHighlightLine = (hl: string | undefined) => {
-  if (hl) {
-    const lineNumbers = rangeParser(hl);
-    return (index: number) => lineNumbers.includes(index + 1);
-  }
-  return () => false;
-};
 ```
 
 ## Useful knowledge

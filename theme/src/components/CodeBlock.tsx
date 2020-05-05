@@ -47,7 +47,7 @@ const CodeBlock: React.FC<IProps> = ({
   const shouldHighlightLine = getShouldHighlightLine(hl);
   return (
     <React.Fragment>
-      {title && <div sx={{ variant: `styles.CodeBlockTitle` }}>{title}</div>}
+      {title && <div sx={{ variant: `styles.CodeBlock.title` }}>{title}</div>}
       <div
         sx={{
           variant: `styles.CodeBlock`,
@@ -68,26 +68,26 @@ const CodeBlock: React.FC<IProps> = ({
               className={`${outerClassName} ${className}`}
               style={style}
             >
-              {tokens.map((line, index) => {
-                const lineProps = getLineProps({ line, key: index });
-                if (shouldHighlightLine(index)) {
-                  lineProps.className += ` highlight-line`;
-                }
-                return (
-                  <div key={index} {...lineProps}>
-                    {line.map((token, key) => (
-                      <span
-                        key={key}
-                        {...getTokenProps({ token, key })}
-                        // https://github.com/system-ui/theme-ui/pull/721
-                        sx={
-                          token.empty ? { display: `inline-block` } : undefined
-                        }
-                      />
-                    ))}
-                  </div>
-                );
-              })}
+              {tokens.map((line, index) => (
+                <div
+                  key={index}
+                  {...getLineProps({ line, key: index })}
+                  sx={
+                    shouldHighlightLine(index)
+                      ? { variant: `styles.CodeBlock.highlightLine` }
+                      : undefined
+                  }
+                >
+                  {line.map((token, key) => (
+                    <span
+                      key={key}
+                      {...getTokenProps({ token, key })}
+                      // https://github.com/system-ui/theme-ui/pull/721
+                      sx={token.empty ? { display: `inline-block` } : undefined}
+                    />
+                  ))}
+                </div>
+              ))}
             </Styled.pre>
           )}
         </Highlight>
