@@ -33,6 +33,7 @@ function renderItems(
       sx={{
         listStyle: `none`,
         padding: 0,
+        pl: isRecursiveCall ? 2 : null,
         variant: isRecursiveCall ? null : `styles.TableOfContentsList`,
       }}
     >
@@ -55,11 +56,7 @@ function renderItems(
             >
               {item.title}
             </a>
-            {item.items && (
-              <ol sx={{ listStyle: `none`, padding: 0, pl: 2 }}>
-                {renderItems(item.items, activeId, true)}
-              </ol>
-            )}
+            {item.items && renderItems(item.items, activeId, true)}
           </li>
         );
       })}
