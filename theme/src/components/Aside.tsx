@@ -22,6 +22,7 @@ const Aside: React.FC = ({ children }) => (
       p: {
         m: 0,
       },
+      variant: `styles.Aside`,
     }}
   >
     {children}

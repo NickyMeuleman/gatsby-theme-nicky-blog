@@ -438,7 +438,7 @@ export default theme;
   - [x] add a "originally published at" line to blogpost component
 - [x] multiple authors support
   - [x] multiple authors per post
-  - [ ] avatar for each author, because, pretty pictures are tight (watch @theryangeorge)
+  - [x] avatar for each author, because, pretty pictures are tight (watch @theryangeorge)
   - [x] rename "author" in graphql to "authors", it's an array
 - [x] revamp how SEO component works
   - [x] migrate from Helmet props to nested html tags?
@@ -508,7 +508,7 @@ export default theme;
 - [ ] Ability to add custom OG images for pages like BlogListPage (also use the `<SEO />` `image` prop for that?)
   - [ ] `type` prop for `<SEO />`? Different behavior based on type?
   - [ ] refactor `Page` components so `<SEO />` can easily be swapped?
-- [ ] 🚧 Give components a `variant` so the user can theme them via theme-ui
+- [x] Give components a `variant` so the user can theme them via theme-ui
 - [x] Fix links in headers being hidden (because of the link icon)
 - [x] Table of contents
   - [x] Style active link in table of contents

@@ -45,6 +45,7 @@ const heading: (tag: headerTypes) => React.FC<{ id?: string }> = (Tag) => (
         ":hover .linkTag": {
           visibility: `visible`,
         },
+        variant: `styles.Headings`,
       }}
     >
       <a
