@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "gatsby";
 import Img from "gatsby-image";
 import { jsx } from "theme-ui";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   url: string;
@@ -194,4 +194,4 @@ const PostCard: React.FC<IProps> = (props) => {
   );
 };
 
-export default PostCard;
+export { PostCard };

@@ -2,17 +2,17 @@
 import React from "react";
 import { jsx } from "theme-ui";
 import { Link } from "gatsby";
-import Layout from "./Layout";
-import SEO from "./SEO";
+import { Layout } from "./Layout";
+import { SEO } from "./SEO";
 import { ITagListPageData, ITagListPageContext } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: ITagListPageData;
   pageContext: ITagListPageContext;
 }
 
-const TagList: React.FC<IProps> = ({ data, pageContext }) => {
+const TagListPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { tags } = data;
   const { basePath } = useThemeOptions();
 
@@ -41,4 +41,4 @@ const TagList: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export default TagList;
+export { TagListPage };

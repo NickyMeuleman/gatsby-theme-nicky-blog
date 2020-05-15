@@ -2,7 +2,7 @@
 import React from "react";
 import { jsx, Box } from "theme-ui";
 
-const MainComponent: React.FC = ({ children }) => (
+const Main: React.FC = ({ children }) => (
   <Box
     as="main"
     sx={{
@@ -14,4 +14,4 @@ const MainComponent: React.FC = ({ children }) => (
   </Box>
 );
 
-export default MainComponent;
+export { Main };

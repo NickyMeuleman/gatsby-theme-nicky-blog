@@ -37,4 +37,4 @@ const Header: React.FC<IProps> = ({ title }) => {
   );
 };
 
-export default Header;
+export { Header };

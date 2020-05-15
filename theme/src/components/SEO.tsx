@@ -3,7 +3,7 @@ import Helmet from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 import * as path from "path";
 import { ISEOStaticQuery } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   date?: string;
@@ -94,4 +94,4 @@ const SEO: React.FC<IProps> = ({
   );
 };
 
-export default SEO;
+export { SEO };

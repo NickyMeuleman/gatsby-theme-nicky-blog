@@ -29,4 +29,4 @@ const Aside: React.FC = ({ children }) => (
   </aside>
 );
 
-export default Aside;
+export { Aside };

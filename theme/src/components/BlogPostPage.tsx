@@ -4,9 +4,9 @@ import { jsx, Styled } from "theme-ui";
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Img from "gatsby-image";
-import Layout from "./Layout";
-import PostExtra from "./PostExtra";
-import SEO from "./SEO";
+import { Layout } from "./Layout";
+import { PostExtra } from "./PostExtra";
+import { SEO } from "./SEO";
 import { IBlogPostPageContext, IBlogPostPageData } from "../types";
 
 interface IProps {
@@ -14,7 +14,7 @@ interface IProps {
   pageContext: IBlogPostPageContext;
 }
 
-const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
+const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { post } = data;
   const { prev, next } = pageContext;
 
@@ -75,4 +75,4 @@ const BlogPost: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export default BlogPost;
+export { BlogPostPage };

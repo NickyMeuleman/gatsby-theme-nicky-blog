@@ -4,7 +4,7 @@ import { jsx, Styled } from "theme-ui";
 import { navigate, Link } from "gatsby";
 import * as path from "path";
 import { IBlogPostListPageContextWithPagination } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   context: IBlogPostListPageContextWithPagination;
@@ -110,4 +110,4 @@ const Pagination: React.FC<IProps> = ({
   );
 };
 
-export default Pagination;
+export { Pagination };

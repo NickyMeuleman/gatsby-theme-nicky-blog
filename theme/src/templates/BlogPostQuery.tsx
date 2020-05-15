@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import BlogPostPage from "../components/BlogPostPage";
+import { BlogPostPage } from "../components/BlogPostPage";
 import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types";
 
 interface IProps {
@@ -49,4 +49,4 @@ export const blogPostTemplateQuery = graphql`
   }
 `;
 
-export default BlogPostTemplate;
+export { BlogPostTemplate };

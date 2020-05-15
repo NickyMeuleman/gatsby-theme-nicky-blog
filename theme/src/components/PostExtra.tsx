@@ -3,9 +3,9 @@ import React from "react";
 import { jsx, Styled } from "theme-ui";
 import { Link } from "gatsby";
 import { IPrevNext, IBlogPost } from "../types";
-import MetaListItem from "./MetaListItem";
-import TableOfContentsList from "./TableOfContentsList";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { MetaListItem } from "./MetaListItem";
+import { TableOfContentsList } from "./TableOfContentsList";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   prev?: IPrevNext;
@@ -184,4 +184,4 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
   );
 };
 
-export default PostExtra;
+export { PostExtra };

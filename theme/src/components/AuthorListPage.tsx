@@ -2,8 +2,8 @@
 import React from "react";
 import { jsx } from "theme-ui";
 import { Link } from "gatsby";
-import Layout from "./Layout";
-import SEO from "./SEO";
+import { Layout } from "./Layout";
+import { SEO } from "./SEO";
 import { IAuthorListPageContext, IAuthorListPageData } from "../types";
 
 interface IProps {
@@ -35,4 +35,4 @@ const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export default AuthorListPage;
+export { AuthorListPage };

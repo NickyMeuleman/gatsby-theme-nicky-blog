@@ -1,16 +1,16 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx } from "theme-ui";
-import Layout from "./Layout";
-import PostCard from "./PostCard";
-import Pagination from "./Pagination";
-import SEO from "./SEO";
+import { Layout } from "./Layout";
+import { PostCard } from "./PostCard";
+import { Pagination } from "./Pagination";
+import { SEO } from "./SEO";
 import {
   IBlogPostListPageContext,
   IBlogPostListPageData,
   IBlogPostListPageContextWithPagination,
 } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: IBlogPostListPageData;
@@ -19,7 +19,7 @@ interface IProps {
     | IBlogPostListPageContextWithPagination;
 }
 
-const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
+const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { amount, blogPosts, paginationContext } = data;
   const { basePath } = useThemeOptions();
 
@@ -82,4 +82,4 @@ const BlogList: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export default BlogList;
+export { BlogPostListPage };

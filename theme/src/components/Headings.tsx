@@ -67,7 +67,7 @@ const heading: (tag: headerTypes) => React.FC<{ id?: string }> = (Tag) => (
   );
 };
 
-export default {
+const headingObj = {
   h1: heading(`h1`),
   h2: heading(`h2`),
   h3: heading(`h3`),
@@ -75,3 +75,5 @@ export default {
   h5: heading(`h5`),
   h6: heading(`h6`),
 };
+
+export { headingObj };

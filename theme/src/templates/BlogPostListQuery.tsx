@@ -1,12 +1,12 @@
 import React from "react";
 import { graphql } from "gatsby";
-import BlogPostListPage from "../components/BlogPostListPage";
+import { BlogPostListPage } from "../components/BlogPostListPage";
 import {
   IBlogPostListTemplateQuery,
   IBlogPostListPageContext,
   IBlogPostListPageContextWithPagination,
 } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: IBlogPostListTemplateQuery;
@@ -58,4 +58,4 @@ export const blogPostListTemplateQuery = graphql`
   }
 `;
 
-export default BlogPostListTemplate;
+export { BlogPostListTemplate };

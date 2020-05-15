@@ -70,4 +70,4 @@ const TableOfContentsList: React.FC<IProps> = ({ tableOfContents }) => {
   return renderItems(items, activeId);
 };
 
-export default TableOfContentsList;
+export { TableOfContentsList };

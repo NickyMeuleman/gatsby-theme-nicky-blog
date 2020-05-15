@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx, Styled } from "theme-ui";
-import Layout from "./Layout";
-import PostCard from "./PostCard";
-import SEO from "./SEO";
+import { Layout } from "./Layout";
+import { PostCard } from "./PostCard";
+import { SEO } from "./SEO";
 import { IAuthorPageData, IAuthorPageContext } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: IAuthorPageData;
@@ -78,4 +78,4 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export default AuthorPage;
+export { AuthorPage };

@@ -7,7 +7,7 @@ interface IProps {
   titleId?: string;
 }
 
-const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
+const MetaListItem: React.FC<IProps> = ({ title, titleId, children }) => (
   <li sx={{ marginTop: 4, variant: `styles.MetaListItem` }}>
     <h3
       id={titleId}
@@ -29,4 +29,4 @@ const MetaListIitem: React.FC<IProps> = ({ title, titleId, children }) => (
   </li>
 );
 
-export default MetaListIitem;
+export { MetaListItem };

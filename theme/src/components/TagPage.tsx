@@ -2,10 +2,10 @@
 import React from "react";
 import { jsx } from "theme-ui";
 import { Link } from "gatsby";
-import Layout from "./Layout";
-import SEO from "./SEO";
+import { Layout } from "./Layout";
+import { SEO } from "./SEO";
 import { ITagPageData, ITagPageContext } from "../types";
-import useThemeOptions from "../hooks/useThemeOptions";
+import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: ITagPageData;
@@ -65,4 +65,4 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export default TagPage;
+export { TagPage };

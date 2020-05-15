@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import AuthorListPage from "../components/AuthorListPage";
+import { AuthorListPage } from "../components/AuthorListPage";
 import { IAuthorListTemplateQuery, IAuthorListPageContext } from "../types";
 
 interface IProps {
@@ -31,4 +31,4 @@ export const authorListTemplateQuery = graphql`
   }
 `;
 
-export default AuthorListTemplate;
+export { AuthorListTemplate };

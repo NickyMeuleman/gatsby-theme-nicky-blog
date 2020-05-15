@@ -21,4 +21,4 @@ const useThemeOptions = (): IThemeOptions => {
   return themeOptions;
 };
 
-export default useThemeOptions;
+export { useThemeOptions };
