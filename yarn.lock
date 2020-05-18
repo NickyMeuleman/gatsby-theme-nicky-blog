@@ -2353,7 +2353,7 @@
   dependencies:
     pretty-format "^25.1.0"
 
-"@types/theme-ui@*", "@types/theme-ui@^0.3.1":
+"@types/theme-ui@*", "@types/theme-ui@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@types/theme-ui/-/theme-ui-0.3.2.tgz#f8e49734398725f72195866cdc2462a07743bf38"
   integrity sha512-xAHYIyIsInPbcRf2YqCnioTmTsVjX+5fClO6NqwNORn0j9deGuSMp2gI8lPjm5b0eZwxM5ugExLbz01lxjjVqw==
