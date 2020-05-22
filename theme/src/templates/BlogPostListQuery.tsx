@@ -58,4 +58,4 @@ export const blogPostListTemplateQuery = graphql`
   }
 `;
 
-export { BlogPostListTemplate };
+export default BlogPostListTemplate;

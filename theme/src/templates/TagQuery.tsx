@@ -36,4 +36,4 @@ export const tagTemplateQuery = graphql`
   }
 `;
 
-export { TagTemplate };
+export default TagTemplate;

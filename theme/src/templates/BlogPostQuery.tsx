@@ -49,4 +49,4 @@ export const blogPostTemplateQuery = graphql`
   }
 `;
 
-export { BlogPostTemplate };
+export default BlogPostTemplate;

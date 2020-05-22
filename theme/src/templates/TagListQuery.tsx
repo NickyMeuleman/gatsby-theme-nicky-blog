@@ -43,4 +43,4 @@ export const tagListTemplateQuery = graphql`
   }
 `;
 
-export { TagListTemplate };
+export default TagListTemplate;

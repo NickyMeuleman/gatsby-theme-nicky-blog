@@ -31,4 +31,4 @@ export const authorListTemplateQuery = graphql`
   }
 `;
 
-export { AuthorListTemplate };
+export default AuthorListTemplate;

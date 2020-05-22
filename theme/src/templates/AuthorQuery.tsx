@@ -54,4 +54,4 @@ export const authorTemplateQuery = graphql`
   }
 `;
 
-export { AuthorTemplate };
+export default AuthorTemplate;
