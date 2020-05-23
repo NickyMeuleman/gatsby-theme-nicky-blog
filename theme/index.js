@@ -1,10 +1,10 @@
 // Query components
-export { BlogPostTemplate } from "./src/templates/BlogPostQuery";
-export { BlogPostListTemplate } from "./src/templates/BlogPostListQuery";
-export { TagTemplate } from "./src/templates/TagQuery";
-export { TagListTemplate } from "./src/templates/TagListQuery";
-export { AuthorTemplate } from "./src/templates/AuthorQuery";
-export { AuthorListTemplate } from "./src/templates/AuthorListQuery";
+export { default as BlogPostQuery } from "./src/templates/BlogPostQuery";
+export { default as BlogPostListQuery } from "./src/templates/BlogPostListQuery";
+export { default as TagQuery } from "./src/templates/TagQuery";
+export { default as TagListQuery } from "./src/templates/TagListQuery";
+export { default as AuthorQuery } from "./src/templates/AuthorQuery";
+export { default as AuthorListQuery } from "./src/templates/AuthorListQuery";
 
 // Layout components
 export { Layout } from "./src/components/Layout";
