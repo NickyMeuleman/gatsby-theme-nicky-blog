@@ -1712,6 +1712,11 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.4.tgz#ae31e83f2ccb30f122457ee436a015d654ac3c12"
   integrity sha512-cVGZ68yZwyJnOMhARAdgD1IhZ0bsbsKCvsj6I/XnJcT9hNV/8WXErSV98zFfZwH3LmSRPde58l9hln+zXdK/mQ==
 
+"@mdx-js/util@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.5.tgz#d3bf891748dcf49a148a4591ef6c16caae4b32ed"
+  integrity sha512-ljr9hGQYW3kZY1NmQbmSe4yXvgq3KDRt0FMBOB5OaDWqi4X2WzEsp6SZ02KmVrieNW1cjWlj13pgvcf0towZPw==
+
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@mikaelkristiansson/domready/-/domready-1.0.10.tgz#f6d69866c0857664e70690d7a0bfedb72143adb5"
@@ -5977,14 +5982,14 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-mdx@^1.6.9:
-  version "1.6.9"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.6.9.tgz#7f34dbc5fc3469399fe88651229851a58d9d8aef"
-  integrity sha512-nJ23ulpOqM0NI8AW9GhnvxBr5fsIx1eYDquUKbKRvRK6TwOwf6Mzti8RJnZT4acALwRg5IxBcxyLZp5jqTOKXg==
+eslint-mdx@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.7.0.tgz#9a4d92d38e6dbb80dddf0ccf70e74c8ecbc3e4be"
+  integrity sha512-92pxUaau8BxE1cblg5uMBE0MgVIianJiB7QuCdSz1WBNYP93HxxdBIxY8s5USEO9XnKlB7ZOuNKxfjboqphEmQ==
   dependencies:
     espree "^6.2.1"
-    remark-mdx "^1.5.8"
-    remark-parse "^8.0.0"
+    remark-mdx "^1.6.0"
+    remark-parse "^8.0.2"
     tslib "^1.11.1"
     unified "^9.0.0"
 
@@ -6044,16 +6049,16 @@ eslint-plugin-jsx-a11y@^6.2.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
-eslint-plugin-mdx@^1.6.9:
-  version "1.6.9"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.6.9.tgz#9b1d3ce3862730c77394b2c468b526196ca065bf"
-  integrity sha512-MVSeIdvpIkH7FmmIBRo/GLjsYxTziKtosCSmLCrxTF5gtwbNXjxkT0HoKx+XL1cbCvg7vgu1Ic7VjpCVtdU41w==
+eslint-plugin-mdx@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.7.0.tgz#a345bf73a9fda5c6a7971eadc6e3f8c0731bc8e0"
+  integrity sha512-imsjx2FATGv9dZR7vU4XCmgh84QgXFCe8QgNd9emttv1r6gAYP3QolLD0v4JdqyugqHDZ473Vliot6+UNH0DtQ==
   dependencies:
     cosmiconfig "^6.0.0"
-    eslint-mdx "^1.6.9"
+    eslint-mdx "^1.7.0"
     eslint-plugin-react "^7.19.0"
-    remark-mdx "^1.5.8"
-    remark-parse "^8.0.0"
+    remark-mdx "^1.6.0"
+    remark-parse "^8.0.2"
     remark-stringify "^8.0.0"
     tslib "^1.11.1"
     unified "^9.0.0"
@@ -6068,10 +6073,10 @@ eslint-plugin-prettier@^3.1.3:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.0.2.tgz#03700ca761eacc1b6436074c456f90a8e331ff28"
-  integrity sha512-kAMRjNztrLW1rK+81X1NwMB2LqG+nc7Q8AibnG8/VyWhQK8SP6JotCFG+HL4u1EjziplxVz4jARdR8gGk8pLDA==
+eslint-plugin-react-hooks@4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.0.4.tgz#aed33b4254a41b045818cacb047b81e6df27fa58"
+  integrity sha512-equAdEIsUETLFNCmmCkiCGq6rkSK5MoJhXFPFYeUebcjKgBmWWcgVOqZyQC8Bv1BwVCnTq9tBxgJFgAJTWoJtA==
 
 eslint-plugin-react-hooks@^1.7.0:
   version "1.7.0"
@@ -13145,7 +13150,21 @@ remark-footnotes@1.0.0:
   resolved "https://registry.yarnpkg.com/remark-footnotes/-/remark-footnotes-1.0.0.tgz#9c7a97f9a89397858a50033373020b1ea2aad011"
   integrity sha512-X9Ncj4cj3/CIvLI2Z9IobHtVi8FVdUrdJkCNaL9kdX8ohfsi18DXHsCVd/A7ssARBdccdDb5ODnt62WuEWaM/g==
 
-remark-mdx@^1.5.8, remark-mdx@^1.6.1:
+remark-mdx@^1.6.0:
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.6.5.tgz#a268b18fe8dbe23f2b7c8cf572264c7c0398e0d1"
+  integrity sha512-zItwP3xcVQAEPJTHseFh+KZEyJ31+pbVJMOMzognqTuZ2zfzIR4Xrg0BAx6eo+paV4fHne/5vi2ugWtCeOaBRA==
+  dependencies:
+    "@babel/core" "7.9.6"
+    "@babel/helper-plugin-utils" "7.8.3"
+    "@babel/plugin-proposal-object-rest-spread" "7.9.6"
+    "@babel/plugin-syntax-jsx" "7.8.3"
+    "@mdx-js/util" "^1.6.5"
+    is-alphabetical "1.0.4"
+    remark-parse "8.0.2"
+    unified "9.0.0"
+
+remark-mdx@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/remark-mdx/-/remark-mdx-1.6.1.tgz#693aa40d0c98afdd556e7e50f2ca263d0a845e19"
   integrity sha512-UyCqqYFv9l5dstX29QpdqMprBHyUYUEQHOUe0MdFUIm1XATxfVGHbRPtVBFz4ccd5NV1UL/rmsruo9WOswwmpQ==
@@ -13173,7 +13192,7 @@ remark-mdx@^1.6.4:
     remark-parse "8.0.2"
     unified "9.0.0"
 
-remark-parse@8.0.2, remark-parse@^8.0.0:
+remark-parse@8.0.2, remark-parse@^8.0.2:
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/remark-parse/-/remark-parse-8.0.2.tgz#5999bc0b9c2e3edc038800a64ff103d0890b318b"
   integrity sha512-eMI6kMRjsAGpMXXBAywJwiwAse+KNpmt+BK55Oofy4KvBZEqUDj6mWbGLJZrujoPIPPxDXzn3T9baRlpsm2jnQ==
