@@ -31,7 +31,7 @@
     "eslint-plugin-react-hooks": "4.0.4",
     "gatsby-cypress": "^0.4.4",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.10",
+    "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "start-server-and-test": "^1.11.0",
     "typescript": "^3.9.5"
