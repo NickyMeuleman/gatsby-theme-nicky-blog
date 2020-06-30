@@ -62,10 +62,13 @@ const theme = merge(tailwind, {
     },
     CodeBlock: {
       ...nightOwlLight,
+      fontFamily: `monospace`,
+      fontSize: 0,
       overflow: `auto`,
       padding: 3,
       borderRadius: `sm`,
       pre: {
+        fontFamily: `monospace`,
         backgroundColor: `transparent`,
         float: `left`,
         minWidth: `100%`,
@@ -83,7 +86,7 @@ const theme = merge(tailwind, {
         paddingLeft: `0.75em`,
       },
       title: {
-        fontFamily: `mono`,
+        fontFamily: `monospace`,
         backgroundColor: nightOwlLight.backgroundColor,
         borderBottomWidth: `2px`,
         borderBottomStyle: `solid`,
@@ -99,7 +102,6 @@ const theme = merge(tailwind, {
         marginTop: 2,
       },
     },
-
     inlineCode: {
       fontSize: `inherit`,
       fontFamily: `monospace`,
@@ -144,5 +146,6 @@ const theme = merge(tailwind, {
     },
   },
 });
+console.log(theme);
 
 export default theme;
