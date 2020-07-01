@@ -122,13 +122,13 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
               </ul>
             </MetaListItem>
           )}
-          {post?.series.posts.length > 1 && (
+          {post?.series?.posts.length > 1 && (
             <MetaListItem title="Part of series" titleId="series">
               <ul
                 aria-labelledby="series"
                 sx={{ listStyle: `none`, padding: 0, margin: 0, marginLeft: 1 }}
               >
-                {post?.series.posts.map((seriesPost, idx) => (
+                {post?.series?.posts.map((seriesPost, idx) => (
                   <li
                     key={seriesPost.slug}
                     sx={{ marginTop: idx === 0 ? 0 : 1 }}

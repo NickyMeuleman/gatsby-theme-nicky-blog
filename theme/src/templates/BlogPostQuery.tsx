@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
-  if (data.blogPost.series) {
+  if (data.blogPost.series?.posts) {
     data.blogPost.series.posts.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
