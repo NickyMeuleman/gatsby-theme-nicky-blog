@@ -10,6 +10,12 @@ export interface ITableOfContentsItem {
   items?: ITableOfContentsItem[];
 }
 
+// Series
+export interface ISeries {
+  name: string;
+  posts: [IBlogPost];
+}
+
 // BlogList
 export interface IBlogPostPreview {
   id: string;
@@ -35,6 +41,7 @@ export interface IBlogPost {
   date: string;
   updatedAt: string;
   tableOfContents: ITableOfContents;
+  series: ISeries;
 }
 
 // PostExtra

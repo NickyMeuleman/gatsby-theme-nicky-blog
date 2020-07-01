@@ -2,6 +2,7 @@
 import React from "react";
 import { jsx, Styled } from "theme-ui";
 import { Link } from "gatsby";
+import * as path from "path";
 import { IPrevNext, IBlogPost } from "../types";
 import { MetaListItem } from "./MetaListItem";
 import { TableOfContentsList } from "./TableOfContentsList";
@@ -78,7 +79,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                       to={`${
                         basePath === `/` || basePath === `` ? `` : `/`
                       }${basePath}/author/${author.shortName}`}
-                      sx={{ variant: `styles.a` }}
+                      sx={{ variant: `styles.PostExtra.link` }}
                     >
                       {author.name}
                     </Link>
@@ -90,9 +91,12 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
           {urlObj && (
             <MetaListItem title="Originally at">
               {urlObj && (
-                <Styled.a href={urlObj.toString()} sx={{ marginLeft: 1 }}>
+                <a
+                  href={urlObj.toString()}
+                  sx={{ marginLeft: 1, variant: `styles.PostExtra.link` }}
+                >
                   {urlObj.hostname}
-                </Styled.a>
+                </a>
               )}
             </MetaListItem>
           )}
@@ -108,10 +112,37 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                       to={`${
                         basePath === `/` || basePath === `` ? `` : `/`
                       }${basePath}/tag/${tag.slug}`}
-                      sx={{ variant: `styles.a` }}
+                      sx={{ variant: `styles.PostExtra.link` }}
                     >
                       {/* TODO: Replace with Tag component. flexbox the container */}
                       {tag.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </MetaListItem>
+          )}
+          {post?.series.posts.length > 1 && (
+            <MetaListItem title="Part of series" titleId="series">
+              <ul
+                aria-labelledby="series"
+                sx={{ listStyle: `none`, padding: 0, margin: 0, marginLeft: 1 }}
+              >
+                {post?.series.posts.map((seriesPost, idx) => (
+                  <li
+                    key={seriesPost.slug}
+                    sx={{ marginTop: idx === 0 ? 0 : 1 }}
+                  >
+                    <Link
+                      to={path.join(`/`, basePath, seriesPost.slug)}
+                      sx={{
+                        variant:
+                          post.id === seriesPost.id
+                            ? `styles.PostExtra.link.active`
+                            : `styles.PostExtra.link`,
+                      }}
+                    >
+                      {idx + 1}. {seriesPost.title}
                     </Link>
                   </li>
                 ))}
@@ -125,7 +156,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                   to={`${
                     basePath === `/` || basePath === `` ? `` : `/`
                   }${basePath}/${prev.slug}`}
-                  sx={{ variant: `styles.a` }}
+                  sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {prev.title}
                 </Link>
@@ -139,7 +170,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                   to={`${
                     basePath === `/` || basePath === `` ? `` : `/`
                   }${basePath}/${next.slug}`}
-                  sx={{ variant: `styles.a` }}
+                  sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {next.title}
                 </Link>

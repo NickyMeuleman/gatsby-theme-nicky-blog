@@ -9,10 +9,14 @@ interface IProps {
 }
 
 const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
+  if (data.blogPost.series) {
+    data.blogPost.series.posts.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+  }
   const pageData = {
     post: data.blogPost,
   };
-
   return <BlogPostPage data={pageData} pageContext={pageContext} />;
 };
 
@@ -28,6 +32,15 @@ export const blogPostTemplateQuery = graphql`
       keywords
       body
       tableOfContents
+      series {
+        name
+        posts {
+          id
+          date
+          slug
+          title
+        }
+      }
       tags {
         name
         slug

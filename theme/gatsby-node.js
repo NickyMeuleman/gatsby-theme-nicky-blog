@@ -90,6 +90,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     canonicalUrl: String
     keywords: [String]
     tableOfContents(maxDepth: Int = 6): JSON
+    series: Series
   }
   type NickyThemeBlogConfig implements Node {
     id: ID!
@@ -101,6 +102,10 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   type NickyThemeBlogPaginationConfig {
     postsPerPage: Int!
     prefixPath: String!
+  }
+  type Series {
+    name: String!
+    posts: [BlogPost!]!
   }
   `;
 
@@ -280,6 +285,33 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         resolve: (source, args, context, info) => {
           const parent = context.nodeModel.getNodeById({ id: source.parent });
           return parent.frontmatter.published;
+        },
+      },
+      series: {
+        type: `Series`,
+        resolve: (source, args, context, info) => {
+          const mdxNode = context.nodeModel.getNodeById({
+            id: source.parent,
+          });
+          const seriesName = mdxNode.frontmatter.series;
+          const seriesPosts = context.nodeModel
+            .getAllNodes({ type: `BlogPost` })
+            .filter((post) => {
+              // logic for MdxBlogPost (to add multi-sourcing series support expand logic for other types)
+              if (source.internal.type === `MdxBlogPost`) {
+                const parent = context.nodeModel.getNodeById({
+                  id: post.parent,
+                });
+                return seriesName === parent.frontmatter.series;
+              }
+              return false;
+            });
+          return (
+            seriesName && {
+              name: seriesName,
+              posts: seriesPosts,
+            }
+          );
         },
       },
     },
