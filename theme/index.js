@@ -32,6 +32,7 @@ export { PostCard } from "./src/components/PostCard";
 export { Pagination } from "./src/components/Pagination";
 export { PostExtra } from "./src/components/PostExtra";
 export { CodeBlock } from "./src/components/CodeBlock";
+export { SeriesSelect } from "./src/components/SeriesSelect";
 
 // React hooks
 export { useThemeOptions } from "./src/hooks/useThemeOptions";

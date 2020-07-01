@@ -8,6 +8,7 @@ import { Layout } from "./Layout";
 import { PostExtra } from "./PostExtra";
 import { SEO } from "./SEO";
 import { IBlogPostPageContext, IBlogPostPageData } from "../types";
+import { SeriesSelect } from "./SeriesSelect";
 
 interface IProps {
   data: IBlogPostPageData;
@@ -68,6 +69,15 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
               <Img sizes={post.cover.childImageSharp.fluid} sx={{ mb: 4 }} />
             )}
             <MDXRenderer>{post.body}</MDXRenderer>
+            {post?.series?.posts.length > 1 && (
+              <SeriesSelect
+                data={{
+                  name: post.series.name,
+                  currentId: post.id,
+                  posts: post.series.posts,
+                }}
+              />
+            )}
           </article>
         </div>
       </Layout>

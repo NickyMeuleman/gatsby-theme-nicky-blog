@@ -124,7 +124,30 @@ const theme = merge(tailwind, {
         borderBottomColor: `primary`,
       },
     },
+    PostExtra: {
+      link: {
+        variant: `styles.a`,
+        borderWidth: `1px`,
+        active: {
+          variant: `styles.a`,
+          color: `mutedPrimary`,
+        },
+      },
+    },
     TableOfContentsList: {
+      link: {
+        color: `mutedText`,
+        textDecoration: `none`,
+        ":hover": {
+          variant: `styles.a`,
+        },
+        active: {
+          variant: `styles.a`,
+          color: `mutedPrimary`,
+        },
+      },
+    },
+    SeriesSelect: {
       link: {
         color: `mutedText`,
         textDecoration: `none`,
@@ -146,6 +169,5 @@ const theme = merge(tailwind, {
     },
   },
 });
-console.log(theme);
 
 export default theme;
