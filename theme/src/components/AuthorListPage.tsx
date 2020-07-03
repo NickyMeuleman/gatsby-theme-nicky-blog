@@ -2,6 +2,7 @@
 import React from "react";
 import { jsx } from "theme-ui";
 import { Link } from "gatsby";
+import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
 import { IAuthorListPageContext, IAuthorListPageData } from "../types";
@@ -22,7 +23,7 @@ const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
           {authors.map((author) => (
             <li key={author.id} sx={{ margin: 1 }}>
               <Link
-                to={`/author/${author.shortName}`}
+                to={path.join(`/`, `author`, author.shortName)}
                 sx={{ variant: `styles.a` }}
               >
                 {author.name}

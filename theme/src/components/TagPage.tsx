@@ -2,6 +2,7 @@
 import React from "react";
 import { jsx } from "theme-ui";
 import { Link } from "gatsby";
+import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
 import { ITagPageData, ITagPageContext } from "../types";
@@ -33,12 +34,8 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
           <h1>{tagHeader}</h1>
           <p>
             <Link
-              to={`${
-                basePath === `/` || basePath === `` ? `` : `/`
-              }${basePath}/tag`}
-              sx={{
-                variant: `styles.a`,
-              }}
+              to={path.join(`/`, basePath, `tag`)}
+              sx={{ variant: `styles.a` }}
             >
               All tags
             </Link>
@@ -47,12 +44,8 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
             {posts.map((post) => (
               <li key={post.slug} sx={{ margin: 1 }}>
                 <Link
-                  to={`${
-                    basePath === `/` || basePath === `` ? `` : `/`
-                  }${basePath}/${post.slug}`}
-                  sx={{
-                    variant: `styles.a`,
-                  }}
+                  to={path.join(`/`, basePath, post.slug)}
+                  sx={{ variant: `styles.a` }}
                 >
                   {post.title}
                 </Link>

@@ -422,8 +422,9 @@ export default theme;
 
 ### dev notes
 
-- [ ] 🚧 👷 Multi sourcing
-- [ ] revamp way slugs are handled
+- [ ] Multi sourcing
+- [ ] 🚧 👷 revamp way slugs are handled
+  - Links with a basepath broke around june 2020. Reworked to use `path.join` and force starting `/`
 - [x] code blocks
   - [ ] Look into code blocks that pass contrast checks https://github.com/system-ui/theme-ui/issues/564
 - [x] some light styling? (future Nicky notes: That ended up being more than light.)

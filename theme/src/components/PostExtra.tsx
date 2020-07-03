@@ -76,9 +76,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                 {post.authors.map((author, idx) => (
                   <li key={author.name} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
                     <Link
-                      to={`${
-                        basePath === `/` || basePath === `` ? `` : `/`
-                      }${basePath}/author/${author.shortName}`}
+                      to={path.join(`/`, basePath, `author`, author.shortName)}
                       sx={{ variant: `styles.PostExtra.link` }}
                     >
                       {author.name}
@@ -109,9 +107,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                 {post.tags.map((tag, idx) => (
                   <li key={tag.slug} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
                     <Link
-                      to={`${
-                        basePath === `/` || basePath === `` ? `` : `/`
-                      }${basePath}/tag/${tag.slug}`}
+                      to={path.join(`/`, basePath, `tag`, tag.slug)}
                       sx={{ variant: `styles.PostExtra.link` }}
                     >
                       {/* TODO: Replace with Tag component. flexbox the container */}
@@ -153,9 +149,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             <MetaListItem title="Older post">
               <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
-                  to={`${
-                    basePath === `/` || basePath === `` ? `` : `/`
-                  }${basePath}/${prev.slug}`}
+                  to={path.join(`/`, basePath, prev.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {prev.title}
@@ -167,9 +161,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             <MetaListItem title="Newer post">
               <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
-                  to={`${
-                    basePath === `/` || basePath === `` ? `` : `/`
-                  }${basePath}/${next.slug}`}
+                  to={path.join(`/`, basePath, next.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {next.title}

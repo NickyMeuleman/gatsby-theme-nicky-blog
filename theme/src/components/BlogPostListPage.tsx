@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx } from "theme-ui";
+import * as path from "path";
 import { Layout } from "./Layout";
 import { PostCard } from "./PostCard";
 import { Pagination } from "./Pagination";
@@ -63,7 +64,7 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
             {blogPosts.map((blogPost) => (
               <li key={blogPost.id}>
                 <PostCard
-                  url={`${basePath}/${blogPost.slug}`}
+                  url={path.join(`/`, basePath, blogPost.slug)}
                   title={blogPost.title}
                   date={blogPost.date}
                   authors={blogPost.authors}

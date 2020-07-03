@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx, Styled } from "theme-ui";
+import * as path from "path";
 import { Layout } from "./Layout";
 import { PostCard } from "./PostCard";
 import { SEO } from "./SEO";
@@ -60,7 +61,7 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
                 <li key={post.slug} sx={{ margin: 1 }}>
                   <PostCard
                     key={post.id}
-                    url={`${basePath}/${post.slug}`}
+                    url={path.join(`/`, basePath, post.slug)}
                     title={post.title}
                     date={post.date}
                     authors={post.authors}
