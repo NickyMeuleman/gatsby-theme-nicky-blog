@@ -7,5 +7,22 @@ module.exports = {
       twitter: `@NMeuleman`,
     },
   },
-  plugins: [`@nickymeuleman/gatsby-theme-blog`],
+  // plugins: [`@nickymeuleman/gatsby-theme-blog`],
+  plugins: [
+    {
+      resolve: `@nickymeuleman/gatsby-theme-blog`,
+      options: {
+        assetPath: `data/assets`,
+        instances: [
+          {
+            basePath: `blog`,
+            contentPath: `data/posts`,
+            pagination: { postsPerPage: 2 },
+          },
+          { basePath: `garden`, contentPath: `data/notes` },
+          { basePath: `boops`, contentPath: `data/boops` },
+        ],
+      },
+    },
+  ],
 };

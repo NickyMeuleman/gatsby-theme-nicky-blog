@@ -220,8 +220,12 @@ export interface ITagPageData {
 // @nickymeuleman/gatsby-theme-blog options
 export interface IThemeOptions {
   id: string;
-  basePath: string;
   assetPath: string;
+  instances: IThemeInstanceOptions[];
+}
+
+export interface IThemeInstanceOptions {
+  basePath: string;
   contentPath: string;
   pagination?: {
     postsPerPage: number;

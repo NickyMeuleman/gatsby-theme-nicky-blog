@@ -2,7 +2,16 @@ const remarkSlug = require(`remark-slug`);
 const { themeOptionsWithDefaults } = require(`./src/utils`);
 
 module.exports = (themeOptions = {}) => {
-  const { contentPath, assetPath } = themeOptionsWithDefaults(themeOptions);
+  const { assetPath, instances } = themeOptionsWithDefaults(themeOptions);
+  const filesystemPluginEntries = instances.map((instance) => {
+    return {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: instance.contentPath,
+        path: instance.contentPath,
+      },
+    };
+  });
   return {
     siteMetadata: {
       siteUrl: `https://myurl.com`,
@@ -15,13 +24,7 @@ module.exports = (themeOptions = {}) => {
     plugins: [
       `gatsby-plugin-typescript`,
       `gatsby-plugin-react-helmet`,
-      {
-        resolve: `gatsby-source-filesystem`,
-        options: {
-          name: contentPath,
-          path: contentPath,
-        },
-      },
+      ...filesystemPluginEntries,
       {
         resolve: `gatsby-source-filesystem`,
         options: {

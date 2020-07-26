@@ -94,9 +94,12 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   }
   type NickyThemeBlogConfig implements Node {
     id: ID!
+    assetPath: String!
+    instances: [NickyThemeBlogInstanceConfig!]!
+  }
+  type NickyThemeBlogInstanceConfig {
     basePath: String!
     contentPath: String!
-    assetPath: String!
     pagination: NickyThemeBlogPaginationConfig
   }
   type NickyThemeBlogPaginationConfig {
@@ -345,7 +348,7 @@ exports.onCreateNode = (
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent); // get the File node
     const source = parent.sourceInstanceName; // get folder name those files are in (contentPath)
-
+    console.log({ source });
     // only create MdxBlogPost nodes for .mdx files in the correct folder
     if (source === themeOptions.contentPath) {
       // duplicate logic from the resolvers, exists to create pages here in gatsby-node based on the slug.
