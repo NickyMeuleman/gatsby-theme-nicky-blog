@@ -42,6 +42,9 @@ export const authorTemplateQuery = graphql`
         title
         slug
         date
+        instance {
+          basePath
+        }
         cover {
           childImageSharp {
             fluid {

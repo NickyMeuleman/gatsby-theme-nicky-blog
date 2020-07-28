@@ -16,11 +16,15 @@ interface IProps {
 }
 
 const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
-  const { pagination } = useThemeOptions();
+  const { instances } = useThemeOptions();
+  const instance = instances.find(
+    (item) => item.contentPath === pageContext.contentPath
+  );
+
   const pageData = {
     blogPosts: data.allBlogPost.nodes,
     amount: data.allBlogPost.totalCount,
-    paginationContext: pagination
+    paginationContext: instance.pagination
       ? (pageContext as IBlogPostListPageContextWithPagination)
       : undefined,
   };
@@ -29,12 +33,19 @@ const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
 };
 
 export const blogPostListTemplateQuery = graphql`
-  query blogPostListTemplateQuery($skip: Int, $limit: Int) {
+  query blogPostListTemplateQuery(
+    $skip: Int
+    $limit: Int
+    $contentPath: String!
+  ) {
     allBlogPost(
       sort: { fields: [date], order: DESC }
       limit: $limit
       skip: $skip
-      filter: { published: { ne: false } }
+      filter: {
+        published: { ne: false }
+        instance: { contentPath: { eq: $contentPath } }
+      }
     ) {
       totalCount
       nodes {
@@ -42,6 +53,9 @@ export const blogPostListTemplateQuery = graphql`
         authors {
           shortName
           name
+        }
+        instance {
+          basePath
         }
         title
         slug

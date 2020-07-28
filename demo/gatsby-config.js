@@ -17,7 +17,7 @@ module.exports = {
           {
             basePath: `blog`,
             contentPath: `data/posts`,
-            pagination: { postsPerPage: 2 },
+            pagination: { postsPerPage: 2, prefixPath: `page` },
           },
           { basePath: `garden`, contentPath: `data/notes` },
           { basePath: `boops`, contentPath: `data/boops` },

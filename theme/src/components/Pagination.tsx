@@ -4,17 +4,14 @@ import { jsx, Styled } from "theme-ui";
 import { navigate, Link } from "gatsby";
 import * as path from "path";
 import { IBlogPostListPageContextWithPagination } from "../types";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   context: IBlogPostListPageContextWithPagination;
 }
 
 const Pagination: React.FC<IProps> = ({
-  context: { numPages, currentPage },
+  context: { numPages, currentPage, basePath, prefixPath },
 }) => {
-  const { basePath, pagination } = useThemeOptions();
-  const { prefixPath } = pagination || { prefixPath: `` };
   if (!numPages || !currentPage) {
     return (
       <Styled.p>

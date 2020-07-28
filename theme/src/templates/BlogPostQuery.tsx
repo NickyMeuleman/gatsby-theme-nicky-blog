@@ -39,6 +39,9 @@ export const blogPostTemplateQuery = graphql`
           date
           slug
           title
+          instance {
+            basePath
+          }
         }
       }
       tags {
@@ -49,6 +52,9 @@ export const blogPostTemplateQuery = graphql`
         shortName
         name
         twitter
+      }
+      instance {
+        basePath
       }
       title
       cover {
