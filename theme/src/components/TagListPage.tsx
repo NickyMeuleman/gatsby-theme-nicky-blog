@@ -6,7 +6,6 @@ import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
 import { ITagListPageData, ITagListPageContext } from "../types";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: ITagListPageData;
@@ -15,7 +14,8 @@ interface IProps {
 
 const TagListPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { tags } = data;
-  const { basePath } = useThemeOptions();
+
+  const { basePath } = pageContext;
 
   return (
     <React.Fragment>

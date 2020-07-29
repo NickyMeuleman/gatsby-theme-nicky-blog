@@ -76,6 +76,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: String!
     slug: String!
     postPublished: Boolean
+    instance: NickyThemeBlogInstanceConfig!
   }
   interface BlogPost @nodeInterface {
     id: ID!
@@ -463,6 +464,8 @@ exports.onCreateNode = (
         // field on a tagnode to be able to filter nodes belonging to unpublished posts
         // duplicate logic from blogpost published resolver.
         postPublished: node.published === undefined ? true : node.published,
+        // TODO: get instance data from parent
+        instance: node.instance,
       };
 
       const proxyNode = {
@@ -505,11 +508,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
           }
         }
       }
-      allTag(
-        filter: { postPublished: { ne: false } }
-        ) {
-        distinct(field: slug)
-      }
       allAuthor {
         nodes {
           shortName
@@ -523,10 +521,10 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return;
   }
 
-  const { allBlogPost, allTag, allAuthor } = result.data;
+  const { allBlogPost, allAuthor } = result.data;
   const authors = allAuthor.nodes;
 
-  instances.forEach((instance) => {
+  instances.forEach(async (instance) => {
     const posts = allBlogPost.nodes.filter(
       (post) => post.instance.contentPath === instance.contentPath
     );
@@ -588,20 +586,36 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       });
     });
 
+    const tagsQueryResult = await graphql(`
+      query createTagPagesQuery {
+        allTag(
+          filter: {
+            instance: { basePath: { eq: "${basePath}" } }
+            postPublished: { ne: false }
+          }
+        ) {
+          distinct(field: slug)
+        }
+      }
+    `);
+
     // create tag-list page
     actions.createPage({
       path: path.join(basePath, `tag`),
       component: require.resolve(`./src/templates/TagListQuery.tsx`),
-      context: {},
+      context: {
+        basePath,
+      },
     });
 
     // create a page for each tag
-    allTag.distinct.forEach((tagSlug) => {
+    tagsQueryResult.data.allTag.distinct.forEach((tagSlug) => {
       actions.createPage({
         path: path.join(basePath, `tag`, tagSlug),
         component: require.resolve(`./src/templates/TagQuery.tsx`),
         context: {
           slug: tagSlug,
+          basePath,
         },
       });
     });
