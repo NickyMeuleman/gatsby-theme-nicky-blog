@@ -17,6 +17,8 @@ const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     post: data.blogPost,
   };
+  console.log(pageContext);
+
   return <BlogPostPage data={pageData} pageContext={pageContext} />;
 };
 

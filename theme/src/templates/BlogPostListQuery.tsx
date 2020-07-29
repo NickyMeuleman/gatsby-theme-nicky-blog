@@ -17,34 +17,31 @@ interface IProps {
 
 const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const { instances } = useThemeOptions();
-  const instance = instances.find(
-    (item) => item.contentPath === pageContext.contentPath
-  );
+  const { basePath } = pageContext;
+
+  const instance = instances.find((item) => item.basePath === basePath);
 
   const pageData = {
     blogPosts: data.allBlogPost.nodes,
     amount: data.allBlogPost.totalCount,
-    paginationContext: instance.pagination
-      ? (pageContext as IBlogPostListPageContextWithPagination)
-      : undefined,
+    paginationContext:
+      instance && instance.pagination
+        ? (pageContext as IBlogPostListPageContextWithPagination)
+        : undefined,
   };
 
   return <BlogPostListPage data={pageData} pageContext={pageContext} />;
 };
 
 export const blogPostListTemplateQuery = graphql`
-  query blogPostListTemplateQuery(
-    $skip: Int
-    $limit: Int
-    $contentPath: String!
-  ) {
+  query blogPostListTemplateQuery($skip: Int, $limit: Int, $basePath: String) {
     allBlogPost(
       sort: { fields: [date], order: DESC }
       limit: $limit
       skip: $skip
       filter: {
         published: { ne: false }
-        instance: { contentPath: { eq: $contentPath } }
+        instance: { basePath: { eq: $basePath } }
       }
     ) {
       totalCount

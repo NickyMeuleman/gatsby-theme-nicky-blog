@@ -24,6 +24,7 @@ export interface IBlogPostPreview {
   slug: string;
   date: string;
   cover?: any;
+  instance: IThemeInstanceOptions;
 }
 
 // BlogPostPage
@@ -42,12 +43,14 @@ export interface IBlogPost {
   updatedAt: string;
   tableOfContents: ITableOfContents;
   series: ISeries;
+  instance: IThemeInstanceOptions;
 }
 
 // PostExtra
 export interface IPrevNext {
   title: string;
   slug: string;
+  instance: { basePath: string };
 }
 
 // SEO
@@ -132,7 +135,9 @@ export interface IBlogPostListTemplateQuery {
 }
 
 // pageContext of pages created in gatsby-node with templates/BlogPostListQuery without pagination
-export interface IBlogPostListPageContext {}
+export interface IBlogPostListPageContext {
+  basePath: string;
+}
 // pageContext of pages created in gatsby-node with templates/BlogPostListQuery with pagination
 export interface IBlogPostListPageContextWithPagination
   extends IBlogPostListPageContext {
@@ -140,6 +145,8 @@ export interface IBlogPostListPageContextWithPagination
   skip: number;
   numPages: number;
   currentPage: number;
+  basePath: string;
+  prefixPath: string;
 }
 
 // BlogPostListPage
@@ -180,7 +187,9 @@ export interface ITagListTemplateQuery {
 }
 
 // pageContext of pages created in gatsby-node with templates/TagListQuery
-export interface ITagListPageContext {}
+export interface ITagListPageContext {
+  basePath: string;
+}
 
 // TagList
 export interface ITagListPageData {
@@ -208,6 +217,7 @@ export interface ITagTemplateQuery {
 // pageContext of pages created in gatsby-node with templates/TagQuery
 export interface ITagPageContext {
   slug: string;
+  basePath: string;
 }
 
 // TagPage

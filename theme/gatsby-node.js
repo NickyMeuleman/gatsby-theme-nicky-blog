@@ -323,16 +323,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       },
       instance: {
         type: `NickyThemeBlogInstanceConfig!`,
-        // TODO: Delete
-        // resolve: (source, args, context, info) => {
-        //   const mdxNode = context.nodeModel.getNodeById({
-        //     id: source.parent,
-        //   });
-        //   const fileNode = context.nodeModel.getNodeById({
-        //     id: mdxNode.parent,
-        //   });
-        //   return fileNode.sourceInstanceName;
-        // },
       },
     },
   });
@@ -365,52 +355,8 @@ exports.onCreateNode = (
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent); // get the File node
     const source = parent.sourceInstanceName; // get folder name those files are in (contentPath)
-    // const contentPaths = themeOptions.instances.map(
-    //   (instance) => instance.contentPath
-    // );
     const { instances } = themeOptions;
     // only create MdxBlogPost nodes for .mdx files in the correct folder
-    // TODO: Delete
-    // contentPaths.forEach((contentPath) => {
-    //   if (source === contentPath) {
-    //     // duplicate logic from the resolvers, exists to create pages here in gatsby-node based on the slug.
-    //     let slug;
-    //     if (node.frontmatter.slug) {
-    //       // get slug from frontmatter
-    //       slug = slugify(node.frontmatter.slug);
-    //     } else {
-    //       // get slug from parent folder name, or loose file name
-    //       slug = createFilePath({ node, getNode, trailingSlash: false });
-    //       slug = slugify(slug);
-    //       if (slug.startsWith(`/`)) {
-    //         slug = slug.slice(1);
-    //       }
-    //     }
-    //     const fieldData = {
-    //       slug,
-    //       instance,
-    //       // here to transform entries into Tag nodes
-    //       tags: node.frontmatter.tags || [],
-    //       // here because the creation of Tag nodes needs this info.
-    //       published: node.frontmatter.published,
-    //     };
-
-    //     const proxyNode = {
-    //       ...fieldData,
-    //       id: createNodeId(`${node.id} >>> MdxBlogPost`),
-    //       parent: node.id,
-    //       children: [],
-    //       internal: {
-    //         type: `MdxBlogPost`,
-    //         contentDigest: node.internal.contentDigest,
-    //         content: JSON.stringify(fieldData),
-    //         description: `MdxBlogPost node`,
-    //       },
-    //     };
-    //     createNode(proxyNode);
-    //     createParentChildLink({ parent: node, child: proxyNode });
-    //   }
-    // });
     instances.forEach((instance) => {
       if (source === instance.contentPath) {
         // duplicate logic from the resolvers, exists to create pages here in gatsby-node based on the slug.
@@ -504,7 +450,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
           slug
           instance {
             basePath
-            contentPath
           }
         }
       }
@@ -525,10 +470,10 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const authors = allAuthor.nodes;
 
   instances.forEach(async (instance) => {
+    const { basePath } = instance;
     const posts = allBlogPost.nodes.filter(
-      (post) => post.instance.contentPath === instance.contentPath
+      (post) => post.instance.basePath === basePath
     );
-    const { basePath, contentPath } = instance;
     // create a page for each blogPost
     posts.forEach((post, i) => {
       const next = i === 0 ? null : posts[i - 1];
@@ -541,7 +486,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
           slug,
           prev,
           next,
-          contentPath,
         },
       });
     });
@@ -581,7 +525,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
         context: {
           ...paginationContext,
-          contentPath: instance.contentPath,
+          basePath,
         },
       });
     });

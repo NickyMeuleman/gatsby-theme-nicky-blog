@@ -134,7 +134,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                     <Link
                       to={path.join(
                         `/`,
-                        post.instance.basePath,
+                        seriesPost.instance.basePath,
                         seriesPost.slug
                       )}
                       sx={{
@@ -155,7 +155,6 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             <MetaListItem title="Older post">
               <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
-                  // TODO get instance in prev info in pagecontext
                   to={path.join(`/`, prev.instance.basePath, prev.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
