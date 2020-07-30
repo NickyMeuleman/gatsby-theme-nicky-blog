@@ -49,19 +49,25 @@ To use this theme in your Gatsby sites:
 
 ### Theme options
 
-| Key           | Default value   | Description                                                                                  |
-| ------------- | --------------- | -------------------------------------------------------------------------------------------- |
-| `basePath`    | `""`            | Root url for this theme. eg: `blog`                                                          |
-| `contentPath` | `"data/posts"`  | Folder Location to house individual blog post-folders                                        |
-| `assetPath`   | `"data/assets"` | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
-| `pagination`  | `undefined`     | Optional object, enables pagination if provided                                              |
+| Key         | Default value   | Description                                                                                  |
+| ----------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `assetPath` | `"data/assets"` | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
+| `instances` | `undefined`     | Array of [InstanceOptions objects](#-instance-options)                                       |
 
-#### `pagination` options
+#### `instance` options
 
-| Key            | Default value | Description                                                        |
-| -------------- | ------------- | ------------------------------------------------------------------ |
-| `postsPerPage` | `10`          | Amount of posts per paginated page                                 |
-| `prefixPath`   | `""`          | Optional string. Prefixes numbers from paginated pages. eg: `page` |
+| Key           | Default value  | Description                                                        |
+| ------------- | -------------- | ------------------------------------------------------------------ |
+| `basePath`    | `""`           | Root url for this instance. eg: `blog`                             |
+| `contentPath` | `"data/posts"` | Folder location to house individual post-folders for this instance |
+| `pagination`  | `undefined`    | Optional object, enables pagination if provided                    |
+
+##### `pagination` options
+
+| Key            | Default value | Description                                                                         |
+| -------------- | ------------- | ----------------------------------------------------------------------------------- |
+| `postsPerPage` | `10`          | Amount of posts per paginated page                                                  |
+| `prefixPath`   | `""`          | Optional string. Prefixes numbers in the URL paths from paginated pages. eg: `page` |
 
 ### Example usage
 
@@ -72,18 +78,37 @@ module.exports = {
     {
       resolve: "@nickymeuleman/gatsby-theme-blog",
       options: {
-        contentPath: "posts",
         assetPath: "assets",
-        basePath: "blog",
-        pagination: {
-          postsPerPage: 10,
-          prefixPath: "page",
-        },
+        instances: [
+          {
+            contentPath: "posts",
+            basePath: "blog",
+            pagination: {
+              postsPerPage: 10,
+              prefixPath: "page",
+            },
+          },
+          {
+            contentPath: "notes",
+            basePath: "notes",
+          },
+        ],
       },
     },
   ],
 };
 ```
+
+This will result in a seperate `/blog` and `/notes` path.
+
+The posts in `/blog` will be sourced from the `posts` folder.
+The posts in `/notes` will be sourced from the `notes` folder.
+
+Only posts in `/blog` will be paginated. With each paginated page holding a maximum of 10 posts.
+Paginated pages after the one that lists the first 10 posts, will be prefixed be `/page`. eg. `/blog`, `/blog/page/2`, `/blog/page/3`, etc
+
+Authors are shared between instances (be it `/blog` or `/notes`). A single author can write posts in both instances.
+Refer to the [Adding authors](#Adding-authors) to see how to add authors.
 
 ### Additional configuration
 
@@ -162,6 +187,8 @@ The code below will highlight the code inside as the `jsx` language, highlight l
 ````
 
 ### Example folder tree
+
+An example folder tree for this theme with the default options:
 
 <!-- prettier-ignore-start -->
 ```
