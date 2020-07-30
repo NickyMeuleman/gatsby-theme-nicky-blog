@@ -49,10 +49,10 @@ To use this theme in your Gatsby sites:
 
 ### Theme options
 
-| Key         | Default value   | Description                                                                                  |
-| ----------- | --------------- | -------------------------------------------------------------------------------------------- |
-| `assetPath` | `"data/assets"` | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
-| `instances` | `undefined`     | Array of [InstanceOptions objects](#-instance-options)                                       |
+| Key         | Default value                               | Description                                                                                  |
+| ----------- | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `assetPath` | `"data/assets"`                             | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
+| `instances` | See [`instance` options](#instance-options) | Array of [`instance` options objects](#instance-options)                                     |
 
 #### `instance` options
 
