@@ -14,12 +14,16 @@ interface IProps {
 
 const TagListPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { tags } = data;
-
   const { basePath } = pageContext;
 
   return (
     <React.Fragment>
-      <SEO title="Tags" description="List of post tags" slug="tag" />
+      <SEO
+        title="Tags"
+        description="List of post tags"
+        slug="tag"
+        basePath={basePath}
+      />
       <Layout>
         <ul sx={{ variant: `styles.TagListPage` }}>
           {tags.map((tag) => (

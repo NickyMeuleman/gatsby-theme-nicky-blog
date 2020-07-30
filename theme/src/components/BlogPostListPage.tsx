@@ -24,7 +24,7 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
 
   return (
     <React.Fragment>
-      <SEO />
+      <SEO basePath={pageContext.basePath} />
       <Layout>
         <div
           sx={{

@@ -508,7 +508,8 @@ export default theme;
       https://www.christopherbiscardi.com/post/applying-theme-options-using-custom-configuration-nodes/
   - [x] Make React hook that queries for those options and use the hook instead of passing options around in pageContext etc
 - [ ] Ability to add custom OG images for pages like BlogListPage (also use the `<SEO />` `image` prop for that?)
-  - [ ] `type` prop for `<SEO />`? Different behavior based on type?
+  - [x] `type` prop for `<SEO />`? Different behavior based on type?
+    - The `basePath` prop now fulfills this role.
   - [ ] refactor `Page` components so `<SEO />` can easily be swapped?
 - [x] Give components a `variant` so the user can theme them via theme-ui
 - [x] Fix links in headers being hidden (because of the link icon)
@@ -520,3 +521,11 @@ export default theme;
   - [x] Add line highlighting
   - [x] Add code title support
   - [ ] document everything
+- [x] Support multiple basePaths (eg `/blog`, `/notes`, and `/tips`)
+  - [x] Redo theme options, users can define multiple `instances`. Some options are specific to the instance.
+  - [x] Create folders based on the `contentPath`
+  - [x] Support sharing authors across those multiple basePaths.
+    - Moved authors page paths from `/<basepath>/author/<name>` to the top level `/author/<name>` as a result.
+  - [ ] Support different `Page` components for different instances.
+- [ ] PaginationContext and PageContext in BlogPostListPage are duplicated right now
+- [ ] Redo how the `<SEO />` gathers information. It's becoming an a-prop-calypse in there.

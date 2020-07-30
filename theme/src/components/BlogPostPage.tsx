@@ -40,6 +40,7 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
             ? post.authors[0].twitter
             : undefined
         }
+        basePath={post.instance.basePath}
       />
       <Layout>
         <div

@@ -27,6 +27,7 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
         description={`List of posts tagged with "${name}"`}
         slug={`tag/${slug}`}
         keywords={[`tag`, name]}
+        basePath={basePath}
       />
       <Layout>
         <div sx={{ variant: `styles.TagPage` }}>

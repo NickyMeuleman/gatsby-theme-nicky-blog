@@ -24,7 +24,7 @@ export interface IBlogPostPreview {
   slug: string;
   date: string;
   cover?: any;
-  instance: IThemeInstanceOptions;
+  instance: { basePath: string };
 }
 
 // BlogPostPage

@@ -15,7 +15,6 @@ module.exports = {
         assetPath: `data/assets`,
         instances: [
           {
-            basePath: `blog`,
             contentPath: `data/posts`,
             pagination: { postsPerPage: 2, prefixPath: `page` },
           },
