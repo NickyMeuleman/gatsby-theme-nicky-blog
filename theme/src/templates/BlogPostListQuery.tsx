@@ -16,25 +16,33 @@ interface IProps {
 }
 
 const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
-  const { pagination } = useThemeOptions();
+  const { instances } = useThemeOptions();
+  const { basePath } = pageContext;
+
+  const instance = instances.find((item) => item.basePath === basePath);
+
   const pageData = {
     blogPosts: data.allBlogPost.nodes,
     amount: data.allBlogPost.totalCount,
-    paginationContext: pagination
-      ? (pageContext as IBlogPostListPageContextWithPagination)
-      : undefined,
+    paginationContext:
+      instance && instance.pagination
+        ? (pageContext as IBlogPostListPageContextWithPagination)
+        : undefined,
   };
 
   return <BlogPostListPage data={pageData} pageContext={pageContext} />;
 };
 
 export const blogPostListTemplateQuery = graphql`
-  query blogPostListTemplateQuery($skip: Int, $limit: Int) {
+  query blogPostListTemplateQuery($skip: Int, $limit: Int, $basePath: String) {
     allBlogPost(
       sort: { fields: [date], order: DESC }
       limit: $limit
       skip: $skip
-      filter: { published: { ne: false } }
+      filter: {
+        published: { ne: false }
+        instance: { basePath: { eq: $basePath } }
+      }
     ) {
       totalCount
       nodes {
@@ -42,6 +50,9 @@ export const blogPostListTemplateQuery = graphql`
         authors {
           shortName
           name
+        }
+        instance {
+          basePath
         }
         title
         slug

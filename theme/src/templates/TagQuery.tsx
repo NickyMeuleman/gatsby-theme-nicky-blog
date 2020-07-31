@@ -19,9 +19,12 @@ const TagTemplate: React.FC<IProps> = ({ data, pageContext }) => {
 };
 
 export const tagTemplateQuery = graphql`
-  query tagTemplateQuery($slug: String) {
+  query tagTemplateQuery($slug: String, $basePath: String) {
     allBlogPost(
-      filter: { tags: { elemMatch: { slug: { eq: $slug } } } }
+      filter: {
+        tags: { elemMatch: { slug: { eq: $slug } } }
+        instance: { basePath: { eq: $basePath } }
+      }
       sort: { fields: [date], order: DESC }
     ) {
       nodes {

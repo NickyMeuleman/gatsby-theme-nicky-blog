@@ -4,7 +4,6 @@ import { Link } from "gatsby";
 import Img from "gatsby-image";
 import { jsx } from "theme-ui";
 import * as path from "path";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   url: string;
@@ -15,7 +14,6 @@ interface IProps {
 }
 
 const PostCard: React.FC<IProps> = (props) => {
-  const { basePath } = useThemeOptions();
   let authorComponent;
   if (props.authors) {
     if (props.authors.length > 1) {
@@ -25,7 +23,7 @@ const PostCard: React.FC<IProps> = (props) => {
         <React.Fragment>
           By{` `}
           <Link
-            to={path.join(`/`, basePath, `author`, props.authors[0].shortName)}
+            to={path.join(`/`, `author`, props.authors[0].shortName)}
             sx={{ variant: `styles.a`, position: `relative` }}
           >
             {props.authors[0].name}

@@ -6,7 +6,6 @@ import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
 import { ITagPageData, ITagPageContext } from "../types";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: ITagPageData;
@@ -15,8 +14,8 @@ interface IProps {
 
 const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, name, amount } = data;
-  const { slug } = pageContext;
-  const { basePath } = useThemeOptions();
+  const { slug, basePath } = pageContext;
+
   const tagHeader = `${amount} post${
     amount === 1 ? `` : `s`
   } tagged with "${name}"`;
@@ -28,6 +27,7 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
         description={`List of posts tagged with "${name}"`}
         slug={`tag/${slug}`}
         keywords={[`tag`, name]}
+        basePath={basePath}
       />
       <Layout>
         <div sx={{ variant: `styles.TagPage` }}>

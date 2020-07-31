@@ -6,7 +6,6 @@ import * as path from "path";
 import { IPrevNext, IBlogPost } from "../types";
 import { MetaListItem } from "./MetaListItem";
 import { TableOfContentsList } from "./TableOfContentsList";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   prev?: IPrevNext;
@@ -16,9 +15,7 @@ interface IProps {
 }
 
 const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
-  const { basePath } = useThemeOptions();
   const urlObj = post.canonicalUrl && new URL(post.canonicalUrl);
-
   return (
     <div sx={{ ...passedSx, variant: `styles.PostExtra` }}>
       <details
@@ -76,7 +73,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                 {post.authors.map((author, idx) => (
                   <li key={author.name} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
                     <Link
-                      to={path.join(`/`, basePath, `author`, author.shortName)}
+                      to={path.join(`/`, `author`, author.shortName)}
                       sx={{ variant: `styles.PostExtra.link` }}
                     >
                       {author.name}
@@ -107,7 +104,12 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                 {post.tags.map((tag, idx) => (
                   <li key={tag.slug} sx={{ marginTop: idx === 0 ? 0 : 1 }}>
                     <Link
-                      to={path.join(`/`, basePath, `tag`, tag.slug)}
+                      to={path.join(
+                        `/`,
+                        post.instance.basePath,
+                        `tag`,
+                        tag.slug
+                      )}
                       sx={{ variant: `styles.PostExtra.link` }}
                     >
                       {/* TODO: Replace with Tag component. flexbox the container */}
@@ -130,7 +132,11 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
                     sx={{ marginTop: idx === 0 ? 0 : 1 }}
                   >
                     <Link
-                      to={path.join(`/`, basePath, seriesPost.slug)}
+                      to={path.join(
+                        `/`,
+                        seriesPost.instance.basePath,
+                        seriesPost.slug
+                      )}
                       sx={{
                         variant:
                           post.id === seriesPost.id
@@ -149,7 +155,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             <MetaListItem title="Older post">
               <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
-                  to={path.join(`/`, basePath, prev.slug)}
+                  to={path.join(`/`, prev.instance.basePath, prev.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {prev.title}
@@ -161,7 +167,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             <MetaListItem title="Newer post">
               <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
-                  to={path.join(`/`, basePath, next.slug)}
+                  to={path.join(`/`, next.instance.basePath, next.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {next.title}

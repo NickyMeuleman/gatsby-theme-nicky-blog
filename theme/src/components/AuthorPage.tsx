@@ -6,7 +6,6 @@ import { Layout } from "./Layout";
 import { PostCard } from "./PostCard";
 import { SEO } from "./SEO";
 import { IAuthorPageData, IAuthorPageContext } from "../types";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: IAuthorPageData;
@@ -16,7 +15,6 @@ interface IProps {
 const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, author } = data;
   const { slug } = pageContext;
-  const { basePath } = useThemeOptions();
 
   return (
     <React.Fragment>
@@ -61,7 +59,7 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
                 <li key={post.slug} sx={{ margin: 1 }}>
                   <PostCard
                     key={post.id}
-                    url={path.join(`/`, basePath, post.slug)}
+                    url={path.join(`/`, post.instance.basePath, post.slug)}
                     title={post.title}
                     date={post.date}
                     authors={post.authors}

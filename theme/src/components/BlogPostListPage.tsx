@@ -11,7 +11,6 @@ import {
   IBlogPostListPageData,
   IBlogPostListPageContextWithPagination,
 } from "../types";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: IBlogPostListPageData;
@@ -22,11 +21,10 @@ interface IProps {
 
 const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { amount, blogPosts, paginationContext } = data;
-  const { basePath } = useThemeOptions();
 
   return (
     <React.Fragment>
-      <SEO />
+      <SEO basePath={pageContext.basePath} />
       <Layout>
         <div
           sx={{
@@ -64,7 +62,11 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
             {blogPosts.map((blogPost) => (
               <li key={blogPost.id}>
                 <PostCard
-                  url={path.join(`/`, basePath, blogPost.slug)}
+                  url={path.join(
+                    `/`,
+                    blogPost.instance.basePath,
+                    blogPost.slug
+                  )}
                   title={blogPost.title}
                   date={blogPost.date}
                   authors={blogPost.authors}

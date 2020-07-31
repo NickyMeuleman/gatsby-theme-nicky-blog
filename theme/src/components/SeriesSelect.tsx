@@ -4,7 +4,6 @@ import { jsx } from "theme-ui";
 import { Link } from "gatsby";
 import * as path from "path";
 import { IBlogPost } from "../types";
-import { useThemeOptions } from "../hooks/useThemeOptions";
 
 interface IProps {
   data: { name: string; currentId: string; posts: [IBlogPost] };
@@ -12,7 +11,6 @@ interface IProps {
 
 const SeriesSelect: React.FC<IProps> = ({ data }) => {
   const { name, currentId, posts } = data;
-  const { basePath } = useThemeOptions();
 
   return (
     <div
@@ -50,7 +48,7 @@ const SeriesSelect: React.FC<IProps> = ({ data }) => {
           }}
         >
           <Link
-            to={path.join(`/`, basePath, post.slug)}
+            to={path.join(`/`, post.instance.basePath, post.slug)}
             sx={{
               variant:
                 currentId === post.id

@@ -17,6 +17,7 @@ const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   const pageData = {
     post: data.blogPost,
   };
+
   return <BlogPostPage data={pageData} pageContext={pageContext} />;
 };
 
@@ -39,6 +40,9 @@ export const blogPostTemplateQuery = graphql`
           date
           slug
           title
+          instance {
+            basePath
+          }
         }
       }
       tags {
@@ -49,6 +53,9 @@ export const blogPostTemplateQuery = graphql`
         shortName
         name
         twitter
+      }
+      instance {
+        basePath
       }
       title
       cover {

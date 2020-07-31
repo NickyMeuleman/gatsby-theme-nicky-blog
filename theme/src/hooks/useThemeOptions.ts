@@ -7,12 +7,14 @@ const useThemeOptions = (): IThemeOptions => {
       query ThemeOptionsQuery {
         nickyThemeBlogConfig {
           id
-          basePath
           assetPath
-          contentPath
-          pagination {
-            postsPerPage
-            prefixPath
+          instances {
+            basePath
+            contentPath
+            pagination {
+              postsPerPage
+              prefixPath
+            }
           }
         }
       }

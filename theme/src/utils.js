@@ -30,20 +30,27 @@ exports.mdxResolverPassthrough = (fieldName) => async (
 };
 
 exports.themeOptionsWithDefaults = (themeOptions) => {
-  const basePath = themeOptions.basePath || ``;
-  const contentPath = themeOptions.contentPath || `data/posts`;
   const assetPath = themeOptions.assetPath || `data/assets`;
-  const pagination = themeOptions.pagination && {
-    postsPerPage:
-      (themeOptions.pagination && themeOptions.pagination.postsPerPage) || 10,
-    prefixPath:
-      (themeOptions.pagination && themeOptions.pagination.prefixPath) || ``,
-  };
+  const instances = themeOptions.instances
+    ? themeOptions.instances.map((instance) => {
+        return {
+          basePath: instance.basePath || ``,
+          contentPath: instance.contentPath || `data/posts`,
+          pagination: instance.pagination && {
+            postsPerPage: instance.pagination.postsPerPage || 10,
+            prefixPath: instance.pagination.prefixPath || ``,
+          },
+        };
+      })
+    : [
+        {
+          basePath: ``,
+          contentPath: `data/posts`,
+        },
+      ];
 
   return {
-    basePath,
-    contentPath,
     assetPath,
-    pagination,
+    instances,
   };
 };

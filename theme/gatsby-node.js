@@ -12,11 +12,13 @@ const {
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
   const { program } = store.getState();
-  const { contentPath, assetPath } = themeOptionsWithDefaults(options);
+  const { assetPath, instances } = themeOptionsWithDefaults(options);
 
   const dirs = [
-    path.join(program.directory, contentPath),
     path.join(program.directory, assetPath),
+    ...instances.map((instance) =>
+      path.join(program.directory, instance.contentPath)
+    ),
   ];
 
   dirs.forEach((dir) => {
@@ -74,6 +76,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     name: String!
     slug: String!
     postPublished: Boolean
+    instance: NickyThemeBlogInstanceConfig!
   }
   interface BlogPost @nodeInterface {
     id: ID!
@@ -91,12 +94,16 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     keywords: [String]
     tableOfContents(maxDepth: Int = 6): JSON
     series: Series
+    instance: NickyThemeBlogInstanceConfig!
   }
   type NickyThemeBlogConfig implements Node {
     id: ID!
+    assetPath: String!
+    instances: [NickyThemeBlogInstanceConfig!]!
+  }
+  type NickyThemeBlogInstanceConfig {
     basePath: String!
     contentPath: String!
-    assetPath: String!
     pagination: NickyThemeBlogPaginationConfig
   }
   type NickyThemeBlogPaginationConfig {
@@ -314,6 +321,9 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           );
         },
       },
+      instance: {
+        type: `NickyThemeBlogInstanceConfig!`,
+      },
     },
   });
   // SDL or graphql-js as argument(s) to createTypes!
@@ -327,7 +337,7 @@ exports.onCreateNode = (
   const { createNode, createParentChildLink } = actions;
   const themeOptions = themeOptionsWithDefaults(options);
 
-  // Create NickyThemeBlogConfig node from themeOptionss
+  // Create NickyThemeBlogConfig node from themeOptions
   createNode({
     ...themeOptions,
     id: createNodeId(`NickyThemeBlogConfig`),
@@ -345,45 +355,48 @@ exports.onCreateNode = (
   if (node.internal.type === `Mdx`) {
     const parent = getNode(node.parent); // get the File node
     const source = parent.sourceInstanceName; // get folder name those files are in (contentPath)
-
+    const { instances } = themeOptions;
     // only create MdxBlogPost nodes for .mdx files in the correct folder
-    if (source === themeOptions.contentPath) {
-      // duplicate logic from the resolvers, exists to create pages here in gatsby-node based on the slug.
-      let slug;
-      if (node.frontmatter.slug) {
-        // get slug from frontmatter
-        slug = slugify(node.frontmatter.slug);
-      } else {
-        // get slug from parent folder name, or loose file name
-        slug = createFilePath({ node, getNode, trailingSlash: false });
-        slug = slugify(slug);
-        if (slug.startsWith(`/`)) {
-          slug = slug.slice(1);
+    instances.forEach((instance) => {
+      if (source === instance.contentPath) {
+        // duplicate logic from the resolvers, exists to create pages here in gatsby-node based on the slug.
+        let slug;
+        if (node.frontmatter.slug) {
+          // get slug from frontmatter
+          slug = slugify(node.frontmatter.slug);
+        } else {
+          // get slug from parent folder name, or loose file name
+          slug = createFilePath({ node, getNode, trailingSlash: false });
+          slug = slugify(slug);
+          if (slug.startsWith(`/`)) {
+            slug = slug.slice(1);
+          }
         }
-      }
-      const fieldData = {
-        slug,
-        // here to transform entries into Tag nodes
-        tags: node.frontmatter.tags || [],
-        // here because the creation of Tag nodes needs this info.
-        published: node.frontmatter.published,
-      };
+        const fieldData = {
+          slug,
+          instance,
+          // here to transform entries into Tag nodes
+          tags: node.frontmatter.tags || [],
+          // here because the creation of Tag nodes needs this info.
+          published: node.frontmatter.published,
+        };
 
-      const proxyNode = {
-        ...fieldData,
-        id: createNodeId(`${node.id} >>> MdxBlogPost`),
-        parent: node.id,
-        children: [],
-        internal: {
-          type: `MdxBlogPost`,
-          contentDigest: node.internal.contentDigest,
-          content: JSON.stringify(fieldData),
-          description: `MdxBlogPost node`,
-        },
-      };
-      createNode(proxyNode);
-      createParentChildLink({ parent: node, child: proxyNode });
-    }
+        const proxyNode = {
+          ...fieldData,
+          id: createNodeId(`${node.id} >>> MdxBlogPost`),
+          parent: node.id,
+          children: [],
+          internal: {
+            type: `MdxBlogPost`,
+            contentDigest: node.internal.contentDigest,
+            content: JSON.stringify(fieldData),
+            description: `MdxBlogPost node`,
+          },
+        };
+        createNode(proxyNode);
+        createParentChildLink({ parent: node, child: proxyNode });
+      }
+    });
   }
 
   // Create Tag nodes from MdxBlogPost nodes
@@ -397,6 +410,8 @@ exports.onCreateNode = (
         // field on a tagnode to be able to filter nodes belonging to unpublished posts
         // duplicate logic from blogpost published resolver.
         postPublished: node.published === undefined ? true : node.published,
+        // TODO: get instance data from parent
+        instance: node.instance,
       };
 
       const proxyNode = {
@@ -419,7 +434,7 @@ exports.onCreateNode = (
 };
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
-  const { basePath } = themeOptionsWithDefaults(options);
+  const { instances } = themeOptionsWithDefaults(options);
   const result = await graphql(`
     query createPagesQuery {
       allBlogPost(
@@ -433,12 +448,10 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         nodes {
           title
           slug
+          instance {
+            basePath
+          }
         }
-      }
-      allTag(
-        filter: { postPublished: { ne: false } }
-        ) {
-        distinct(field: slug)
       }
       allAuthor {
         nodes {
@@ -453,85 +466,107 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return;
   }
 
-  const { allBlogPost, allTag, allAuthor } = result.data;
-  const posts = allBlogPost.nodes;
+  const { allBlogPost, allAuthor } = result.data;
   const authors = allAuthor.nodes;
 
-  // create a page for each blogPost
-  posts.forEach((post, i) => {
-    const next = i === 0 ? null : posts[i - 1];
-    const prev = i === posts.length - 1 ? null : posts[i + 1];
-    const { slug } = post;
-    actions.createPage({
-      path: path.join(basePath, slug),
-      component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
-      context: {
-        slug,
-        prev,
-        next,
-      },
+  instances.forEach(async (instance) => {
+    const { basePath } = instance;
+    const posts = allBlogPost.nodes.filter(
+      (post) => post.instance.basePath === basePath
+    );
+    // create a page for each blogPost
+    posts.forEach((post, i) => {
+      const next = i === 0 ? null : posts[i - 1];
+      const prev = i === posts.length - 1 ? null : posts[i + 1];
+      const { slug } = post;
+      actions.createPage({
+        path: path.join(basePath, slug),
+        component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
+        context: {
+          slug,
+          prev,
+          next,
+        },
+      });
     });
-  });
 
-  // create (paginated) blog-list page(s)
-  let numPages;
-  let postsPerPage;
-  let prefixPath;
-  // check if the pagination option exists before using defaults in it
-  if (options.pagination) {
-    prefixPath = themeOptionsWithDefaults(options).pagination.prefixPath;
-    postsPerPage = themeOptionsWithDefaults(options).pagination.postsPerPage;
-    numPages = Math.ceil(posts.length / postsPerPage);
-  } else {
-    prefixPath = ``;
-    numPages = 1;
-  }
+    // create (paginated) blog-list page(s)
+    let numPages;
+    let postsPerPage;
+    let prefixPath;
+    // check if the pagination option exists before using defaults in it
+    if (instance.pagination) {
+      prefixPath = instance.pagination.prefixPath;
+      postsPerPage = instance.pagination.postsPerPage;
+      numPages = Math.ceil(posts.length / postsPerPage);
+    } else {
+      prefixPath = ``;
+      numPages = 1;
+    }
 
-  Array.from({
-    length: numPages,
-  }).forEach((_, index) => {
-    const paginationContext = options.pagination
-      ? {
-          limit: postsPerPage,
-          skip: index * postsPerPage,
-          numPages,
-          currentPage: index + 1,
-          prefixPath,
+    Array.from({
+      length: numPages,
+    }).forEach((_, index) => {
+      const paginationContext = instance.pagination
+        ? {
+            limit: postsPerPage,
+            skip: index * postsPerPage,
+            numPages,
+            currentPage: index + 1,
+            prefixPath,
+          }
+        : {};
+      actions.createPage({
+        path:
+          index === 0
+            ? `${basePath || `/`}`
+            : path.join(basePath, prefixPath, `${index + 1}`),
+        component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
+        context: {
+          ...paginationContext,
+          basePath,
+        },
+      });
+    });
+
+    const tagsQueryResult = await graphql(`
+      query createTagPagesQuery {
+        allTag(
+          filter: {
+            instance: { basePath: { eq: "${basePath}" } }
+            postPublished: { ne: false }
+          }
+        ) {
+          distinct(field: slug)
         }
-      : {};
+      }
+    `);
+
+    // create tag-list page
     actions.createPage({
-      path:
-        index === 0
-          ? `${basePath || `/`}`
-          : path.join(basePath, prefixPath, `${index + 1}`),
-      component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
+      path: path.join(basePath, `tag`),
+      component: require.resolve(`./src/templates/TagListQuery.tsx`),
       context: {
-        ...paginationContext,
+        basePath,
       },
     });
-  });
 
-  // create tag-list page
-  actions.createPage({
-    path: path.join(basePath, `tag`),
-    component: require.resolve(`./src/templates/TagListQuery.tsx`),
-    context: {},
-  });
-
-  // create a page for each tag
-  allTag.distinct.forEach((tagSlug) => {
-    actions.createPage({
-      path: path.join(basePath, `tag`, tagSlug),
-      component: require.resolve(`./src/templates/TagQuery.tsx`),
-      context: {
-        slug: tagSlug,
-      },
+    // create a page for each tag
+    tagsQueryResult.data.allTag.distinct.forEach((tagSlug) => {
+      actions.createPage({
+        path: path.join(basePath, `tag`, tagSlug),
+        component: require.resolve(`./src/templates/TagQuery.tsx`),
+        context: {
+          slug: tagSlug,
+          basePath,
+        },
+      });
     });
   });
 
   // create author-list page
   actions.createPage({
-    path: path.join(basePath, `author`),
+    path: path.join(`author`),
     component: require.resolve(`./src/templates/AuthorListQuery.tsx`),
     context: {},
   });
@@ -541,7 +576,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     const { shortName } = author;
     const slug = slugify(shortName);
     actions.createPage({
-      path: path.join(basePath, `author`, slug),
+      path: path.join(`author`, slug),
       component: require.resolve(`./src/templates/AuthorQuery.tsx`),
       context: {
         slug,

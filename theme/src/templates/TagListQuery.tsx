@@ -30,8 +30,13 @@ const TagListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
 };
 
 export const tagListTemplateQuery = graphql`
-  query tagListTemplateQuery {
-    allTag(filter: { postPublished: { ne: false } }) {
+  query tagListTemplateQuery($basePath: String!) {
+    allTag(
+      filter: {
+        postPublished: { ne: false }
+        instance: { basePath: { eq: $basePath } }
+      }
+    ) {
       group(field: slug, limit: 1) {
         nodes {
           name
