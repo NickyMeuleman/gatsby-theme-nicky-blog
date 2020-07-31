@@ -67,8 +67,6 @@ export interface ISEOStaticQuery {
   };
 }
 
-// TODO: START DONE
-
 // query in templates/AuthorListQuery
 export interface IAuthorListTemplateQuery {
   allAuthor: {

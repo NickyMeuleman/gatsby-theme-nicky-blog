@@ -514,7 +514,6 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
             numPages,
             currentPage: index + 1,
             prefixPath,
-            basePath,
           }
         : {};
       actions.createPage({
