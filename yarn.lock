@@ -1904,10 +1904,10 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@pauliescanlon/gatsby-mdx-embed@^0.0.21":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/@pauliescanlon/gatsby-mdx-embed/-/gatsby-mdx-embed-0.0.21.tgz#f606e20c1ab4ecba074884256ce26a8def105c28"
-  integrity sha512-CBV8mulCXD859vfoQuriEmSZpp7e/bFfDv/zebw2TPIIRJkHxP6MBucHfOnpWJ7gfu18zq0Uwbj5XWkD3PrtcQ==
+"@pauliescanlon/gatsby-mdx-embed@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@pauliescanlon/gatsby-mdx-embed/-/gatsby-mdx-embed-0.0.23.tgz#1f12a0cb484f7ed4ddf2c7604be3e83b96a16ed8"
+  integrity sha512-O/S9Z7dDnht2pKCYqSuvaTV5sSvH6MeNPljOAJV+Jj110CRra1q3ri8J5xRtjoD5bTQeMZipTuU2TLHcenc5HA==
 
 "@pieh/friendly-errors-webpack-plugin@1.7.0-chalk-2":
   version "1.7.0-chalk-2"
