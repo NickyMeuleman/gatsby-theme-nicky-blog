@@ -24,7 +24,7 @@
     "@types/node": "^12.12.29",
     "@types/parse-numeric-range": "^0.0.1",
     "@types/react-helmet": "^5.0.15",
-    "@types/testing-library__cypress": "^5.0.7",
+    "@types/testing-library__cypress": "^5.0.8",
     "gatsby": "^2.24.63",
     "react-dom": "^16.13.1",
     "start-server-and-test": "^1.11.4"
