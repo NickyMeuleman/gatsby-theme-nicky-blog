@@ -435,7 +435,7 @@ exports.onCreateNode = (
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { instances } = themeOptionsWithDefaults(options);
-  const result = await graphql(`
+  const blogPostQueryResult = await graphql(`
     query createPagesQuery {
       allBlogPost(
         sort: { fields: date, order: DESC }
@@ -461,75 +461,80 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     }
   `);
 
-  if (result.errors) {
-    reporter.panic(`error loading data from graphql`, result.error);
+  if (blogPostQueryResult.errors) {
+    reporter.panic(
+      `error loading blogPostQueryResult from graphql`,
+      blogPostQueryResult.error
+    );
     return;
   }
 
-  const { allBlogPost, allAuthor } = result.data;
+  const { allBlogPost, allAuthor } = blogPostQueryResult.data;
   const authors = allAuthor.nodes;
 
-  instances.forEach(async (instance) => {
-    const { basePath } = instance;
-    const posts = allBlogPost.nodes.filter(
-      (post) => post.instance.basePath === basePath
-    );
-    // create a page for each blogPost
-    posts.forEach((post, i) => {
-      const next = i === 0 ? null : posts[i - 1];
-      const prev = i === posts.length - 1 ? null : posts[i + 1];
-      const { slug } = post;
-      actions.createPage({
-        path: path.join(basePath, slug),
-        component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
-        context: {
-          slug,
-          prev,
-          next,
-        },
+  // Because we are awaiting inside this loop, we cannot use forEach, it would throw the promise each iteration returns away
+  await Promise.all(
+    instances.map(async (instance) => {
+      const { basePath } = instance;
+      const posts = allBlogPost.nodes.filter(
+        (post) => post.instance.basePath === basePath
+      );
+      // create a page for each blogPost
+      posts.forEach((post, i) => {
+        const next = i === 0 ? null : posts[i - 1];
+        const prev = i === posts.length - 1 ? null : posts[i + 1];
+        const { slug } = post;
+        actions.createPage({
+          path: path.join(basePath, slug),
+          component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
+          context: {
+            slug,
+            prev,
+            next,
+          },
+        });
       });
-    });
 
-    // create (paginated) blog-list page(s)
-    let numPages;
-    let postsPerPage;
-    let prefixPath;
-    // check if the pagination option exists before using defaults in it
-    if (instance.pagination) {
-      prefixPath = instance.pagination.prefixPath;
-      postsPerPage = instance.pagination.postsPerPage;
-      numPages = Math.ceil(posts.length / postsPerPage);
-    } else {
-      prefixPath = ``;
-      numPages = 1;
-    }
+      // create (paginated) blog-list page(s)
+      let numPages;
+      let postsPerPage;
+      let prefixPath;
+      // check if the pagination option exists before using defaults in it
+      if (instance.pagination) {
+        prefixPath = instance.pagination.prefixPath;
+        postsPerPage = instance.pagination.postsPerPage;
+        numPages = Math.ceil(posts.length / postsPerPage);
+      } else {
+        prefixPath = ``;
+        numPages = 1;
+      }
 
-    Array.from({
-      length: numPages,
-    }).forEach((_, index) => {
-      const paginationContext = instance.pagination
-        ? {
-            limit: postsPerPage,
-            skip: index * postsPerPage,
-            numPages,
-            currentPage: index + 1,
-            prefixPath,
-          }
-        : {};
-      actions.createPage({
-        path:
-          index === 0
-            ? `${basePath || `/`}`
-            : path.join(basePath, prefixPath, `${index + 1}`),
-        component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
-        context: {
-          ...paginationContext,
-          basePath,
-        },
+      Array.from({
+        length: numPages,
+      }).forEach((_, index) => {
+        const paginationContext = instance.pagination
+          ? {
+              limit: postsPerPage,
+              skip: index * postsPerPage,
+              numPages,
+              currentPage: index + 1,
+              prefixPath,
+            }
+          : {};
+        actions.createPage({
+          path:
+            index === 0
+              ? `${basePath || `/`}`
+              : path.join(basePath, prefixPath, `${index + 1}`),
+          component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
+          context: {
+            ...paginationContext,
+            basePath,
+          },
+        });
       });
-    });
 
-    const tagsQueryResult = await graphql(`
+      const tagsQueryResult = await graphql(`
       query createTagPagesQuery {
         allTag(
           filter: {
@@ -542,27 +547,36 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       }
     `);
 
-    // create tag-list page
-    actions.createPage({
-      path: path.join(basePath, `tag`),
-      component: require.resolve(`./src/templates/TagListQuery.tsx`),
-      context: {
-        basePath,
-      },
-    });
+      if (tagsQueryResult.errors) {
+        reporter.panic(
+          `error loading tagsQueryResult from graphql`,
+          tagsQueryResult.error
+        );
+        return;
+      }
 
-    // create a page for each tag
-    tagsQueryResult.data.allTag.distinct.forEach((tagSlug) => {
+      // create tag-list page
       actions.createPage({
-        path: path.join(basePath, `tag`, tagSlug),
-        component: require.resolve(`./src/templates/TagQuery.tsx`),
+        path: path.join(basePath, `tag`),
+        component: require.resolve(`./src/templates/TagListQuery.tsx`),
         context: {
-          slug: tagSlug,
           basePath,
         },
       });
-    });
-  });
+
+      // create a page for each tag
+      tagsQueryResult.data.allTag.distinct.forEach((tagSlug) => {
+        actions.createPage({
+          path: path.join(basePath, `tag`, tagSlug),
+          component: require.resolve(`./src/templates/TagQuery.tsx`),
+          context: {
+            slug: tagSlug,
+            basePath,
+          },
+        });
+      });
+    })
+  );
 
   // create author-list page
   actions.createPage({
