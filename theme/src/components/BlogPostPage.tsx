@@ -67,7 +67,7 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
           <article sx={{ gridColumn: [`2/3`, null, null, `4/5`] }}>
             <Styled.h1 sx={{ mt: 0, mb: 4 }}>{post.title}</Styled.h1>
             {post.cover && (
-              <Img sizes={post.cover.childImageSharp.fluid} sx={{ mb: 4 }} />
+              <Img fluid={post.cover.childImageSharp.fluid} sx={{ mb: 4 }} />
             )}
             <MDXRenderer>{post.body}</MDXRenderer>
             {post?.series?.posts.length > 1 && (
