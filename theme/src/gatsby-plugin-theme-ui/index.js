@@ -65,7 +65,7 @@ const theme = merge(tailwind, {
       fontFamily: `monospace`,
       fontSize: 0,
       overflow: `auto`,
-      padding: 3,
+      padding: 2,
       borderRadius: `sm`,
       pre: {
         fontFamily: `monospace`,
@@ -75,15 +75,17 @@ const theme = merge(tailwind, {
         margin: 0,
       },
       highlightLine: {
+        // match padding on entire CodeBlock <div>
+        // padding: 2 == padding: "0.5rem"
         backgroundColor: `#f0f0f0`,
         borderLeftColor: `#49d0c5`,
         borderLeftStyle: `solid`,
-        borderLeftWidth: `0.25em`,
+        borderLeftWidth: `0.25rem`,
         display: `block`,
-        marginRight: `-1em`,
-        marginLeft: `-1em`,
-        paddingRight: `1em`,
-        paddingLeft: `0.75em`,
+        marginRight: `-0.5rem`,
+        marginLeft: `-0.5rem`,
+        paddingRight: `0.5rem`,
+        paddingLeft: `0.25rem`,
       },
       title: {
         fontFamily: `monospace`,
@@ -100,6 +102,15 @@ const theme = merge(tailwind, {
         px: 3,
         fontSize: 0,
         marginTop: 2,
+      },
+      lineNumber: {
+        display: `inline-block`,
+        // to support numbers with 3 digits, swap to table layout: https://codesandbox.io/s/prism-react-renderer-example-u6vhk?file=/src/styles.js
+        width: `2ch`,
+        textAlign: `right`,
+        userSelect: `none`,
+        opacity: 0.3,
+        marginRight: 2,
       },
     },
     inlineCode: {
