@@ -29,10 +29,10 @@ const getShouldHighlightLine = (hl: string | undefined) => {
   return () => false;
 };
 
-const getLineNumberStart = (numberLines: string | undefined) => {
+const getLineNumberStart = (numberLines: string | boolean | undefined) => {
   let result = null;
   if (numberLines) {
-    if (numberLines === `true`) {
+    if (numberLines === `true` || numberLines === true) {
       result = 1;
     } else {
       result = parseInt(numberLines, 10);
