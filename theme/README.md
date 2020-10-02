@@ -147,14 +147,17 @@ As a result, these codeblocks support syntax highlighting for [a range of langua
 
 Highlighting specific lines is possible by passing a string to the `hl` (short for highlight-lines) attribute when writing a codeblock.
 A title may also be added to the codeblock by passing a string to the `title` attribute when writing a codeblock.
+Numbering lines is possible by passing a `numberLines` attribute.
 
-The string you pass to `hl` should be understood by [node-parse-numeric-range](https://github.com/euank/node-parse-numeric-range).
+The value you pass to `hl` should be understood by [node-parse-numeric-range](https://github.com/euank/node-parse-numeric-range).
+If passing a value to `numberLines`, it should be either `true` (to start the numbering at 1), or a decimal integer (to start the numbering at that number).
 
 The code below will highlight the code inside as the `jsx` language, highlight lines 1,2,3, and 5, and put a small block above it displaying `src/components/CodeBlock.jsx`
+The lines will be numbered starting at 1.
 (Omit the `#` in front of these lines, I only used them here to make the three backticks show up).
 
 ````
-# ```jsx hl=1-3,5 title=src/components/CodeBlock.jsx
+# ```jsx numberLines hl=1-3,5 title=src/components/CodeBlock.jsx
 # import React from 'react'
 # import Highlight, { defaultProps } from 'prism-react-renderer'
 #
@@ -556,3 +559,4 @@ export default theme;
   - [ ] Support different `Page` components for different instances.
 - [ ] PaginationContext and PageContext in BlogPostListPage are duplicated right now
 - [ ] Redo how the `<SEO />` gathers information. It's becoming an a-prop-calypse in there.
+- [x] Support line numbering in codeblocks

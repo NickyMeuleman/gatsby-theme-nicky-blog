@@ -29,11 +29,24 @@ const getShouldHighlightLine = (hl: string | undefined) => {
   return () => false;
 };
 
+const getLineNumberStart = (numberLines: string | boolean | undefined) => {
+  let result = null;
+  if (numberLines) {
+    if (numberLines === `true` || numberLines === true) {
+      result = 1;
+    } else {
+      result = parseInt(numberLines, 10);
+    }
+  }
+  return result;
+};
+
 const CodeBlock: React.FC<IProps> = ({
   children,
   className: outerClassName,
   title,
   hl,
+  numberLines,
   ...props
 }) => {
   // MDX will pass the language as className
@@ -45,6 +58,8 @@ const CodeBlock: React.FC<IProps> = ({
     return null;
   }
   const shouldHighlightLine = getShouldHighlightLine(hl);
+  const lineNumberStart = getLineNumberStart(numberLines);
+
   return (
     <React.Fragment>
       {title && <div sx={{ variant: `styles.CodeBlock.title` }}>{title}</div>}
@@ -78,6 +93,11 @@ const CodeBlock: React.FC<IProps> = ({
                       : undefined
                   }
                 >
+                  {lineNumberStart && (
+                    <span sx={{ variant: `styles.CodeBlock.lineNumber` }}>
+                      {index + lineNumberStart}
+                    </span>
+                  )}
                   {line.map((token, key) => (
                     <span
                       key={key}

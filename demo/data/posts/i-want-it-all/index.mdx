@@ -76,6 +76,9 @@ const IndexPage = (props) => {
 
 ### Line highlighting? Got it!
 
+Line 4 is **lit**.
+Gettit?
+
 ```js hl=4
 const getShouldHighlightLine = (hl) => {
   if (hl) {
@@ -114,6 +117,42 @@ return (
     )}
   </Highlight>
 );
+```
+
+### Line numbering
+
+```js numberLines
+exports.slugify = (str) => {
+  const slug = str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, `-`)
+    .replace(/(^-|-\$)+/g, ``);
+  return slug;
+};
+```
+
+### Everything at the same time
+
+The line numbering can start at an arbitrary number!
+
+```css hl=4,8-9,11,15-16 title=underline.css numberLines=42
+a {
+  color: #dfe5f3;
+  text-decoration: none;
+  background-image: linear-gradient(#222b40, #222b40), linear-gradient(
+      rgb(176, 251, 188),
+      rgb(176, 251, 188)
+    ), linear-gradient(#feb2b2, #feb2b2);
+  background-size: 20px 2px, 100% 2px, 0 2px;
+  background-position: calc(20px * -1) 100%, 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 2s linear, background-position 2s linear;
+}
+
+a:hover {
+  background-size: 20px 2px, 0 2px, 100% 2px;
+  background-position: calc(100% + 20px) 100%, 100% 100%, 0 100%;
+}
 ```
 
 ## Useful knowledge
