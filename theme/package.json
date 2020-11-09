@@ -34,7 +34,7 @@
     "@mdx-js/mdx": "^1.6.19",
     "@mdx-js/react": "^1.6.19",
     "@pauliescanlon/gatsby-mdx-embed": "^0.0.29",
-    "@theme-ui/color": "^0.3.1",
+    "@theme-ui/color": "^0.3.3",
     "@theme-ui/presets": "^0.3.0",
     "@theme-ui/prism": "^0.3.0",
     "deepmerge": "^4.2.2",
