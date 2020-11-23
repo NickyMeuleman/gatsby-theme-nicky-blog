@@ -27,7 +27,7 @@
     "@types/testing-library__cypress": "^5.0.8",
     "gatsby": "^2.27.0",
     "react-dom": "^16.14.0",
-    "start-server-and-test": "^1.11.5"
+    "start-server-and-test": "^1.11.6"
   },
   "dependencies": {
     "@emotion/styled": "^10.0.27",
