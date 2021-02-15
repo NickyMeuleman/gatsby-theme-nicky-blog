@@ -34,7 +34,7 @@
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "start-server-and-test": "^1.12.0",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.9"
   },
   "scripts": {
     "build": "yarn run demo:clean && yarn run demo:build",
