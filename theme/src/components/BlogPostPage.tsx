@@ -3,7 +3,7 @@ import React from "react";
 import { jsx, Styled } from "theme-ui";
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import Img from "gatsby-image";
+import { getSrc, GatsbyImage } from "gatsby-plugin-image";
 import { Layout } from "./Layout";
 import { PostExtra } from "./PostExtra";
 import { SEO } from "./SEO";
@@ -28,10 +28,9 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
         description={post.excerpt}
         slug={post.slug}
         keywords={post.keywords || []}
-        // TODO: gatsby-plugin-printer for image
         image={
           post.cover
-            ? post.cover.childImageSharp.fluid.src
+            ? getSrc(post.cover)
             : `/path/to/fallback/image.png`
         }
         canonicalUrl={post.canonicalUrl}
@@ -67,7 +66,11 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
           <article sx={{ gridColumn: [`2/3`, null, null, `4/5`] }}>
             <Styled.h1 sx={{ mt: 0, mb: 4 }}>{post.title}</Styled.h1>
             {post.cover && (
-              <Img fluid={post.cover.childImageSharp.fluid} sx={{ mb: 4 }} />
+              <GatsbyImage
+                alt={post.title}
+                image={post.cover.childImageSharp.gatsbyImageData}
+                sx={{ mb: 4 }}
+              />
             )}
             <MDXRenderer>{post.body}</MDXRenderer>
             {post?.series?.posts.length > 1 && (

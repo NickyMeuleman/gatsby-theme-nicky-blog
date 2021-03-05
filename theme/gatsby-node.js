@@ -49,7 +49,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   });
 
   const typeDefs = `
-  interface Author @nodeInterface {
+  interface Author implements Node {
     id: ID!
     shortName: String!
     name: String!
@@ -78,7 +78,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
     postPublished: Boolean
     instance: NickyThemeBlogInstanceConfig!
   }
-  interface BlogPost @nodeInterface {
+  interface BlogPost implements Node {
     id: ID!
     date: Date! @dateformat
     updatedAt: Date @dateformat
@@ -599,3 +599,16 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     });
   });
 };
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+       alias: {
+          path: require.resolve("path-browserify")
+       },
+      fallback: {
+        fs: false,
+      }
+   }
+  })
+}

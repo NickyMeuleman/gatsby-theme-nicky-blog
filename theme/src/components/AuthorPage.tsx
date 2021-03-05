@@ -63,8 +63,8 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
                     title={post.title}
                     date={post.date}
                     authors={post.authors}
-                    coverSizes={
-                      post.cover ? post.cover.childImageSharp.fluid : null
+                    image={
+                      post.cover ? post.cover.childImageSharp.gatsbyImageData : null
                     }
                   />
                 </li>

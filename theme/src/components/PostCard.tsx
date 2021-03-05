@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import { Link } from "gatsby";
-import Img from "gatsby-image";
+import { GatsbyImage } from "gatsby-plugin-image";
 import { jsx } from "theme-ui";
 import * as path from "path";
 
@@ -10,7 +10,7 @@ interface IProps {
   title: string;
   date: string;
   authors?: { shortName: string; name: string }[];
-  coverSizes?: any;
+  image?: any;
 }
 
 const PostCard: React.FC<IProps> = (props) => {
@@ -35,7 +35,7 @@ const PostCard: React.FC<IProps> = (props) => {
 
   return (
     <React.Fragment>
-      {props.coverSizes ? (
+      {props.image ? (
         <div
           sx={{
             position: `relative`,
@@ -53,7 +53,7 @@ const PostCard: React.FC<IProps> = (props) => {
             },
           }}
         >
-          <Img fluid={props.coverSizes} />
+          <GatsbyImage alt={props.title} image={props.image} />
           <div sx={{ p: [2], pl: [2, 0] }}>
             <div
               sx={{
