@@ -70,8 +70,8 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
                   title={blogPost.title}
                   date={blogPost.date}
                   authors={blogPost.authors}
-                  coverSizes={
-                    blogPost.cover ? blogPost.cover.childImageSharp.fluid : null
+                  image={
+                    blogPost.cover ? blogPost.cover.childImageSharp.gatsbyImageData : null
                   }
                 />
               </li>

@@ -18,43 +18,37 @@ const AuthorTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   return <AuthorPage data={pageData} pageContext={pageContext} />;
 };
 
-export const authorTemplateQuery = graphql`
-  query authorTemplateQuery($shortName: String) {
-    author(shortName: { eq: $shortName }) {
-      name
-      shortName
-      twitter
-    }
-    allBlogPost(
-      sort: { fields: [date], order: DESC }
-      filter: {
-        authors: { elemMatch: { shortName: { eq: $shortName } } }
-        published: { ne: false }
+export const authorTemplateQuery = graphql`query authorTemplateQuery($shortName: String) {
+  author(shortName: {eq: $shortName}) {
+    name
+    shortName
+    twitter
+  }
+  allBlogPost(
+    sort: {fields: [date], order: DESC}
+    filter: {authors: {elemMatch: {shortName: {eq: $shortName}}}, published: {ne: false}}
+  ) {
+    totalCount
+    nodes {
+      id
+      authors {
+        shortName
+        name
       }
-    ) {
-      totalCount
-      nodes {
-        id
-        authors {
-          shortName
-          name
-        }
-        title
-        slug
-        date
-        instance {
-          basePath
-        }
-        cover {
-          childImageSharp {
-            fluid {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
+      title
+      slug
+      date
+      instance {
+        basePath
+      }
+      cover {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
         }
       }
     }
   }
+}
 `;
 
 export default AuthorTemplate;

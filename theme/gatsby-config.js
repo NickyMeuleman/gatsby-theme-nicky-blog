@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/interface-name-prefix */
 const remarkSlug = require(`remark-slug`);
 const { themeOptionsWithDefaults } = require(`./src/utils`);
 
@@ -32,6 +33,7 @@ module.exports = (themeOptions = {}) => {
           path: assetPath,
         },
       },
+      `gatsby-plugin-image`,
       `gatsby-transformer-sharp`,
       `gatsby-plugin-sharp`,
       {
