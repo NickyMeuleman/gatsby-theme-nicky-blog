@@ -6352,10 +6352,10 @@ eslint-import-resolver-node@^0.3.4:
     debug "^2.6.9"
     resolve "^1.13.1"
 
-eslint-mdx@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.11.1.tgz#b81c0090624c1da57a637078ab3ea6d7a9d19adb"
-  integrity sha512-9N4dkR2g7t6J3t5xDoF/RWo3cfIlFrvyuNeznsgZV86QAD1tvyRM25Paq2WeGwKIeWM8RgjkhqbDCo0h0/Sk9g==
+eslint-mdx@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/eslint-mdx/-/eslint-mdx-1.12.0.tgz#a0c49b54fe5dcecf5cf75a9b5f176e7f98f40b36"
+  integrity sha512-Dni6cIi9I7x14PBzd+te3sWdMdQ6Nb7g5IDTzle2r8C91A70JI631qG9eWL2cT9pe/VUrF6jURMStYNo9y19ug==
   dependencies:
     remark-mdx "^1.6.22"
     remark-parse "^8.0.3"
@@ -6424,13 +6424,13 @@ eslint-plugin-jsx-a11y@^6.4.1:
     jsx-ast-utils "^3.1.0"
     language-tags "^1.0.5"
 
-eslint-plugin-mdx@^1.11.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.11.1.tgz#5ab978df9b27b589744fe63131b2648623b3d2e4"
-  integrity sha512-LZ9TZG6kfoSftBKR8Ss7lnWaI/Wm2DWYxtpGBRtGaJ+nmPGCyafPKvNBmHT729MgN8UBAJ2ueURD2itTFnh+Kw==
+eslint-plugin-mdx@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-mdx/-/eslint-plugin-mdx-1.12.0.tgz#7d8a722eb6cd97f3d81aa02fb3430f5fe17c1797"
+  integrity sha512-d+vmIyyoDvRjQ0XGZ1v9DtnEk79dUOK+LzHoDGlBvtQHjlMyHl54Mw4EblX3d3nysyLss3+1V0SOrj+e9F+lNQ==
   dependencies:
     cosmiconfig "^7.0.0"
-    eslint-mdx "^1.11.1"
+    eslint-mdx "^1.12.0"
     remark-mdx "^1.6.22"
     remark-parse "^8.0.3"
     remark-stringify "^8.1.1"
@@ -6454,6 +6454,24 @@ eslint-plugin-react@^7.23.1:
   version "7.23.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.23.1.tgz#f1a2e844c0d1967c822388204a8bc4dee8415b11"
   integrity sha512-MvFGhZjI8Z4HusajmSw0ougGrq3Gs4vT/0WgwksZgf5RrLrRa2oYAw56okU4tZJl8+j7IYNuTM+2RnFEuTSdRQ==
+  dependencies:
+    array-includes "^3.1.3"
+    array.prototype.flatmap "^1.2.4"
+    doctrine "^2.1.0"
+    has "^1.0.3"
+    jsx-ast-utils "^2.4.1 || ^3.0.0"
+    minimatch "^3.0.4"
+    object.entries "^1.1.3"
+    object.fromentries "^2.0.4"
+    object.values "^1.1.3"
+    prop-types "^15.7.2"
+    resolve "^2.0.0-next.3"
+    string.prototype.matchall "^4.0.4"
+
+eslint-plugin-react@^7.23.2:
+  version "7.23.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.23.2.tgz#2d2291b0f95c03728b55869f01102290e792d494"
+  integrity sha512-AfjgFQB+nYszudkxRkTFu0UR1zEQig0ArVMPloKhxwlwkzaw/fBiH0QWcBBhZONlXqQC51+nfqFrkn4EzHcGBw==
   dependencies:
     array-includes "^3.1.3"
     array.prototype.flatmap "^1.2.4"
@@ -6512,10 +6530,10 @@ eslint-webpack-plugin@^2.5.3:
     micromatch "^4.0.2"
     schema-utils "^3.0.0"
 
-eslint@7.23.0:
-  version "7.23.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.23.0.tgz#8d029d252f6e8cf45894b4bee08f5493f8e94325"
-  integrity sha512-kqvNVbdkjzpFy0XOszNwjkKzZ+6TcwCQ/h+ozlcIWwaimBBuhlQ4nN6kbiM2L+OjDcznkTJxzYfRFH92sx4a0Q==
+eslint@7.24.0:
+  version "7.24.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.24.0.tgz#2e44fa62d93892bfdb100521f17345ba54b8513a"
+  integrity sha512-k9gaHeHiFmGCDQ2rEfvULlSLruz6tgfA8DEn+rY9/oYPFFTlz55mM/Q/Rij1b2Y42jwZiK3lXvNTw6w6TXzcKQ==
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
