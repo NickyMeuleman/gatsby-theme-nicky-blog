@@ -8,7 +8,7 @@
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
     "@commitlint/prompt-cli": "^12.1.1",
-    "@testing-library/cypress": "^7.0.5",
+    "@testing-library/cypress": "^7.0.6",
     "@types/node": "^12.20.7",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
