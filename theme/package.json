@@ -37,7 +37,7 @@
     "@pauliescanlon/gatsby-mdx-embed": "^0.0.29",
     "@theme-ui/color": "^0.7.3",
     "@theme-ui/presets": "^0.7.3",
-    "@theme-ui/prism": "^0.6.2",
+    "@theme-ui/prism": "^0.7.3",
     "deepmerge": "^4.2.2",
     "gatsby-core-utils": "^2.3.0",
     "gatsby-plugin-catch-links": "^3.3.0",
