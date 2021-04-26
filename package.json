@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "^2.34.0",
     "concurrently": "^6.0.2",
     "cross-env": "^7.0.3",
-    "cypress": "^6.9.1",
+    "cypress": "^7.1.0",
     "eslint": "7.25.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "^6.15.0",
