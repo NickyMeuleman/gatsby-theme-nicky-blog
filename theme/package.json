@@ -61,7 +61,7 @@
     "prism-react-renderer": "^1.2.0",
     "react-helmet": "^5.2.1",
     "remark-slug": "^6.0.0",
-    "theme-ui": "^0.7.3"
+    "theme-ui": "^0.8.4"
   },
   "keywords": [
     "gatsby",
