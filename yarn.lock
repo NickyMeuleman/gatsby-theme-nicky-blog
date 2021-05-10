@@ -2524,10 +2524,10 @@
     "@theme-ui/preset-tailwind" "0.8.4"
     "@theme-ui/preset-tosh" "0.8.4"
 
-"@theme-ui/prism@^0.7.5":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@theme-ui/prism/-/prism-0.7.5.tgz#2a5ceb5c280a5e8b002e64263e6065894e7e4f61"
-  integrity sha512-OrQMb/tf5lp58+kd79lQRptieF11UOn/xbyccA6fkiwydaj5T7ZR6+wfQKaRGQnmxYp9g48WqxPyTCDELlgpNQ==
+"@theme-ui/prism@^0.8.4":
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/@theme-ui/prism/-/prism-0.8.4.tgz#d3b1c0f40881c9e48c1bbe01698d002badc4684b"
+  integrity sha512-RZRwmq9/y8J+kUEZWDfhX6u5oPAD7J44U2PB90ofKHSmVluQuVl0kYrcNX9k3vdE1z5C9tjvn3egQWPGpl/f+A==
   dependencies:
     prism-react-renderer "^1.1.1"
 
