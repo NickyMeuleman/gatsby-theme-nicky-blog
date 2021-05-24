@@ -15,7 +15,7 @@
     "develop": "gatsby develop -H 0.0.0.0"
   },
   "peerDependencies": {
-    "gatsby": "^3.5.0",
+    "gatsby": "^3.5.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   },
@@ -25,7 +25,7 @@
     "@types/parse-numeric-range": "^0.0.1",
     "@types/react-helmet": "^5.0.16",
     "@types/testing-library__cypress": "^5.0.8",
-    "gatsby": "^3.5.0",
+    "gatsby": "^3.5.1",
     "react-dom": "^16.14.0",
     "start-server-and-test": "^1.12.2"
   },
@@ -43,7 +43,7 @@
     "gatsby-plugin-catch-links": "^3.5.0",
     "gatsby-plugin-emotion": "^6.5.0",
     "gatsby-plugin-image": "^1.5.0",
-    "gatsby-plugin-mdx": "^2.5.0",
+    "gatsby-plugin-mdx": "^2.5.1",
     "gatsby-plugin-react-helmet": "^4.5.0",
     "gatsby-plugin-sharp": "^3.5.0",
     "gatsby-plugin-theme-ui": "^0.8.4",
