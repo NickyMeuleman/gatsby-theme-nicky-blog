@@ -17,7 +17,7 @@
     "@types/theme-ui": "^0.3.7",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
-    "concurrently": "^6.1.0",
+    "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
     "cypress": "^7.3.0",
     "eslint": "7.27.0",
