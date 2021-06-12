@@ -34,7 +34,7 @@ function renderItems(
         listStyle: `none`,
         padding: 0,
         pl: isRecursiveCall ? 2 : null,
-        variant: isRecursiveCall ? null : `styles.TableOfContentsList`,
+        variant: isRecursiveCall ? undefined : `styles.TableOfContentsList`,
       }}
     >
       {items.map((item) => {

@@ -589,3 +589,4 @@ export default theme;
 - [ ] Redo how the `<SEO />` gathers information. It's becoming an a-prop-calypse in there.
 - [x] Support line numbering in codeblocks
 - [x] Support adding own plugins to the internal `gatsby-plugin-mdx`
+- [ ] Migrate theme-ui to Typescript https://theme-ui.com/guides/typescript/

@@ -600,15 +600,17 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   });
 };
 
+// https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v2-to-v3/#webpack-5-node-configuration-changed-nodefs-nodepath-
+// to support the use of "path" in the theme, this turns the polyfill back on that has been disabled by default in webpack 5
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {
-       alias: {
-          path: require.resolve("path-browserify")
-       },
+      alias: {
+        path: require.resolve(`path-browserify`),
+      },
       fallback: {
         fs: false,
-      }
-   }
-  })
-}
+      },
+    },
+  });
+};

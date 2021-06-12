@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import * as path from "path";
 import { Layout } from "./Layout";
 import { PostCard } from "./PostCard";
@@ -23,13 +23,13 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
         <div sx={{ variant: `styles.AuthorPage` }}>
           <h1>{author.name}</h1>
           {author.twitter && (
-            <Styled.p>
+            <Themed.p>
               Follow{` `}
-              <Styled.a href={`https://twitter.com/${author.twitter}`}>
+              <Themed.a href={`https://twitter.com/${author.twitter}`}>
                 @{author.twitter}
-              </Styled.a>
+              </Themed.a>
               {` `}on Twitter.
-            </Styled.p>
+            </Themed.p>
           )}
           <div
             sx={{
@@ -64,7 +64,9 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
                     date={post.date}
                     authors={post.authors}
                     image={
-                      post.cover ? post.cover.childImageSharp.gatsbyImageData : null
+                      post.cover
+                        ? post.cover.childImageSharp.gatsbyImageData
+                        : null
                     }
                   />
                 </li>

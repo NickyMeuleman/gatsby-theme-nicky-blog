@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { Link } from "gatsby";
 import * as path from "path";
 import { IPrevNext, IBlogPost } from "../types";
@@ -153,26 +153,26 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
           )}
           {prev && (
             <MetaListItem title="Older post">
-              <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
+              <Themed.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
                   to={path.join(`/`, prev.instance.basePath, prev.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {prev.title}
                 </Link>
-              </Styled.p>
+              </Themed.p>
             </MetaListItem>
           )}
           {next && (
             <MetaListItem title="Newer post">
-              <Styled.p sx={{ margin: 0, marginLeft: 1 }}>
+              <Themed.p sx={{ margin: 0, marginLeft: 1 }}>
                 <Link
                   to={path.join(`/`, next.instance.basePath, next.slug)}
                   sx={{ variant: `styles.PostExtra.link` }}
                 >
                   {next.title}
                 </Link>
-              </Styled.p>
+              </Themed.p>
             </MetaListItem>
           )}
         </ul>
@@ -186,7 +186,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             padding: 3,
             mb: 4,
             position: [null, null, null, `sticky`],
-            maxHeight: (theme) => `calc(100vh - (${theme.space[5]} * 2))`,
+            maxHeight: (theme: any) => `calc(100vh - (${theme.space[5]} * 2))`,
             overflow: `auto`,
             top: 5,
             variant: `styles.PostExtra.details`,

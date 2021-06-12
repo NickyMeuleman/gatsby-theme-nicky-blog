@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
-import { jsx, Styled, Box } from "theme-ui";
+import { jsx, Themed, Box } from "theme-ui";
 
 interface IProps {
   title?: string;
@@ -26,13 +26,13 @@ const Header: React.FC<IProps> = ({ title }) => {
         variant: `styles.Header`,
       }}
     >
-      <Styled.h1>
+      <Themed.h1>
         {/* 
         // @ts-ignore */}
-        <Styled.a as={Link} to="/">
+        <Themed.a as={Link} to="/">
           {title || siteTitle}
-        </Styled.a>
-      </Styled.h1>
+        </Themed.a>
+      </Themed.h1>
     </Box>
   );
 };

@@ -6,7 +6,7 @@ import React from "react";
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Highlight, { defaultProps, Language } from "prism-react-renderer";
 import rangeParser from "parse-numeric-range";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 
 interface IProps {
   className: string;
@@ -79,7 +79,7 @@ const CodeBlock: React.FC<IProps> = ({
           theme={undefined}
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <Styled.pre
+            <Themed.pre
               className={`${outerClassName} ${className}`}
               style={style}
             >
@@ -108,7 +108,7 @@ const CodeBlock: React.FC<IProps> = ({
                   ))}
                 </div>
               ))}
-            </Styled.pre>
+            </Themed.pre>
           )}
         </Highlight>
       </div>

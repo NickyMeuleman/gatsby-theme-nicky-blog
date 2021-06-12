@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { getSrc, GatsbyImage } from "gatsby-plugin-image";
@@ -42,12 +42,11 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
           sx={{
             display: `grid`,
             gridAutoFlow: `dense`,
-            gridTemplateColumns: [
+            gridTemplateColumns: (t: any) => [
               `1fr minmax(0, 70ch) 1fr`,
               null,
               null,
-              (t) =>
-                `1fr minmax(0, 30ch) minmax(0, ${t.space[5]}) 70ch ${t.space[5]} 30ch 1fr`,
+              `1fr minmax(0, 30ch) minmax(0, ${t.space[5]}) 70ch ${t.space[5]} 30ch 1fr`,
             ],
             my: 5,
             variant: `styles.BlogPostPage`,
@@ -60,7 +59,7 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
             passedSx={{ gridColumn: [`2/3`, null, null, `6/7`] }}
           />
           <article sx={{ gridColumn: [`2/3`, null, null, `4/5`] }}>
-            <Styled.h1 sx={{ mt: 0, mb: 4 }}>{post.title}</Styled.h1>
+            <Themed.h1 sx={{ mt: 0, mb: 4 }}>{post.title}</Themed.h1>
             {post.cover && (
               <GatsbyImage
                 alt={post.title}

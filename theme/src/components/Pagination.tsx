@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { ChangeEvent } from "react";
-import { jsx, Styled } from "theme-ui";
+import { jsx, Themed } from "theme-ui";
 import { navigate, Link } from "gatsby";
 import * as path from "path";
 import { IBlogPostListPageContextWithPagination } from "../types";
@@ -14,9 +14,9 @@ const Pagination: React.FC<IProps> = ({
 }) => {
   if (!numPages || !currentPage) {
     return (
-      <Styled.p>
+      <Themed.p>
         No pagination context passed to the {`<Pagination />`} component
-      </Styled.p>
+      </Themed.p>
     );
   }
   const isFirst = currentPage === 1;
