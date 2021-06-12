@@ -49,10 +49,18 @@ To use this theme in your Gatsby sites:
 
 ### Theme options
 
-| Key         | Default value                               | Description                                                                                  |
-| ----------- | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `assetPath` | `"data/assets"`                             | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
-| `instances` | See [`instance` options](#instance-options) | Array of [`instance` options objects](#instance-options)                                     |
+| Key                   | Default value                               | Description                                                                                  |
+| --------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `assetPath`           | `"data/assets"`                             | Folder location to house extra assets (like the [author](#anatomy-of-an-authors-file) file.) |
+| `instances`           | See [`instance` options](#instance-options) | Array of [`instance` options objects](#instance-options)                                     |
+| `gatsbyRemarkPlugins` | `[]`                                        | Additional plugins array to be used by `gatsby-plugin-mdx`                                   |
+| `remarkPlugins`       | `[]`                                        | Additional plugins array to be used by `gatsby-plugin-mdx`                                   |
+| `rehypePlugins`       | `[]`                                        | Additional plugins array to be used by `gatsby-plugin-mdx`                                   |
+
+This theme uses [`gatsby-plugin-mdx`](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-mdx) and allows you to customize some configuration that it uses via the `gatsbyRemarkPlugins`, `remarkPlugins`, and `rehypePlugins` options.
+Those options take an array of the relevant plugins to be used.
+For more information on how to use those options,
+see the documentation in [`gatsby-plugin-mdx`](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-plugin-mdx).
 
 #### `instance` options
 
@@ -71,8 +79,22 @@ To use this theme in your Gatsby sites:
 
 ### Example usage
 
+#### Basic
+
 ```js
 // gatsby-config.js
+module.exports = {
+  plugins: ["@nickymeuleman/gatsby-theme-blog"],
+};
+```
+
+#### Advanced
+
+```js
+// gatsby-config.js
+const remarkMath = require(`remark-math`);
+const rehypeKatex = require(`rehype-katex`);
+
 module.exports = {
   plugins: [
     {
@@ -93,6 +115,8 @@ module.exports = {
             basePath: "notes",
           },
         ],
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     },
   ],
@@ -105,7 +129,11 @@ The posts in `/blog` will be sourced from the `posts` folder.
 The posts in `/notes` will be sourced from the `notes` folder.
 
 Only posts in `/blog` will be paginated. With each paginated page holding a maximum of 10 posts.
-Paginated pages after the one that lists the first 10 posts, will be prefixed be `/page`. eg. `/blog`, `/blog/page/2`, `/blog/page/3`, etc
+Paginated pages after the one that lists the first 10 posts, will be prefixed be `/page`. eg. `/blog`, `/blog/page/2`, `/blog/page/3`, etc.
+
+Two plugins to add support for math equations via [KaTeX](https://katex.org/) are added.
+Sidenote: For KaTeX to work correctly, The plugins on their own are not enough.
+The CSS also has to be included on the pages equations are used, in the demo this is done in `gatsby-browser.js`.
 
 Authors are shared between instances (be it `/blog` or `/notes`). A single author can write posts in both instances.
 Refer to the [Adding authors](#Adding-authors) to see how to add authors.
@@ -560,3 +588,4 @@ export default theme;
 - [ ] PaginationContext and PageContext in BlogPostListPage are duplicated right now
 - [ ] Redo how the `<SEO />` gathers information. It's becoming an a-prop-calypse in there.
 - [x] Support line numbering in codeblocks
+- [x] Support adding own plugins to the internal `gatsby-plugin-mdx`

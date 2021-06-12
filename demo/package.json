@@ -14,6 +14,8 @@
     "@nickymeuleman/gatsby-theme-blog": "*",
     "gatsby": "^3.6.2",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "rehype-katex": "^5.0.0",
+    "remark-math": "^3.0.0"
   }
 }

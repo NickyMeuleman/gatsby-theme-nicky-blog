@@ -21,49 +21,50 @@ const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   return <BlogPostPage data={pageData} pageContext={pageContext} />;
 };
 
-export const blogPostTemplateQuery = graphql`query blogPostTemplateQuery($slug: String!) {
-  blogPost(slug: {eq: $slug}) {
-    excerpt
-    id
-    slug
-    date
-    updatedAt
-    canonicalUrl
-    keywords
-    body
-    tableOfContents
-    series {
-      name
-      posts {
-        id
-        date
+export const blogPostTemplateQuery = graphql`
+  query blogPostTemplateQuery($slug: String!) {
+    blogPost(slug: { eq: $slug }) {
+      excerpt
+      id
+      slug
+      date
+      updatedAt
+      canonicalUrl
+      keywords
+      body
+      tableOfContents
+      series {
+        name
+        posts {
+          id
+          date
+          slug
+          title
+          instance {
+            basePath
+          }
+        }
+      }
+      tags {
+        name
         slug
-        title
-        instance {
-          basePath
+      }
+      authors {
+        shortName
+        name
+        twitter
+      }
+      instance {
+        basePath
+      }
+      title
+      cover {
+        childImageSharp {
+          gatsbyImageData(layout: FULL_WIDTH)
         }
       }
     }
-    tags {
-      name
-      slug
-    }
-    authors {
-      shortName
-      name
-      twitter
-    }
-    instance {
-      basePath
-    }
-    title
-    cover {
-      childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
-      }
-    }
   }
-}
 `;
 
 export default BlogPostTemplate;

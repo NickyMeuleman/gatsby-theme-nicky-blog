@@ -28,11 +28,7 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
         description={post.excerpt}
         slug={post.slug}
         keywords={post.keywords || []}
-        image={
-          post.cover
-            ? getSrc(post.cover)
-            : `/path/to/fallback/image.png`
-        }
+        image={post.cover ? getSrc(post.cover) : `/path/to/fallback/image.png`}
         canonicalUrl={post.canonicalUrl}
         twitterHandle={
           post.authors && post.authors[0].twitter

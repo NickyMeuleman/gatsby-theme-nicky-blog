@@ -3,7 +3,14 @@ const remarkSlug = require(`remark-slug`);
 const { themeOptionsWithDefaults } = require(`./src/utils`);
 
 module.exports = (themeOptions = {}) => {
-  const { assetPath, instances } = themeOptionsWithDefaults(themeOptions);
+  const {
+    assetPath,
+    instances,
+    gatsbyRemarkPlugins,
+    remarkPlugins,
+    rehypePlugins,
+  } = themeOptionsWithDefaults(themeOptions);
+
   const filesystemPluginEntries = instances.map((instance) => {
     return {
       resolve: `gatsby-source-filesystem`,
@@ -51,8 +58,10 @@ module.exports = (themeOptions = {}) => {
             },
             { resolve: `gatsby-remark-copy-linked-files` },
             { resolve: `gatsby-remark-smartypants` },
+            ...gatsbyRemarkPlugins,
           ],
-          remarkPlugins: [remarkSlug],
+          remarkPlugins: [remarkSlug, ...remarkPlugins],
+          rehypePlugins,
         },
       },
       `@pauliescanlon/gatsby-mdx-embed`,

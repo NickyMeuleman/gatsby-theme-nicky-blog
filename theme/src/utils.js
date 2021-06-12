@@ -12,22 +12,18 @@ exports.slugify = (str) => {
 };
 
 // helper that grabs the mdx resolver when given a string fieldname
-exports.mdxResolverPassthrough = (fieldName) => async (
-  source,
-  args,
-  context,
-  info
-) => {
-  const type = info.schema.getType(`Mdx`);
-  const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent,
-  });
-  const resolver = type.getFields()[fieldName].resolve;
-  const result = await resolver(mdxNode, args, context, {
-    fieldName,
-  });
-  return result;
-};
+exports.mdxResolverPassthrough =
+  (fieldName) => async (source, args, context, info) => {
+    const type = info.schema.getType(`Mdx`);
+    const mdxNode = context.nodeModel.getNodeById({
+      id: source.parent,
+    });
+    const resolver = type.getFields()[fieldName].resolve;
+    const result = await resolver(mdxNode, args, context, {
+      fieldName,
+    });
+    return result;
+  };
 
 exports.themeOptionsWithDefaults = (themeOptions) => {
   const assetPath = themeOptions.assetPath || `data/assets`;
@@ -48,8 +44,14 @@ exports.themeOptionsWithDefaults = (themeOptions) => {
           contentPath: `data/posts`,
         },
       ];
+  const gatsbyRemarkPlugins = themeOptions.gatsbyRemarkPlugins || [];
+  const rehypePlugins = themeOptions.rehypePlugins || [];
+  const remarkPlugins = themeOptions.remarkPlugins || [];
 
   return {
+    rehypePlugins,
+    remarkPlugins,
+    gatsbyRemarkPlugins,
     assetPath,
     instances,
   };
