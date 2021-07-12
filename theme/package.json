@@ -23,7 +23,7 @@
     "@testing-library/cypress": "^7.0.6",
     "@types/node": "^15.12.2",
     "@types/parse-numeric-range": "^0.0.1",
-    "@types/react-helmet": "^6.1.1",
+    "@types/react-helmet": "^6.1.2",
     "@types/testing-library__cypress": "^5.0.9",
     "@types/theme-ui": "^0.6.0",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
