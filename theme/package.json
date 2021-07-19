@@ -65,7 +65,7 @@
     "path-browserify": "^1.0.1",
     "prism-react-renderer": "^1.2.1",
     "react-helmet": "^6.1.0",
-    "remark-slug": "^6.0.0",
+    "remark-slug": "^6.1.0",
     "theme-ui": "^0.10.0"
   },
   "keywords": [
