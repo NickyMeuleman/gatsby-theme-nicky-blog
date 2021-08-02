@@ -15,7 +15,7 @@
     "develop": "gatsby develop -H 0.0.0.0"
   },
   "peerDependencies": {
-    "gatsby": "^3.10.1",
+    "gatsby": "^3.10.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -29,7 +29,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "eslint-config-prettier": "^8.3.0",
-    "gatsby": "^3.10.1",
+    "gatsby": "^3.10.2",
     "react-dom": "^17.0.2",
     "start-server-and-test": "^1.13.1",
     "typescript": "^4.3.2"
@@ -48,7 +48,7 @@
     "gatsby-plugin-catch-links": "^3.10.0",
     "gatsby-plugin-emotion": "^6.10.0",
     "gatsby-plugin-image": "^1.10.1",
-    "gatsby-plugin-mdx": "^2.10.0",
+    "gatsby-plugin-mdx": "^2.10.1",
     "gatsby-plugin-react-helmet": "^4.10.0",
     "gatsby-plugin-sharp": "^3.10.2",
     "gatsby-plugin-theme-ui": "^0.10.1",
