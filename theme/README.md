@@ -176,6 +176,7 @@ As a result, these codeblocks support syntax highlighting for [a range of langua
 Highlighting specific lines is possible by passing a string to the `hl` (short for highlight-lines) attribute when writing a codeblock.
 A title may also be added to the codeblock by passing a string to the `title` attribute when writing a codeblock.
 Numbering lines is possible by passing a `numberLines` attribute.
+Don't like the copy button being there? Disable it by passing the `noCopy` attribute.
 
 The value you pass to `hl` should be understood by [node-parse-numeric-range](https://github.com/euank/node-parse-numeric-range).
 If passing a value to `numberLines`, it should be either `true` (to start the numbering at 1), or a decimal integer (to start the numbering at that number).
@@ -444,8 +445,10 @@ export default theme;
 #### Styling code blocks / syntax themes
 
 To apply a different syntax highlighting theme to code blocks. Overwrite the styles under `styles.CodeBlock` in the theme-ui file.
-To adjust the styles used for line highlighting, add new rules under `styles.CodeBlock.lineHighlight`.
-To adjust the styles used for the title section of a codeblock, add new rules under `styles.CodeBlock.title`.
+
+- To adjust the styles used for line highlighting, add new rules under `styles.CodeBlock.lineHighlight`.
+- To adjust the styles used for the title section of a codeblock, add new rules under `styles.CodeBlock.title`.
+- To adjust the styles used for the copy button, add new rules under `styles.CodeBlock.copyButton`.
 
 Various pregenerated themes are available in the [`/presets` folder of @theme-ui/prism](https://github.com/system-ui/theme-ui/tree/master/packages/prism/presets).
 To use them, import your chosen theme's `.json` file, and apply it to the `styles.CodeBlock` of your theme-ui file.
@@ -590,3 +593,4 @@ export default theme;
 - [x] Support line numbering in codeblocks
 - [x] Support adding own plugins to the internal `gatsby-plugin-mdx`
 - [ ] Migrate theme-ui to Typescript https://theme-ui.com/guides/typescript/
+- [x] Add copy button to codeblocks

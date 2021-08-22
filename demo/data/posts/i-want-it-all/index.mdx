@@ -74,6 +74,18 @@ const IndexPage = (props) => {
 };
 ```
 
+Or a single line?
+
+```bash
+npm i -D eslint prettier eslint-plugin-prettier eslint-config-prettier
+```
+
+Would you prefer it if the copy button wasn't there? Can do!
+
+```bash noCopy
+npm i eslint
+```
+
 ### Line highlighting? Got it!
 
 Line 4 is **lit**.
@@ -95,6 +107,8 @@ A section at the top that can hold some text is useful to display the title (or 
 
 ```jsx hl=2,9-11 title=src/components/CodeBlock.jsx
 // ...
+let testHorizontalScroll =
+  "BEEF BEEF BEEF BEEF BEEF BEEF BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF  BEEF BEEF BEEF BEEF ";
 const shouldHighlightLine = calculateLinesToHighlight(metastring);
 return (
   <Highlight {...defaultProps} code={children} language={language}>
