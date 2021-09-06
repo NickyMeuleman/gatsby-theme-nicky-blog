@@ -33,7 +33,7 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
-    "start-server-and-test": "^1.13.1",
+    "start-server-and-test": "^1.14.0",
     "typescript": "^3.9.10"
   },
   "scripts": {
