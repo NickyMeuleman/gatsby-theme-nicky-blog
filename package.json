@@ -5,9 +5,9 @@
     "demo"
   ],
   "devDependencies": {
-    "@commitlint/cli": "^16.0.2",
+    "@commitlint/cli": "^16.1.0",
     "@commitlint/config-conventional": "^16.0.0",
-    "@commitlint/prompt-cli": "^16.0.0",
+    "@commitlint/prompt-cli": "^16.1.0",
     "@testing-library/cypress": "^8.0.2",
     "@types/node": "^16.11.21",
     "@types/react": "^17.0.38",
