@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.2",
-    "@types/node": "^16.11.22",
+    "@types/node": "^16.11.24",
     "@types/parse-numeric-range": "^0.0.1",
     "@types/react-helmet": "^6.1.5",
     "@types/testing-library__cypress": "^5.0.9",
