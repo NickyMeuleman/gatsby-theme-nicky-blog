@@ -11,7 +11,7 @@
     "@testing-library/cypress": "^8.0.2",
     "@types/node": "^16.11.33",
     "@types/react": "^18.0.8",
-    "@types/react-dom": "^18.0.1",
+    "@types/react-dom": "^18.0.3",
     "@types/react-helmet": "^6.1.5",
     "@types/testing-library__cypress": "^5.0.9",
     "@types/theme-ui": "^0.3.7",
