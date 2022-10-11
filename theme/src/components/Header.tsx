@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby";
-import { jsx, Themed, Box } from "theme-ui";
+import { jsx, Box } from "theme-ui";
+import { Themed } from '@theme-ui/mdx'
 
 interface IProps {
   title?: string;

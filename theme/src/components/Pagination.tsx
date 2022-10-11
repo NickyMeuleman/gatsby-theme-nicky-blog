@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { ChangeEvent } from "react";
-import { jsx, Themed } from "theme-ui";
+import { jsx } from "theme-ui";
+import { Themed } from '@theme-ui/mdx'
 import { navigate, Link } from "gatsby";
 import * as path from "path";
 import { IBlogPostListPageContextWithPagination } from "../types";

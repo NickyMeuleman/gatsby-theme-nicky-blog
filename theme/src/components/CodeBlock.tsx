@@ -6,7 +6,8 @@ import React from "react";
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Highlight, { defaultProps, Language } from "prism-react-renderer";
 import rangeParser from "parse-numeric-range";
-import { jsx, Themed } from "theme-ui";
+import { jsx } from "theme-ui";
+import { Themed } from '@theme-ui/mdx'
 
 interface IProps {
   className: string;

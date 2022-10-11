@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed } from "theme-ui";
+import { jsx } from "theme-ui";
+import { Themed } from '@theme-ui/mdx'
 import * as path from "path";
 import { Layout } from "./Layout";
 import { PostCard } from "./PostCard";

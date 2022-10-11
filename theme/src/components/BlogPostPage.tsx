@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed } from "theme-ui";
+import { jsx } from "theme-ui";
+import { Themed } from '@theme-ui/mdx'
 // @ts-ignore
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { getSrc, GatsbyImage } from "gatsby-plugin-image";
