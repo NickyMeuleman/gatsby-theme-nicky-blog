@@ -27,7 +27,8 @@ const eslintConfig = {
         "react/prop-types": "off",
         // sx is no longer typed on jsx elements, but it's there if you do the pragme 
         // https://github.com/system-ui/theme-ui/issues/1307
-        "react/no-unknown-property": ["error", { ignore: ["sx"]}]
+        "react/no-unknown-property": ["error", { ignore: ["sx"]}],
+        "no-unused-vars": ["error", { "vars":"local", "args":"none", "varsIgnorePattern": "jsx" }]
     },
     overrides: [
         {
@@ -59,7 +60,8 @@ const eslintConfig = {
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-unsafe-argument": "off",
         // jsx is used in the pragma, not unused
-        "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "jsx" }]
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "vars":"local", "args":"none", "varsIgnorePattern": "jsx" }]
             }
         }
     ],
