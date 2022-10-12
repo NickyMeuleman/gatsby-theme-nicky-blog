@@ -1,6 +1,9 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
+const testPostTemplate = require.resolve(
+  `./src/templates/TestPostTemplate.tsx`
+);
 const blogPostTemplate = path.resolve(`./src/templates/BlogPostQuery.tsx`);
 // const blogPostTemplate = require.resolve(`./src/templates/BlogPostQuery.tsx`)
 
@@ -10,6 +13,7 @@ const {
   mdxResolverPassthrough,
   themeOptionsWithDefaults,
 } = require(`./src/utils`);
+const { randomUUID } = require("crypto");
 
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
@@ -437,6 +441,33 @@ exports.onCreateNode = (
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { instances } = themeOptionsWithDefaults(options);
+
+  const testPostQueryResult = await graphql(`
+    {
+      allMdx {
+        nodes {
+          id
+          frontmatter {
+            slug
+          }
+          internal {
+            contentFilePath
+          }
+        }
+      }
+    }
+  `);
+  console.log(testPostQueryResult.data.allMdx.nodes);
+  testPostQueryResult.data.allMdx.nodes.forEach((node) => {
+    actions.createPage({
+      path: node.frontmatter.slug || randomUUID(),
+      component: `${testPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+      context: {
+        id: node.id,
+      },
+    });
+  });
+
   const blogPostQueryResult = await graphql(`
     query createPagesQuery {
       allBlogPost(

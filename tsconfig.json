@@ -14,10 +14,12 @@
   "include": [
     "./theme/src/**/*.js",
     "./theme/src/**/*.ts",
+    "./theme/src/**/*.tsx",
     "./theme/*.js",
     "./theme/*.ts",
     "./demo/src/**/*.js",
     "./demo/src/**/*.ts",
+    "./demo/src/**/*.tsx",
     "./demo/*.js",
     "./demo/*.ts",
     ".eslintrc.cjs",

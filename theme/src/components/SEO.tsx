@@ -5,6 +5,7 @@ import * as path from "path";
 import { ISEOStaticQuery } from "../types";
 
 interface IProps {
+  children?: React.ReactNode;
   date?: string;
   author?: { name: string; twitter?: string };
   title?: string;
@@ -24,7 +25,7 @@ const SEO: React.FC<IProps> = ({
   image,
   title,
   description,
-  slug,
+  slug = "",
   lang = `en`,
   keywords,
   canonicalUrl,
@@ -83,10 +84,12 @@ const SEO: React.FC<IProps> = ({
       <meta name="twitter:description" content={metaDescription} />
       {metaImage && <meta name="twitter:image" content={metaImage} />}
       {/* TODO: Consistent @ or not */}
-      <meta
-        name="twitter:creator"
-        content={`@${twitterHandle}` || siteMetadata.social.twitter}
-      />
+      {twitterHandle && (
+        <meta
+          name="twitter:creator"
+          content={`@${twitterHandle}` || siteMetadata.social.twitter}
+        />
+      )}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       {keywords && <meta name="keywords" content={keywords.join(`, `)} />}
       {children}

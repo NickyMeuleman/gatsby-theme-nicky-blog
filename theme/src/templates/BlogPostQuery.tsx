@@ -4,11 +4,16 @@ import { BlogPostPage } from "../components/BlogPostPage";
 import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types";
 
 interface IProps {
+  children: React.ReactNode;
   data: IBlogPostTemplateQuery;
   pageContext: IBlogPostPageContext;
 }
 
-const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
+const BlogPostTemplate: React.FC<IProps> = ({
+  data,
+  pageContext,
+  children,
+}) => {
   if (data.blogPost.series?.posts) {
     data.blogPost.series.posts.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -18,7 +23,11 @@ const BlogPostTemplate: React.FC<IProps> = ({ data, pageContext }) => {
     post: data.blogPost,
   };
 
-  return <BlogPostPage data={pageData} pageContext={pageContext} />;
+  return (
+    <BlogPostPage data={pageData} pageContext={pageContext}>
+      {children}
+    </BlogPostPage>
+  );
 };
 
 export const blogPostTemplateQuery = graphql`
@@ -30,8 +39,8 @@ export const blogPostTemplateQuery = graphql`
       date
       updatedAt
       canonicalUrl
-      keywords
       body
+      keywords
       tableOfContents
       series {
         name

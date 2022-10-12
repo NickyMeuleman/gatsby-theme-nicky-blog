@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { ChangeEvent } from "react";
 import { jsx } from "theme-ui";
-import { Themed } from '@theme-ui/mdx'
+import { Themed } from "@theme-ui/mdx";
 import { navigate, Link } from "gatsby";
 import * as path from "path";
 import { IBlogPostListPageContextWithPagination } from "../types";
@@ -37,7 +37,9 @@ const Pagination: React.FC<IProps> = ({
       value === `1`
         ? path.join(`/`, basePath)
         : path.join(`/`, basePath, prefixPath, value);
-    navigate(navPath);
+    navigate(navPath).catch((cause) =>
+      console.error("Failed to navigate:", cause)
+    );
   };
   return (
     <nav
