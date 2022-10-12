@@ -27,19 +27,10 @@
   ],
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.formatOnSave": false
-  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "eslint.alwaysShowStatus": true,
-  "prettier.disableLanguages": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "eslint.options": {
     "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
   },
@@ -51,14 +42,21 @@
     "typescriptreact",
     "mdx"
   ],
+  "[javascript]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null
+  },
   "[javascriptreact]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null
   },
   "[typescript]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null
   },
   "[typescriptreact]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null
   },
   "eslint.workingDirectories": ["./demo/", "./theme/"],
   "typescript.tsdk": "node_modules/typescript/lib",

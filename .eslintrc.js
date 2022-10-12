@@ -21,9 +21,7 @@ module.exports = {
     `plugin:@typescript-eslint/recommended`,
     `plugin:import/typescript`,
     `plugin:mdx/recommended`,
-    `prettier`,
-    `prettier/react`,
-    `prettier/@typescript-eslint`
+    `prettier`
   ],
   plugins: [
     `react`,
@@ -126,10 +124,22 @@ module.exports = {
         args: `none`
       }
     ],
-    "@typescript-eslint/interface-name-prefix": [`warn`, `always`],
     "@typescript-eslint/ban-ts-ignore": `off`,
     "@typescript-eslint/no-empty-interface": `off`,
-    "prettier/prettier": `warn`
+    "prettier/prettier": `warn`,
+    "@typescript-eslint/naming-convention": [
+      `warn`,
+      {
+        "selector": `interface`,
+        "format": [`PascalCase`],
+        "custom": {
+          "regex": `^I[A-Z]`,
+          "match": true
+        }
+      }
+    ],
+    "react/function-component-definition": [`warn`, {"namedComponents": [`function-declaration`, `arrow-function`]}]
+
   },
   overrides: [
     {
