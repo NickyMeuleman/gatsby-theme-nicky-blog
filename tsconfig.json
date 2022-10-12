@@ -17,7 +17,8 @@
     "./theme/*.ts",
     "./demo/src/**/*",
     "./demo/*.js",
-    "./demo/*.ts"
+    "./demo/*.ts",
+    ".eslintrc.cjs"
   ],
   "exclude": ["node_modules", "demo/node_modules", "demo/node_modules"]
 }

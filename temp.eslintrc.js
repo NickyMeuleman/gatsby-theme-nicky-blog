@@ -1,6 +1,7 @@
 const path = require(`path`)
 
 module.exports = {
+  root: true,
   parser: `@typescript-eslint/parser`,
   parserOptions: {
     ecmaFeatures: {
@@ -17,7 +18,6 @@ module.exports = {
   },
   extends: [
     `plugin:react/recommended`,
-    `airbnb`,
     `plugin:@typescript-eslint/recommended`,
     `plugin:import/typescript`,
     `plugin:mdx/recommended`,
