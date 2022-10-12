@@ -25,7 +25,6 @@
     "@types/parse-numeric-range": "^0.0.1",
     "@types/react-helmet": "^6.1.5",
     "@types/testing-library__cypress": "^5.0.9",
-    "@types/theme-ui": "^0.6.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "eslint-config-prettier": "^8.3.0",
