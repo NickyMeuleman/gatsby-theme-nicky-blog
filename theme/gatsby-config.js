@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
 const remarkSlug = require(`remark-slug`);
 const { themeOptionsWithDefaults } = require(`./src/utils`);
 
@@ -60,8 +59,10 @@ module.exports = (themeOptions = {}) => {
             { resolve: `gatsby-remark-smartypants` },
             ...gatsbyRemarkPlugins,
           ],
-          remarkPlugins: [remarkSlug, ...remarkPlugins],
-          rehypePlugins,
+          mdxOptions: {
+            remarkPlugins: [remarkSlug, ...remarkPlugins],
+            rehypePlugins,
+          },
         },
       },
       `@pauliescanlon/gatsby-mdx-embed`,

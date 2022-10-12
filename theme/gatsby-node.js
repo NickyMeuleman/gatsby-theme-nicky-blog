@@ -1,6 +1,8 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
+const blogPostTemplate = path.resolve(`./src/templates/BlogPostQuery.tsx`);
+// const blogPostTemplate = require.resolve(`./src/templates/BlogPostQuery.tsx`)
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const {
@@ -486,7 +488,8 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         const { slug } = post;
         actions.createPage({
           path: path.join(basePath, slug),
-          component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
+          component: `${require.resolve(`./src/templates/BlogPostQuery.tsx`)}`,
+          // component: `${blogPostTemplate}?__contentFilePath=${post.internal.contentFilePath}`,
           context: {
             slug,
             prev,
@@ -586,7 +589,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   });
 
   // create a page for each author
-  authors.forEach((author, i) => {
+  authors.forEach((author) => {
     const { shortName } = author;
     const slug = slugify(shortName);
     actions.createPage({
