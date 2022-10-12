@@ -61,7 +61,16 @@ const eslintConfig = {
         "@typescript-eslint/no-unsafe-argument": "off",
         // jsx is used in the pragma, not unused
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["error", { "vars":"local", "args":"none", "varsIgnorePattern": "jsx" }]
+        "@typescript-eslint/no-unused-vars": ["error", { "vars":"local", "args":"none", "varsIgnorePattern": "jsx" }],
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {
+              "checksVoidReturn": {
+                "arguments": false,
+                "attributes": false
+              }
+            }
+          ]
             }
         }
     ],
