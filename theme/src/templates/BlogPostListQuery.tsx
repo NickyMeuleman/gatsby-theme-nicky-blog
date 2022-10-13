@@ -33,34 +33,38 @@ const BlogPostListTemplate: React.FC<IProps> = ({ data, pageContext }) => {
   return <BlogPostListPage data={pageData} pageContext={pageContext} />;
 };
 
-export const blogPostListTemplateQuery = graphql`query blogPostListTemplateQuery($skip: Int, $limit: Int, $basePath: String) {
-  allBlogPost(
-    sort: {fields: [date], order: DESC}
-    limit: $limit
-    skip: $skip
-    filter: {published: {ne: false}, instance: {basePath: {eq: $basePath}}}
-  ) {
-    totalCount
-    nodes {
-      id
-      authors {
-        shortName
-        name
+export const blogPostListTemplateQuery = graphql`
+  query blogPostListTemplateQuery($skip: Int, $limit: Int, $basePath: String) {
+    allBlogPost(
+      sort: { fields: [date], order: DESC }
+      limit: $limit
+      skip: $skip
+      filter: {
+        published: { ne: false }
+        instance: { basePath: { eq: $basePath } }
       }
-      instance {
-        basePath
-      }
-      title
-      slug
-      date
-      cover {
-        childImageSharp {
-          gatsbyImageData(layout: FULL_WIDTH)
+    ) {
+      totalCount
+      nodes {
+        id
+        authors {
+          shortName
+          name
+        }
+        instance {
+          basePath
+        }
+        title
+        slug
+        date
+        cover {
+          childImageSharp {
+            gatsbyImageData(layout: FULL_WIDTH)
+          }
         }
       }
     }
   }
-}
 `;
 
 export default BlogPostListTemplate;

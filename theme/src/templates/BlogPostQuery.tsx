@@ -24,9 +24,11 @@ const BlogPostTemplate: React.FC<IProps> = ({
   };
 
   return (
-    <BlogPostPage data={pageData} pageContext={pageContext}>
-      {children}
-    </BlogPostPage>
+    <BlogPostPage
+      data={pageData}
+      pageContext={pageContext}
+      passedChildren={children}
+    />
   );
 };
 

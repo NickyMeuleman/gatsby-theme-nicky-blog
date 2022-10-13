@@ -10,15 +10,19 @@ import { IBlogPostPageContext, IBlogPostPageData } from "../types";
 import { SeriesSelect } from "./SeriesSelect";
 
 interface IProps {
-  children?: React.ReactNode;
+  passedchildren?: React.ReactNode;
   data: IBlogPostPageData;
   pageContext: IBlogPostPageContext;
 }
 
-const BlogPostPage: React.FC<IProps> = ({ data, pageContext, children }) => {
+const BlogPostPage: React.FC<IProps> = ({
+  data,
+  pageContext,
+  passedchildren,
+}) => {
   const { post } = data;
   const { prev, next } = pageContext;
-  console.log({ children, data: data.post.body });
+  console.log({ passedchildren, data: data.post.body });
 
   return (
     <React.Fragment>
