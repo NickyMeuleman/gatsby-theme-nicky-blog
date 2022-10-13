@@ -7,7 +7,7 @@ import React from "react";
 import Highlight, { defaultProps, Language } from "prism-react-renderer";
 import rangeParser from "parse-numeric-range";
 import { jsx } from "theme-ui";
-import { Themed } from '@theme-ui/mdx'
+import { Themed } from "@theme-ui/mdx";
 
 interface IProps {
   className: string;
@@ -65,7 +65,12 @@ const CodeBlock: React.FC<IProps> = ({
 
   // MDX will pass the language as className
   // className also includes className(s) theme-ui injected
-  const [language] = outerClassName.replace(/language-/, ``).split(` `);
+  let language = "text";
+  if (outerClassName) {
+    const [outerLanguage] = outerClassName.replace(/language-/, ``).split(` `);
+    language = outerLanguage;
+  }
+
   const lang = aliases[language] || language;
   if (typeof children !== `string`) {
     // MDX will pass in the code string as children
