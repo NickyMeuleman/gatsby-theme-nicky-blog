@@ -10,7 +10,8 @@ import { IBlogPostPageContext, IBlogPostPageData } from "../types";
 import { SeriesSelect } from "./SeriesSelect";
 
 interface IProps {
-  passedchildren?: React.ReactNode;
+  children: React.ReactNode;
+  passedChildren?: React.ReactNode;
   data: IBlogPostPageData;
   pageContext: IBlogPostPageContext;
 }
@@ -18,11 +19,12 @@ interface IProps {
 const BlogPostPage: React.FC<IProps> = ({
   data,
   pageContext,
-  passedchildren,
+  passedChildren,
+  children,
 }) => {
   const { post } = data;
   const { prev, next } = pageContext;
-  console.log({ passedchildren, data: data.post.body });
+  console.log({ passedChildren, children, data: data.post.body });
 
   return (
     <React.Fragment>
@@ -79,7 +81,7 @@ const BlogPostPage: React.FC<IProps> = ({
             MDXRenderer was deprecated. you are supposed to be able to use children directly, but how? 
             https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/#updating-page-templates
             */}
-            {data.post.body}
+            {/* {data.post.body} */}
 
             {post?.series?.posts.length > 1 && (
               <SeriesSelect

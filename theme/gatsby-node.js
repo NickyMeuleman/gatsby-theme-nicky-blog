@@ -1,14 +1,14 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
-const blogPostTemplate = require.resolve(`./src/templates/BlogPostQuery.tsx`);
+// const blogPostTemplate = require.resolve(`./src/templates/BlogPostQuery.tsx`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const {
   slugify,
   mdxResolverPassthrough,
   themeOptionsWithDefaults,
 } = require(`./src/utils`);
-// const { randomUUID } = require("crypto");
+const { randomUUID } = require("crypto");
 
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
@@ -81,6 +81,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   }
   interface BlogPost implements Node {
     id: ID!
+    contentFilePath: String
     date: Date! @dateformat
     updatedAt: Date @dateformat
     slug: String!
@@ -263,6 +264,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `String!`,
         resolve: mdxResolverPassthrough(`body`),
       },
+      contentFilePath: {
+        type: "String!",
+        resolve: async (source, args, context, info) => {
+          const mdxNode = context.nodeModel.getNodeById({
+            id: source.parent,
+          });
+          return mdxNode.internal.contentFilePath;
+        },
+      },
       cover: {
         type: `File`,
         extensions: {
@@ -437,33 +447,32 @@ exports.onCreateNode = (
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { instances } = themeOptionsWithDefaults(options);
 
-  // const testPostQueryResult = await graphql(`
-  //   {
-  //     allMdx {
-  //       nodes {
-  //         id
-  //         frontmatter {
-  //           slug
-  //         }
-  //         internal {
-  //           contentFilePath
-  //         }
-  //       }
-  //     }
-  //   }
-  // `);
-  // console.log(testPostQueryResult.data.allMdx.nodes);
-  // testPostQueryResult.data.allMdx.nodes.forEach((node) => {
-  //   actions.createPage({
-  //     path: `test/` + node.frontmatter.slug || randomUUID(),
-  //     component: `${require.resolve(
-  //       `./src/templates/post-template.js`
-  //     )}?__contentFilePath=${node.internal.contentFilePath}`,
-  //     context: {
-  //       id: node.id,
-  //     },
-  //   });
-  // });
+  const testPostQueryResult = await graphql(`
+    {
+      allMdx {
+        nodes {
+          id
+          frontmatter {
+            slug
+          }
+          internal {
+            contentFilePath
+          }
+        }
+      }
+    }
+  `);
+  testPostQueryResult.data.allMdx.nodes.forEach((node) => {
+    actions.createPage({
+      path: `test/` + node.frontmatter.slug || randomUUID(),
+      component: `${require.resolve(
+        `./src/templates/post-template.tsx`
+      )}?__contentFilePath=${node.internal.contentFilePath}`,
+      context: {
+        id: node.id,
+      },
+    });
+  });
 
   const blogPostQueryResult = await graphql(`
     query createPagesQuery {
@@ -478,6 +487,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         nodes {
           title
           slug
+          contentFilePath
           instance {
             basePath
           }
@@ -510,21 +520,20 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         (post) => post.instance.basePath === basePath
       );
       // create a page for each blogPost
-      posts.forEach((post, i) => {
-        const next = i === 0 ? null : posts[i - 1];
-        const prev = i === posts.length - 1 ? null : posts[i + 1];
-        const { slug } = post;
-        actions.createPage({
-          path: path.join(basePath, slug),
-          // component: `${require.resolve(`./src/templates/BlogPostQuery.tsx`)}`,
-          component: `${blogPostTemplate}?__contentFilePath=${post.contentFilePath}`,
-          context: {
-            slug,
-            prev,
-            next,
-          },
-        });
-      });
+      // posts.forEach((post, i) => {
+      //   const next = i === 0 ? null : posts[i - 1];
+      //   const prev = i === posts.length - 1 ? null : posts[i + 1];
+      //   const { slug } = post;
+      //   actions.createPage({
+      //     path: path.join(basePath, slug),
+      //     component: `${blogPostTemplate}?__contentFilePath=${post.contentFilePath}`,
+      //     context: {
+      //       slug,
+      //       prev,
+      //       next,
+      //     },
+      //   });
+      // });
 
       // create (paginated) blog-list page(s)
       let numPages;
