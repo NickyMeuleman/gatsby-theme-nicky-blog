@@ -11,8 +11,11 @@ export default function Post({
 }) {
   return (
     <main>
+      data
       <pre>{JSON.stringify(data, null, 2)}</pre>
+      pagecontext
       <pre>{JSON.stringify(pageContext, null, 2)}</pre>
+      children
       {children}
     </main>
   );

@@ -447,32 +447,77 @@ exports.onCreateNode = (
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { instances } = themeOptionsWithDefaults(options);
 
+  // const testPostQueryResult = await graphql(`
+  //   {
+  //     allMdx {
+  //       nodes {
+  //         id
+  //         frontmatter {
+  //           slug
+  //         }
+  //         internal {
+  //           contentFilePath
+  //         }
+  //       }
+  //     }
+  //   }
+  // `);
   const testPostQueryResult = await graphql(`
-    {
-      allMdx {
+    query createTestPagesQuery {
+      allBlogPost(
+        sort: { fields: date, order: DESC }
+        filter: { ${
+          process.env.NODE_ENV === `production`
+            ? `published: { ne: false }`
+            : ``
+        } }
+      ) {
         nodes {
           id
-          frontmatter {
-            slug
+          title
+          slug
+          contentFilePath
+          instance {
+            basePath
           }
-          internal {
-            contentFilePath
-          }
+        }
+      }
+      allAuthor {
+        nodes {
+          shortName
         }
       }
     }
   `);
-  testPostQueryResult.data.allMdx.nodes.forEach((node) => {
+  console.log("-======================================-");
+  testPostQueryResult.data.allBlogPost.nodes.forEach((node) => {
+    console.log({
+      slug: node.slug,
+      contentfilepath: node.contentFilePath,
+      id: node.id,
+    });
     actions.createPage({
-      path: `test/` + node.frontmatter.slug || randomUUID(),
+      path: `test/` + node.slug || randomUUID(),
       component: `${require.resolve(
         `./src/templates/post-template.tsx`
-      )}?__contentFilePath=${node.internal.contentFilePath}`,
+      )}?__contentFilePath=${node.contentFilePath}`,
       context: {
         id: node.id,
+        slug: node.slug,
       },
     });
   });
+  // testPostQueryResult.data.allMdx.nodes.forEach((node) => {
+  //   actions.createPage({
+  //     path: `test/` + node.frontmatter.slug || randomUUID(),
+  //     component: `${require.resolve(
+  //       `./src/templates/post-template.tsx`
+  //     )}?__contentFilePath=${node.internal.contentFilePath}`,
+  //     context: {
+  //       id: node.id,
+  //     },
+  //   });
+  // });
 
   const blogPostQueryResult = await graphql(`
     query createPagesQuery {
