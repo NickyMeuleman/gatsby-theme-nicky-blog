@@ -1,6 +1,6 @@
 /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { LOADIPHLPAPI } from "dns";
+import { Themed } from "@theme-ui/mdx";
 import * as React from "react";
 import { jsx } from "theme-ui";
 import { Aside } from "../Aside";
@@ -40,9 +40,6 @@ type Language =
 
 type GetLanguageInput = `language-${Language}` | "";
 
-const getLanguage = (className: GetLanguageInput = ``) =>
-  className.split(`language-`).pop() as Language;
-
 interface IPreProps {
   children: {
     props: {
@@ -79,11 +76,7 @@ const preToCodeBlock = (preProps: IPreProps) => {
 const MdxComponents = {
   Aside: (props: any) => <Aside {...props} />,
   pre: (preProps: any) => {
-    console.log({ preProps });
-
-    // FIXME: none of the title, hl, numberLines props are coming through
     const props = preToCodeBlock(preProps);
-
     // if there's a codeString and some props, we passed the test
     if (props) {
       return <CodeBlock {...props} />;
@@ -92,6 +85,9 @@ const MdxComponents = {
     return <pre {...preProps} />;
   },
   ...headingObj,
+  code: (props: any) => {
+    return <Themed.code>{props.children}</Themed.code>;
+  },
 };
 
 export default MdxComponents;

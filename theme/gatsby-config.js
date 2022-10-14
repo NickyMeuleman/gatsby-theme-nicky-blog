@@ -1,6 +1,9 @@
 const remarkSlug = require(`remark-slug`);
 const remarkGfm = require("remark-gfm");
-const { themeOptionsWithDefaults } = require(`./src/utils`);
+const {
+  themeOptionsWithDefaults,
+  rehypeMetaAsAttributes,
+} = require(`./src/utils`);
 
 module.exports = (themeOptions = {}) => {
   const {
@@ -62,7 +65,7 @@ module.exports = (themeOptions = {}) => {
           ],
           mdxOptions: {
             remarkPlugins: [remarkSlug, remarkGfm, ...remarkPlugins],
-            rehypePlugins,
+            rehypePlugins: [rehypeMetaAsAttributes, ...rehypePlugins],
           },
         },
       },
