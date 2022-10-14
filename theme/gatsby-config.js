@@ -1,4 +1,5 @@
 const remarkSlug = require(`remark-slug`);
+const remarkGfm = require("remark-gfm");
 const { themeOptionsWithDefaults } = require(`./src/utils`);
 
 module.exports = (themeOptions = {}) => {
@@ -60,7 +61,7 @@ module.exports = (themeOptions = {}) => {
             ...gatsbyRemarkPlugins,
           ],
           mdxOptions: {
-            remarkPlugins: [remarkSlug, ...remarkPlugins],
+            remarkPlugins: [remarkSlug, remarkGfm, ...remarkPlugins],
             rehypePlugins,
           },
         },

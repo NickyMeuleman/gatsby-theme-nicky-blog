@@ -73,3 +73,6 @@ cypress/videos
 OLD_*
 # Local Netlify folder
 .netlify
+
+# weird yarn issue had me `yarn policies set-version 1.19.1`
+.yarn
