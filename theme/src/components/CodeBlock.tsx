@@ -11,10 +11,11 @@ import { Themed } from "@theme-ui/mdx";
 
 interface IProps {
   className: string;
-  title: string | undefined;
-  hl: string | undefined;
+  title?: string;
+  hl?: string;
   // the passed props are unknown
   [key: string]: any;
+  codeString: string;
 }
 
 const aliases: { [key: string]: string } = {
@@ -22,7 +23,7 @@ const aliases: { [key: string]: string } = {
   sh: `bash`,
 };
 
-const getShouldHighlightLine = (hl: string | undefined) => {
+const getShouldHighlightLine = (hl?: string) => {
   if (hl) {
     const lineNumbers = rangeParser(hl);
     return (index: number) => lineNumbers.includes(index + 1);
@@ -30,7 +31,7 @@ const getShouldHighlightLine = (hl: string | undefined) => {
   return () => false;
 };
 
-const getLineNumberStart = (numberLines: string | boolean | undefined) => {
+const getLineNumberStart = (numberLines?: string | boolean) => {
   let result = null;
   if (numberLines) {
     if (numberLines === `true` || numberLines === true) {
@@ -43,7 +44,7 @@ const getLineNumberStart = (numberLines: string | boolean | undefined) => {
 };
 
 const CodeBlock: React.FC<IProps> = ({
-  children,
+  codeString,
   className: outerClassName,
   title,
   hl,
@@ -72,10 +73,7 @@ const CodeBlock: React.FC<IProps> = ({
   }
 
   const lang = aliases[language] || language;
-  if (typeof children !== `string`) {
-    // MDX will pass in the code string as children
-    return null;
-  }
+
   const shouldHighlightLine = getShouldHighlightLine(hl);
   const lineNumberStart = getLineNumberStart(numberLines);
 
@@ -96,7 +94,7 @@ const CodeBlock: React.FC<IProps> = ({
           <Highlight
             {...defaultProps}
             {...props}
-            code={children.trim()}
+            code={codeString.trim()}
             // supported languages: https://github.com/FormidableLabs/prism-react-renderer/blob/master/src/vendor/prism/includeLangs.js
             language={lang as Language}
             theme={undefined}
@@ -112,7 +110,7 @@ const CodeBlock: React.FC<IProps> = ({
                     name={copyLabel}
                     disabled={copied}
                     onClick={async () => {
-                      await navigator.clipboard.writeText(children.trim());
+                      await navigator.clipboard.writeText(codeString.trim());
                       setCopied(true);
                       await new Promise((resolve) => setTimeout(resolve, 1000));
                       setCopied(false);

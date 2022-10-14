@@ -3,14 +3,14 @@ import { jsx, Box } from "theme-ui";
 import { Header } from "./Header";
 import { Main } from "./Main";
 import { MDXProvider } from "@mdx-js/react";
-import { Aside } from "./mdx-components";
-import Mdxcomponents from "../gatsby-plugin-theme-ui/components";
+import MdxComponents from "./mdx-components";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
   ...props
 }) => (
-  <MDXProvider components={{ ...Mdxcomponents, Aside }}>
+  //@ts-ignore because MdxComponents has ...headingObj
+  <MDXProvider components={MdxComponents}>
     <Box
       sx={{
         minHeight: `100vh`,
