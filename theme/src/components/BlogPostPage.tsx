@@ -35,9 +35,9 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext, children }) => {
               `1fr minmax(0, 70ch) 1fr`,
               null,
               null,
-              `1fr minmax(0, 30ch) minmax(0, ${t.space?.[5] ?? "4rem"}) 70ch ${
-                t.space?.[5] ?? "4rem"
-              } 30ch 1fr`,
+              `1fr minmax(0, 30ch) minmax(0, ${
+                (t.space?.[5] as string) ?? "4rem"
+              }) 70ch ${(t.space?.[5] as string) ?? "4rem"} 30ch 1fr`,
             ],
             my: 5,
             variant: `styles.BlogPostPage`,

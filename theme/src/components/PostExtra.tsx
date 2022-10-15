@@ -188,7 +188,7 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             mb: 4,
             position: [null, null, null, `sticky`],
             maxHeight: (theme) => {
-              const space = theme.space?.[5] ?? "4rem";
+              const space = (theme.space?.[5] as string) ?? "4rem";
               return `calc(100vh - (${space} * 2))`;
             },
             overflow: `auto`,

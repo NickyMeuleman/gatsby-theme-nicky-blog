@@ -1,3 +1,6 @@
+// need to import unused React eventhough you don't need to do that anymore in react v17+
+// 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { graphql } from "gatsby";
 import { BlogPostPage, BlogPostHead as Head } from "../components/BlogPostPage";
