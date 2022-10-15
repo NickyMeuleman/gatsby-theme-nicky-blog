@@ -318,23 +318,24 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       },
       series: {
         type: `Series`,
-        resolve: (source, args, context, info) => {
+        resolve: async (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({
             id: source.parent,
           });
           const seriesName = mdxNode.frontmatter.series;
-          const seriesPosts = context.nodeModel
-            .getAllNodes({ type: `BlogPost` })
-            .filter((post) => {
-              // logic for MdxBlogPost (to add multi-sourcing series support expand logic for other types)
-              if (source.internal.type === `MdxBlogPost`) {
-                const parent = context.nodeModel.getNodeById({
-                  id: post.parent,
-                });
-                return seriesName === parent.frontmatter.series;
-              }
-              return false;
-            });
+          const { entries } = await context.nodeModel.findAll({
+            type: "BlogPost",
+          });
+          const seriesPosts = entries.filter((post) => {
+            // logic for MdxBlogPost (to add multi-sourcing series support expand logic for other types)
+            if (source.internal.type === `MdxBlogPost`) {
+              const parent = context.nodeModel.getNodeById({
+                id: post.parent,
+              });
+              return seriesName === parent.frontmatter.series;
+            }
+            return false;
+          });
           return (
             seriesName && {
               name: seriesName,
