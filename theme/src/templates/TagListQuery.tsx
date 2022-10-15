@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { TagListPage } from "../components/TagListPage";
+import { TagListPage, TagListHead as Head } from "../components/TagListPage";
 import {
   ITagListTemplateQuery,
   ITagListPageContext,
@@ -49,3 +49,4 @@ export const tagListTemplateQuery = graphql`
 `;
 
 export default TagListTemplate;
+export { Head };

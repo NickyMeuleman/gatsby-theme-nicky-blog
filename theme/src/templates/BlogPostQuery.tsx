@@ -1,8 +1,19 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { BlogPostPage } from "../components/BlogPostPage";
+import { BlogPostPage, BlogPostHead as Head } from "../components/BlogPostPage";
+// import { IBlogPostPageContext, IBlogPostTemplateQuery } from "../types";
+
+// Gatsby throws a fit if an interface is found here (invalid AST, keyword 'interface' is reserved) while it is fine in all other templates, why?
+// also when ANY TypeScript syntax is found. Maybe it thinks this is a js file?
+// interface IProps {
+//   children: React.ReactNode;
+//   data: IBlogPostTemplateQuery;
+//   pageContext: IBlogPostPageContext;
+// }
 
 const BlogPostTemplate = ({ data, pageContext, children }) => {
+  console.log(children);
+
   if (data.blogPost.series?.posts) {
     data.blogPost.series.posts.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -65,3 +76,4 @@ export const blogPostTemplateQuery = graphql`
 `;
 
 export default BlogPostTemplate;
+export { Head };

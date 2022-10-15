@@ -6,8 +6,13 @@ import { getSrc, GatsbyImage } from "gatsby-plugin-image";
 import { Layout } from "./Layout";
 import { PostExtra } from "./PostExtra";
 import { SEO } from "./SEO";
-import { IBlogPostPageContext, IBlogPostPageData } from "../types";
+import {
+  IBlogPostPageContext,
+  IBlogPostPageData,
+  IBlogPostTemplateQuery,
+} from "../types";
 import { SeriesSelect } from "./SeriesSelect";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
   children: React.ReactNode;
@@ -21,22 +26,6 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext, children }) => {
 
   return (
     <React.Fragment>
-      <SEO
-        author={post.authors && post.authors[0] ? post.authors[0] : undefined}
-        date={post.date}
-        title={post.title}
-        description={post.excerpt}
-        slug={post.slug}
-        keywords={post.keywords || []}
-        image={post.cover ? getSrc(post.cover) : `/path/to/fallback/image.png`}
-        canonicalUrl={post.canonicalUrl}
-        twitterHandle={
-          post.authors && post.authors[0].twitter
-            ? post.authors[0].twitter
-            : undefined
-        }
-        basePath={post.instance.basePath}
-      />
       <Layout>
         <div
           sx={{
@@ -86,4 +75,28 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext, children }) => {
   );
 };
 
-export { BlogPostPage };
+const BlogPostHead: HeadFC<IBlogPostTemplateQuery, IBlogPostPageContext> = ({
+  data,
+}) => {
+  const { blogPost: post } = data;
+  return (
+    <SEO
+      author={post.authors && post.authors[0] ? post.authors[0] : undefined}
+      date={post.date}
+      title={post.title}
+      description={post.excerpt}
+      slug={post.slug}
+      keywords={post.keywords || []}
+      image={post.cover ? getSrc(post.cover) : `/path/to/fallback/image.png`}
+      canonicalUrl={post.canonicalUrl}
+      twitterHandle={
+        post.authors && post.authors[0].twitter
+          ? post.authors[0].twitter
+          : undefined
+      }
+      basePath={post.instance.basePath}
+    />
+  );
+};
+
+export { BlogPostPage, BlogPostHead };

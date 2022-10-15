@@ -1,12 +1,17 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx } from "theme-ui";
-import { Themed } from '@theme-ui/mdx'
+import { Themed } from "@theme-ui/mdx";
 import * as path from "path";
 import { Layout } from "./Layout";
 import { PostCard } from "./PostCard";
 import { SEO } from "./SEO";
-import { IAuthorPageData, IAuthorPageContext } from "../types";
+import {
+  IAuthorPageData,
+  IAuthorPageContext,
+  IAuthorTemplateQuery,
+} from "../types";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
   data: IAuthorPageData;
@@ -15,11 +20,9 @@ interface IProps {
 
 const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, author } = data;
-  const { slug } = pageContext;
 
   return (
     <React.Fragment>
-      <SEO title={`Author "${author.name}"`} slug={`author/${slug}`} />
       <Layout>
         <div sx={{ variant: `styles.AuthorPage` }}>
           <h1>{author.name}</h1>
@@ -80,4 +83,13 @@ const AuthorPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export { AuthorPage };
+const AuthorHead: HeadFC<IAuthorTemplateQuery, IAuthorPageContext> = ({
+  data,
+  pageContext,
+}) => {
+  const { author } = data;
+  const { slug } = pageContext;
+  return <SEO title={`Author "${author.name}"`} slug={`author/${slug}`} />;
+};
+
+export { AuthorPage, AuthorHead };

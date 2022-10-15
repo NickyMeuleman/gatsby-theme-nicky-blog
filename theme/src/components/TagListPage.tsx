@@ -5,7 +5,12 @@ import { Link } from "gatsby";
 import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
-import { ITagListPageData, ITagListPageContext } from "../types";
+import {
+  ITagListPageData,
+  ITagListPageContext,
+  ITagListTemplateQuery,
+} from "../types";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
   data: ITagListPageData;
@@ -18,12 +23,6 @@ const TagListPage: React.FC<IProps> = ({ data, pageContext }) => {
 
   return (
     <React.Fragment>
-      <SEO
-        title="Tags"
-        description="List of post tags"
-        slug="tag"
-        basePath={basePath}
-      />
       <Layout>
         <ul sx={{ variant: `styles.TagListPage` }}>
           {tags.map((tag) => (
@@ -42,4 +41,19 @@ const TagListPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export { TagListPage };
+const TagListHead: HeadFC<ITagListTemplateQuery, ITagListPageContext> = ({
+  pageContext,
+}) => {
+  const { basePath } = pageContext;
+
+  return (
+    <SEO
+      title="Tags"
+      description="List of post tags"
+      slug="tag"
+      basePath={basePath}
+    />
+  );
+};
+
+export { TagListPage, TagListHead };

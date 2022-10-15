@@ -5,7 +5,8 @@ import { Link } from "gatsby";
 import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
-import { ITagPageData, ITagPageContext } from "../types";
+import { ITagPageData, ITagPageContext, ITagTemplateQuery } from "../types";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
   data: ITagPageData;
@@ -14,7 +15,7 @@ interface IProps {
 
 const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
   const { posts, name, amount } = data;
-  const { slug, basePath } = pageContext;
+  const { basePath } = pageContext;
 
   const tagHeader = `${amount} post${
     amount === 1 ? `` : `s`
@@ -22,13 +23,6 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
 
   return (
     <React.Fragment>
-      <SEO
-        title={`Tagged "${name}"`}
-        description={`List of posts tagged with "${name}"`}
-        slug={`tag/${slug}`}
-        keywords={[`tag`, name]}
-        basePath={basePath}
-      />
       <Layout>
         <div sx={{ variant: `styles.TagPage` }}>
           <h1>{tagHeader}</h1>
@@ -58,4 +52,23 @@ const TagPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export { TagPage };
+const TagHead: HeadFC<ITagTemplateQuery, ITagPageContext> = ({
+  data,
+  pageContext,
+}) => {
+  const { basePath, slug } = pageContext;
+  const { tag } = data;
+  const { name } = tag;
+
+  return (
+    <SEO
+      title={`Tagged "${name}"`}
+      description={`List of posts tagged with "${name}"`}
+      slug={`tag/${slug}`}
+      keywords={[`tag`, name]}
+      basePath={basePath}
+    />
+  );
+};
+
+export { TagPage, TagHead };

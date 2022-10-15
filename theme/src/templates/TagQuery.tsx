@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { TagPage } from "../components/TagPage";
+import { TagPage, TagHead as Head } from "../components/TagPage";
 import { ITagPageContext, ITagTemplateQuery } from "../types";
 
 interface IProps {
@@ -40,3 +40,4 @@ export const tagTemplateQuery = graphql`
 `;
 
 export default TagTemplate;
+export { Head };

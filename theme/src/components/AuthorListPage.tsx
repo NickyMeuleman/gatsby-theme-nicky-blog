@@ -5,7 +5,12 @@ import { Link } from "gatsby";
 import * as path from "path";
 import { Layout } from "./Layout";
 import { SEO } from "./SEO";
-import { IAuthorListPageContext, IAuthorListPageData } from "../types";
+import {
+  IAuthorListPageContext,
+  IAuthorListPageData,
+  IAuthorListTemplateQuery,
+} from "../types";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
   data: IAuthorListPageData;
@@ -17,7 +22,6 @@ const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
 
   return (
     <React.Fragment>
-      <SEO title={`${data.amount} Authors`} slug="author" />
       <Layout>
         <ul sx={{ variant: `styles.AuthorListPage` }}>
           {authors.map((author) => (
@@ -36,4 +40,11 @@ const AuthorListPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export { AuthorListPage };
+const AuthorListHead: HeadFC<
+  IAuthorListTemplateQuery,
+  IAuthorListPageContext
+> = ({ data }) => {
+  return <SEO title={`${data.allAuthor.totalCount} Authors`} slug="author" />;
+};
+
+export { AuthorListPage, AuthorListHead };

@@ -1,6 +1,9 @@
 import React from "react";
 import { graphql } from "gatsby";
-import { BlogPostListPage } from "../components/BlogPostListPage";
+import {
+  BlogPostListPage,
+  BlogPostListHead as Head,
+} from "../components/BlogPostListPage";
 import {
   IBlogPostListTemplateQuery,
   IBlogPostListPageContext,
@@ -68,3 +71,4 @@ export const blogPostListTemplateQuery = graphql`
 `;
 
 export default BlogPostListTemplate;
+export { Head };
