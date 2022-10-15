@@ -8,6 +8,19 @@ const {
   themeOptionsWithDefaults,
 } = require(`./src/utils`);
 
+const authorListTemplatePath = require.resolve(
+  `./src/templates/AuthorListQuery.tsx`
+);
+const authorTemplatePath = require.resolve(`./src/templates/AuthorQuery.tsx`);
+const tagListTemplatePath = require.resolve(`./src/templates/TagListQuery.tsx`);
+const tagTemplatePath = require.resolve(`./src/templates/TagQuery.tsx`);
+const blogPostListTemplatePath = require.resolve(
+  `./src/templates/BlogPostListQuery.tsx`
+);
+const blogPostTemplatePath = require.resolve(
+  `./src/templates/BlogPostQuery.tsx`
+);
+
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
   const { program } = store.getState();
@@ -497,9 +510,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         const { slug, contentFilePath } = post;
         actions.createPage({
           path: path.join(basePath, slug),
-          component: `${require.resolve(
-            `./src/templates/BlogPostQuery.tsx`
-          )}?__contentFilePath=${contentFilePath}`,
+          component: `${blogPostTemplatePath}?__contentFilePath=${contentFilePath}`,
           context: {
             slug,
             prev,
@@ -539,7 +550,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
             index === 0
               ? `${basePath || `/`}`
               : path.join(basePath, prefixPath, `${index + 1}`),
-          component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
+          component: blogPostListTemplatePath,
           context: {
             ...paginationContext,
             basePath,
@@ -571,7 +582,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       // create tag-list page
       actions.createPage({
         path: path.join(basePath, `tag`),
-        component: require.resolve(`./src/templates/TagListQuery.tsx`),
+        component: tagListTemplatePath,
         context: {
           basePath,
         },
@@ -581,7 +592,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       tagsQueryResult.data.allTag.distinct.forEach((tagSlug) => {
         actions.createPage({
           path: path.join(basePath, `tag`, tagSlug),
-          component: require.resolve(`./src/templates/TagQuery.tsx`),
+          component: tagTemplatePath,
           context: {
             slug: tagSlug,
             basePath,
@@ -594,7 +605,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // create author-list page
   actions.createPage({
     path: path.join(`author`),
-    component: require.resolve(`./src/templates/AuthorListQuery.tsx`),
+    component: authorListTemplatePath,
     context: {},
   });
 
@@ -604,7 +615,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     const slug = slugify(shortName);
     actions.createPage({
       path: path.join(`author`, slug),
-      component: require.resolve(`./src/templates/AuthorQuery.tsx`),
+      component: authorTemplatePath,
       context: {
         slug,
         shortName,
