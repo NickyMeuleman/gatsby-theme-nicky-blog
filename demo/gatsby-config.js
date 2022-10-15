@@ -1,6 +1,3 @@
-const remarkMath = require(`remark-math`);
-const rehypeKatex = require(`rehype-katex`);
-
 module.exports = {
   siteMetadata: {
     siteUrl: `https://gatsby-theme-nicky-blog.netlify.com`,
@@ -14,8 +11,15 @@ module.exports = {
     {
       resolve: `@nickymeuleman/gatsby-theme-blog`,
       options: {
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+              strict: `ignore`,
+            },
+          },
+        ],
         assetPath: `data/assets`,
         instances: [
           {

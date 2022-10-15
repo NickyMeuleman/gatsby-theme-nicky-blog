@@ -1,6 +1,6 @@
 /** @jsx jsx */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Themed } from "@theme-ui/mdx";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import { jsx } from "theme-ui";
 import { Aside } from "../Aside";
