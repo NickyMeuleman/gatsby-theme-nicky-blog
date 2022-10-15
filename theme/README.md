@@ -602,3 +602,7 @@ export default theme;
 - [x] Use mdx v2
 - [x] Use theme-ui v0.15
 - [x] Use Gatsby head instead of React-Helmet: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+
+notes:
+can't see the change mentioned at https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v3-to-v4/#gatsby-transformer-json
+no jsonId or yamlId to be found. maybe this change happened in v5 of that plugin and this theme is on v4?
