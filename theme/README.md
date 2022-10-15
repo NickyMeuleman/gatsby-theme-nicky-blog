@@ -92,8 +92,6 @@ module.exports = {
 
 ```js
 // gatsby-config.js
-const remarkMath = require(`remark-math`);
-const rehypeKatex = require(`rehype-katex`);
 
 module.exports = {
   plugins: [
@@ -115,8 +113,14 @@ module.exports = {
             basePath: "notes",
           },
         ],
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              strict: `ignore`,
+            },
+          },
+        ],
       },
     },
   ],
@@ -131,8 +135,8 @@ The posts in `/notes` will be sourced from the `notes` folder.
 Only posts in `/blog` will be paginated. With each paginated page holding a maximum of 10 posts.
 Paginated pages after the one that lists the first 10 posts, will be prefixed be `/page`. eg. `/blog`, `/blog/page/2`, `/blog/page/3`, etc.
 
-Two plugins to add support for math equations via [KaTeX](https://katex.org/) are added.
-Sidenote: For KaTeX to work correctly, The plugins on their own are not enough.
+A plugin to add support for math equations via [KaTeX](https://katex.org/) is added.
+Sidenote: For KaTeX to work correctly, The plugin on its own is not enough.
 The CSS also has to be included on the pages equations are used, in the demo this is done in `gatsby-browser.js`.
 
 Authors are shared between instances (be it `/blog` or `/notes`). A single author can write posts in both instances.
