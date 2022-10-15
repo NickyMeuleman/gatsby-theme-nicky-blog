@@ -59,7 +59,7 @@ exports.themeOptionsWithDefaults = (themeOptions) => {
 
 // https://mdxjs.com/guides/syntax-highlighting/#syntax-highlighting-with-the-meta-field
 // https://github.com/LekoArts/gatsby-themes/tree/main/packages/rehype-meta-as-attributes/
-const visit = require("unist-util-visit");
+const visit = require(`unist-util-visit`);
 
 const re = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g;
 

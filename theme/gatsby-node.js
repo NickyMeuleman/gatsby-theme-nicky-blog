@@ -276,7 +276,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         resolve: mdxResolverPassthrough(`body`),
       },
       contentFilePath: {
-        type: "String!",
+        type: `String!`,
         resolve: async (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({
             id: source.parent,
@@ -324,7 +324,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
           });
           const seriesName = mdxNode.frontmatter.series;
           const { entries } = await context.nodeModel.findAll({
-            type: "BlogPost",
+            type: `BlogPost`,
           });
           const seriesPosts = entries.filter((post) => {
             // logic for MdxBlogPost (to add multi-sourcing series support expand logic for other types)

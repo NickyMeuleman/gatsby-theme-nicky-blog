@@ -8,6 +8,7 @@ import { BlogPostPage, BlogPostHead as Head } from "../components/BlogPostPage";
 
 // Gatsby throws a fit if an interface is found here (invalid AST, keyword 'interface' is reserved) while it is fine in all other templates, why?
 // also when ANY TypeScript syntax is found. Maybe it thinks this is a js file?
+// @ts-ignore
 // interface IProps {
 //   children: React.ReactNode;
 //   data: IBlogPostTemplateQuery;
@@ -17,6 +18,7 @@ import { BlogPostPage, BlogPostHead as Head } from "../components/BlogPostPage";
 const BlogPostTemplate = ({ data, pageContext, children }) => {
   if (data.blogPost.series?.posts) {
     data.blogPost.series.posts.sort(
+      // @ts-ignore
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
   }

@@ -1,5 +1,5 @@
 const remarkSlug = require(`remark-slug`);
-const remarkGfm = require("remark-gfm");
+const remarkGfm = require(`remark-gfm`);
 const {
   themeOptionsWithDefaults,
   rehypeMetaAsAttributes,
