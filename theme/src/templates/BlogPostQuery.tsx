@@ -12,8 +12,6 @@ import { BlogPostPage, BlogPostHead as Head } from "../components/BlogPostPage";
 // }
 
 const BlogPostTemplate = ({ data, pageContext, children }) => {
-  console.log(children);
-
   if (data.blogPost.series?.posts) {
     data.blogPost.series.posts.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()

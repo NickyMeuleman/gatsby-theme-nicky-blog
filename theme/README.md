@@ -598,3 +598,7 @@ export default theme;
 - [x] Support adding own plugins to the internal `gatsby-plugin-mdx`
 - [ ] Migrate theme-ui to Typescript https://theme-ui.com/guides/typescript/
 - [x] Add copy button to codeblocks
+- [x] Use Gatsby v4
+- [x] Use mdx v2
+- [x] Use theme-ui v0.15
+- [x] Use Gatsby head instead of React-Helmet: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/

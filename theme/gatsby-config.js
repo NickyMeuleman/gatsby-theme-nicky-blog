@@ -34,7 +34,6 @@ module.exports = (themeOptions = {}) => {
     },
     plugins: [
       `gatsby-plugin-typescript`,
-      `gatsby-plugin-react-helmet`,
       ...filesystemPluginEntries,
       {
         resolve: `gatsby-source-filesystem`,
