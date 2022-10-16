@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { Themed } from "@theme-ui/mdx";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import { jsx } from "theme-ui";
@@ -85,9 +84,6 @@ const MdxComponents = {
     return <pre {...preProps} />;
   },
   ...headingObj,
-  code: (props: any) => {
-    return <Themed.code>{props.children}</Themed.code>;
-  },
 };
 
 export default MdxComponents;
