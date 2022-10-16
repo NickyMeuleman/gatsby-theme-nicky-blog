@@ -1,11 +1,11 @@
 ---
 title: Veggie ipsum
-author: "max"
+author: max
 date: 2019-07-20
-tags: ["vegetables", "lorem ipsum"]
+tags:
+  - vegetables
+  - lorem ipsum
 ---
-
-updeet
 
 Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.
 
