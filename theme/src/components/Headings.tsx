@@ -5,6 +5,7 @@
 // and https://github.com/gatsbyjs/gatsby/pull/14520
 
 /** @jsx jsx */
+import { Themed } from "@theme-ui/mdx";
 import React from "react";
 import { jsx } from "theme-ui";
 
@@ -32,10 +33,12 @@ type headerTypes = `h1` | `h2` | `h3` | `h4` | `h5` | `h6`;
 const heading: (
   tag: headerTypes
 ) => React.FC<{ id?: string; children: React.ReactNode }> =
-  (Tag) => (props) => {
-    if (!props.id) return <Tag {...props} />;
+  (tag) => (props) => {
+    const Component = Themed[tag];
+
+    if (!props.id) return <Component {...props} />;
     return (
-      <Tag
+      <Component
         {...props}
         sx={{
           // also show icon when hovering over it, not only when hovering over the header text
@@ -65,7 +68,7 @@ const heading: (
           <LinkIcon />
         </a>
         {props.children}
-      </Tag>
+      </Component>
     );
   };
 
