@@ -185,7 +185,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `Date!`,
         extensions: {
           dateformat: {},
-          proxy: {},
+          proxy: { from: `foo` },
         },
         resolve: (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({ id: source.parent });
@@ -202,7 +202,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `Date`,
         extensions: {
           dateformat: {},
-          proxy: {},
+          proxy: { from: `foo` },
         },
         resolve: (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({ id: source.parent });

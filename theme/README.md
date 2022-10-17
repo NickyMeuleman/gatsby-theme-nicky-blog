@@ -535,6 +535,9 @@ export default theme;
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [x] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
       Temp hack: add empty proxy directive: https://github.com/gatsbyjs/gatsby/issues/21476
+      Temp hack upon temp hack time! (I hate this, but it works)
+      Add a meaningless { from: "foo" } to that proxy directive
+      https://github.com/datocms/gatsby-source-datocms/issues/188
 - [x] Migrate theme to TypeScript, leave demo as JavaScript
 - [x] Add testing with react-testing-library and cypress
   - [ ] Actually add tests once the scaffolding is done
