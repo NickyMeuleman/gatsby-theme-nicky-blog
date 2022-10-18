@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": ["dom", "es2015", "es2017"],
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
@@ -12,12 +12,18 @@
     "esModuleInterop": true
   },
   "include": [
-    "./theme/src/**/*",
+    "./theme/src/**/*.js",
+    "./theme/src/**/*.ts",
+    "./theme/src/**/*.tsx",
     "./theme/*.js",
     "./theme/*.ts",
-    "./demo/src/**/*",
+    "./demo/src/**/*.js",
+    "./demo/src/**/*.ts",
+    "./demo/src/**/*.tsx",
     "./demo/*.js",
-    "./demo/*.ts"
+    "./demo/*.ts",
+    ".eslintrc.cjs",
+    "*.d.ts"
   ],
   "exclude": ["node_modules", "demo/node_modules", "demo/node_modules"]
 }

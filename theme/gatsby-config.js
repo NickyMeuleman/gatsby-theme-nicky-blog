@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/interface-name-prefix */
 const remarkSlug = require(`remark-slug`);
-const { themeOptionsWithDefaults } = require(`./src/utils`);
+const remarkGfm = require(`remark-gfm`);
+const {
+  themeOptionsWithDefaults,
+  rehypeMetaAsAttributes,
+} = require(`./src/utils`);
 
 module.exports = (themeOptions = {}) => {
   const {
@@ -31,7 +34,6 @@ module.exports = (themeOptions = {}) => {
     },
     plugins: [
       `gatsby-plugin-typescript`,
-      `gatsby-plugin-react-helmet`,
       ...filesystemPluginEntries,
       {
         resolve: `gatsby-source-filesystem`,
@@ -60,8 +62,10 @@ module.exports = (themeOptions = {}) => {
             { resolve: `gatsby-remark-smartypants` },
             ...gatsbyRemarkPlugins,
           ],
-          remarkPlugins: [remarkSlug, ...remarkPlugins],
-          rehypePlugins,
+          mdxOptions: {
+            remarkPlugins: [remarkSlug, remarkGfm, ...remarkPlugins],
+            rehypePlugins: [rehypeMetaAsAttributes, ...rehypePlugins],
+          },
         },
       },
       `@pauliescanlon/gatsby-mdx-embed`,

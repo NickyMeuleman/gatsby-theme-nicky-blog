@@ -10,7 +10,9 @@ import {
   IBlogPostListPageContext,
   IBlogPostListPageData,
   IBlogPostListPageContextWithPagination,
+  IBlogPostListTemplateQuery,
 } from "../types";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
   data: IBlogPostListPageData;
@@ -24,7 +26,6 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
 
   return (
     <React.Fragment>
-      <SEO basePath={pageContext.basePath} />
       <Layout>
         <div
           sx={{
@@ -71,7 +72,9 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
                   date={blogPost.date}
                   authors={blogPost.authors}
                   image={
-                    blogPost.cover ? blogPost.cover.childImageSharp.gatsbyImageData : null
+                    blogPost.cover
+                      ? blogPost.cover.childImageSharp.gatsbyImageData
+                      : null
                   }
                 />
               </li>
@@ -85,4 +88,11 @@ const BlogPostListPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export { BlogPostListPage };
+const BlogPostListHead: HeadFC<
+  IBlogPostListTemplateQuery,
+  IBlogPostListPageContext | IBlogPostListPageContextWithPagination
+> = ({ pageContext }) => {
+  return <SEO basePath={pageContext.basePath} />;
+};
+
+export { BlogPostListPage, BlogPostListHead };

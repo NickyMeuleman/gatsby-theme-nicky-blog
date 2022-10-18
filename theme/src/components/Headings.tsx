@@ -5,6 +5,7 @@
 // and https://github.com/gatsbyjs/gatsby/pull/14520
 
 /** @jsx jsx */
+import { Themed } from "@theme-ui/mdx";
 import React from "react";
 import { jsx } from "theme-ui";
 
@@ -28,44 +29,48 @@ const LinkIcon: React.FC = (props) => (
 // How do I do this better?
 type headerTypes = `h1` | `h2` | `h3` | `h4` | `h5` | `h6`;
 
-const heading: (tag: headerTypes) => React.FC<{ id?: string }> = (Tag) => (
-  props
-) => {
-  if (!props.id) return <Tag {...props} />;
-  return (
-    <Tag
-      {...props}
-      sx={{
-        // also show icon when hovering over it, not only when hovering over the header text
-        pointerEvents: `all`,
-        position: `relative`,
-        ".linkTag": {
-          visibility: `hidden`,
-        },
-        ":hover .linkTag": {
-          visibility: `visible`,
-        },
-        variant: `styles.Headings`,
-      }}
-    >
-      <a
-        href={`#${props.id}`}
-        className="linkTag"
+/* eslint-disable react/display-name */
+const heading: (
+  tag: headerTypes
+) => React.FC<{ id?: string; children: React.ReactNode }> =
+  (tag) => (props) => {
+    const Component = Themed[tag];
+
+    if (!props.id) return <Component {...props} />;
+    return (
+      <Component
+        {...props}
         sx={{
-          position: `absolute`,
-          top: 0,
-          left: 0,
-          transform: `translateX(-100%)`,
-          paddingRight: 1,
-          color: `primary`,
+          // also show icon when hovering over it, not only when hovering over the header text
+          pointerEvents: `all`,
+          position: `relative`,
+          ".linkTag": {
+            visibility: `hidden`,
+          },
+          ":hover .linkTag": {
+            visibility: `visible`,
+          },
+          variant: `styles.Headings`,
         }}
       >
-        <LinkIcon />
-      </a>
-      {props.children}
-    </Tag>
-  );
-};
+        <a
+          href={`#${props.id}`}
+          className="linkTag"
+          sx={{
+            position: `absolute`,
+            top: 0,
+            left: 0,
+            transform: `translateX(-100%)`,
+            paddingRight: 1,
+            color: `primary`,
+          }}
+        >
+          <LinkIcon />
+        </a>
+        {props.children}
+      </Component>
+    );
+  };
 
 const headingObj = {
   h1: heading(`h1`),

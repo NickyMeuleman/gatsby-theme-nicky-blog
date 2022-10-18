@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed } from "theme-ui";
+import { jsx } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import { Link } from "gatsby";
 import * as path from "path";
 import { IPrevNext, IBlogPost } from "../types";
@@ -186,7 +187,10 @@ const PostExtra: React.FC<IProps> = ({ prev, next, post, passedSx }) => {
             padding: 3,
             mb: 4,
             position: [null, null, null, `sticky`],
-            maxHeight: (theme: any) => `calc(100vh - (${theme.space[5]} * 2))`,
+            maxHeight: (theme) => {
+              const space = (theme.space?.[5] as string) ?? "4rem";
+              return `calc(100vh - (${space} * 2))`;
+            },
             overflow: `auto`,
             top: 5,
             variant: `styles.PostExtra.details`,

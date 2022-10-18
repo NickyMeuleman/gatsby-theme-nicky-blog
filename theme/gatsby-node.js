@@ -1,13 +1,25 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const mkdirp = require(`mkdirp`);
-
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const {
   slugify,
   mdxResolverPassthrough,
   themeOptionsWithDefaults,
 } = require(`./src/utils`);
+
+const authorListTemplatePath = require.resolve(
+  `./src/templates/AuthorListQuery.tsx`
+);
+const authorTemplatePath = require.resolve(`./src/templates/AuthorQuery.tsx`);
+const tagListTemplatePath = require.resolve(`./src/templates/TagListQuery.tsx`);
+const tagTemplatePath = require.resolve(`./src/templates/TagQuery.tsx`);
+const blogPostListTemplatePath = require.resolve(
+  `./src/templates/BlogPostListQuery.tsx`
+);
+const blogPostTemplatePath = require.resolve(
+  `./src/templates/BlogPostQuery.tsx`
+);
 
 // Make sure directories exist
 exports.onPreBootstrap = ({ store, reporter }, options) => {
@@ -80,6 +92,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   }
   interface BlogPost implements Node {
     id: ID!
+    contentFilePath: String
     date: Date! @dateformat
     updatedAt: Date @dateformat
     slug: String!
@@ -172,7 +185,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `Date!`,
         extensions: {
           dateformat: {},
-          proxy: {},
+          proxy: { from: `foo` },
         },
         resolve: (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({ id: source.parent });
@@ -189,7 +202,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `Date`,
         extensions: {
           dateformat: {},
-          proxy: {},
+          proxy: { from: `foo` },
         },
         resolve: (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({ id: source.parent });
@@ -262,6 +275,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         type: `String!`,
         resolve: mdxResolverPassthrough(`body`),
       },
+      contentFilePath: {
+        type: `String!`,
+        resolve: async (source, args, context, info) => {
+          const mdxNode = context.nodeModel.getNodeById({
+            id: source.parent,
+          });
+          return mdxNode.internal.contentFilePath;
+        },
+      },
       cover: {
         type: `File`,
         extensions: {
@@ -296,23 +318,24 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       },
       series: {
         type: `Series`,
-        resolve: (source, args, context, info) => {
+        resolve: async (source, args, context, info) => {
           const mdxNode = context.nodeModel.getNodeById({
             id: source.parent,
           });
           const seriesName = mdxNode.frontmatter.series;
-          const seriesPosts = context.nodeModel
-            .getAllNodes({ type: `BlogPost` })
-            .filter((post) => {
-              // logic for MdxBlogPost (to add multi-sourcing series support expand logic for other types)
-              if (source.internal.type === `MdxBlogPost`) {
-                const parent = context.nodeModel.getNodeById({
-                  id: post.parent,
-                });
-                return seriesName === parent.frontmatter.series;
-              }
-              return false;
-            });
+          const { entries } = await context.nodeModel.findAll({
+            type: `BlogPost`,
+          });
+          const seriesPosts = entries.filter((post) => {
+            // logic for MdxBlogPost (to add multi-sourcing series support expand logic for other types)
+            if (source.internal.type === `MdxBlogPost`) {
+              const parent = context.nodeModel.getNodeById({
+                id: post.parent,
+              });
+              return seriesName === parent.frontmatter.series;
+            }
+            return false;
+          });
           return (
             seriesName && {
               name: seriesName,
@@ -435,6 +458,7 @@ exports.onCreateNode = (
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { instances } = themeOptionsWithDefaults(options);
+
   const blogPostQueryResult = await graphql(`
     query createPagesQuery {
       allBlogPost(
@@ -448,6 +472,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
         nodes {
           title
           slug
+          contentFilePath
           instance {
             basePath
           }
@@ -483,10 +508,10 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       posts.forEach((post, i) => {
         const next = i === 0 ? null : posts[i - 1];
         const prev = i === posts.length - 1 ? null : posts[i + 1];
-        const { slug } = post;
+        const { slug, contentFilePath } = post;
         actions.createPage({
           path: path.join(basePath, slug),
-          component: require.resolve(`./src/templates/BlogPostQuery.tsx`),
+          component: `${blogPostTemplatePath}?__contentFilePath=${contentFilePath}`,
           context: {
             slug,
             prev,
@@ -526,7 +551,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
             index === 0
               ? `${basePath || `/`}`
               : path.join(basePath, prefixPath, `${index + 1}`),
-          component: require.resolve(`./src/templates/BlogPostListQuery.tsx`),
+          component: blogPostListTemplatePath,
           context: {
             ...paginationContext,
             basePath,
@@ -558,7 +583,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       // create tag-list page
       actions.createPage({
         path: path.join(basePath, `tag`),
-        component: require.resolve(`./src/templates/TagListQuery.tsx`),
+        component: tagListTemplatePath,
         context: {
           basePath,
         },
@@ -568,7 +593,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       tagsQueryResult.data.allTag.distinct.forEach((tagSlug) => {
         actions.createPage({
           path: path.join(basePath, `tag`, tagSlug),
-          component: require.resolve(`./src/templates/TagQuery.tsx`),
+          component: tagTemplatePath,
           context: {
             slug: tagSlug,
             basePath,
@@ -581,17 +606,17 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   // create author-list page
   actions.createPage({
     path: path.join(`author`),
-    component: require.resolve(`./src/templates/AuthorListQuery.tsx`),
+    component: authorListTemplatePath,
     context: {},
   });
 
   // create a page for each author
-  authors.forEach((author, i) => {
+  authors.forEach((author) => {
     const { shortName } = author;
     const slug = slugify(shortName);
     actions.createPage({
       path: path.join(`author`, slug),
-      component: require.resolve(`./src/templates/AuthorQuery.tsx`),
+      component: authorTemplatePath,
       context: {
         slug,
         shortName,

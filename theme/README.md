@@ -92,8 +92,6 @@ module.exports = {
 
 ```js
 // gatsby-config.js
-const remarkMath = require(`remark-math`);
-const rehypeKatex = require(`rehype-katex`);
 
 module.exports = {
   plugins: [
@@ -115,8 +113,14 @@ module.exports = {
             basePath: "notes",
           },
         ],
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              strict: `ignore`,
+            },
+          },
+        ],
       },
     },
   ],
@@ -131,8 +135,8 @@ The posts in `/notes` will be sourced from the `notes` folder.
 Only posts in `/blog` will be paginated. With each paginated page holding a maximum of 10 posts.
 Paginated pages after the one that lists the first 10 posts, will be prefixed be `/page`. eg. `/blog`, `/blog/page/2`, `/blog/page/3`, etc.
 
-Two plugins to add support for math equations via [KaTeX](https://katex.org/) are added.
-Sidenote: For KaTeX to work correctly, The plugins on their own are not enough.
+A plugin to add support for math equations via [KaTeX](https://katex.org/) is added.
+Sidenote: For KaTeX to work correctly, The plugin on its own is not enough.
 The CSS also has to be included on the pages equations are used, in the demo this is done in `gatsby-browser.js`.
 
 Authors are shared between instances (be it `/blog` or `/notes`). A single author can write posts in both instances.
@@ -531,6 +535,9 @@ export default theme;
 - [ ] https://github.com/gatsbyjs/gatsby/pull/16149 got merged, use it.
 - [x] https://github.com/gatsbyjs/gatsby/pull/17284 got merged, use it.
       Temp hack: add empty proxy directive: https://github.com/gatsbyjs/gatsby/issues/21476
+      Temp hack upon temp hack time! (I hate this, but it works)
+      Add a meaningless { from: "foo" } to that proxy directive
+      https://github.com/datocms/gatsby-source-datocms/issues/188
 - [x] Migrate theme to TypeScript, leave demo as JavaScript
 - [x] Add testing with react-testing-library and cypress
   - [ ] Actually add tests once the scaffolding is done
@@ -594,3 +601,11 @@ export default theme;
 - [x] Support adding own plugins to the internal `gatsby-plugin-mdx`
 - [ ] Migrate theme-ui to Typescript https://theme-ui.com/guides/typescript/
 - [x] Add copy button to codeblocks
+- [x] Use Gatsby v4
+- [x] Use mdx v2
+- [x] Use theme-ui v0.15
+- [x] Use Gatsby head instead of React-Helmet: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
+
+notes:
+can't see the change mentioned at https://www.gatsbyjs.com/docs/reference/release-notes/migrating-from-v3-to-v4/#gatsby-transformer-json
+no jsonId or yamlId to be found. maybe this change happened in v5 of that plugin and this theme is on v4?

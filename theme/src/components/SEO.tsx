@@ -1,10 +1,10 @@
 import React from "react";
-import Helmet from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 import * as path from "path";
 import { ISEOStaticQuery } from "../types";
 
 interface IProps {
+  children?: React.ReactNode;
   date?: string;
   author?: { name: string; twitter?: string };
   title?: string;
@@ -14,18 +14,14 @@ interface IProps {
   image?: string;
   canonicalUrl?: string;
   twitterHandle?: string;
-  meta?: any[];
-  lang?: string;
   basePath?: string;
 }
 
 const SEO: React.FC<IProps> = ({
-  meta,
   image,
   title,
   description,
-  slug,
-  lang = `en`,
+  slug = "",
   keywords,
   canonicalUrl,
   twitterHandle,
@@ -59,17 +55,13 @@ const SEO: React.FC<IProps> = ({
     // if url ends in "/", remove it
     url = url.slice(0, -1);
   }
+  const formattedTitle = title
+    ? `${title} | ${siteMetadata.title}`
+    : siteMetadata.title;
 
   return (
-    // JSX element type 'Helmet' does not have any construct or call signatures.ts(2604)
-    // @ts-ignore
-    <Helmet
-      title={title}
-      defaultTitle={siteMetadata.title}
-      titleTemplate={`%s | ${siteMetadata.title}`}
-      meta={meta}
-    >
-      <html lang={lang || `en`} />
+    <React.Fragment>
+      <title>{formattedTitle}</title>
       <meta name="description" content={metaDescription} />
       {metaImage && <meta name="image" content={metaImage} />}
       <meta property="og:title" content={title || siteMetadata.title} />
@@ -83,14 +75,16 @@ const SEO: React.FC<IProps> = ({
       <meta name="twitter:description" content={metaDescription} />
       {metaImage && <meta name="twitter:image" content={metaImage} />}
       {/* TODO: Consistent @ or not */}
-      <meta
-        name="twitter:creator"
-        content={`@${twitterHandle}` || siteMetadata.social.twitter}
-      />
+      {twitterHandle && (
+        <meta
+          name="twitter:creator"
+          content={`@${twitterHandle}` || siteMetadata.social.twitter}
+        />
+      )}
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       {keywords && <meta name="keywords" content={keywords.join(`, `)} />}
       {children}
-    </Helmet>
+    </React.Fragment>
   );
 };
 

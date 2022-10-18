@@ -132,7 +132,7 @@ const theme = merge(tailwind, {
         ":disabled": { opacity: 0.5, cursor: `not-allowed` },
       },
     },
-    inlineCode: {
+    code: {
       fontSize: `inherit`,
       fontFamily: `monospace`,
       letterSpacing: `wide`,

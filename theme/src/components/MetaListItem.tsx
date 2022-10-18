@@ -3,6 +3,7 @@ import React from "react";
 import { jsx } from "theme-ui";
 
 interface IProps {
+  children: React.ReactNode;
   title: string;
   titleId?: string;
 }

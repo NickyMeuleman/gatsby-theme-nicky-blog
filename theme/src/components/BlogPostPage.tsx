@@ -1,52 +1,43 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed } from "theme-ui";
-// @ts-ignore
-import { MDXRenderer } from "gatsby-plugin-mdx";
+import { jsx } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import { getSrc, GatsbyImage } from "gatsby-plugin-image";
 import { Layout } from "./Layout";
 import { PostExtra } from "./PostExtra";
 import { SEO } from "./SEO";
-import { IBlogPostPageContext, IBlogPostPageData } from "../types";
+import {
+  IBlogPostPageContext,
+  IBlogPostPageData,
+  IBlogPostTemplateQuery,
+} from "../types";
 import { SeriesSelect } from "./SeriesSelect";
+import type { HeadFC } from "gatsby";
 
 interface IProps {
+  children: React.ReactNode;
   data: IBlogPostPageData;
   pageContext: IBlogPostPageContext;
 }
 
-const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
+const BlogPostPage: React.FC<IProps> = ({ data, pageContext, children }) => {
   const { post } = data;
   const { prev, next } = pageContext;
 
   return (
     <React.Fragment>
-      <SEO
-        author={post.authors && post.authors[0] ? post.authors[0] : undefined}
-        date={post.date}
-        title={post.title}
-        description={post.excerpt}
-        slug={post.slug}
-        keywords={post.keywords || []}
-        image={post.cover ? getSrc(post.cover) : `/path/to/fallback/image.png`}
-        canonicalUrl={post.canonicalUrl}
-        twitterHandle={
-          post.authors && post.authors[0].twitter
-            ? post.authors[0].twitter
-            : undefined
-        }
-        basePath={post.instance.basePath}
-      />
       <Layout>
         <div
           sx={{
             display: `grid`,
             gridAutoFlow: `dense`,
-            gridTemplateColumns: (t: any) => [
+            gridTemplateColumns: (t) => [
               `1fr minmax(0, 70ch) 1fr`,
               null,
               null,
-              `1fr minmax(0, 30ch) minmax(0, ${t.space[5]}) 70ch ${t.space[5]} 30ch 1fr`,
+              `1fr minmax(0, 30ch) minmax(0, ${
+                (t.space?.[5] as string) ?? "4rem"
+              }) 70ch ${(t.space?.[5] as string) ?? "4rem"} 30ch 1fr`,
             ],
             my: 5,
             variant: `styles.BlogPostPage`,
@@ -67,7 +58,7 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
                 sx={{ mb: 4 }}
               />
             )}
-            <MDXRenderer>{post.body}</MDXRenderer>
+            {children}
             {post?.series?.posts.length > 1 && (
               <SeriesSelect
                 data={{
@@ -84,4 +75,28 @@ const BlogPostPage: React.FC<IProps> = ({ data, pageContext }) => {
   );
 };
 
-export { BlogPostPage };
+const BlogPostHead: HeadFC<IBlogPostTemplateQuery, IBlogPostPageContext> = ({
+  data,
+}) => {
+  const { blogPost: post } = data;
+  return (
+    <SEO
+      author={post.authors && post.authors[0] ? post.authors[0] : undefined}
+      date={post.date}
+      title={post.title}
+      description={post.excerpt}
+      slug={post.slug}
+      keywords={post.keywords || []}
+      image={post.cover ? getSrc(post.cover) : `/path/to/fallback/image.png`}
+      canonicalUrl={post.canonicalUrl}
+      twitterHandle={
+        post.authors && post.authors[0].twitter
+          ? post.authors[0].twitter
+          : undefined
+      }
+      basePath={post.instance.basePath}
+    />
+  );
+};
+
+export { BlogPostPage, BlogPostHead };
