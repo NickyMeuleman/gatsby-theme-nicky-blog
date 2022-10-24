@@ -11,7 +11,7 @@
     "@testing-library/cypress": "^8.0.3",
     "@types/node": "^18.8.4",
     "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.3",
+    "@types/react-dom": "^18.0.6",
     "@types/testing-library__cypress": "^5.0.9",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
