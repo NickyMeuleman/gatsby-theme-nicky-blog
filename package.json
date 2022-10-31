@@ -10,7 +10,7 @@
     "@commitlint/prompt-cli": "^17.1.2",
     "@testing-library/cypress": "^8.0.3",
     "@types/node": "^18.11.8",
-    "@types/react": "^18.0.21",
+    "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.6",
     "@types/testing-library__cypress": "^5.0.9",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
