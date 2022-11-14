@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nickymeuleman/gatsby-theme-blog": "*",
-    "gatsby": "^4.24.7",
+    "gatsby": "^4.24.8",
     "gatsby-remark-katex": "^6.24.0",
     "katex": "^0.16.3",
     "react": "^18.2.0",
