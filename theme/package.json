@@ -20,7 +20,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^8.0.3",
+    "@testing-library/cypress": "^8.0.7",
     "@types/node": "^18.11.9",
     "@types/parse-numeric-range": "^0.0.1",
     "@types/testing-library__cypress": "^5.0.9",
