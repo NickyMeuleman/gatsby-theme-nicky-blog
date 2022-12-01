@@ -21,12 +21,18 @@ export const useActiveId = (
     );
 
     itemIds.forEach((id) => {
-      observer.observe(document.getElementById(id) as Element);
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+      }
     });
 
     return () => {
       itemIds.forEach((id) => {
-        observer.unobserve(document.getElementById(id) as Element);
+        const element = document.getElementById(id);
+        if (element) {
+          observer.unobserve(element);
+        }
       });
     };
   }, [itemIds, rootMargin]);
