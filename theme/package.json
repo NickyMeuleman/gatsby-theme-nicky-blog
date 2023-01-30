@@ -41,7 +41,7 @@
     "@theme-ui/mdx": "^0.15.3",
     "@theme-ui/presets": "^0.15.3",
     "@theme-ui/prism": "^0.15.3",
-    "deepmerge": "^4.2.2",
+    "deepmerge": "^4.3.0",
     "gatsby-core-utils": "^3.25.0",
     "gatsby-plugin-catch-links": "^4.25.0",
     "gatsby-plugin-emotion": "^7.25.0",
