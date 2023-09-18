@@ -3150,10 +3150,10 @@
   dependencies:
     csstype "^3.0.2"
 
-"@types/testing-library__cypress@^5.0.9":
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.9.tgz#c65f2be0cbb7f11556c1a35fd767d8dd6d1dff23"
-  integrity sha512-WTiIZhZKWDnV+Tgo42pxff8YfHdmaNFQz/bFoTlmfw2vbXcstCcb39VRaRi5yFHj/lb7t3K47btKYEbR1fci+Q==
+"@types/testing-library__cypress@^5.0.10":
+  version "5.0.10"
+  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.10.tgz#aa100c2746b78efc58cc7c49a82eccd68adb80ba"
+  integrity sha512-yPX+krAP5nSdimnSbdOICDocAwJSS+GOPiGtKEvBzuiSRADYQkAfnNFZS8WljjFVZZiDpj78AnZNo8m7adRvCw==
   dependencies:
     "@testing-library/dom" "^7.11.0"
     cypress "*"
