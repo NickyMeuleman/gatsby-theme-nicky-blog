@@ -23,7 +23,7 @@
     "@testing-library/cypress": "^10.0.1",
     "@types/node": "^18.18.9",
     "@types/parse-numeric-range": "^0.0.3",
-    "@types/testing-library__cypress": "^5.0.12",
+    "@types/testing-library__cypress": "^5.0.13",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint-config-prettier": "^8.10.0",
