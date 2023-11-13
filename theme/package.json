@@ -22,7 +22,7 @@
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
     "@types/node": "^18.18.9",
-    "@types/parse-numeric-range": "^0.0.2",
+    "@types/parse-numeric-range": "^0.0.3",
     "@types/testing-library__cypress": "^5.0.12",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
