@@ -15,7 +15,7 @@
     "develop": "gatsby develop -H 0.0.0.0"
   },
   "peerDependencies": {
-    "gatsby": "^4.25.7",
+    "gatsby": "^4.25.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
     "eslint-config-prettier": "^8.10.0",
-    "gatsby": "^4.25.7",
+    "gatsby": "^4.25.8",
     "react-dom": "^18.2.0",
     "start-server-and-test": "^2.0.3",
     "typescript": "^5.3.3"
