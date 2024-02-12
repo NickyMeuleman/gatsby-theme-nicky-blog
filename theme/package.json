@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@testing-library/cypress": "^10.0.1",
-    "@types/node": "^20.11.16",
+    "@types/node": "^20.11.17",
     "@types/parse-numeric-range": "^0.0.3",
     "@types/testing-library__cypress": "^5.0.13",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
