@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.0",
+    "@emotion/styled": "^11.11.5",
     "@mdx-js/react": "^2.3.0",
     "@pauliescanlon/gatsby-mdx-embed": "^0.0.29",
     "@theme-ui/color": "^0.16.1",
