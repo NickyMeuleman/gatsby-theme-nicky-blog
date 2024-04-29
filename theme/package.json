@@ -30,7 +30,7 @@
     "gatsby": "^4.25.8",
     "react-dom": "^18.2.0",
     "start-server-and-test": "^2.0.3",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
