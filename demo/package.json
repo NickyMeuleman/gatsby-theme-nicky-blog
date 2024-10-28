@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@nickymeuleman/gatsby-theme-blog": "*",
-    "gatsby": "^4.25.9",
-    "gatsby-remark-katex": "^6.25.0",
+    "gatsby": "^5.13.7",
+    "gatsby-remark-katex": "^7.13.1",
     "katex": "^0.16.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
